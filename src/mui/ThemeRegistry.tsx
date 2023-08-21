@@ -7,7 +7,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import theme from './theme';
 
-
 export default function ThemeRegistry(props) {
   const { options, children } = props;
 
