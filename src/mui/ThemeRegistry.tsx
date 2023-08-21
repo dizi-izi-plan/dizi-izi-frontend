@@ -4,10 +4,19 @@ import { useServerInsertedHTML } from 'next/navigation';
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import theme from './theme';
 
-export default function ThemeRegistry(props) {
+interface CacheOptions {
+  key: string;
+}
+
+interface ThemeRegistryProps {
+  options: CacheOptions;
+  children: ReactNode;
+}
+
+export default function ThemeRegistry(props: ThemeRegistryProps) {
   const { options, children } = props;
 
   const [{ cache, flush }] = React.useState(() => {
