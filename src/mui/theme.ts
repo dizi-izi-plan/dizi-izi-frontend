@@ -1,10 +1,6 @@
 import { MyGrey } from '@/helpers/interfaces';
 import { createTheme } from '@mui/material';
 
-// ????
-// DESIGNERS:
-// H1 - LETTERSPACING
-// ROBOTO - WARNING, CONTACTS, BUTTON
 
 export const myGrey: Partial<MyGrey> = {
   grey100: '#DEDEDE',
