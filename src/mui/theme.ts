@@ -1,11 +1,7 @@
 import { createTheme } from '@mui/material';
 import { cabin, manrope } from './fonts';
 
-type myGrey = {
-  [key: string]: string;
-};
-
-const myGrey: myGrey = {
+const myGrey = {
   grey100: '#DEDEDE',
   grey200: '#D4D4D4',
   grey300: 'rgba(61, 60, 60, 0.30)',
@@ -110,7 +106,7 @@ export const theme = createTheme({
 });
 
 type MyPaletteExtensions = {
-  myGrey: myGrey;
+  myGrey: typeof myGrey;
 };
 
 declare module '@mui/material/styles' {
