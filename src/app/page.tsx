@@ -1,4 +1,4 @@
-import DevPage from '../mui/DevPage';
+import { DevPage } from '../mui/DevPage';
 
 export default function Home() {
   return (

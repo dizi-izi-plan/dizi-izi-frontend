@@ -16,10 +16,7 @@ type ThemeRegistryProps = {
   children: ReactNode;
 };
 
-export default function ThemeRegistry({
-  options,
-  children,
-}: ThemeRegistryProps) {
+export const ThemeRegistry = ({ options, children }: ThemeRegistryProps) => {
   const [{ cache, flush }] = useState(() => {
     const cache = createCache(options);
     cache.compat = true;
@@ -71,4 +68,4 @@ export default function ThemeRegistry({
       </ThemeProvider>
     </CacheProvider>
   );
-}
+};

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function DevPage() {
+export const DevPage = () => {
   return (
     <>
       <Typography color="myGrey.grey100" variant="h1">
@@ -46,4 +46,4 @@ export default function DevPage() {
       </Box>
     </>
   );
-}
+};
