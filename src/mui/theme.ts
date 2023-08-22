@@ -1,8 +1,11 @@
-import { MyGrey } from '@/helpers/interfaces';
 import { createTheme } from '@mui/material';
 import { cabin, manrope } from './fonts';
 
-export const myGrey: Partial<MyGrey> = {
+type myGrey = {
+  [key: string]: string;
+};
+
+export const myGrey: myGrey = {
   grey100: '#DEDEDE',
   grey200: '#D4D4D4',
   grey300: 'rgba(61, 60, 60, 0.30)',
@@ -107,7 +110,7 @@ const theme = createTheme({
 });
 
 interface MyPaletteExtensions {
-  myGrey: Partial<MyGrey>;
+  myGrey: myGrey;
 }
 
 declare module '@mui/material/styles' {
