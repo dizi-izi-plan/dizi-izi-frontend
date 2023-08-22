@@ -109,9 +109,9 @@ export const theme = createTheme({
   },
 });
 
-interface MyPaletteExtensions {
+type MyPaletteExtensions = {
   myGrey: myGrey;
-}
+};
 
 declare module '@mui/material/styles' {
   interface Palette extends MyPaletteExtensions {

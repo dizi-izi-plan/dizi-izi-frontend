@@ -1,25 +1,26 @@
 'use client';
-import createCache from '@emotion/cache';
+import { ReactNode, useState } from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
+import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import React, { ReactNode } from 'react';
-import theme from './theme';
+import { theme } from './theme';
 
-interface CacheOptions {
+type CacheOptions = {
   key: string;
-}
+};
 
-interface ThemeRegistryProps {
+type ThemeRegistryProps = {
   options: CacheOptions;
   children: ReactNode;
-}
+};
 
-export default function ThemeRegistry(props: ThemeRegistryProps) {
-  const { options, children } = props;
-
-  const [{ cache, flush }] = React.useState(() => {
+export default function ThemeRegistry({
+  options,
+  children,
+}: ThemeRegistryProps) {
+  const [{ cache, flush }] = useState(() => {
     const cache = createCache(options);
     cache.compat = true;
     const prevInsert = cache.insert;
@@ -29,6 +30,7 @@ export default function ThemeRegistry(props: ThemeRegistryProps) {
       if (cache.inserted[serialized.name] === undefined) {
         inserted.push(serialized.name);
       }
+
       return prevInsert(...args);
     };
     const flush = () => {
@@ -36,6 +38,7 @@ export default function ThemeRegistry(props: ThemeRegistryProps) {
       inserted = [];
       return prevInserted;
     };
+
     return { cache, flush };
   });
 
@@ -48,6 +51,7 @@ export default function ThemeRegistry(props: ThemeRegistryProps) {
     for (const name of names) {
       styles += cache.inserted[name];
     }
+
     return (
       <style
         key={cache.key}
