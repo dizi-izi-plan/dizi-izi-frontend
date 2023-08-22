@@ -1,6 +1,6 @@
 import { MyGrey } from '@/helpers/interfaces';
 import { createTheme } from '@mui/material';
-
+import { cabin, manrope } from './fonts';
 
 export const myGrey: Partial<MyGrey> = {
   grey100: '#DEDEDE',
@@ -43,65 +43,65 @@ const theme = createTheme({
   },
   typography: {
     h1: {
+      fontFamily: cabin.style.fontFamily,
       fontSize: 128,
       fontWeight: 500,
-      fontFamily: 'Cabin, sans-serif',
       fontStyle: 'normal',
       lineHeight: 'normal',
     },
     h2: {
-      fontFamily: 'Cabin, sans-serif',
+      fontFamily: cabin.style.fontFamily,
       fontSize: 32,
       fontStyle: 'normal',
       fontWeight: 500,
       lineHeight: '41.416px',
     },
     h3: {
-      fontFamily: 'Cabin, sans-serif',
+      fontFamily: cabin.style.fontFamily,
       fontSize: 24,
       fontStyle: 'normal',
       lineHeight: 'normal',
     },
     subtitle1: {
-      fontFamily: 'Manrope, sans-serif',
+      fontFamily: manrope.style.fontFamily,
       fontSize: 24,
       fontStyle: 'normal',
       lineHeight: '41.416px',
     },
     body1: {
-      fontFamily: 'Manrope, sans-serif',
+      fontFamily: manrope.style.fontFamily,
       fontSize: 20,
       fontStyle: 'normal',
       lineHeight: '33.4px',
     },
     body2: {
-      fontFamily: 'Manrope, sans-serif',
+      fontFamily: manrope.style.fontFamily,
       fontSize: 18,
       fontStyle: 'normal',
       lineHeight: '33.4px',
       fontWeight: 300,
       letterSpacing: '0.09px',
     },
-    caption: {
-      fontFamily: 'Manrope, sans-serif',
-      fontSize: 16,
-      fontStyle: 'normal',
-      lineHeight: 'normal',
-    },
     overline: {
-      fontFamily: 'Manrope, sans-serif',
-      fontSize: 14,
+      fontFamily: manrope.style.fontFamily,
+      fontSize: 16,
       fontStyle: 'normal',
       lineHeight: 'normal',
       textTransform: 'none',
     },
+    caption: {
+      fontFamily: manrope.style.fontFamily,
+      fontSize: 14,
+      fontStyle: 'normal',
+      lineHeight: 'normal',
+    },
     button: {
-      fontFamily: 'Manrope, sans-serif',
+      fontFamily: manrope.style.fontFamily,
       fontSize: 20,
       fontStyle: 'normal',
       lineHeight: 'normal',
       fontWeight: 400,
-      textTransform: 'capitalize',
+      textTransform: 'none',
     },
   },
 });
