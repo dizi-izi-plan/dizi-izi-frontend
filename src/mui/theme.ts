@@ -4,10 +4,10 @@ import { cabin, manrope } from './fonts';
 const myGrey = {
   grey100: '#DEDEDE',
   grey200: '#D4D4D4',
-  grey300: 'rgba(61, 60, 60, 0.30)',
-  grey400: 'rgba(61, 60, 60, 0.50)',
+  grey300: '#3D3C3C4D',
+  grey400: '#3D3C3C80',
   grey500: '#898989',
-  grey600: 'rgba(0, 0, 0, 0.60)',
+  grey600: '#00000099',
   grey700: '#464646',
   grey800: '#3D3C3C',
 };
