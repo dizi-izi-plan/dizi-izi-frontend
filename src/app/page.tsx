@@ -1,9 +1,9 @@
-import MuiExamples from '../mui/DevMuiExamples';
+import DevPage from '../mui/DevPage';
 
 export default function Home() {
   return (
     <>
-      <MuiExamples />
+      <DevPage />
     </>
   );
 }
