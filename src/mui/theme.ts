@@ -5,7 +5,7 @@ type myGrey = {
   [key: string]: string;
 };
 
-export const myGrey: myGrey = {
+const myGrey: myGrey = {
   grey100: '#DEDEDE',
   grey200: '#D4D4D4',
   grey300: 'rgba(61, 60, 60, 0.30)',
@@ -16,7 +16,7 @@ export const myGrey: myGrey = {
   grey800: '#3D3C3C',
 };
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: '#FFC000',
@@ -121,5 +121,3 @@ declare module '@mui/material/styles' {
     black?: PaletteOptions['primary'];
   }
 }
-
-export default theme;
