@@ -12,7 +12,7 @@ const myGrey = {
   grey800: '#3D3C3C',
 };
 
-export const theme = createTheme({
+export let theme = createTheme({
   palette: {
     primary: {
       main: '#FFC000',
@@ -101,6 +101,169 @@ export const theme = createTheme({
       lineHeight: 'normal',
       fontWeight: 400,
       textTransform: 'none',
+    },
+  },
+});
+
+theme = createTheme(theme, {
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        variant: 'outlined',
+        fullWidth: true,
+        InputProps: {
+          sx: {
+            borderRadius: 0,
+            boxSizing: 'border-box',
+            borderWidth: 1,
+            borderStyle: 'solid',
+            '& fieldset': {
+              border: 'none',
+            },
+          },
+        },
+        inputProps: {
+          style: {
+            boxSizing: 'border-box',
+            fontFamily: manrope.style.fontFamily,
+            fontSize: 18,
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: 'normal',
+          },
+        },
+        InputLabelProps: {
+          shrink: true,
+          style: {
+            fontFamily: manrope.style.fontFamily,
+            fontStyle: 'normal',
+            lineHeight: 'normal',
+            top: '-15px',
+            left: '-12px',
+          },
+        },
+      },
+      styleOverrides: {
+        root: {
+          // this is styles for new variants
+          '&.subvariant-dark': {
+            '& .MuiOutlinedInput-root': {
+              borderWidth: '1px',
+              borderColor: theme.palette.secondary.contrastText,
+              borderStyle: 'solid',
+              borderRadius: 0,
+              '& > fieldset': {
+                border: 'none',
+              },
+            },
+            '& .MuiOutlinedInput-input': {
+              color: theme.palette.secondary.contrastText,
+              fontSize: 18,
+              minHeight: 45,
+              padding: '10px 16px',
+            },
+            '& .MuiFormLabel-root': {
+              color: theme.palette.secondary.contrastText,
+              fontSize: 16,
+              fontWeight: 500,
+            },
+          },
+          '&.subvariant-light': {
+            '& .MuiOutlinedInput-input': {
+              color: theme.palette.black.main,
+              fontSize: 20,
+              minHeight: 55,
+              padding: '16px 16px',
+            },
+            '& .MuiOutlinedInput-root': {
+              borderWidth: '1px',
+              borderColor: theme.palette.primary.main,
+              borderStyle: 'solid',
+              borderRadius: 0,
+              '& > fieldset': {
+                border: 'none',
+              },
+            },
+            '& .MuiFormLabel-root': {
+              color: theme.palette.myGrey.grey600,
+              fontSize: 18,
+              fontWeight: 400,
+            },
+            '& .MuiOutlinedInput-input::placeholder': {
+              color: '#898989',
+            },
+          },
+          '&.subvariant-gray': {
+            '& .MuiOutlinedInput-input': {
+              color: theme.palette.black.main,
+              fontSize: 14,
+              minHeight: 48,
+              padding: '10px 16px',
+              textAlign: 'center',
+            },
+            '& .MuiOutlinedInput-root': {
+              color: theme.palette.black.main,
+            },
+            '& .MuiOutlinedInput-input::placeholder': {
+              color: theme.palette.myGrey.grey300,
+            },
+          },
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          // this is styles for new variants
+          '& .MuiFormControlLabel-label': {
+            color: theme.palette.myGrey.grey800,
+            textAlign: 'center',
+            fontFamily: manrope.style.fontFamily,
+            fontStyle: 'normal',
+            lineHeight: 'normal',
+          },
+          '&.subvariant-start .MuiFormControlLabel-label': {
+            fontSize: 20,
+            fontWeight: 400,
+          },
+          '&.subvariant-start': {
+            flexDirection: 'row-reverse',
+            justifyContent: 'space-between',
+          },
+          '&.subvariant-end .MuiFormControlLabel-label': {
+            fontSize: 14,
+            fontWeight: 500,
+          },
+          '&.subvariant-end': {
+            columnGap: 8,
+            justifyContent: 'flex-start',
+          },
+        },
+      },
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.black.main,
+          padding: 0,
+          '&.Mui-checked': {
+            color: theme.palette.black.main,
+          },
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.primary.main,
+          '&.Mui-checked': {
+            color: theme.palette.primary.main,
+          },
+          '& path': {
+            borderRadius: 0,
+          },
+        },
+      },
     },
   },
 });

@@ -1,6 +1,15 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Checkbox,
+} from '@mui/material';
+import { InputPassword } from '../components/InputPassword/InputPassword';
+import { classNamesInput, classNamesLabel } from '@/helpers/classNameConstants';
 
 export const DevPage = () => {
   return (
@@ -43,6 +52,67 @@ export const DevPage = () => {
         <Button variant="contained" color="secondary">
           secondary
         </Button>
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: '#000',
+          padding: '40px 20px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '40px',
+        }}
+      >
+        <TextField className={classNamesInput.dark} label="TextField" />
+        <InputPassword clName={classNamesInput.dark} lbl="Пароль" />
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'white',
+          padding: '40px 20px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '40px',
+        }}
+      >
+        <TextField
+          className={classNamesInput.light}
+          label="TextField"
+          placeholder="Placeholder"
+        />
+        <InputPassword clName={classNamesInput.light} />
+        <TextField
+          className={classNamesInput.gray}
+          label={null}
+          placeholder="Placeholder"
+        />
+        <RadioGroup
+          row
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue="До стены 1"
+          name="radio-buttons-group"
+        >
+          <FormControlLabel
+            className={classNamesLabel.end}
+            value="До стены 1"
+            control={<Radio />}
+            label="До стены 1"
+          />
+          <FormControlLabel
+            className={classNamesLabel.end}
+            value="До стены 3"
+            control={<Radio />}
+            label="До стены 3"
+          />
+        </RadioGroup>
+        <FormControlLabel
+          className={classNamesLabel.start}
+          label="Я дизайнер интерьеров"
+          control={<Checkbox />}
+        />
       </Box>
     </>
   );
