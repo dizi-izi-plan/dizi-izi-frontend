@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { TextField, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { classNamesInput } from '@/helpers/classNameConstants';
 
 interface InputPasswordProps {
   clName: string;
@@ -15,17 +16,9 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-  };
-
   const visibilityStyles = {
     color:
-      clName === 'subvariant-dark'
+      clName === classNamesInput.dark
         ? 'secondary.contrastText'
         : 'myGray.grey500',
     width: 24,
@@ -42,8 +35,9 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
+              onClick={() => setShowPassword((show) => !show)}
+              onMouseDown={(event) => event.preventDefault()}
+              onMouseUp={(event) => event.preventDefault()}
               edge="end"
             >
               {showPassword ? (
