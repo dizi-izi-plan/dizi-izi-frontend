@@ -1,28 +1,29 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TextField, IconButton, InputAdornment } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { classNamesInput } from '@/helpers/classNameConstants';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import {
+  classNamesInput,
+  InputVariant,
+} from '@/components/Input/classNameConstants';
 
-interface InputPasswordProps {
-  variant: string;
-  label?: string;
-  placeholder?: string;
-  onChange?: () => void;
-}
+type InputPasswordProps = TextFieldProps & {
+  className: InputVariant;
+};
 
 export const InputPassword: React.FC<InputPasswordProps> = ({
-  variant,
-  label,
-  placeholder,
-  onChange,
+  className,
+  ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const visibilityStyles = {
     color:
-      variant === classNamesInput.dark
+      className === classNamesInput.dark
         ? 'secondary.contrastText'
         : 'myGrey.grey500',
     width: 24,
@@ -31,11 +32,11 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
 
   return (
     <TextField
-      className={variant}
+      className={className}
       type={showPassword ? 'text' : 'password'}
-      label={label}
-      placeholder={placeholder}
-      onChange={onChange}
+      label={props.label}
+      placeholder={props.placeholder}
+      onChange={props.onChange}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -47,9 +48,9 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
               edge="end"
             >
               {showPassword ? (
-                <VisibilityOff sx={visibilityStyles} />
+                <VisibilityOffIcon sx={visibilityStyles} />
               ) : (
-                <Visibility sx={visibilityStyles} />
+                <VisibilityIcon sx={visibilityStyles} />
               )}
             </IconButton>
           </InputAdornment>

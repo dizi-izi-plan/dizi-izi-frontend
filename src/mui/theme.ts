@@ -306,7 +306,7 @@ theme = createTheme(theme, {
         },
         {
           props: {
-            variant: 'linkBottom',
+            variant: 'linkButton',
           },
           style: {
             fontSize: 18,
@@ -352,7 +352,7 @@ declare module '@mui/material/Typography' {
     m: true;
     s: true;
     xs: true;
-    linkBottom: true;
+    linkButton: true;
     linkHoverBold: true;
   }
 }

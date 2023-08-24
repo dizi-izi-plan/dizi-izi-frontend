@@ -1,16 +1,17 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import { InputPassword } from '../components/Input/InputPassword/InputPassword';
 import {
-  Box,
-  Button,
-  Typography,
-  TextField,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Checkbox,
-  Link,
-} from '@mui/material';
-import { InputPassword } from '../components/InputPassword/InputPassword';
-import { classNamesInput, classNamesLabel } from '@/helpers/classNameConstants';
+  classNamesInput,
+  classNamesLabel,
+} from '@/components/Input/classNameConstants';
 
 export const DevPage = () => {
   return (
@@ -70,7 +71,7 @@ export const DevPage = () => {
           label={`TextField className="${classNamesInput.dark}"`}
         />
         <InputPassword
-          variant={classNamesInput.dark}
+          className={classNamesInput.dark}
           label={`InputPassword className="${classNamesInput.dark}"`}
         />
       </Box>
@@ -91,7 +92,7 @@ export const DevPage = () => {
           placeholder="Placeholder"
         />
         <InputPassword
-          variant={classNamesInput.light}
+          className={classNamesInput.light}
           label={`InputPassword className="${classNamesInput.light}" but label={null}`}
           placeholder="Текущий пароль"
         />
@@ -144,7 +145,7 @@ export const DevPage = () => {
         <Link href="#" variant="xs">
           link xs - на обработку персональных данных
         </Link>
-        <Link href="#" variant="linkBottom">
+        <Link href="#" variant="linkButton">
           linkBottom - Регистрация
         </Link>
       </Box>
