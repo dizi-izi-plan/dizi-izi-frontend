@@ -1,7 +1,6 @@
 import { MyGrey } from '@/helpers/interfaces';
 import { createTheme } from '@mui/material';
 
-
 export const myGrey: Partial<MyGrey> = {
   grey100: '#DEDEDE',
   grey200: '#D4D4D4',
@@ -13,7 +12,7 @@ export const myGrey: Partial<MyGrey> = {
   grey800: '#3D3C3C',
 };
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: '#FFC000',
@@ -101,7 +100,71 @@ const theme = createTheme({
       fontStyle: 'normal',
       lineHeight: 'normal',
       fontWeight: 400,
-      textTransform: 'capitalize',
+      textTransform: 'none',
+    },
+  },
+});
+
+theme = createTheme(theme, {
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'default' },
+          style: {
+            borderRadius: 0,
+            color: '#fff',
+            border: `1px solid ${theme.palette.primary.main}`,
+            minHeight: '54px',
+            width: '209px',
+            '&:hover': {
+              color: '#000',
+              backgroundColor: theme.palette.primary.main,
+            },
+            '&:active': {
+              backgroundColor: theme.palette.primary.dark,
+            },
+            '&:disabled': {
+              color: theme.palette.secondary.main,
+              backgroundColor: myGrey.grey100,
+              border: 'none',
+            },
+          },
+        },
+        {
+          props: { variant: 'box' },
+          style: {
+            width: '256px',
+            height: '254px',
+            display: 'flex',
+            gap: '16px',
+            borderRadius: 0,
+            color: '#fff',
+            border: `1px solid ${theme.palette.primary.main}`,
+            '&:hover': {
+              color: '#000',
+              backgroundColor: theme.palette.primary.main,
+            },
+            '&:active': {
+              backgroundColor: theme.palette.primary.dark,
+            },
+            '&:disabled': {
+              color: theme.palette.secondary.main,
+              backgroundColor: myGrey.grey100,
+              border: 'none',
+            },
+          },
+        },
+      ],
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
     },
   },
 });
@@ -116,6 +179,13 @@ declare module '@mui/material/styles' {
   }
   interface PaletteOptions extends MyPaletteExtensions {
     black?: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    default: true;
+    box: true;
   }
 }
 
