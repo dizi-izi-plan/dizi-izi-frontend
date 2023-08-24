@@ -259,11 +259,77 @@ theme = createTheme(theme, {
           '&.Mui-checked': {
             color: theme.palette.primary.main,
           },
-          '& path': {
-            borderRadius: 0,
-          },
         },
       },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          fontFamily: manrope.style.fontFamily,
+          fontStyle: 'normal',
+          lineHeight: 'normal',
+          color: theme.palette.secondary.contrastText,
+          textDecoration: 'underline',
+        },
+      },
+      variants: [
+        {
+          props: {
+            variant: 'linkSizeM',
+          },
+          style: {
+            fontSize: 20,
+            fontWeight: 500,
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          },
+        },
+        {
+          props: {
+            variant: 'linkSizeS',
+          },
+          style: {
+            fontSize: 16,
+            fontWeight: 400,
+          },
+        },
+        {
+          props: {
+            variant: 'linkSizeXS',
+          },
+          style: {
+            fontSize: 14,
+            fontWeight: 400,
+          },
+        },
+        {
+          props: {
+            variant: 'linkBottom',
+          },
+          style: {
+            fontSize: 18,
+            fontWeight: 400,
+            textDecoration: 'none',
+          },
+        },
+        {
+          props: {
+            variant: 'linkHoverBold',
+          },
+          style: {
+            fontFamily: cabin.style.fontFamily,
+            fontSize: 24,
+            fontWeight: 400,
+            color: theme.palette.black.main,
+            textDecoration: 'none',
+            '&:hover': {
+              fontWeight: 600,
+            },
+          },
+        },
+      ],
     },
   },
 });
@@ -278,5 +344,15 @@ declare module '@mui/material/styles' {
   }
   interface PaletteOptions extends MyPaletteExtensions {
     black?: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    linkSizeM: true;
+    linkSizeS: true;
+    linkSizeXS: true;
+    linkBottom: true;
+    linkHoverBold: true;
   }
 }

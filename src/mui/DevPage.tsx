@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Radio,
   Checkbox,
+  Link,
 } from '@mui/material';
 import { InputPassword } from '../components/InputPassword/InputPassword';
 import { classNamesInput, classNamesLabel } from '@/helpers/classNameConstants';
@@ -56,7 +57,7 @@ export const DevPage = () => {
       <Box
         sx={{
           width: 462,
-          backgroundColor: '#000',
+          backgroundColor: 'black.main',
           padding: '40px 20px',
           marginLeft: 10,
           display: 'flex',
@@ -64,13 +65,19 @@ export const DevPage = () => {
           rowGap: '40px',
         }}
       >
-        <TextField className={classNamesInput.dark} label="TextField" />
-        <InputPassword clName={classNamesInput.dark} lbl="Пароль" />
+        <TextField
+          className={classNamesInput.dark}
+          label={`TextField className="${classNamesInput.dark}"`}
+        />
+        <InputPassword
+          clName={classNamesInput.dark}
+          lbl={`InputPassword className="${classNamesInput.dark}"`}
+        />
       </Box>
       <Box
         sx={{
           width: 462,
-          backgroundColor: 'white',
+          backgroundColor: 'secondary.contrastText',
           padding: '40px 20px',
           marginLeft: 10,
           display: 'flex',
@@ -80,14 +87,16 @@ export const DevPage = () => {
       >
         <TextField
           className={classNamesInput.light}
-          label="TextField"
+          label={`TextField className="${classNamesInput.light}"`}
           placeholder="Placeholder"
         />
-        <InputPassword clName={classNamesInput.light} />
+        <InputPassword
+          clName={classNamesInput.light}
+          lbl={`InputPassword className="${classNamesInput.light}" but label={null}`}
+        />
         <TextField
           className={classNamesInput.gray}
-          label={null}
-          placeholder="Placeholder"
+          placeholder={`TextField className="${classNamesInput.gray}"`}
         />
         <RadioGroup
           row
@@ -113,6 +122,45 @@ export const DevPage = () => {
           label="Я дизайнер интерьеров"
           control={<Checkbox />}
         />
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'black.main',
+          padding: '10px 10px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+        }}
+      >
+        <Link href="#" variant="linkSizeM">
+          linkSizeM
+        </Link>
+        <Link href="#" variant="linkSizeS">
+          linkSizeS - Забыли пароль
+        </Link>
+        <Link href="#" variant="linkSizeXS">
+          linkSizeXS - на обработку персональных данных
+        </Link>
+        <Link href="#" variant="linkBottom">
+          linkBottom - Регистрация
+        </Link>
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'secondary.contrastText',
+          padding: '10px 10px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+        }}
+      >
+        <Link href="#" variant="linkHoverBold">
+          linkHoverBold - Мой профиль
+        </Link>
       </Box>
     </>
   );
