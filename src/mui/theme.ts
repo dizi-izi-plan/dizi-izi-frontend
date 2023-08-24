@@ -275,7 +275,7 @@ theme = createTheme(theme, {
       variants: [
         {
           props: {
-            variant: 'linkSizeM',
+            variant: 'm',
           },
           style: {
             fontSize: 20,
@@ -288,7 +288,7 @@ theme = createTheme(theme, {
         },
         {
           props: {
-            variant: 'linkSizeS',
+            variant: 's',
           },
           style: {
             fontSize: 16,
@@ -297,7 +297,7 @@ theme = createTheme(theme, {
         },
         {
           props: {
-            variant: 'linkSizeXS',
+            variant: 'xs',
           },
           style: {
             fontSize: 14,
@@ -349,9 +349,9 @@ declare module '@mui/material/styles' {
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    linkSizeM: true;
-    linkSizeS: true;
-    linkSizeXS: true;
+    m: true;
+    s: true;
+    xs: true;
     linkBottom: true;
     linkHoverBold: true;
   }

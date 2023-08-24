@@ -135,14 +135,14 @@ export const DevPage = () => {
           rowGap: '10px',
         }}
       >
-        <Link href="#" variant="linkSizeM">
-          linkSizeM
+        <Link href="#" variant="m">
+          link m - о нас
         </Link>
-        <Link href="#" variant="linkSizeS">
-          linkSizeS - Забыли пароль
+        <Link href="#" variant="s">
+          link s - Забыли пароль
         </Link>
-        <Link href="#" variant="linkSizeXS">
-          linkSizeXS - на обработку персональных данных
+        <Link href="#" variant="xs">
+          link xs - на обработку персональных данных
         </Link>
         <Link href="#" variant="linkBottom">
           linkBottom - Регистрация

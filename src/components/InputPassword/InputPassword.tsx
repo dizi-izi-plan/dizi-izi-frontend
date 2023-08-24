@@ -33,8 +33,8 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
     <TextField
       className={variant}
       type={showPassword ? 'text' : 'password'}
-      label={label ? label : null}
-      placeholder={placeholder ? placeholder : undefined}
+      label={label}
+      placeholder={placeholder}
       onChange={onChange}
       InputProps={{
         endAdornment: (
