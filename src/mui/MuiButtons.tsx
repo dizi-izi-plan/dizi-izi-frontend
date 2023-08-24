@@ -1,7 +1,7 @@
 import { IconButton, Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 
-export default function MuiButtons() {
+export const MuiButtons = () => {
   return (
     <>
       <hr />
@@ -97,4 +97,4 @@ export default function MuiButtons() {
       </Stack>
     </>
   );
-}
+};
