@@ -193,7 +193,7 @@ theme = createTheme(theme, {
               color: '#898989',
             },
           },
-          '&.subvariant-gray': {
+          '&.subvariant-grey': {
             '& .MuiOutlinedInput-input': {
               color: theme.palette.black.main,
               fontSize: 14,

@@ -96,8 +96,8 @@ export const DevPage = () => {
           placeholder="Текущий пароль"
         />
         <TextField
-          className={classNamesInput.gray}
-          placeholder={`TextField className="${classNamesInput.gray}"`}
+          className={classNamesInput.grey}
+          placeholder={`TextField className="${classNamesInput.grey}"`}
         />
         <RadioGroup
           row

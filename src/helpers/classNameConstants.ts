@@ -1,7 +1,7 @@
 interface classNamesInput {
   dark: string;
   light: string;
-  gray: string;
+  grey: string;
 }
 
 interface classNamesLabel {
@@ -12,7 +12,7 @@ interface classNamesLabel {
 export const classNamesInput: classNamesInput = {
   dark: 'subvariant-dark',
   light: 'subvariant-light',
-  gray: 'subvariant-gray',
+  grey: 'subvariant-grey',
 };
 
 export const classNamesLabel: classNamesLabel = {
