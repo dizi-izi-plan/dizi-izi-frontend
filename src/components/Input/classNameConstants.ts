@@ -1,16 +1,16 @@
 import { ObjectValues } from '../../types/types';
 
-export const classNamesInput = {
+export const CLASS_NAMES_INPUT = {
   dark: 'subvariant-dark',
   light: 'subvariant-light',
   grey: 'subvariant-grey',
 } as const;
 
-export const classNamesLabel = {
+export const CLASS_MANES_LABEL = {
   start: 'subvariant-start',
   end: 'subvariant-end',
 } as const;
 
-export type InputVariant = ObjectValues<typeof classNamesInput>;
+export type InputVariant = ObjectValues<typeof CLASS_NAMES_INPUT>;
 
-export type LabelVariant = ObjectValues<typeof classNamesLabel>;
+export type LabelVariant = ObjectValues<typeof CLASS_MANES_LABEL>;

@@ -9,8 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import { InputPassword } from '../components/Input/InputPassword/InputPassword';
 import {
-  classNamesInput,
-  classNamesLabel,
+  CLASS_NAMES_INPUT,
+  CLASS_MANES_LABEL,
 } from '@/components/Input/classNameConstants';
 
 export const DevPage = () => {
@@ -67,12 +67,12 @@ export const DevPage = () => {
         }}
       >
         <TextField
-          className={classNamesInput.dark}
-          label={`TextField className="${classNamesInput.dark}"`}
+          className={CLASS_NAMES_INPUT.dark}
+          label={`TextField className="${CLASS_NAMES_INPUT.dark}"`}
         />
         <InputPassword
-          className={classNamesInput.dark}
-          label={`InputPassword className="${classNamesInput.dark}"`}
+          className={CLASS_NAMES_INPUT.dark}
+          label={`InputPassword className="${CLASS_NAMES_INPUT.dark}"`}
         />
       </Box>
       <Box
@@ -87,18 +87,18 @@ export const DevPage = () => {
         }}
       >
         <TextField
-          className={classNamesInput.light}
-          label={`TextField className="${classNamesInput.light}"`}
+          className={CLASS_NAMES_INPUT.light}
+          label={`TextField className="${CLASS_NAMES_INPUT.light}"`}
           placeholder="Placeholder"
         />
         <InputPassword
-          className={classNamesInput.light}
-          label={`InputPassword className="${classNamesInput.light}" but label={null}`}
+          className={CLASS_NAMES_INPUT.light}
+          label={`InputPassword className="${CLASS_NAMES_INPUT.light}" but label={null}`}
           placeholder="Текущий пароль"
         />
         <TextField
-          className={classNamesInput.grey}
-          placeholder={`TextField className="${classNamesInput.grey}"`}
+          className={CLASS_NAMES_INPUT.grey}
+          placeholder={`TextField className="${CLASS_NAMES_INPUT.grey}"`}
         />
         <RadioGroup
           row
@@ -107,20 +107,20 @@ export const DevPage = () => {
           name="radio-buttons-group"
         >
           <FormControlLabel
-            className={classNamesLabel.end}
+            className={CLASS_MANES_LABEL.end}
             value="До стены 1"
             control={<Radio />}
             label="До стены 1"
           />
           <FormControlLabel
-            className={classNamesLabel.end}
+            className={CLASS_MANES_LABEL.end}
             value="До стены 3"
             control={<Radio />}
             label="До стены 3"
           />
         </RadioGroup>
         <FormControlLabel
-          className={classNamesLabel.start}
+          className={CLASS_MANES_LABEL.start}
           label="Я дизайнер интерьеров"
           control={<Checkbox />}
         />

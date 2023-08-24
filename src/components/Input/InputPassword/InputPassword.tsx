@@ -7,7 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {
-  classNamesInput,
+  CLASS_NAMES_INPUT,
   InputVariant,
 } from '@/components/Input/classNameConstants';
 
@@ -23,7 +23,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
 
   const visibilityStyles = {
     color:
-      className === classNamesInput.dark
+      className === CLASS_NAMES_INPUT.dark
         ? 'secondary.contrastText'
         : 'myGrey.grey500',
     width: 24,
