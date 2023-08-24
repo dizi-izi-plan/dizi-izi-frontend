@@ -6,30 +6,36 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { classNamesInput } from '@/helpers/classNameConstants';
 
 interface InputPasswordProps {
-  clName: string;
-  lbl?: string;
+  variant: string;
+  label?: string;
+  placeholder?: string;
+  onChange?: () => void;
 }
 
 export const InputPassword: React.FC<InputPasswordProps> = ({
-  clName,
-  lbl,
+  variant,
+  label,
+  placeholder,
+  onChange,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const visibilityStyles = {
     color:
-      clName === classNamesInput.dark
+      variant === classNamesInput.dark
         ? 'secondary.contrastText'
-        : 'myGray.grey500',
+        : 'myGrey.grey500',
     width: 24,
     height: 24,
   };
 
   return (
     <TextField
-      className={clName}
+      className={variant}
       type={showPassword ? 'text' : 'password'}
-      label={lbl ? lbl : null}
+      label={label ? label : null}
+      placeholder={placeholder ? placeholder : undefined}
+      onChange={onChange}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

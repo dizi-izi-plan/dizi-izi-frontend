@@ -70,8 +70,8 @@ export const DevPage = () => {
           label={`TextField className="${classNamesInput.dark}"`}
         />
         <InputPassword
-          clName={classNamesInput.dark}
-          lbl={`InputPassword className="${classNamesInput.dark}"`}
+          variant={classNamesInput.dark}
+          label={`InputPassword className="${classNamesInput.dark}"`}
         />
       </Box>
       <Box
@@ -91,8 +91,9 @@ export const DevPage = () => {
           placeholder="Placeholder"
         />
         <InputPassword
-          clName={classNamesInput.light}
-          lbl={`InputPassword className="${classNamesInput.light}" but label={null}`}
+          variant={classNamesInput.light}
+          label={`InputPassword className="${classNamesInput.light}" but label={null}`}
+          placeholder="Текущий пароль"
         />
         <TextField
           className={classNamesInput.gray}
