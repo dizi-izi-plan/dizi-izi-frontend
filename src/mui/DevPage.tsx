@@ -8,6 +8,7 @@ import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import { InputPassword } from '../components/Input/InputPassword/InputPassword';
+import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
   CLASS_MANES_LABEL,
@@ -157,12 +158,13 @@ export const DevPage = () => {
           marginLeft: 10,
           display: 'flex',
           flexDirection: 'column',
-          rowGap: '10px',
+          rowGap: '40px',
         }}
       >
         <Link href="#" variant="linkHoverBold">
           linkHoverBold - Мой профиль
         </Link>
+        <LocalDatePicker className={CLASS_NAMES_INPUT.light} />
       </Box>
     </>
   );
