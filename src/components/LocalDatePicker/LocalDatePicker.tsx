@@ -3,7 +3,7 @@ import React from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
-import 'dayjs/locale/de';
+import 'dayjs/locale/ru';
 import { InputVariant } from '@/components/Input/classNameConstants';
 
 type LocalDatePickerProps<T> = DatePickerProps<T> & {
@@ -16,7 +16,7 @@ export const LocalDatePicker: React.FC<LocalDatePickerProps<Date>> = ({
 }) => {
   //   const [value, setValue] = useState<Dayjs | null>(null); в стейте родительского компонента использовать эти типы данных
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
       <DatePicker
         label="Дата рождения"
         className={className}
