@@ -1,6 +1,17 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import { InputPassword } from '../components/Input/InputPassword/InputPassword';
+import {
+  CLASS_NAMES_INPUT,
+  CLASS_MANES_LABEL,
+} from '@/components/Input/classNameConstants';
 
 export const DevPage = () => {
   return (
@@ -43,6 +54,115 @@ export const DevPage = () => {
         <Button variant="contained" color="secondary">
           secondary
         </Button>
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'black.main',
+          padding: '40px 20px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '40px',
+        }}
+      >
+        <TextField
+          className={CLASS_NAMES_INPUT.dark}
+          label={`TextField className="${CLASS_NAMES_INPUT.dark}"`}
+        />
+        <InputPassword
+          className={CLASS_NAMES_INPUT.dark}
+          label={`InputPassword className="${CLASS_NAMES_INPUT.dark}"`}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'secondary.contrastText',
+          padding: '40px 20px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '40px',
+        }}
+      >
+        <TextField
+          className={CLASS_NAMES_INPUT.light}
+          label={`TextField className="${CLASS_NAMES_INPUT.light}"`}
+          placeholder="Placeholder"
+        />
+        <InputPassword
+          className={CLASS_NAMES_INPUT.light}
+          label={`InputPassword className="${CLASS_NAMES_INPUT.light}" but label={null}`}
+          placeholder="Текущий пароль"
+        />
+        <TextField
+          className={CLASS_NAMES_INPUT.grey}
+          placeholder={`TextField className="${CLASS_NAMES_INPUT.grey}"`}
+        />
+        <RadioGroup
+          row
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue="До стены 1"
+          name="radio-buttons-group"
+        >
+          <FormControlLabel
+            className={CLASS_MANES_LABEL.end}
+            value="До стены 1"
+            control={<Radio />}
+            label="До стены 1"
+          />
+          <FormControlLabel
+            className={CLASS_MANES_LABEL.end}
+            value="До стены 3"
+            control={<Radio />}
+            label="До стены 3"
+          />
+        </RadioGroup>
+        <FormControlLabel
+          className={CLASS_MANES_LABEL.start}
+          label="Я дизайнер интерьеров"
+          control={<Checkbox />}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'black.main',
+          padding: '10px 10px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+        }}
+      >
+        <Link href="#" variant="m">
+          link m - о нас
+        </Link>
+        <Link href="#" variant="s">
+          link s - Забыли пароль
+        </Link>
+        <Link href="#" variant="xs">
+          link xs - на обработку персональных данных
+        </Link>
+        <Link href="#" variant="linkButton">
+          linkBottom - Регистрация
+        </Link>
+      </Box>
+      <Box
+        sx={{
+          width: 462,
+          backgroundColor: 'secondary.contrastText',
+          padding: '10px 10px',
+          marginLeft: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+        }}
+      >
+        <Link href="#" variant="linkHoverBold">
+          linkHoverBold - Мой профиль
+        </Link>
       </Box>
     </>
   );

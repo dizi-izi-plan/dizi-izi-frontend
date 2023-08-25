@@ -7,7 +7,7 @@ export const manrope = Manrope({
 });
 
 export const cabin = Cabin({
-  weight: ['400', '500'],
+  weight: ['400', '500', '600'],
   subsets: ['latin'],
   display: 'swap',
 });
