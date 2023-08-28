@@ -105,6 +105,25 @@ export let theme = createTheme({
   },
 });
 
+const commonButtonStyle = {
+  padding: 0,
+  borderRadius: 0,
+  minHeight: '54px',
+  border: `1px solid ${theme.palette.primary.main}`,
+  '&:hover': {
+    color: theme.palette.black.main,
+    backgroundColor: theme.palette.primary.main,
+  },
+  '&:active': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  '&:disabled': {
+    color: theme.palette.secondary.main,
+    backgroundColor: myGrey.grey100,
+    border: 'none',
+  },
+};
+
 theme = createTheme(theme, {
   components: {
     MuiTextField: {
@@ -331,6 +350,90 @@ theme = createTheme(theme, {
         },
       ],
     },
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'default', color: 'primary' },
+          style: {
+            ...commonButtonStyle,
+            color: theme.palette.secondary.contrastText,
+          },
+        },
+        {
+          props: { variant: 'default', color: 'secondary' },
+          style: {
+            ...commonButtonStyle,
+            color: theme.palette.black.main,
+            backgroundColor: theme.palette.primary.main,
+            '&:hover': {
+              color: theme.palette.black.main,
+              backgroundColor: theme.palette.primary.dark,
+            },
+          },
+        },
+        {
+          props: { variant: 'default', size: 'small' },
+          style: {
+            minWidth: '134px',
+            minHeight: '48px',
+          },
+        },
+        {
+          props: { variant: 'default', size: 'medium' },
+          style: {
+            minWidth: '224px',
+          },
+        },
+        {
+          props: { variant: 'default', size: 'large' },
+          style: {
+            minWidth: '302px',
+          },
+        },
+        {
+          props: { variant: 'box', color: 'primary' },
+          style: {
+            ...commonButtonStyle,
+            color: theme.palette.black.main,
+          },
+        },
+        {
+          props: { variant: 'box', color: 'secondary' },
+          style: {
+            ...commonButtonStyle,
+            backgroundColor: theme.palette.primary.main,
+            '&:hover': {
+              color: theme.palette.black.main,
+              backgroundColor: theme.palette.primary.dark,
+            },
+          },
+        },
+        {
+          props: { variant: 'box', size: 'large' },
+          style: {
+            minWidth: '256px',
+            minHeight: '244px',
+          },
+        },
+        {
+          props: { variant: 'box', size: 'small' },
+          style: {
+            minWidth: '44px',
+            minHeight: '44px',
+          },
+        },
+        {
+          props: { variant: 'empty' },
+          style: {
+            borderRadius: 0,
+            backgroundColor: 'transparent',
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          },
+        },
+      ],
+    },
   },
 });
 
@@ -354,5 +457,13 @@ declare module '@mui/material/Typography' {
     xs: true;
     linkButton: true;
     linkHoverBold: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    default: true;
+    box: true;
+    empty: true;
   }
 }
