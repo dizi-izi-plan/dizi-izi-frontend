@@ -12,7 +12,7 @@ import { InputPassword } from '../components/Input/InputPassword/InputPassword';
 import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
-  CLASS_MANES_LABEL,
+  CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { Cookie } from '@/components/Cookie/Cookie';
 
@@ -110,20 +110,20 @@ export const DevPage: FC = () => {
           name="radio-buttons-group"
         >
           <FormControlLabel
-            className={CLASS_MANES_LABEL.end}
+            className={CLASS_NAMES_LABEL.end}
             value="До стены 1"
             control={<Radio />}
             label="До стены 1"
           />
           <FormControlLabel
-            className={CLASS_MANES_LABEL.end}
+            className={CLASS_NAMES_LABEL.end}
             value="До стены 3"
             control={<Radio />}
             label="До стены 3"
           />
         </RadioGroup>
         <FormControlLabel
-          className={CLASS_MANES_LABEL.start}
+          className={CLASS_NAMES_LABEL.start}
           label="Я дизайнер интерьеров"
           control={<Checkbox />}
         />
