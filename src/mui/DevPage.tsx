@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,8 +14,9 @@ import {
   CLASS_NAMES_INPUT,
   CLASS_MANES_LABEL,
 } from '@/components/Input/classNameConstants';
+import { Cookie } from '@/components/Cookie/Cookie';
 
-export const DevPage = () => {
+export const DevPage: FC = () => {
   return (
     <>
       <Typography color="myGrey.grey100" variant="h1">
@@ -169,6 +171,7 @@ export const DevPage = () => {
           className={CLASS_NAMES_INPUT.light}
         />
       </Box>
+      <Cookie />
     </>
   );
 };
