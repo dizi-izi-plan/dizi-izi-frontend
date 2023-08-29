@@ -14,20 +14,12 @@ type LocalDatePickerProps<T> = DatePickerProps<T> & {
  * @param value Dayjs | null
  */
 
-export const LocalDatePicker: React.FC<LocalDatePickerProps<Date>> = ({
-  className,
-  ...props
-}) => {
-  const { value, onChange } = props;
-
+export const LocalDatePicker: React.FC<LocalDatePickerProps<Date>> = (
+  props,
+) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-      <DatePicker
-        label="Дата рождения"
-        className={className}
-        value={value}
-        onChange={onChange}
-      />
+      <DatePicker {...props} />
     </LocalizationProvider>
   );
 };

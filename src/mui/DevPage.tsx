@@ -164,7 +164,10 @@ export const DevPage = () => {
         <Link href="#" variant="linkHoverBold">
           linkHoverBold - Мой профиль
         </Link>
-        <LocalDatePicker className={CLASS_NAMES_INPUT.light} />
+        <LocalDatePicker
+          label="Дата рождения"
+          className={CLASS_NAMES_INPUT.light}
+        />
       </Box>
     </>
   );
