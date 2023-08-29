@@ -179,6 +179,7 @@ theme = createTheme(theme, {
               borderWidth: '1px',
               borderColor: theme.palette.primary.main,
               borderStyle: 'solid',
+              maxHeight: 55,
               borderRadius: 0,
               '& > fieldset': {
                 border: 'none',
