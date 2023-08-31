@@ -6,11 +6,12 @@ export const CLASS_NAMES_INPUT = {
   grey: 'subvariant-grey',
 } as const;
 
-export const CLASS_MANES_LABEL = {
+// TODO: FIX TYPO
+export const CLASS_NAMES_LABEL = {
   start: 'subvariant-start',
   end: 'subvariant-end',
 } as const;
 
 export type InputVariant = ObjectValues<typeof CLASS_NAMES_INPUT>;
 
-export type LabelVariant = ObjectValues<typeof CLASS_MANES_LABEL>;
+export type LabelVariant = ObjectValues<typeof CLASS_NAMES_LABEL>;
