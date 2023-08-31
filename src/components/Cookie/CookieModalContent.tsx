@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, Ref } from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -9,10 +9,10 @@ type CookieModalContentProps = {
   onClose: () => void;
 };
 
-export const CookieModalContent = forwardRef<
-  HTMLDivElement,
-  CookieModalContentProps
->(function CookieModalContent({ onClose }, ref) {
+const CookieModalContent = (
+  { onClose }: CookieModalContentProps,
+  ref: Ref<HTMLInputElement>,
+) => {
   const handleOkayClick = () => {
     onClose();
   };
@@ -37,10 +37,17 @@ export const CookieModalContent = forwardRef<
           сайтом. Продолжая пользоваться сайтом, вы соглашаетесь с
           использованием нами файлов cookies.
         </Typography>
-        <Button variant="contained" color="secondary" onClick={handleOkayClick}>
-          Хорошо
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleOkayClick}
+          sx={{ borderRadius: 0 }}
+        >
+          xорошо
         </Button>
       </Stack>
     </div>
   );
-});
+};
+
+export const CookieContent = forwardRef(CookieModalContent);

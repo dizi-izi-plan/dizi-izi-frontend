@@ -20,7 +20,6 @@ export const InfoModal: FC<CookieModalProps> = ({
     <Box
       sx={{
         minWidth: minWidth,
-        transform: 'translateZ(0)',
         '@media all and (-ms-high-contrast: none)': {
           display: 'none',
         },
