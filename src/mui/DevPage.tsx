@@ -9,11 +9,12 @@ import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import { InputPassword } from '../components/Input/InputPassword/InputPassword';
+import { SelectTextField } from '../components/SelectTextField/SelectTextField';
 import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
-} from '@/components/Input/classNameConstants';
+} from '../components/Input/classNameConstants';
 import { Cookie } from '@/components/Cookie/Cookie';
 import { Step } from '@/components/Step/Step';
 import { steps } from '@/components/Step/steps.data';
@@ -172,6 +173,13 @@ export const DevPage: FC = () => {
         </Link>
         <LocalDatePicker
           label="Дата рождения"
+          className={CLASS_NAMES_INPUT.light}
+        />
+        <SelectTextField
+          select
+          label="Город проживания"
+          defaultValue=""
+          placeholder="Выберете город"
           className={CLASS_NAMES_INPUT.light}
         />
       </Box>
