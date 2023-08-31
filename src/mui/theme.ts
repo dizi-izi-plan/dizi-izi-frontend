@@ -211,6 +211,8 @@ theme = createTheme(theme, {
             },
             '& .MuiOutlinedInput-input::placeholder': {
               color: theme.palette.myGrey.grey500,
+              opacity: 1,
+              fontSize: 20,
             },
             '& .MuiSelect-select': {
               boxSizing: 'border-box',
@@ -233,6 +235,7 @@ theme = createTheme(theme, {
             },
             '& .MuiOutlinedInput-input::placeholder': {
               color: theme.palette.myGrey.grey300,
+              opacity: 1,
             },
           },
         },
