@@ -15,6 +15,8 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { Cookie } from '@/components/Cookie/Cookie';
+import { Step } from '@/components/Step/Step';
+import { steps } from '@/components/Step/steps.data';
 
 export const DevPage: FC = () => {
   return (
@@ -171,7 +173,8 @@ export const DevPage: FC = () => {
           className={CLASS_NAMES_INPUT.light}
         />
       </Box>
-      <Cookie />
+      {/* <Cookie /> */}
+      <Step title={steps.step1.title} content={steps.step1.content}  />
     </>
   );
 };
