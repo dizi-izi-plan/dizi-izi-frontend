@@ -173,7 +173,7 @@ export const DevPage: FC = () => {
           className={CLASS_NAMES_INPUT.light}
         />
       </Box>
-      {/* <Cookie /> */}
+      <Cookie />
       <Step title={steps.step1.title} content={steps.step1.content}  />
     </>
   );
