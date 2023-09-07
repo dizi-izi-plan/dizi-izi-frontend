@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { InputVariant } from '@/components/Input/classNameConstants';
+import { fetchCities } from '../../redux/features/cities-slice';
 
 const listOfCities = [
   {
@@ -26,6 +28,14 @@ type SelectTextFieldProps = TextFieldProps & {
 };
 
 export const SelectTextField: React.FC<SelectTextFieldProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const apiCities = useAppSelector((state) => state.cities.entities);
+  console.log(apiCities);
+
+  useEffect(() => {
+    dispatch(fetchCities());
+  }, [dispatch]);
+
   return (
     <TextField
       {...props}

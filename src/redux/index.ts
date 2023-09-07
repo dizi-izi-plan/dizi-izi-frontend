@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { citiesReducer } from './features/cities-slice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    cities: citiesReducer,
+  },
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
