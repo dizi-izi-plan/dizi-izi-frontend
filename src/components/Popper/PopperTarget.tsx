@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 interface PopperTargetProps {
-  id: string | undefined;
+  id?: string;
   handlePopperOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handlePopperClose: () => void;
   children: ReactNode;

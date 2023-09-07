@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { PopperMessage } from '@/components/Popper/PopperMessage';
-import React from 'react';
 
 export const MuiButtons = () => {
   return (
@@ -53,14 +52,9 @@ export const MuiButtons = () => {
         </Stack>
         <Stack direction="row" alignItems="center" spacing={2}>
           <h2>Popper:</h2>
-          <PopperMessage
-            tip="back"
-            placement="top"
-            tipColor="black"
-            typographyVariant="overline"
-          >
-            <Button variant="empty" endIcon={<ArrowBackOutlinedIcon />}>
-              <span>AAAAA IM CHILD</span>
+          <PopperMessage tip="back">
+            <Button variant="empty">
+              <ArrowBackOutlinedIcon />
             </Button>
           </PopperMessage>
         </Stack>

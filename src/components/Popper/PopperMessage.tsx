@@ -8,21 +8,21 @@ import Typography from '@mui/material/Typography';
 import { PopperTarget } from '@/components/Popper/PopperTarget';
 import { Variant } from '@mui/material/styles/createTypography';
 
-interface PopperWProps {
+interface PopperMessageProps {
   tip: string;
-  tipColor: string;
-  typographyVariant: Variant;
-  placement: Placement;
+  tipColor?: string;
+  typographyVariant?: Variant;
+  placement?: Placement;
   children: ReactNode;
 }
 
 export const PopperMessage = ({
   tip,
-  tipColor,
-  placement,
-  typographyVariant,
+  tipColor = 'black',
+  placement = 'top',
+  typographyVariant = 'overline',
   children,
-}: PopperWProps) => {
+}: PopperMessageProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
