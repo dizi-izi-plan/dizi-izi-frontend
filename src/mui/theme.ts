@@ -437,6 +437,31 @@ theme = createTheme(theme, {
         },
       ],
     },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          fill: 'none',
+          backgroundColor: 'transparent',
+          width: 54,
+          height: 54,
+          border: `1px solid ${theme.palette.secondary.contrastText}`,
+          stroke: theme.palette.secondary.contrastText,
+          '&:hover': {
+            transition: theme.transitions.create([
+              'box-shadow',
+              'background-color',
+              'color',
+              'stroke',
+            ]),
+            boxShadow: `0px 0px 5px 2px rgba(255, 255, 255, 0.4)`,
+            fill: 'none',
+            color: theme.palette.black.main,
+            stroke: theme.palette.black.main,
+            backgroundColor: theme.palette.secondary.contrastText,
+          },
+        },
+      },
+    },
   },
 });
 
