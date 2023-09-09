@@ -300,9 +300,11 @@ theme = createTheme(theme, {
           style: {
             fontSize: 20,
             fontWeight: 500,
-            textDecoration: 'none',
+            textDecoration: 'underline 1px rgba(255, 255, 255, 0)',
             '&:hover': {
-              textDecoration: 'underline',
+              transition: theme.transitions.create([' text-decoration-color ']),
+              textDecorationColor: 'rgba(255, 255, 255, 1)',
+              textUnderlineOffset: '8px',
             },
           },
         },
