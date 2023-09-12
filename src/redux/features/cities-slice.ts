@@ -57,10 +57,10 @@ const citiesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCities.rejected, (state, action) => {
       state.loading = 'failed';
-      state.error = action.payload;
+      state.error = action.payload as string;
     });
     builder.addCase(fetchCities.fulfilled, (state, action) => {
-      state.citiesNames = action.payload;
+      state.citiesNames = action.payload as string[];
       state.loading = 'succeeded';
       state.error = null;
     });
