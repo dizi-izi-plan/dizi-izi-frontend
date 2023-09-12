@@ -17,6 +17,7 @@ import {
 import { Cookie } from '@/components/Cookie/Cookie';
 import { Step } from '@/components/Step/Step';
 import { steps } from '@/components/Step/steps.data';
+import { FAQ } from '@/components/FAQ/FAQ';
 
 export const DevPage: FC = () => {
   return (
@@ -176,6 +177,14 @@ export const DevPage: FC = () => {
       <Cookie />
       <Box sx={{ backgroundColor: 'secondary.main', p: 5 }}>
         <Step title={steps[0].title} content={steps[0].content} />
+      </Box>
+      <Box
+      sx={{
+        backgroundColor: 'primary.contrastText',
+        p: 5,
+      }}
+      >
+        <FAQ></FAQ>
       </Box>
     </>
   );
