@@ -174,7 +174,9 @@ export const DevPage: FC = () => {
         />
       </Box>
       <Cookie />
-      <Step title={steps.step1.title} content={steps.step1.content}  />
+      <Box sx={{ backgroundColor: 'secondary.main', p: 5 }}>
+        <Step title={steps[0].title} content={steps[0].content} />
+      </Box>
     </>
   );
 };
