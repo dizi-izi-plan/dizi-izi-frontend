@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ReactNode, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import Modal, { ModalProps } from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 
@@ -9,11 +9,11 @@ type CookieModalProps = ModalProps & {
   minWidth: string;
 };
 
-export const InfoModal: FC<CookieModalProps> = ({
+export const InfoModal = ({
   children,
   minWidth,
   ...props
-}) => {
+}: CookieModalProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
 
   return (
