@@ -15,12 +15,10 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { Cookie } from '@/components/Cookie/Cookie';
-import { Header } from '@/components/Header/Header';
 
 export const DevPage: FC = () => {
   return (
     <>
-      <Header />
       <Typography color="myGrey.grey100" variant="h1">
         h1 grey100 #DEDEDE
       </Typography>
