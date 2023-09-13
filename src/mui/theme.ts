@@ -300,10 +300,10 @@ theme = createTheme(theme, {
           style: {
             fontSize: 20,
             fontWeight: 500,
-            textDecoration: 'underline 1px rgba(255, 255, 255, 0)',
+            textDecoration: 'underline 1px transparent',
             '&:hover': {
               transition: theme.transitions.create([' text-decoration-color ']),
-              textDecorationColor: 'rgba(255, 255, 255, 1)',
+              textDecorationColor: theme.palette.secondary.contrastText,
               textUnderlineOffset: '8px',
             },
           },
@@ -448,12 +448,10 @@ theme = createTheme(theme, {
           stroke: theme.palette.secondary.contrastText,
           '&:hover': {
             transition: theme.transitions.create([
-              'box-shadow',
               'background-color',
               'color',
               'stroke',
             ]),
-            boxShadow: `0px 0px 5px 2px rgba(255, 255, 255, 0.4)`,
             fill: 'none',
             color: theme.palette.black.main,
             stroke: theme.palette.black.main,
