@@ -20,14 +20,14 @@ export const FAQItem = ({question, answer, index}: FAQItemProps) => {
         <AccordionSummary
           expandIcon={<ExpandCircleDownOutlinedIcon sx={{
             color: 'secondary.contrastText',
-            fontSize: '2.5rem',
+            fontSize: '2rem',
           }}/>}
           aria-controls={`${index}-content`}
           id={`${index}-header`}
+          sx={{ borderBottom: '1px solid #fff' }}
         >
           <Typography variant='subtitle1' color="secondary.contrastText">{question}</Typography>
         </AccordionSummary>
-        <hr />
         <AccordionDetails>
           <Typography variant='body1' color="secondary.contrastText">
             {answer}
