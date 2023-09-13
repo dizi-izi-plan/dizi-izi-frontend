@@ -1,13 +1,10 @@
-'use client';
-
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import  Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 
 type FAQItemProps = {
   question: string,
@@ -15,20 +12,16 @@ type FAQItemProps = {
   index: number,
 }
 
-const CustomExpandIcon = styled(ExpandMoreIcon)({
-  border: '1px solid #FFF',
-  borderRadius: '50%',
-  color: '#FFF',
-  fontSize: '2.5rem',
-});
-
-export default function FAQItem({question, answer, index}: FAQItemProps) {
+export const FAQItem = ({question, answer, index}: FAQItemProps) => {
 
   return (
     <Box mb={2}>
       <Accordion defaultExpanded square sx={{backgroundColor: 'transparent', boxShadow: 'none'}}>
         <AccordionSummary
-          expandIcon={<CustomExpandIcon />}
+          expandIcon={<ExpandCircleDownOutlinedIcon sx={{
+            color: 'secondary.contrastText',
+            fontSize: '2.5rem',
+          }}/>}
           aria-controls={`${index}-content`}
           id={`${index}-header`}
         >
