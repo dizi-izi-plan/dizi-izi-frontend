@@ -18,41 +18,46 @@ const headerLinksData = [
 export const Header = () => {
   return (
     <header>
-      {/*TODO: remove <Box> wrapper, that need only for example*/}
       <Box
         sx={{
-          maxWidth: '1120px',
-          margin: '0 auto',
-          padding: '10px',
+          width: '100%',
           backgroundColor: '#181818',
         }}
       >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
+        <Box
+          sx={{
+            width: '1120px',
+            padding: '15px 0px',
+            margin: '0 auto',
+          }}
         >
-          <Link href="#">
-            <AppLogo />
-          </Link>
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            spacing={5}
           >
-            {headerLinksData.map((linkData) => (
-              <Link href={linkData.href} key={linkData.label} variant="m">
-                {linkData.label}
-              </Link>
-            ))}
+            <Link href="#">
+              <AppLogo />
+            </Link>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={5}
+            >
+              {headerLinksData.map((linkData) => (
+                <Link href={linkData.href} key={linkData.label} variant="m">
+                  {linkData.label}
+                </Link>
+              ))}
+            </Stack>
+            <Link href="#" sx={{ borderRadius: '50%' }} variant="m">
+              <Avatar>
+                <UserLogo />
+              </Avatar>
+            </Link>
           </Stack>
-          <Link href="#" sx={{ borderRadius: '50%' }} variant="m">
-            <Avatar>
-              <UserLogo />
-            </Avatar>
-          </Link>
-        </Stack>
+        </Box>
       </Box>
     </header>
   );
