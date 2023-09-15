@@ -20,7 +20,7 @@ export const FAQItem = ({question, answer, index}: FAQItemProps) => {
         <AccordionSummary
           expandIcon={<ExpandCircleDownOutlinedIcon sx={{
             color: 'secondary.contrastText',
-            fontSize: '2rem',
+            fontSize: '2.2rem',
           }}/>}
           aria-controls={`${index}-content`}
           id={`${index}-header`}
