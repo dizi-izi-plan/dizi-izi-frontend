@@ -21,7 +21,7 @@ export const Header = () => {
       <Box
         sx={{
           width: '100%',
-          backgroundColor: '#181818',
+          backgroundColor: 'primary.contrastText',
         }}
       >
         <Box
