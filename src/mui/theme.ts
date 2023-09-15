@@ -435,6 +435,15 @@ theme = createTheme(theme, {
         },
       ],
     },
+    MuiAccordionSummary: {
+      styleOverrides: {
+       root: {
+        '& .MuiAccordionSummary-content': {
+          margin: '20px 0',
+        }
+       } 
+      }
+    }
   },
 });
 
