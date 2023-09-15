@@ -1,6 +1,6 @@
 import { TariffInfo } from './TariffDataTypes';
 
-export const TariffInfoList: TariffInfo[] = [
+export const tariffInfoList: TariffInfo[] = [
   {
     name: 'Бесплатный',
     description: 'Доступен всем\u00A0зарегистрированным пользователям',

@@ -1,13 +1,12 @@
-import { FC } from 'react';
 import Box from '@mui/material/Box';
 import { Tariff } from '../Tariff/Tariff';
 import { Typography } from '@mui/material';
-import { TariffInfoList } from './TariffData';
+import { tariffInfoList } from './TariffData';
 
-export const TariffSection: FC = () => {
+export const TariffSection = () => {
   return (
     <Box
-      style={{
+      sx={{
         width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
@@ -18,10 +17,10 @@ export const TariffSection: FC = () => {
       }}
     >
       <Box
-        style={{
+        sx={{
           display: 'flex',
           flexDirection: 'column',
-          rowGap: 104,
+          rowGap: '104px',
           justifyContent: 'space-between',
           alignItems: 'flex-start',
         }}
@@ -38,7 +37,7 @@ export const TariffSection: FC = () => {
             justifyContent: 'space-between',
           }}
         >
-          {TariffInfoList.map((tariff) => (
+          {tariffInfoList.map((tariff) => (
             <Tariff key={tariff.name} tariff={tariff} />
           ))}
         </Box>

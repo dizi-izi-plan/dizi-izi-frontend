@@ -6,13 +6,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import CheckIcon from '@mui/icons-material/Check';
+import Skeleton from '@mui/material/Skeleton';
 import { TariffInfo } from '../TariffSection/TariffDataTypes';
 
-type TariffType = {
+export type TariffType = {
   tariff: TariffInfo;
 };
 
 export const Tariff: FC<TariffType> = ({ tariff }) => {
+  const isLoading: string = 'pending'; // позже - это будет переменная из redux slice
+
   return (
     <Box
       sx={{
@@ -34,71 +37,97 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
       >
         {tariff.name}
       </Typography>
-      {tariff.description && (
-        <Typography
-          variant="body2"
-          color="secondary.contrastText"
-          sx={{ lineHeight: '1.44', marginBottom: '60px' }}
-        >
-          {tariff.description}
-        </Typography>
-      )}
-      {!tariff.description && (
+      {isLoading === 'succeeded' ? (
         <>
-          <Typography
-            variant="h2"
-            color="secondary.contrastText"
-            sx={{ marginBottom: '30px', marginTop: '110px' }}
-          >
-            Сайт работает в тестовом режиме
-          </Typography>
-          <Typography variant="body1" color="secondary.contrastText">
-            Информация о тарифах появится позже
-          </Typography>
+          {tariff.description ? (
+            <Typography
+              variant="body2"
+              color="secondary.contrastText"
+              sx={{ lineHeight: '1.44', marginBottom: '60px' }}
+            >
+              {tariff.description}
+            </Typography>
+          ) : null}
+          {tariff.description ? null : (
+            <>
+              <Typography
+                variant="h2"
+                color="secondary.contrastText"
+                sx={{ marginBottom: '30px', marginTop: '110px' }}
+              >
+                Сайт работает в тестовом режиме
+              </Typography>
+              <Typography variant="body1" color="secondary.contrastText">
+                Информация о тарифах появится позже
+              </Typography>
+            </>
+          )}
+          {tariff?.actions?.length && tariff?.actions?.length > 0 ? (
+            <>
+              <Typography
+                variant="h3"
+                color="secondary.contrastText"
+                sx={{ marginBottom: '40px' }}
+              >
+                Вам доступны
+              </Typography>
+              <List
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  rowGap: '10px',
+                  padding: 0,
+                }}
+              >
+                {tariff.actions.map((action) => (
+                  <ListItem key={action} sx={{ padding: 0 }}>
+                    <ListItemIcon
+                      sx={{
+                        alignSelf: 'flex-start',
+                        paddingTop: '5px',
+                        minWidth: '36px',
+                      }}
+                    >
+                      <CheckIcon sx={{ color: 'secondary.contrastText' }} />
+                    </ListItemIcon>
+                    <ListItemText sx={{ padding: 0 }}>
+                      <Typography
+                        sx={{ lineHeight: 'normal' }}
+                        variant="body2"
+                        color="secondary.contrastText"
+                      >
+                        {action}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          ) : null}
         </>
-      )}
-      {tariff.actions && (
+      ) : null}
+      {isLoading !== 'succeeded' ? (
         <>
-          <Typography
-            variant="h3"
-            color="secondary.contrastText"
-            sx={{ marginBottom: '40px' }}
-          >
-            Вам доступны
-          </Typography>
-          <List
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '10px',
-              padding: 0,
-            }}
-          >
-            {tariff.actions.map((action) => (
-              <ListItem key={action} sx={{ padding: 0 }}>
-                <ListItemIcon
-                  sx={{
-                    alignSelf: 'flex-start',
-                    paddingTop: '5px',
-                    minWidth: '36px',
-                  }}
-                >
-                  <CheckIcon sx={{ color: 'secondary.contrastText' }} />
-                </ListItemIcon>
-                <ListItemText sx={{ padding: 0 }}>
-                  <Typography
-                    sx={{ lineHeight: 'normal' }}
-                    variant="body2"
-                    color="secondary.contrastText"
-                  >
-                    {action}
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-            ))}
-          </List>
+          <Skeleton
+            sx={{ bgcolor: 'myGrey.grey800', mb: '60px' }}
+            variant="rounded"
+            width={304}
+            height={52}
+          />
+          <Skeleton
+            sx={{ bgcolor: 'myGrey.grey800', mb: '40px' }}
+            variant="rounded"
+            width={304}
+            height={58}
+          />
+          <Skeleton
+            sx={{ bgcolor: 'myGrey.grey800' }}
+            variant="rounded"
+            width={304}
+            height={427}
+          />
         </>
-      )}
+      ) : null}
     </Box>
   );
 };
