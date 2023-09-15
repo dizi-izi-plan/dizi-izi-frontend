@@ -300,9 +300,11 @@ theme = createTheme(theme, {
           style: {
             fontSize: 20,
             fontWeight: 500,
-            textDecoration: 'none',
+            textDecoration: 'underline 1px transparent',
             '&:hover': {
-              textDecoration: 'underline',
+              transition: theme.transitions.create([' text-decoration-color ']),
+              textDecorationColor: theme.palette.secondary.contrastText,
+              textUnderlineOffset: '8px',
             },
           },
         },
@@ -437,13 +439,36 @@ theme = createTheme(theme, {
     },
     MuiAccordionSummary: {
       styleOverrides: {
-       root: {
-        '& .MuiAccordionSummary-content': {
-          margin: '20px 0',
-        }
-       } 
-      }
-    }
+        root: {
+          '& .MuiAccordionSummary-content': {
+            margin: '20px 0',
+          },
+        },
+      },
+    },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          fill: 'none',
+          backgroundColor: 'transparent',
+          width: 54,
+          height: 54,
+          border: `1px solid ${theme.palette.secondary.contrastText}`,
+          stroke: theme.palette.secondary.contrastText,
+          '&:hover': {
+            transition: theme.transitions.create([
+              'background-color',
+              'color',
+              'stroke',
+            ]),
+            fill: 'none',
+            color: theme.palette.black.main,
+            stroke: theme.palette.black.main,
+            backgroundColor: theme.palette.secondary.contrastText,
+          },
+        },
+      },
+    },
   },
 });
 
