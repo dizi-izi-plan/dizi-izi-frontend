@@ -26,7 +26,8 @@ export const Header = () => {
       >
         <Box
           sx={{
-            width: '1120px',
+            maxWidth: '1120px',
+            width: '80%',
             padding: '15px 0px',
             margin: '0 auto',
           }}
