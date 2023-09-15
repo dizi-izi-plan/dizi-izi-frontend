@@ -8,6 +8,7 @@ import {
 } from '@/components/Cookie/CookieModalContent';
 
 const COOKIE_CONSENT_KEY = 'cookieConsent';
+const COOKIE_MINWIDTH = "275px";
 
 export const Cookie = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -27,15 +28,15 @@ export const Cookie = () => {
   return (
     isModalOpen && (
       <InfoModal
-        minWidth="275"
+        minWidth={COOKIE_MINWIDTH}
         hideBackdrop
         open={isModalOpen}
         aria-describedby={COOKIE_MODAL_ID}
         sx={{
-          display: 'flex',
           p: 1,
-          alignItems: 'center',
-          justifyContent: 'end',
+          width: 'fit-content',
+          height: 'fit-content',
+          top: '20%',
         }}
       >
         <>
