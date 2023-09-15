@@ -439,13 +439,36 @@ theme = createTheme(theme, {
     },
     MuiAccordionSummary: {
       styleOverrides: {
-       root: {
-        '& .MuiAccordionSummary-content': {
-          margin: '20px 0',
-        }
-       } 
-      }
-    }
+        root: {
+          '& .MuiAccordionSummary-content': {
+            margin: '20px 0',
+          },
+        },
+      },
+    },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          fill: 'none',
+          backgroundColor: 'transparent',
+          width: 54,
+          height: 54,
+          border: `1px solid ${theme.palette.secondary.contrastText}`,
+          stroke: theme.palette.secondary.contrastText,
+          '&:hover': {
+            transition: theme.transitions.create([
+              'background-color',
+              'color',
+              'stroke',
+            ]),
+            fill: 'none',
+            color: theme.palette.black.main,
+            stroke: theme.palette.black.main,
+            backgroundColor: theme.palette.secondary.contrastText,
+          },
+        },
+      },
+    },
   },
 });
 
