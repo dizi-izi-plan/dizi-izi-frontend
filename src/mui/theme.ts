@@ -47,7 +47,6 @@ export let theme = createTheme({
       fontWeight: 500,
       fontStyle: 'normal',
       lineHeight: 'normal',
-      letterSpacing: '17.28px',
     },
     h2: {
       fontFamily: cabin.style.fontFamily,
@@ -67,7 +66,6 @@ export let theme = createTheme({
       fontSize: 24,
       fontStyle: 'normal',
       lineHeight: '41.416px',
-      letterSpacing: '3px',
     },
     body1: {
       fontFamily: manrope.style.fontFamily,
