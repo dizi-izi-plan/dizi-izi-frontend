@@ -14,7 +14,7 @@ export type TariffType = {
 };
 
 export const Tariff: FC<TariffType> = ({ tariff }) => {
-  const isLoading: string = 'pending'; // позже - это будет переменная из redux slice
+  const isLoading: string = 'succeeded'; // позже - это будет переменная из redux slice
 
   return (
     <Box
@@ -30,25 +30,33 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
         padding: '56px 20px',
       }}
     >
-      <Typography
-        variant="h2"
-        color="secondary.contrastText"
-        sx={{ marginBottom: '20px' }}
-      >
-        {tariff.name}
-      </Typography>
       {isLoading === 'succeeded' ? (
         <>
+          <Typography
+            variant="h2"
+            color="secondary.contrastText"
+            sx={{ marginBottom: '20px' }}
+          >
+            {tariff.name}
+          </Typography>
           {tariff.description ? (
             <Typography
               variant="body2"
               color="secondary.contrastText"
-              sx={{ lineHeight: '1.44', marginBottom: '60px' }}
+              sx={{
+                lineHeight: '1.44',
+                marginBottom: '30px',
+                height: '108px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: '4',
+                WebkitBoxOrient: 'vertical',
+              }}
             >
               {tariff.description}
             </Typography>
-          ) : null}
-          {tariff.description ? null : (
+          ) : (
             <>
               <Typography
                 variant="h2"
@@ -62,72 +70,78 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
               </Typography>
             </>
           )}
-          {tariff?.actions?.length && tariff?.actions?.length > 0 ? (
-            <>
-              <Typography
-                variant="h3"
-                color="secondary.contrastText"
-                sx={{ marginBottom: '40px' }}
-              >
-                Вам доступны
-              </Typography>
-              <List
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '10px',
-                  padding: 0,
-                }}
-              >
-                {tariff.actions.map((action) => (
-                  <ListItem key={action} sx={{ padding: 0 }}>
-                    <ListItemIcon
-                      sx={{
-                        alignSelf: 'flex-start',
-                        paddingTop: '5px',
-                        minWidth: '36px',
-                      }}
-                    >
-                      <CheckIcon sx={{ color: 'secondary.contrastText' }} />
-                    </ListItemIcon>
-                    <ListItemText sx={{ padding: 0 }}>
-                      <Typography
-                        sx={{ lineHeight: 'normal' }}
-                        variant="body2"
-                        color="secondary.contrastText"
+          {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            tariff?.actions?.length > 0 ? ( // in this case, if actions don't exist, the meaning is false, so this block is equal to null
+              <>
+                <Typography
+                  variant="h3"
+                  color="secondary.contrastText"
+                  sx={{ marginBottom: '40px' }}
+                >
+                  Вам доступны
+                </Typography>
+                <List
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '10px',
+                    padding: 0,
+                  }}
+                >
+                  {tariff.actions?.map((action) => (
+                    <ListItem key={action} sx={{ padding: 0 }}>
+                      <ListItemIcon
+                        sx={{
+                          alignSelf: 'flex-start',
+                          paddingTop: '5px',
+                          minWidth: '36px',
+                        }}
                       >
-                        {action}
-                      </Typography>
-                    </ListItemText>
-                  </ListItem>
-                ))}
-              </List>
-            </>
-          ) : null}
+                        <CheckIcon sx={{ color: 'secondary.contrastText' }} />
+                      </ListItemIcon>
+                      <ListItemText sx={{ padding: 0 }}>
+                        <Typography
+                          sx={{ lineHeight: 'normal' }}
+                          variant="body2"
+                          color="secondary.contrastText"
+                        >
+                          {action}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                </List>
+              </>
+            ) : null
+          }
         </>
-      ) : null}
-      {isLoading !== 'succeeded' ? (
+      ) : (
         <>
-          <Skeleton
-            sx={{ bgcolor: 'myGrey.grey800', mb: '60px' }}
-            variant="rounded"
-            width={304}
-            height={52}
-          />
-          <Skeleton
-            sx={{ bgcolor: 'myGrey.grey800', mb: '40px' }}
-            variant="rounded"
-            width={304}
-            height={58}
-          />
-          <Skeleton
-            sx={{ bgcolor: 'myGrey.grey800' }}
-            variant="rounded"
-            width={304}
-            height={427}
-          />
+          {[...new Array(3)].map((el, index) => (
+            <Skeleton
+              key={index}
+              sx={{ bgcolor: 'myGrey.grey800', mb: '30px' }}
+              variant="rounded"
+              width={304}
+              height={60}
+            />
+          ))}
+          {[...new Array(14)].map((el, index, array) => (
+            <Skeleton
+              key={index}
+              sx={{
+                bgcolor: 'myGrey.grey800',
+                mb: index < array.length - 1 ? '10px' : null,
+              }}
+              variant="rounded"
+              width={304}
+              height={20}
+            />
+          ))}
         </>
-      ) : null}
+      )}
     </Box>
   );
 };

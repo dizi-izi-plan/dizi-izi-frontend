@@ -3,7 +3,7 @@ import { TariffInfo } from './TariffDataTypes';
 export const tariffInfoList: TariffInfo[] = [
   {
     name: 'Бесплатный',
-    description: 'Доступен всем\u00A0зарегистрированным пользователям',
+    description: 'Доступен всем зарегистрированным пользователям',
     actions: [
       'Возможность получить план для спальни',
       'Возможность 3 раза менять расстановку мебели в рамках проекта',
