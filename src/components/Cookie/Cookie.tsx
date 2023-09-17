@@ -8,7 +8,7 @@ import {
 } from '@/components/Cookie/CookieModalContent';
 
 const COOKIE_CONSENT_KEY = 'cookieConsent';
-const COOKIE_MINWIDTH = "275px";
+const COOKIE_MINWIDTH = '275px';
 
 export const Cookie = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -36,7 +36,7 @@ export const Cookie = () => {
           p: 1,
           width: 'fit-content',
           height: 'fit-content',
-          top: '20%',
+          top: '50%',
         }}
       >
         <>
