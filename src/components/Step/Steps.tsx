@@ -1,4 +1,7 @@
-export const steps = [
+import Grid from '@mui/material/Grid';
+import { Step } from '@/components/Step/Step';
+
+const steps = [
   {
     title: '1 шаг',
     content: 'Нажмите кнопку «Начать». Регистрация для этого не требуется.',
@@ -26,3 +29,15 @@ export const steps = [
       'Попробуйте новые комбинации расстановки мебели, скачайте план или отправьте его себе на почту. Для этого потребуется регистрация на сайте.',
   },
 ];
+
+export const Steps = () => {
+  return (
+    <Grid container rowSpacing={9} columnSpacing={4}>
+      {steps.map(({ title, content }) => (
+        <Grid item xs={4}>
+          <Step title={title} content={content} />
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
