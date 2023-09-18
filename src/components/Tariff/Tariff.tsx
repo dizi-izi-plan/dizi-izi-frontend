@@ -15,6 +15,8 @@ export type TariffType = {
 
 export const Tariff: FC<TariffType> = ({ tariff }) => {
   const isLoading: string = 'succeeded'; // позже - это будет переменная из redux slice
+  const bigSceletonsNumber: number = 3;
+  const smallSceletonsNumber: number = 14;
 
   return (
     <Box
@@ -27,7 +29,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
         borderWidth: '1px',
         borderColor: 'primary.main',
         borderStyle: 'solid',
-        padding: '56px 20px',
+        p: '56px 20px',
       }}
     >
       {isLoading === 'succeeded' ? (
@@ -35,7 +37,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
           <Typography
             variant="h2"
             color="secondary.contrastText"
-            sx={{ marginBottom: '20px' }}
+            sx={{ mb: '20px' }}
           >
             {tariff.name}
           </Typography>
@@ -45,7 +47,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
               color="secondary.contrastText"
               sx={{
                 lineHeight: '1.44',
-                marginBottom: '30px',
+                mb: '30px',
                 height: '108px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -61,7 +63,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
               <Typography
                 variant="h2"
                 color="secondary.contrastText"
-                sx={{ marginBottom: '30px', marginTop: '110px' }}
+                sx={{ mb: '30px', mt: '110px' }}
               >
                 Сайт работает в тестовом режиме
               </Typography>
@@ -78,7 +80,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
                 <Typography
                   variant="h3"
                   color="secondary.contrastText"
-                  sx={{ marginBottom: '40px' }}
+                  sx={{ mb: '40px' }}
                 >
                   Вам доступны
                 </Typography>
@@ -87,21 +89,21 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     rowGap: '10px',
-                    padding: 0,
+                    p: '0',
                   }}
                 >
                   {tariff.actions?.map((action) => (
-                    <ListItem key={action} sx={{ padding: 0 }}>
+                    <ListItem key={action} sx={{ p: '0' }}>
                       <ListItemIcon
                         sx={{
                           alignSelf: 'flex-start',
-                          paddingTop: '5px',
+                          pt: '5px',
                           minWidth: '36px',
                         }}
                       >
                         <CheckIcon sx={{ color: 'secondary.contrastText' }} />
                       </ListItemIcon>
-                      <ListItemText sx={{ padding: 0 }}>
+                      <ListItemText sx={{ p: '0' }}>
                         <Typography
                           sx={{ lineHeight: 'normal' }}
                           variant="body2"
@@ -119,7 +121,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
         </>
       ) : (
         <>
-          {[...new Array(3)].map((el, index) => (
+          {[...new Array(bigSceletonsNumber)].map((el, index) => (
             <Skeleton
               key={index}
               sx={{ bgcolor: 'myGrey.grey800', mb: '30px' }}
@@ -128,7 +130,7 @@ export const Tariff: FC<TariffType> = ({ tariff }) => {
               height={60}
             />
           ))}
-          {[...new Array(14)].map((el, index, array) => (
+          {[...new Array(smallSceletonsNumber)].map((el, index, array) => (
             <Skeleton
               key={index}
               sx={{
