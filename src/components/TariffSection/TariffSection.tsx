@@ -13,7 +13,6 @@ export const TariffSection = () => {
         alignItems: 'center',
         padding: '13% 11%',
         boxSizing: 'border-box',
-        minHeight: '100vh',
       }}
     >
       <Box
