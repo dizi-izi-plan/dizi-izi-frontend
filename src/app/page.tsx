@@ -169,6 +169,24 @@ export default function Home() {
             </Box>
           </Stack>
         </Container>
+        <Box
+          sx={{
+            marginTop: '122px',
+            textAlign: 'center',
+            borderTop: `1px solid #fff`,
+            padding: '32px 0 32px',
+          }}
+        >
+          <footer>
+            <Typography
+              variant="body1"
+              color="secondary.contrastText"
+              sx={{ fontWeight: '200' }}
+            >
+              © 2023 All rights reserved
+            </Typography>
+          </footer>
+        </Box>
       </Box>
     </main>
   );
