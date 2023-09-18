@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Cookie } from '@/components/Cookie/Cookie';
+import { Steps } from '@/components/Step/Steps';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       >
         <Container maxWidth="lg">
           <Cookie />
+
           <Stack flexDirection="column" alignItems="center" gap="264px">
             <Stack
               flexDirection="column"
@@ -30,7 +32,6 @@ export default function Home() {
                 >
                   DIZI IZI
                 </Typography>
-
                 <Typography
                   variant="subtitle1"
                   color="secondary.contrastText"
@@ -39,6 +40,7 @@ export default function Home() {
                   онлайн-проектирование интерьера
                 </Typography>
               </Box>
+
               <Button variant="default">Начать</Button>
             </Stack>
 
@@ -97,6 +99,23 @@ export default function Home() {
                   сохраненных комбинаций.
                 </Typography>
               </Stack>
+            </Stack>
+
+            <Stack
+              id="instruction"
+              flexDirection="column"
+              alignItems="center"
+              gap="104px"
+            >
+              <Typography
+                variant="h2"
+                color="secondary.contrastText"
+                alignSelf="flex-start"
+              >
+                ИНСТРУКЦИЯ
+              </Typography>
+
+              <Steps />
             </Stack>
           </Stack>
         </Container>
