@@ -41,6 +41,63 @@ export default function Home() {
               </Box>
               <Button variant="default">Начать</Button>
             </Stack>
+
+            <Stack
+              id="about"
+              flexDirection="column"
+              alignItems="center"
+              gap="104px"
+              sx={{ width: '100%' }}
+            >
+              <Typography
+                variant="h2"
+                color="secondary.contrastText"
+                alignSelf="flex-start"
+              >
+                О НАС
+              </Typography>
+
+              <Stack
+                flexDirection="column"
+                gap="44px"
+                sx={{ maxWidth: '615px', textAlign: 'center' }}
+              >
+                <Typography variant="body1" color="secondary.contrastText">
+                  <Box component="span" color="primary.main">
+                    DIZI IZI{' '}
+                  </Box>
+                  - онлайн-платформа для проектирования интерьера.
+                </Typography>
+
+                <Typography variant="body1" color="secondary.contrastText">
+                  Вы можете ввести параметры помещения, и наш инструмент создаст
+                  план расстановки мебели, план электроточек и другие
+                  необходимые схемы. Если решите не выбирать мебель, наш{' '}
+                  <Box component="span" color="primary.main">
+                    сервис подберет ее сам
+                  </Box>
+                  , исходя из параметров комнаты.
+                </Typography>
+
+                <Typography variant="body1" color="secondary.contrastText">
+                  Сейчас сайт доступен только для планировки спальни.
+                  Зарегистрированные пользователи могут{' '}
+                  <Box component="span" color="primary.main">
+                    сохранить
+                  </Box>{' '}
+                  в личном кабинете до трех планов.
+                </Typography>
+
+                <Typography variant="body1" color="secondary.contrastText">
+                  Сайт работает в{' '}
+                  <Box component="span" color="primary.main">
+                    тестовом режиме
+                  </Box>{' '}
+                  и предоставляется бесплатно с ограничениями по количеству
+                  сохраненных комбинаций.
+                </Typography>
+              </Stack>
+            </Stack>
           </Stack>
         </Container>
       </Box>
