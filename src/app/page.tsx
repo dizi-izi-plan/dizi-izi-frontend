@@ -117,6 +117,22 @@ export default function Home() {
 
               <Steps />
             </Stack>
+
+            <Stack
+              id="tariffs"
+              flexDirection="column"
+              alignItems="center"
+              gap="104px"
+            >
+              <Typography
+                variant="h2"
+                color="secondary.contrastText"
+                alignSelf="flex-start"
+              >
+                ТАРИФЫ
+              </Typography>
+              {/*TARIFFS WILL BE HERE*/}
+            </Stack>
           </Stack>
         </Container>
       </Box>
