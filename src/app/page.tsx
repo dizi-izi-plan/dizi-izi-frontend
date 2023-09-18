@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import { Cookie } from '@/components/Cookie/Cookie';
 import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
@@ -146,6 +147,26 @@ export default function Home() {
 
               <FAQ />
             </Stack>
+
+            <Box>
+              <Stack id="contacts" flexDirection="column" gap="62px">
+                <Typography variant="h2" color="secondary.contrastText">
+                  НАШИ КОНТАКТЫ
+                </Typography>
+
+                <Stack flexDirection="column" alignItems="center" gap="20px">
+                  <Link href="https://telegram.org/" target="_blank">
+                    <img
+                      src="/assets/icons/telegramIcon.svg"
+                      alt="Telegram icon link"
+                    />
+                  </Link>
+                  <Link href="mailto:dizi.izi.plan@gmail.com" variant="m">
+                    dizi.izi.plan@gmail.com
+                  </Link>
+                </Stack>
+              </Stack>
+            </Box>
           </Stack>
         </Container>
       </Box>
