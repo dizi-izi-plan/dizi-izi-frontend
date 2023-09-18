@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import { Cookie } from '@/components/Cookie/Cookie';
 import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -156,9 +157,11 @@ export default function Home() {
 
                 <Stack flexDirection="column" alignItems="center" gap="20px">
                   <Link href="https://telegram.org/" target="_blank">
-                    <img
+                    <Image
                       src="/assets/icons/telegramIcon.svg"
                       alt="Telegram icon link"
+                      width={44}
+                      height={44}
                     />
                   </Link>
                   <Link href="mailto:dizi.izi.plan@gmail.com" variant="m">
