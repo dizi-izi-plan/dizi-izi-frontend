@@ -34,7 +34,7 @@ export const Steps = () => {
   return (
     <Grid container rowSpacing={9} columnSpacing={4}>
       {steps.map(({ title, content }) => (
-        <Grid item xs={4}>
+        <Grid item xs={4} key={title}>
           <Step title={title} content={content} />
         </Grid>
       ))}
