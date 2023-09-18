@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { Tariff } from '../Tariff/Tariff';
+import { TariffContainer } from '../Tariff/TariffContainer';
 import { Typography } from '@mui/material';
 import { tariffInfoList } from './TariffData';
 
@@ -37,7 +37,7 @@ export const TariffSection = () => {
           }}
         >
           {tariffInfoList.map((tariff) => (
-            <Tariff key={tariff.name} tariff={tariff} />
+            <TariffContainer key={tariff.name} tariff={tariff} />
           ))}
         </Box>
       </Box>
