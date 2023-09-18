@@ -1,11 +1,19 @@
-import { DevPage } from '@/mui/DevPage';
-import { MuiButtons } from '@/mui/MuiButtons';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { Cookie } from '@/components/Cookie/Cookie';
 
 export default function Home() {
   return (
-    <>
-      <DevPage />
-      <MuiButtons />
-    </>
+    <main>
+      <Box
+        sx={{
+          backgroundColor: 'primary.contrastText',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Cookie />
+        </Container>
+      </Box>
+    </main>
   );
 }
