@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Cookie } from '@/components/Cookie/Cookie';
 import { Steps } from '@/components/Step/Steps';
+import { FAQ } from '@/components/FAQ/FAQ';
 
 export default function Home() {
   return (
@@ -132,6 +133,18 @@ export default function Home() {
                 ТАРИФЫ
               </Typography>
               {/*TARIFFS WILL BE HERE*/}
+            </Stack>
+
+            <Stack id="faq" flexDirection="column" gap="104px">
+              <Typography
+                variant="h2"
+                color="secondary.contrastText"
+                alignSelf="flex-start"
+              >
+                F.A.Q.
+              </Typography>
+
+              <FAQ />
             </Stack>
           </Stack>
         </Container>
