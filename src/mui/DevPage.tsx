@@ -18,6 +18,7 @@ import { Cookie } from '@/components/Cookie/Cookie';
 import { Step } from '@/components/Step/Step';
 import { steps } from '@/components/Step/steps.data';
 import { FAQ } from '@/components/FAQ/FAQ';
+import { TariffSection } from '@/components/TariffSection/TariffSection';
 
 export const DevPage: FC = () => {
   return (
@@ -64,7 +65,7 @@ export const DevPage: FC = () => {
       <Box
         sx={{
           width: 462,
-          backgroundColor: 'black.main',
+          backgroundColor: 'primary.contrastText',
           padding: '40px 20px',
           marginLeft: 10,
           display: 'flex',
@@ -134,7 +135,7 @@ export const DevPage: FC = () => {
       <Box
         sx={{
           width: 462,
-          backgroundColor: 'black.main',
+          backgroundColor: 'primary.contrastText',
           padding: '10px 10px',
           marginLeft: 10,
           display: 'flex',
@@ -179,12 +180,15 @@ export const DevPage: FC = () => {
         <Step title={steps[0].title} content={steps[0].content} />
       </Box>
       <Box
-      sx={{
-        backgroundColor: 'primary.contrastText',
-        p: 5,
-      }}
+        sx={{
+          backgroundColor: 'primary.contrastText',
+          p: 5,
+        }}
       >
         <FAQ></FAQ>
+      </Box>
+      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
+        <TariffSection />
       </Box>
     </>
   );
