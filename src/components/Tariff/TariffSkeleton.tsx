@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 
-export const TariffSceleton: FC = () => {
-  const bigSceletonsNumber: number = 3;
-  const smallSceletonsNumber: number = 14;
+export const TariffSkeleton: FC = () => {
+  const bigSkeletonsNumber: number = 3;
+  const smallSkeletonsNumber: number = 14;
 
   return (
     <>
-      {[...new Array(bigSceletonsNumber)].map((el, index) => (
+      {[...new Array(bigSkeletonsNumber)].map((el, index) => (
         <Skeleton
           key={index}
           sx={{ bgcolor: 'myGrey.grey800', mb: '30px' }}
@@ -16,7 +16,7 @@ export const TariffSceleton: FC = () => {
           height={60}
         />
       ))}
-      {[...new Array(smallSceletonsNumber)].map((el, index, array) => (
+      {[...new Array(smallSkeletonsNumber)].map((el, index, array) => (
         <Skeleton
           key={index}
           sx={{
