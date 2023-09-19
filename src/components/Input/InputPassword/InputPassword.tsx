@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { forwardRef, useState, Ref } from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -11,14 +11,14 @@ import {
   InputVariant,
 } from '@/components/Input/classNameConstants';
 
-type InputPasswordProps = TextFieldProps & {
+export type InputPasswordProps = TextFieldProps & {
   className: InputVariant;
 };
 
-export const InputPassword: React.FC<InputPasswordProps> = ({
-  className,
-  ...props
-}) => {
+export const Password = (
+  { className, ...props }: InputPasswordProps,
+  ref: Ref<HTMLInputElement>,
+) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const visibilityStyles = {
@@ -37,6 +37,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
       label={props.label}
       placeholder={props.placeholder}
       onChange={props.onChange}
+      ref={ref}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -59,3 +60,5 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
     />
   );
 };
+
+export const InputPassword = forwardRef(Password);

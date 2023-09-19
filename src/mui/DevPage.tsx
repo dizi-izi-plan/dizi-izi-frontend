@@ -19,6 +19,7 @@ import { Step } from '@/components/Step/Step';
 import { steps } from '@/components/Step/steps.data';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
+import { LoginForm } from '@/components/Input/LoginForm';
 
 export const DevPage: FC = () => {
   return (
@@ -186,6 +187,7 @@ export const DevPage: FC = () => {
         }}
       >
         <FAQ></FAQ>
+        <LoginForm />
       </Box>
       <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
         <TariffSection />
