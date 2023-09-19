@@ -4,10 +4,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import Image from 'next/image';
 import { Cookie } from '@/components/Cookie/Cookie';
 import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
-import Image from 'next/image';
+import { TariffSection } from '@/components/TariffSection/TariffSection';
 
 export default function Home() {
   return (
@@ -126,6 +127,7 @@ export default function Home() {
               flexDirection="column"
               alignItems="center"
               gap="104px"
+              sx={{ width: '100%' }}
             >
               <Typography
                 variant="h2"
@@ -134,7 +136,7 @@ export default function Home() {
               >
                 ТАРИФЫ
               </Typography>
-              {/*TARIFFS WILL BE HERE*/}
+              <TariffSection />
             </Stack>
 
             <Stack id="faq" flexDirection="column" gap="104px">
