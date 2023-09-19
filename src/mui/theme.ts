@@ -489,6 +489,15 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiContainer: {
+      styleOverrides: {
+        maxWidthLg: {
+          [theme.breakpoints.up('lg')]: {
+            maxWidth: '1120px',
+          },
+        },
+      },
+    },
   },
 });
 
