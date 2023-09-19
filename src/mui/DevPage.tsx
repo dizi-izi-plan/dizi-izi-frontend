@@ -32,6 +32,7 @@ import {
   MODAL_CONFIRM_QUESTIONS,
   MODAL_NOTICE,
 } from '@/components/Modal/modal.data';
+import { TariffSection } from '@/components/TariffSection/TariffSection';
 
 export const DevPage: FC = () => {
   const [openYesNo, setOpenYesNo] = useState(false);
@@ -261,6 +262,9 @@ export const DevPage: FC = () => {
         handleClose={() => setOpen(false)}
         icon={<ModalIcon />}
       />
+      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
+        <TariffSection />
+      </Box>
     </>
   );
 };
