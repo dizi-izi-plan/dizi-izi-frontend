@@ -17,6 +17,7 @@ import {
 import { Cookie } from '@/components/Cookie/Cookie';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { Steps } from '@/components/Step/Steps';
+import { TariffSection } from '@/components/TariffSection/TariffSection';
 
 export const DevPage: FC = () => {
   return (
@@ -63,7 +64,7 @@ export const DevPage: FC = () => {
       <Box
         sx={{
           width: 462,
-          backgroundColor: 'black.main',
+          backgroundColor: 'primary.contrastText',
           padding: '40px 20px',
           marginLeft: 10,
           display: 'flex',
@@ -133,7 +134,7 @@ export const DevPage: FC = () => {
       <Box
         sx={{
           width: 462,
-          backgroundColor: 'black.main',
+          backgroundColor: 'primary.contrastText',
           padding: '10px 10px',
           marginLeft: 10,
           display: 'flex',
@@ -184,6 +185,9 @@ export const DevPage: FC = () => {
         }}
       >
         <FAQ></FAQ>
+      </Box>
+      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
+        <TariffSection />
       </Box>
     </>
   );
