@@ -5,11 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import CheckIcon from '@mui/icons-material/Check';
-import { TariffInfo } from '../TariffSection/TariffDataTypes';
-
-export type TariffType = {
-  tariff: TariffInfo;
-};
+import { TariffType } from '../TariffSection/TariffDataTypes';
 
 export const TariffInfoList: FC<TariffType> = ({ tariff }) => (
   <>

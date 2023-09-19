@@ -1,14 +1,10 @@
 import { FC } from 'react';
 import Box from '@mui/material/Box';
-import { TariffInfo } from '../TariffSection/TariffDataTypes';
+import { TariffType } from '../TariffSection/TariffDataTypes';
 import { TariffInfoList } from './TariffInfoList';
 import { TariffSceleton } from './TeriffSceleton';
 
-export type TariffType = {
-  tariff: TariffInfo;
-};
-
-export const TariffContainer: FC<TariffType> = ({ tariff }) => {
+export const TariffContainer: FC<TariffType> = (props) => {
   const isLoading: string = 'succeeded'; // позже - это будет переменная из redux slice
 
   return (
@@ -26,7 +22,7 @@ export const TariffContainer: FC<TariffType> = ({ tariff }) => {
       }}
     >
       {isLoading === 'succeeded' ? (
-        <TariffInfoList tariff={tariff} />
+        <TariffInfoList {...props} />
       ) : (
         <TariffSceleton />
       )}
