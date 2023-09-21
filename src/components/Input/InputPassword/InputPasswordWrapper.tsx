@@ -1,10 +1,10 @@
 import React from 'react';
 import { UseControllerProps, useController } from 'react-hook-form';
 import { InputPassword, InputPasswordProps } from './InputPassword';
-import { FormValues } from '@/components/Forms/LoginForm';
+import { LoginFormType } from '@/components/Forms/LoginForm/validationSchema';
 
 export const InputPasswordWrapper = (
-  props: UseControllerProps<FormValues> & InputPasswordProps,
+  props: UseControllerProps<LoginFormType> & InputPasswordProps,
 ) => {
   const { field } = useController(props);
 
