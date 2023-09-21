@@ -440,9 +440,19 @@ theme = createTheme(theme, {
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
+          paddingLeft: '0px',
+          paddingRight: '0px',
           '& .MuiAccordionSummary-content': {
             margin: '20px 0',
           },
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '0px',
+          paddingRight: '0px',
         },
       },
     },
