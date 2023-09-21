@@ -17,7 +17,7 @@ export type InputPasswordProps = TextFieldProps & {
 
 export const Password = (
   { className, ...props }: InputPasswordProps,
-  ref: Ref<HTMLInputElement>,
+  ref: Ref<HTMLInputElement | HTMLDivElement>,
 ) => {
   const [showPassword, setShowPassword] = useState(false);
 
