@@ -15,6 +15,7 @@ type SelectTextFieldProps = TextFieldProps & {
 export const AutocompleteCities = (props: SelectTextFieldProps) => {
   const dispatch = useAppDispatch();
   const apiCities = useAppSelector((state) => state.cities.citiesNames);
+  console.log(apiCities);
 
   const handleOnFocus = useCallback(() => {
     if (!apiCities.length) {
