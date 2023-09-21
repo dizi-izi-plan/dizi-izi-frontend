@@ -24,7 +24,7 @@ export let theme = createTheme({
       contrastText: '#FFFFFF',
     },
     error: {
-      main: '#E50505',
+      main: '#E55605',
     },
     success: {
       main: '#0CBA1D',
