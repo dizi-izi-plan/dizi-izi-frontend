@@ -208,18 +208,18 @@ theme = createTheme(theme, {
               color: theme.palette.myGrey.grey600,
               fontSize: 18,
               fontWeight: 400,
+              top: '-15px',
+              left: '-12px',
             },
             '& .MuiOutlinedInput-input::placeholder': {
               color: theme.palette.myGrey.grey500,
               opacity: 1,
               fontSize: 20,
             },
-            '& .MuiSelect-select': {
-              boxSizing: 'border-box',
-            },
-            '& .MuiSelect-select em': {
-              color: theme.palette.myGrey.grey500,
-              fontStyle: 'normal',
+            '& .MuiAutocomplete-input': {
+              position: 'relative',
+              top: '-25px',
+              left: '-9px',
             },
           },
           '&.subvariant-grey': {

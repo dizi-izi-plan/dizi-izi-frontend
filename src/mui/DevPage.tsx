@@ -9,7 +9,7 @@ import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import { InputPassword } from '../components/Input/InputPassword/InputPassword';
-import { SelectTextField } from '../components/SelectTextField/SelectTextField';
+import { AutocompleteCities } from '../components/SelectTextField/AutocompleteCities';
 import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
@@ -175,10 +175,8 @@ export const DevPage: FC = () => {
           label="Дата рождения"
           className={CLASS_NAMES_INPUT.light}
         />
-        <SelectTextField
-          select
+        <AutocompleteCities
           label="Город проживания"
-          defaultValue=""
           placeholder="Выберете город"
           className={CLASS_NAMES_INPUT.light}
         />

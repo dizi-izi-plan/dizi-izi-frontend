@@ -26,11 +26,12 @@ export const fetchCities = createAsyncThunk(
 
       const cities: string[] = [];
       data.areas.forEach((region) => {
+        cities.push(region.name);
         for (const city of region.areas) {
           cities.push(city.name);
         }
       });
-      return cities;
+      return cities.sort();
     } catch (err: unknown) {
       const error = err as RequestError;
       return error.errors.type;
