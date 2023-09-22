@@ -19,7 +19,7 @@ import { Step } from '@/components/Step/Step';
 import { steps } from '@/components/Step/steps.data';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
-import { LoginForm } from '@/components/Input/LoginForm';
+import { LoginForm } from '@/components/Forms/LoginForm/LoginForm';
 
 export const DevPage: FC = () => {
   return (
