@@ -24,14 +24,14 @@ export const fetchCities = createAsyncThunk(
       const res = await fetch('https://api.hh.ru/areas/113');
       const data: CountryResponse = await res.json();
 
-      const cities: string[] = [];
+      const set = new Set<string>();
       data.areas.forEach((region) => {
-        cities.push(region.name);
+        set.add(region.name);
         for (const city of region.areas) {
-          cities.push(city.name);
+          set.add(city.name);
         }
       });
-      return cities.sort();
+      return Array.from(set).sort();
     } catch (err: unknown) {
       const error = err as RequestError;
       return error.errors.type;
