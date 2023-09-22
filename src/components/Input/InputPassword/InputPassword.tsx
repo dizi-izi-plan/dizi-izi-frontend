@@ -13,6 +13,7 @@ import {
 
 export type InputPasswordProps = TextFieldProps & {
   className: InputVariant;
+  errorMessage?: string;
 };
 
 export const Password = (
