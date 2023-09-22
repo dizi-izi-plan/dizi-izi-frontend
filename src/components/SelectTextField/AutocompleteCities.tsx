@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { InputVariant } from '@/components/Input/classNameConstants';
@@ -15,13 +15,18 @@ type SelectTextFieldProps = TextFieldProps & {
 export const AutocompleteCities = (props: SelectTextFieldProps) => {
   const dispatch = useAppDispatch();
   const apiCities = useAppSelector((state) => state.cities.citiesNames);
-  console.log(apiCities);
+
+  const [citiesList, setCitiesList] = useState<string[]>([]);
 
   const handleOnFocus = useCallback(() => {
     if (!apiCities.length) {
       dispatch(fetchCities());
     }
   }, [apiCities, dispatch]);
+
+  useEffect(() => {
+    setCitiesList(apiCities);
+  }, [apiCities]);
 
   return (
     <Autocomplete
@@ -31,7 +36,7 @@ export const AutocompleteCities = (props: SelectTextFieldProps) => {
       onFocus={handleOnFocus}
       disablePortal
       noOptionsText={'Идет загрузка...'}
-      options={apiCities.sort()}
+      options={citiesList}
       renderInput={(params) => (
         <TextField
           {...params}
