@@ -40,7 +40,7 @@ export const LoginForm = () => {
         </Typography>
       </Box>
       <form onSubmit={onSubmit}>
-        <Stack spacing={4} mb={4}>
+        <Stack spacing={3} mb={4}>
           <Stack rowGap={6}>
             <TextFieldWrapper
               name={LOGIN_FORM_NAMES.login}
