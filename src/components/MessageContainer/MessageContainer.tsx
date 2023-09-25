@@ -33,8 +33,8 @@ export const MessageContainer = ({ text, button }: MessagePageProps) => {
           key={index}
           variant="body2"
           color="secondary.contrastText"
-          maxWidth={'500px'}
           textAlign={'center'}
+          whiteSpace={'pre-line'}
         >
           {text}
         </Typography>
