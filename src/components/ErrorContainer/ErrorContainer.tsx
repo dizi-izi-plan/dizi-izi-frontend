@@ -17,35 +17,42 @@ export const ErrorContainer = ({ title, subtitle, code }: ErrorPageProps) => {
   return (
     <Stack
       width={'100%'}
-      height={'calc(100vh - 90px)'}
+      minHeight={'calc(100vh - 90px)'}
       justifyContent={'space-between'}
       alignItems={'center'}
-      p={'118px 0'}
+      p={'133px 0 118px'}
       sx={{ backgroundColor: 'primary.contrastText' }}
     >
-      <Typography variant="h3" color="secondary.contrastText">
-        {title}
-      </Typography>
-      {subtitle && (
-        <Typography
-          variant="body2"
-          color="secondary.contrastText"
-          maxWidth={'850px'}
-          textAlign={'center'}
-        >
-          {subtitle}
+      <Stack
+        rowGap={subtitle ? '98px' : '60px'}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+      >
+        <Typography variant="h3" color="secondary.contrastText">
+          {title}
         </Typography>
-      )}
-      {code && (
-        <Typography
-          variant="h1"
-          fontWeight={'400'}
-          color="secondary.contrastText"
-          letterSpacing={'24.96px'}
-        >
-          {code}
-        </Typography>
-      )}
+        {subtitle && (
+          <Typography
+            variant="body2"
+            color="secondary.contrastText"
+            maxWidth={'850px'}
+            textAlign={'center'}
+          >
+            {subtitle}
+          </Typography>
+        )}
+        {code && (
+          <Typography
+            variant="h1"
+            fontWeight={'400'}
+            color="secondary.contrastText"
+            letterSpacing={'24.96px'}
+            // pt={'48px'}
+          >
+            {code}
+          </Typography>
+        )}
+      </Stack>
       <Button variant="default" size="large" onClick={() => router.back()}>
         Назад
       </Button>
