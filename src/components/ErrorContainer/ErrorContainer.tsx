@@ -1,4 +1,6 @@
+'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -10,6 +12,8 @@ interface ErrorPageProps {
 }
 
 export const ErrorContainer = ({ title, subtitle, code }: ErrorPageProps) => {
+  const router = useRouter();
+
   return (
     <Stack
       width={'100%'}
@@ -42,7 +46,7 @@ export const ErrorContainer = ({ title, subtitle, code }: ErrorPageProps) => {
           {code}
         </Typography>
       )}
-      <Button variant="default" size="large">
+      <Button variant="default" size="large" onClick={() => router.back()}>
         Назад
       </Button>
     </Stack>
