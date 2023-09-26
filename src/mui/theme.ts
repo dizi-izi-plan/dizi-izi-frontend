@@ -197,8 +197,8 @@ theme = createTheme(theme, {
             '& .MuiOutlinedInput-root': {
               borderWidth: '1px',
               borderColor: theme.palette.primary.main,
-              borderStyle: 'solid',
               maxHeight: 55,
+              borderStyle: 'solid',
               borderRadius: 0,
               '& > fieldset': {
                 border: 'none',
@@ -208,9 +208,18 @@ theme = createTheme(theme, {
               color: theme.palette.myGrey.grey600,
               fontSize: 18,
               fontWeight: 400,
+              top: '-15px',
+              left: '-12px',
             },
             '& .MuiOutlinedInput-input::placeholder': {
-              color: '#898989',
+              color: theme.palette.myGrey.grey500,
+              opacity: 1,
+              fontSize: 20,
+            },
+            '& .MuiAutocomplete-input': {
+              position: 'relative',
+              top: '-25px',
+              left: '-9px',
             },
           },
           '&.subvariant-grey': {
@@ -226,6 +235,7 @@ theme = createTheme(theme, {
             },
             '& .MuiOutlinedInput-input::placeholder': {
               color: theme.palette.myGrey.grey300,
+              opacity: 1,
             },
           },
         },
@@ -465,6 +475,16 @@ theme = createTheme(theme, {
             color: theme.palette.black.main,
             stroke: theme.palette.black.main,
             backgroundColor: theme.palette.secondary.contrastText,
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '& em': {
+            color: theme.palette.myGrey.grey500,
+            fontStyle: 'normal',
           },
         },
       },

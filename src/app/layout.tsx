@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { ThemeRegistry } from '../mui/ThemeRegistry';
 import { Header } from '@/components/Header/Header';
+import { Providers } from '@/redux/provider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,8 +15,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ThemeRegistry options={{ key: 'mui' }}>
       <html lang="en">
         <body>
-          <Header />
-          {children}
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
         </body>
       </html>
     </ThemeRegistry>
