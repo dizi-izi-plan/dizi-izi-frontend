@@ -13,7 +13,12 @@ export const MuiButtons = () => {
         spacing={2}
         sx={{ backgroundColor: '#7a7a7a', padding: '20px' }}
       >
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          sx={{ flexWrap: 'wrap' }}
+        >
           <h2>Default button:</h2>
           <span>color:primary</span>
           <Button variant="default" size="small">
