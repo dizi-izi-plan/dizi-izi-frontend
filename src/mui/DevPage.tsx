@@ -1,4 +1,6 @@
-import { FC } from 'react';
+'use client';
+
+import { FC, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -8,6 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
 import { InputPassword } from '../components/Input/InputPassword/InputPassword';
 import { AutocompleteCities } from '../components/SelectTextField/AutocompleteCities';
 import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
@@ -21,8 +24,18 @@ import { steps } from '@/components/Step/steps.data';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
 import { LoginForm } from '@/components/Forms/LoginForm/LoginForm';
+import { ModalTemplate } from '@/components/Modal/ModalTemplate';
+import {
+  MODAL_YES_NO_QUESTIONS,
+  MODAL_CONFIRM_QUESTIONS,
+  MODAL_NOTICE,
+} from '../components/Modal/modal.data';
 
 export const DevPage: FC = () => {
+  const [openYesNo, setOpenYesNo] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <Typography color="myGrey.grey100" variant="h1">
@@ -198,6 +211,50 @@ export const DevPage: FC = () => {
       <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
         <TariffSection />
       </Box>
+      <Typography>Открытие модалок:</Typography>
+      <Stack direction="row" columnGap="20px">
+        <Button
+          variant="default"
+          sx={{ color: 'black.main', p: '16px 54px' }}
+          size="medium"
+          onClick={() => setOpenYesNo(true)}
+        >
+          yes/no question
+        </Button>
+        <Button
+          variant="default"
+          sx={{ color: 'black.main', p: '16px 54px' }}
+          size="medium"
+          onClick={() => setOpenConfirm(true)}
+        >
+          confirm question
+        </Button>
+        <Button
+          variant="default"
+          sx={{ color: 'black.main', p: '16px 54px' }}
+          size="medium"
+          onClick={() => setOpen(true)}
+        >
+          без кнопок
+        </Button>
+      </Stack>
+      <ModalTemplate
+        text={MODAL_YES_NO_QUESTIONS[0]}
+        open={openYesNo}
+        yesNoQuestion={true}
+        onClose={() => setOpenYesNo(false)}
+      />
+      <ModalTemplate
+        text={MODAL_CONFIRM_QUESTIONS[0]}
+        open={openConfirm}
+        confirmQuestion={true}
+        onClose={() => setOpenConfirm(false)}
+      />
+      <ModalTemplate
+        text={MODAL_NOTICE[0]}
+        open={open}
+        onClose={() => setOpen(false)}
+      />
     </>
   );
 };
