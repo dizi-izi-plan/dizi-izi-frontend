@@ -177,7 +177,7 @@ export const DevPage: FC = () => {
         />
         <AutocompleteCities
           label="Город проживания"
-          placeholder="Выберете город"
+          placeholder="Выберите город"
           className={CLASS_NAMES_INPUT.light}
         />
       </Box>
