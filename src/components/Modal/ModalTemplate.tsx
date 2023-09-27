@@ -6,10 +6,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
+import { textArrType } from './modal.data';
 
 interface ModalTemplate {
   open: boolean;
-  text: string;
+  text: textArrType;
   yesNoQuestion?: boolean;
   handleYes?: () => void;
   confirmQuestion?: boolean;
@@ -51,14 +52,19 @@ export const ModalTemplate = ({
         <Stack rowGap="16px">
           <Stack direction="row" columnGap="21px" alignItems="center">
             <ModalIcon />
-            <Typography
-              variant="body1"
-              color="black.main"
-              maxWidth="425px"
-              whiteSpace="pre-line"
-            >
-              {text}
-            </Typography>
+            <Stack rowGap="20px">
+              {text.map((part, index) => (
+                <Typography
+                  key={index}
+                  variant="body1"
+                  color="black.main"
+                  maxWidth="425px"
+                  whiteSpace="pre-line"
+                >
+                  {part}
+                </Typography>
+              ))}
+            </Stack>
           </Stack>
           <Stack
             direction="row"
