@@ -8,16 +8,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import { InputPassword } from '../components/Input/InputPassword/InputPassword';
-import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
+import { InputPassword } from '@/components/Input/InputPassword/InputPassword';
+import { LocalDatePicker } from '@/components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { Cookie } from '@/components/Cookie/Cookie';
-import { FAQ } from '@/components/FAQ/FAQ';
-import { Steps } from '@/components/Step/Steps';
-import { TariffSection } from '@/components/TariffSection/TariffSection';
 
 export const DevPage: FC = () => {
   return (
@@ -175,20 +172,6 @@ export const DevPage: FC = () => {
         />
       </Box>
       <Cookie />
-      <Box sx={{ backgroundColor: 'secondary.main', p: 5 }}>
-        <Steps />
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'primary.contrastText',
-          p: 5,
-        }}
-      >
-        <FAQ></FAQ>
-      </Box>
-      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
-        <TariffSection />
-      </Box>
     </>
   );
 };

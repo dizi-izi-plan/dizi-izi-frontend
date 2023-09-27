@@ -1,10 +1,10 @@
-import { FC } from 'react';
 import Skeleton from '@mui/material/Skeleton';
+import {
+  bigSkeletonsNumber,
+  smallSkeletonsNumber,
+} from '@/components/Tariff/tariffSkeleton.data';
 
-export const TariffSkeleton: FC = () => {
-  const bigSkeletonsNumber: number = 3;
-  const smallSkeletonsNumber: number = 14;
-
+export const TariffSkeleton = () => {
   return (
     <>
       {[...new Array(bigSkeletonsNumber)].map((el, index) => (
