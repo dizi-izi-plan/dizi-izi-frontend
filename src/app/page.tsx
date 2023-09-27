@@ -25,8 +25,8 @@ export default function Home() {
             <Stack
               flexDirection="column"
               alignItems="center"
-              gap="54px"
-              sx={{ marginTop: '142px' }}
+              spacing={7}
+              mt={18}
             >
               <Box>
                 <Typography
@@ -50,10 +50,10 @@ export default function Home() {
 
             <Stack
               id="about"
+              width="100%"
               flexDirection="column"
               alignItems="center"
-              gap="104px"
-              sx={{ width: '100%' }}
+              spacing={13}
             >
               <Typography
                 variant="h2"
@@ -65,7 +65,7 @@ export default function Home() {
 
               <Stack
                 flexDirection="column"
-                gap="44px"
+                spacing={5.5}
                 sx={{ maxWidth: '615px', textAlign: 'center' }}
               >
                 <Typography variant="body1" color="secondary.contrastText">
@@ -109,7 +109,7 @@ export default function Home() {
               id="instruction"
               flexDirection="column"
               alignItems="center"
-              gap="104px"
+              spacing={13}
             >
               <Typography
                 variant="h2"
@@ -124,10 +124,10 @@ export default function Home() {
 
             <Stack
               id="tariffs"
+              width="100%"
               flexDirection="column"
               alignItems="center"
-              gap="104px"
-              sx={{ width: '100%' }}
+              spacing={13}
             >
               <Typography
                 variant="h2"
@@ -139,7 +139,7 @@ export default function Home() {
               <TariffSection />
             </Stack>
 
-            <Stack id="faq" flexDirection="column" gap="104px">
+            <Stack id="faq" flexDirection="column" spacing={13}>
               <Typography
                 variant="h2"
                 color="secondary.contrastText"
@@ -152,12 +152,12 @@ export default function Home() {
             </Stack>
 
             <Box>
-              <Stack id="contacts" flexDirection="column" gap="62px">
+              <Stack id="contacts" flexDirection="column" spacing={8}>
                 <Typography variant="h2" color="secondary.contrastText">
                   НАШИ КОНТАКТЫ
                 </Typography>
 
-                <Stack flexDirection="column" alignItems="center" gap="20px">
+                <Stack flexDirection="column" alignItems="center" spacing={2.5}>
                   <Link href="https://telegram.org/" target="_blank">
                     <Image
                       src="/assets/icons/telegramIcon.svg"
@@ -175,8 +175,8 @@ export default function Home() {
           </Stack>
         </Container>
         <Box
+          mt={15}
           sx={{
-            marginTop: '122px',
             textAlign: 'center',
             borderTop: `1px solid #fff`,
             padding: '32px 0 32px',

@@ -14,6 +14,8 @@ import Stack from '@mui/material/Stack';
 import { InputPassword } from '@/components/Input/InputPassword/InputPassword';
 import { AutocompleteCities } from '@/components/SelectTextField/AutocompleteCities';
 import { LocalDatePicker } from '@/components/LocalDatePicker/LocalDatePicker';
+import { InputPassword } from '@/components/Input/InputPassword/InputPassword';
+import { LocalDatePicker } from '@/components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
