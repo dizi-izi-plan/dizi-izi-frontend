@@ -20,12 +20,12 @@ export const MessageContainer = ({ text, button }: MessagePageProps) => {
 
   return (
     <Stack
-      width={'100%'}
-      minHeight={'calc(100vh - 90px)'}
-      justifyContent={'flex-start'}
-      alignItems={'center'}
-      rowGap={'32px'}
-      p={'72px 0'}
+      width="100%"
+      minHeight="calc(100vh - 90px)"
+      justifyContent="flex-start"
+      alignItems="center"
+      rowGap="32px"
+      p="72px 0"
       sx={{ backgroundColor: 'primary.contrastText' }}
     >
       {text.map((text, index) => (
@@ -33,8 +33,8 @@ export const MessageContainer = ({ text, button }: MessagePageProps) => {
           key={index}
           variant="body2"
           color="secondary.contrastText"
-          textAlign={'center'}
-          whiteSpace={'pre-line'}
+          textAlign="center"
+          whiteSpace="pre-line"
         >
           {text}
         </Typography>

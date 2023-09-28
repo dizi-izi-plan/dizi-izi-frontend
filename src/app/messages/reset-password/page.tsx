@@ -1,6 +1,6 @@
 import { MessageContainer } from '@/components/MessageContainer/MessageContainer';
 
-export default function ErrorPageNotFound() {
+export default function ResetPassword() {
   const email = 'P!111111@gmail.com'; // перекинуть сюда email с прошлой сраницы, куда пользоваетль ввел почту
 
   const text = [
