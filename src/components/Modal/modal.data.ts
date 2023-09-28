@@ -1,4 +1,4 @@
-export type textArrType = string[];
+import { textArrType } from './ModalTypes';
 
 export const MODAL_YES_NO_QUESTIONS: textArrType[] = [
   [`Дублирование проекта означает создать Новый проект. Создать Новый проект?`],

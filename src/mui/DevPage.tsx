@@ -24,7 +24,10 @@ import { steps } from '@/components/Step/steps.data';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
 import { LoginForm } from '@/components/Forms/LoginForm/LoginForm';
-import { ModalTemplate } from '@/components/Modal/ModalTemplate';
+import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
+import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
+import { ModalOneButton } from '@/components/Modal/ModalOneButton';
+import ModalIcon from '../../public/assets/icons/modal_icon.svg';
 import {
   MODAL_YES_NO_QUESTIONS,
   MODAL_CONFIRM_QUESTIONS,
@@ -238,22 +241,26 @@ export const DevPage: FC = () => {
           без кнопок
         </Button>
       </Stack>
-      <ModalTemplate
+      <ModalTwoButtons
         text={MODAL_YES_NO_QUESTIONS[0]}
-        open={openYesNo}
-        yesNoQuestion={true}
-        onClose={() => setOpenYesNo(false)}
+        isModalOpen={openYesNo}
+        handleClose={() => setOpenYesNo(false)}
+        icon={<ModalIcon />}
+        nameButtonYes={'Да'}
+        nameButtonNo={'Нет'}
       />
-      <ModalTemplate
+      <ModalOneButton
         text={MODAL_CONFIRM_QUESTIONS[0]}
-        open={openConfirm}
-        confirmQuestion={true}
-        onClose={() => setOpenConfirm(false)}
+        isModalOpen={openConfirm}
+        handleClose={() => setOpenConfirm(false)}
+        icon={<ModalIcon />}
+        nameButton={'Продолжить'}
       />
-      <ModalTemplate
+      <ModalCommonTemplate
         text={MODAL_NOTICE[0]}
-        open={open}
-        onClose={() => setOpen(false)}
+        isModalOpen={open}
+        handleClose={() => setOpen(false)}
+        icon={<ModalIcon />}
       />
     </>
   );
