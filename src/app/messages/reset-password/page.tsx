@@ -1,6 +1,6 @@
 import { MessageContainer } from '@/components/MessageContainer/MessageContainer';
 
-export default function ResetPassword() {
+const ResetPassword = () => {
   const email = 'P!111111@gmail.com'; // перекинуть сюда email с прошлой сраницы, куда пользоваетль ввел почту
 
   const text = [
@@ -11,4 +11,6 @@ export default function ResetPassword() {
   ];
 
   return <MessageContainer text={text} />;
-}
+};
+
+export default ResetPassword;

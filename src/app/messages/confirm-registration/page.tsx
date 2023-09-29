@@ -1,12 +1,9 @@
 import { MessageContainer } from '@/components/MessageContainer/MessageContainer';
 
-export default function ConfirmRegistration() {
-  // вероятно, url будет содержать uid, token, попросить, чтобы бэки вприсали email? иначе откуда взять? или это не серьюрно?
-  const email = 'hhh1133@mail.ru'; // перекинуть сюда email из url страницы, если бэки его предоставляют
-
+const ConfirmRegistration = () => {
   const text = [
-    `Спасибо, что подтвердили ваш адрес ${email}.
-    Начните проектировать квартиру своей мечты. `,
+    `Спасибо, что подтвердили ваш адрес.
+    Войдите, чтобы начать проектировать квартиру своей мечты. `,
   ];
 
   const buttonInfo = {
@@ -15,4 +12,6 @@ export default function ConfirmRegistration() {
   };
 
   return <MessageContainer text={text} button={buttonInfo} />;
-}
+};
+
+export default ConfirmRegistration;
