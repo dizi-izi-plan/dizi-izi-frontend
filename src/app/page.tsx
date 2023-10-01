@@ -9,6 +9,7 @@ import { Cookie } from '@/components/Cookie/Cookie';
 import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
+import { EmailCopyLink } from '@/components/Popover/EmailCopyLink';
 
 export default function Home() {
   return (
@@ -166,9 +167,7 @@ export default function Home() {
                       height={44}
                     />
                   </Link>
-                  <Link href="mailto:dizi.izi.plan@gmail.com" variant="m">
-                    dizi.izi.plan@gmail.com
-                  </Link>
+                  <EmailCopyLink />
                 </Stack>
               </Stack>
             </Box>
