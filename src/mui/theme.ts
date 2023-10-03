@@ -450,9 +450,19 @@ theme = createTheme(theme, {
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
+          paddingLeft: '0px',
+          paddingRight: '0px',
           '& .MuiAccordionSummary-content': {
             margin: '20px 0',
           },
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '0px',
+          paddingRight: '0px',
         },
       },
     },
@@ -485,6 +495,15 @@ theme = createTheme(theme, {
           '& em': {
             color: theme.palette.myGrey.grey500,
             fontStyle: 'normal',
+          },
+        },
+      },
+    },
+    MuiContainer: {
+      styleOverrides: {
+        maxWidthLg: {
+          [theme.breakpoints.up('lg')]: {
+            maxWidth: '1120px',
           },
         },
       },

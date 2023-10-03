@@ -11,17 +11,16 @@ import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import { InputPassword } from '../components/Input/InputPassword/InputPassword';
-import { AutocompleteCities } from '../components/SelectTextField/AutocompleteCities';
-import { LocalDatePicker } from '../components/LocalDatePicker/LocalDatePicker';
+import { AutocompleteCities } from '@/components/SelectTextField/AutocompleteCities';
+import { LocalDatePicker } from '@/components/LocalDatePicker/LocalDatePicker';
+import { InputPassword } from '@/components/Input/InputPassword/InputPassword';
 import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
-} from '../components/Input/classNameConstants';
+} from '@/components/Input/classNameConstants';
 import { Cookie } from '@/components/Cookie/Cookie';
-import { Step } from '@/components/Step/Step';
-import { steps } from '@/components/Step/steps.data';
 import { FAQ } from '@/components/FAQ/FAQ';
+import { Steps } from '@/components/Step/Steps';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
 import { LoginForm } from '@/components/Forms/LoginForm/LoginForm';
 import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
@@ -32,7 +31,7 @@ import {
   MODAL_YES_NO_QUESTIONS,
   MODAL_CONFIRM_QUESTIONS,
   MODAL_NOTICE,
-} from '../components/Modal/modal.data';
+} from '@/components/Modal/modal.data';
 
 export const DevPage: FC = () => {
   const [openYesNo, setOpenYesNo] = useState(false);
@@ -200,7 +199,7 @@ export const DevPage: FC = () => {
       </Box>
       <Cookie />
       <Box sx={{ backgroundColor: 'secondary.main', p: 5 }}>
-        <Step title={steps[0].title} content={steps[0].content} />
+        <Steps />
       </Box>
       <Box
         sx={{
@@ -262,6 +261,9 @@ export const DevPage: FC = () => {
         handleClose={() => setOpen(false)}
         icon={<ModalIcon />}
       />
+      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
+        <TariffSection />
+      </Box>
     </>
   );
 };

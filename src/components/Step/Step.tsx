@@ -41,8 +41,9 @@ export const Step = ({ title, content }: StepProps) => {
         variant="body1"
         color="secondary.contrastText"
         maxWidth={TEXT_WIDTH}
+        sx={{ fontSize: '16px' }}
       >
-        {content}{' '}
+        {content}
       </Typography>
     </Box>
   );
