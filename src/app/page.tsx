@@ -9,7 +9,7 @@ import { Cookie } from '@/components/Cookie/Cookie';
 import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
-import { EmailCopyLink } from '@/components/Popover/EmailCopyLink';
+import { EmailCopyLink } from '@/components/EmailCopyLink/EmailCopyLink';
 
 export default function Home() {
   return (
