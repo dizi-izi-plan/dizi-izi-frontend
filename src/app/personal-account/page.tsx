@@ -64,6 +64,6 @@ interface AccountPageProps {
   value: number;
 }
 
-export const AccountPage = ({ children, value, index }: AccountPageProps) => {
+const AccountPage = ({ children, value, index }: AccountPageProps) => {
   return <Box hidden={value !== index}>{children}</Box>;
 };
