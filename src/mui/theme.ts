@@ -508,6 +508,40 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiTabs: {
+      defaultProps: {
+        indicatorColor: 'transparent',
+      },
+      styleOverrides: {
+        root: {
+          width: '196px',
+          '& .MuiTabs-flexContainer': {
+            alignItems: 'flex-start',
+            rowGap: '16px',
+          },
+          '& .MuiTab-root': {
+            padding: '0px',
+            minWidth: 'auto',
+            minHeight: 'auto',
+            fontFamily: cabin.style.fontFamily,
+            fontSize: '24px',
+            fontWeight: 400,
+            color: theme.palette.black.main,
+            '&:hover': {
+              fontWeight: 600,
+            },
+          },
+          '& button.Mui-selected': {
+            textDecorationLine: 'underline',
+            textDecorationStyle: 'solid',
+            textDecorationColor: theme.palette.primary.main,
+            textDecorationThickness: '8px',
+            textDecorationSkipInk: 'none',
+            color: theme.palette.black.main,
+          },
+        },
+      },
+    },
   },
 });
 
