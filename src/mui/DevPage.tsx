@@ -11,11 +11,9 @@ import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import { InputPassword } from '@/components/Input/InputPassword/InputPassword';
 import { AutocompleteCities } from '@/components/SelectTextField/AutocompleteCities';
 import { LocalDatePicker } from '@/components/LocalDatePicker/LocalDatePicker';
 import { InputPassword } from '@/components/Input/InputPassword/InputPassword';
-import { LocalDatePicker } from '@/components/LocalDatePicker/LocalDatePicker';
 import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
@@ -34,7 +32,6 @@ import {
   MODAL_CONFIRM_QUESTIONS,
   MODAL_NOTICE,
 } from '@/components/Modal/modal.data';
-import { TariffSection } from '@/components/TariffSection/TariffSection';
 
 export const DevPage: FC = () => {
   const [openYesNo, setOpenYesNo] = useState(false);
