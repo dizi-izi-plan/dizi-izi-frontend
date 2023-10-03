@@ -4,8 +4,11 @@ import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { LoginFormType } from '../Forms/LoginForm/validationSchema';
 import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
+import { ResetPasswordType } from '../Forms/ResetPasswordForm/validationSchema';
 
-type TextFieldWrapperProps = UseControllerProps<LoginFormType> &
+type TextFieldWrapperProps = UseControllerProps<
+  LoginFormType | ResetPasswordType
+> &
   TextFieldProps & {
     errorMessage?: string;
   };

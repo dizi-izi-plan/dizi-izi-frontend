@@ -57,7 +57,7 @@ export const LoginForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
           </Stack>
-          <Link href="#" variant="s">
+          <Link href="forms/reset-password" variant="s">
             Забыли пароль?
           </Link>
         </Stack>
