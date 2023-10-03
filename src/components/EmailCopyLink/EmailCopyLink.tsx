@@ -42,7 +42,7 @@ export const EmailCopyLink = () => {
       onMouseLeave={handleMouseLeave}
       sx={{
         position: 'relative',
-        padding: '20px 20px 0 0',
+        padding: '20px 20px 0 20px',
       }}
     >
       <Link
