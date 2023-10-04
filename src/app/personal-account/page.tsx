@@ -4,7 +4,9 @@ import Stack from '@mui/material/Stack';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
+import { ACCOUNT_MENU_ITEMS } from '../../components/AccountSections/accountMenu.data';
+import { AccountSectionContainer } from '@/components/AccountSections/AccountSectionContainer';
 
 const PersonalAccount = () => {
   const [value, setValue] = useState(0);
@@ -24,8 +26,11 @@ const PersonalAccount = () => {
     <Stack
       minHeight="calc(100vh - 90px)"
       flexDirection="row"
-      p="44px 160px 0"
-      columnGap="92px"
+      p="44px 0 0"
+      width="80%"
+      columnGap="128px"
+      m="0 auto 0"
+      maxWidth="1120px"
     >
       <Tabs
         value={value}
@@ -33,37 +38,25 @@ const PersonalAccount = () => {
         aria-label="account-menu"
         orientation="vertical"
       >
-        <Tab label="Планировки" {...a11yProps(0)} />
-        <Tab label="Мой тариф" {...a11yProps(1)} />
-        <Tab label="Профиль" {...a11yProps(2)} />
-        <Tab label="Выйти" {...a11yProps(3)} />
+        {ACCOUNT_MENU_ITEMS.map((item, index) => (
+          <Tab
+            key={index}
+            label={item.name}
+            {...a11yProps(index)}
+            icon={<MenuUnderlineIcon />}
+            iconPosition="bottom"
+          />
+        ))}
       </Tabs>
       <Box>
-        <AccountPage value={value} index={0}>
-          <Typography>Планировки</Typography>
-        </AccountPage>
-        <AccountPage value={value} index={1}>
-          <Typography>Мой тариф</Typography>
-        </AccountPage>
-        <AccountPage value={value} index={2}>
-          <Typography>Профиль</Typography>
-        </AccountPage>
-        <AccountPage value={value} index={3}>
-          <Typography>Выйти</Typography>
-        </AccountPage>
+        {ACCOUNT_MENU_ITEMS.map((item, index) => (
+          <AccountSectionContainer key={index} value={value} index={index}>
+            {item.component}
+          </AccountSectionContainer>
+        ))}
       </Box>
     </Stack>
   );
 };
 
 export default PersonalAccount;
-
-interface AccountPageProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-const AccountPage = ({ children, value, index }: AccountPageProps) => {
-  return <Box hidden={value !== index}>{children}</Box>;
-};

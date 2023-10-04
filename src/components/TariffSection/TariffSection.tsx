@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { TariffContainer } from '../Tariff/TariffContainer';
-import { tariffInfoList } from './TariffData';
+import { tariffInfoList } from './tariff.data';
 
 export const TariffSection = () => {
   return (

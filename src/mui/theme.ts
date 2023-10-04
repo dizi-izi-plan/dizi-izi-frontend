@@ -514,30 +514,38 @@ theme = createTheme(theme, {
       },
       styleOverrides: {
         root: {
-          width: '196px',
+          width: '160px',
           '& .MuiTabs-flexContainer': {
-            alignItems: 'flex-start',
-            rowGap: '16px',
+            rowGap: '27px',
           },
-          '& .MuiTab-root': {
-            padding: '0px',
-            minWidth: 'auto',
+          '& button.MuiTab-root': {
+            padding: '0',
+            width: 'auto',
             minHeight: 'auto',
             fontFamily: cabin.style.fontFamily,
             fontSize: '24px',
-            fontWeight: 400,
+            fontWeight: '400',
+            lineHeight: '1',
             color: theme.palette.black.main,
+            alignItems: 'start',
             '&:hover': {
-              fontWeight: 600,
+              fontWeight: '600',
             },
           },
           '& button.Mui-selected': {
-            textDecorationLine: 'underline',
-            textDecorationStyle: 'solid',
-            textDecorationColor: theme.palette.primary.main,
-            textDecorationThickness: '8px',
-            textDecorationSkipInk: 'none',
             color: theme.palette.black.main,
+          },
+          '& button .MuiTab-iconWrapper': {
+            zIndex: '-1',
+            width: '100%',
+            overflow: 'hidden',
+            marginTop: '-3px',
+          },
+          '& button svg path': {
+            stroke: theme.palette.secondary.contrastText,
+          },
+          '& button.Mui-selected svg path': {
+            stroke: theme.palette.primary.main,
           },
         },
       },
