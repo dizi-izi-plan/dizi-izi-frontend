@@ -521,6 +521,9 @@ theme = createTheme(theme, {
           '& button.MuiTab-root': {
             padding: '0',
             width: 'auto',
+            minWidth: 'auto',
+            maxWidth: 'min-content',
+            textWrap: 'nowrap',
             minHeight: 'auto',
             fontFamily: cabin.style.fontFamily,
             fontSize: '24px',

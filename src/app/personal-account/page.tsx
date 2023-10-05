@@ -8,7 +8,6 @@ import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.sv
 import { ACCOUNT_MENU_ITEMS } from '../../components/AccountSections/accountMenuSections.data';
 import { AccountSectionContainer } from '@/components/AccountSections/AccountSectionContainer';
 import { a11yPropsFuncType } from '../../components/AccountMenu/accoutMenuTypes';
-import { measureText } from '../../components/AccountMenu/accountMenuTab.functions';
 
 const PersonalAccount = () => {
   const [value, setValue] = useState(0);
@@ -47,10 +46,6 @@ const PersonalAccount = () => {
             {...a11yProps(index)}
             icon={<MenuUnderlineIcon />}
             iconPosition="bottom"
-            sx={{
-              minWidth: 'auto',
-              maxWidth: measureText(item.name, 24),
-            }}
           />
         ))}
       </Tabs>
