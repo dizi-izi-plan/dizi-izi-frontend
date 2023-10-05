@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 
-type AccountMenuItemsType = {
+export type AccountMenuItemsType = {
   name: string;
   component: ReactNode | null;
 };

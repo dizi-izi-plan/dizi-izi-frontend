@@ -5,8 +5,10 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
-import { ACCOUNT_MENU_ITEMS } from '../../components/AccountSections/accountMenu.data';
+import { ACCOUNT_MENU_ITEMS } from '../../components/AccountSections/accountMenuSections.data';
 import { AccountSectionContainer } from '@/components/AccountSections/AccountSectionContainer';
+import { a11yPropsFuncType } from '../../components/AccountMenu/accoutMenuTypes';
+import { measureText } from '../../components/AccountMenu/accountMenuTab.functions';
 
 const PersonalAccount = () => {
   const [value, setValue] = useState(0);
@@ -15,12 +17,12 @@ const PersonalAccount = () => {
     setValue(newValue);
   };
 
-  function a11yProps(index: number) {
+  const a11yProps: a11yPropsFuncType = (index: number) => {
     return {
       id: `simple-tab-${index}`,
       'aria-controls': `simple-tabpanel-${index}`,
     };
-  }
+  };
 
   return (
     <Stack
@@ -45,6 +47,10 @@ const PersonalAccount = () => {
             {...a11yProps(index)}
             icon={<MenuUnderlineIcon />}
             iconPosition="bottom"
+            sx={{
+              minWidth: 'auto',
+              maxWidth: measureText(item.name, 24),
+            }}
           />
         ))}
       </Tabs>
