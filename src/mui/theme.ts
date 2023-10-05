@@ -519,7 +519,7 @@ theme = createTheme(theme, {
             rowGap: '27px',
           },
           '& button.MuiTab-root': {
-            padding: '0',
+            padding: '0 8px 0',
             width: 'auto',
             minWidth: 'auto',
             maxWidth: 'min-content',
@@ -542,7 +542,9 @@ theme = createTheme(theme, {
             zIndex: '-1',
             width: '100%',
             overflow: 'hidden',
-            marginTop: '-3px',
+            position: 'absolute',
+            left: '0px',
+            bottom: '-3px',
           },
           '& button svg path': {
             stroke: theme.palette.secondary.contrastText,
