@@ -1,25 +1,25 @@
 import React from 'react';
-import { UseControllerProps, useController } from 'react-hook-form';
+import {
+  FieldValues,
+  UseControllerProps,
+  useController,
+} from 'react-hook-form';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import { LoginFormType } from '../Forms/LoginForm/validationSchema';
 import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
-import { ResetPasswordType } from '../Forms/ResetPasswordForm/validationSchema';
 
-type TextFieldWrapperProps = UseControllerProps<
-  LoginFormType | ResetPasswordType
-> &
-  TextFieldProps & {
+export type ControlledInputProps<T extends FieldValues> = TextFieldProps &
+  UseControllerProps<T> & {
     errorMessage?: string;
   };
 
-export const TextFieldWrapper = ({
+export const TextFieldWrapper = <T extends FieldValues>({
   name,
   control,
   errorMessage,
   ...props
-}: TextFieldWrapperProps) => {
-  const { field } = useController({ control, name });
+}: ControlledInputProps<T>) => {
+  const { field } = useController<T>({ control, name });
 
   return (
     <Box>
