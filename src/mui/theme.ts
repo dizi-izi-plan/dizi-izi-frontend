@@ -523,7 +523,7 @@ theme = createTheme(theme, {
             width: 'auto',
             minWidth: 'auto',
             maxWidth: 'min-content',
-            textWrap: 'nowrap',
+            whiteSpace: 'nowrap',
             minHeight: 'auto',
             fontFamily: cabin.style.fontFamily,
             fontSize: '24px',
