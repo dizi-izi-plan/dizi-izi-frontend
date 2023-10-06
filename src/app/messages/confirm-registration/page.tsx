@@ -1,4 +1,4 @@
-import { MessageContainer } from '@/components/MessageContainer/MessageContainer';
+import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 
 const ConfirmRegistration = () => {
   const text = [

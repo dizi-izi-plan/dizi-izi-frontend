@@ -535,21 +535,24 @@ theme = createTheme(theme, {
               fontWeight: '600',
             },
           },
+          '& button.MuiTab-root .tab__label': {
+            zIndex: '2',
+          },
           '& button.Mui-selected': {
             color: theme.palette.black.main,
           },
           '& button .MuiTab-iconWrapper': {
-            zIndex: '-1',
             width: '100%',
             overflow: 'hidden',
             position: 'absolute',
             left: '0px',
             bottom: '-3px',
+            marginTop: '0px',
           },
-          '& button svg path': {
+          '& button .MuiTab-iconWrapper path': {
             stroke: theme.palette.secondary.contrastText,
           },
-          '& button.Mui-selected svg path': {
+          '& button.Mui-selected .MuiTab-iconWrapper path': {
             stroke: theme.palette.primary.main,
           },
         },

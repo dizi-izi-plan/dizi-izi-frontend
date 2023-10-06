@@ -1,4 +1,4 @@
-import { MessageContainer } from '@/components/MessageContainer/MessageContainer';
+import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 
 const RegistrationLetter = () => {
   const email = 'hhh1133@mail.ru'; // перекинуть сюда email со страницы регистрации

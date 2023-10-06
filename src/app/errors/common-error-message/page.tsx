@@ -1,4 +1,4 @@
-import { ErrorContainer } from '@/components/ErrorContainer/ErrorContainer';
+import { ErrorContainer } from '@/containers/ErrorContainer/ErrorContainer';
 
 const ErrorCommonMessage = () => {
   return (
