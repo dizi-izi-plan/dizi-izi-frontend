@@ -1,6 +1,6 @@
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 
-const ConfirmRegistration = () => {
+const ConfirmRegistrationMessage = () => {
   const text = [
     `Спасибо, что подтвердили ваш адрес.
     Войдите, чтобы начать проектировать квартиру своей мечты. `,
@@ -14,4 +14,4 @@ const ConfirmRegistration = () => {
   return <MessageContainer text={text} button={buttonInfo} />;
 };
 
-export default ConfirmRegistration;
+export default ConfirmRegistrationMessage;
