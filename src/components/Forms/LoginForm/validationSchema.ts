@@ -1,6 +1,9 @@
 import { z } from 'zod';
-import { AuthFormValidation } from '../../../helpers/validation/validationAuthTemplate';
+import {
+  LoginValidation,
+  PasswordValidation,
+} from '../../../helpers/validation/validationTemplates';
 
-export const LoginFormValidation = AuthFormValidation;
+export const LoginFormValidation = LoginValidation.and(PasswordValidation);
 
 export type LoginFormType = z.infer<typeof LoginFormValidation>;

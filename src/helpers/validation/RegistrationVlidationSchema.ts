@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { AuthFormValidation } from './validationAuthTemplate';
+import {
+  LoginValidation,
+  ConfirmPasswordValidation,
+} from './validationTemplates';
 
-export const RegistrationFormValidation = AuthFormValidation.extend({
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Пароль не соответствует введенному ранее',
-  path: ['confirmPassword'],
-});
+export const RegistrationFormValidation = LoginValidation.and(
+  ConfirmPasswordValidation,
+);
 
 export type RegistrationFormType = z.infer<typeof RegistrationFormValidation>;
