@@ -12,11 +12,11 @@ import Box from '@mui/material/Box';
 import { ResetPasswordType, ResetPasswordValidation } from './validationSchema';
 
 const RESET_PASSWORD_FORM_NAMES = {
-  email: 'email',
+  password: 'password',
 } as const;
 
 const RESET_PASSWORD_FORM_LABELS = {
-  email: 'Почта',
+  password: 'Новый пароль',
 } as const;
 
 export const ResetPasswordForm = () => {
@@ -26,10 +26,12 @@ export const ResetPasswordForm = () => {
     formState: { errors },
   } = useForm<ResetPasswordType>({
     defaultValues: {
-      email: '',
+      password: '',
     },
     resolver: zodResolver(ResetPasswordValidation),
   });
+
+  //TODO: add onSubmit listener
   const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
@@ -40,18 +42,18 @@ export const ResetPasswordForm = () => {
           variant="h3"
           color="secondary.contrastText"
         >
-          Введите почту, которая привязана к личному кабинету
+          Введите новый пароль
         </Typography>
       </Box>
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
           <Stack rowGap={6}>
             <TextFieldWrapper
-              name={RESET_PASSWORD_FORM_NAMES.email}
+              name={RESET_PASSWORD_FORM_NAMES.password}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={RESET_PASSWORD_FORM_LABELS.email}
-              errorMessage={errors.email ? errors.email?.message : ' '}
+              label={RESET_PASSWORD_FORM_LABELS.password}
+              errorMessage={errors.password ? errors.password?.message : ' '}
             />
           </Stack>
         </Stack>
@@ -59,7 +61,7 @@ export const ResetPasswordForm = () => {
         <Stack spacing={4} alignItems="center">
           <Box>
             <Button variant="default" size="large" type="submit">
-              Получить код
+              Подтверить
             </Button>
           </Box>
         </Stack>
