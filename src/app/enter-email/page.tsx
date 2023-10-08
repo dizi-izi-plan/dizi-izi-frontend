@@ -1,11 +1,11 @@
-import { ResetPasswordForm } from '@/components/Forms/ResetPasswordForm/ResetPasswordForm';
+import { EnterEmailForm } from '@/components/Forms/EnterEmailForm/EnterEmailForm';
 import { Box, Stack } from '@mui/material';
 
 const FORM_MINWIDTH = '300px';
 const FORM_MAXWIDTH = '460px';
 
 //TODO: CHANGE STACK TO REUSED COMPONENT CONTAINER
-const ResetPassword = () => {
+const EnterEmail = () => {
   return (
     <Stack
       minHeight="calc(100vh - 90px)"
@@ -14,10 +14,10 @@ const ResetPassword = () => {
       sx={{ backgroundColor: 'primary.contrastText' }}
     >
       <Box width="100%" minWidth={FORM_MINWIDTH} maxWidth={FORM_MAXWIDTH}>
-        <ResetPasswordForm />
+        <EnterEmailForm />
       </Box>
     </Stack>
   );
 };
 
-export default ResetPassword;
+export default EnterEmail;

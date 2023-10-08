@@ -5,27 +5,33 @@ import { useForm } from 'react-hook-form';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
-import { InputPasswordWrapper } from '../../Input/InputPassword/InputPasswordWrapper';
-import { LOGIN_FORM_LABELS, LOGIN_FORM_NAMES } from './loginFormConstants';
-import { LoginFormType, LoginFormValidation } from './validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import { EnterEmailType, EnterEmailValidation } from './validationSchema';
 
-export const LoginForm = () => {
+const ENTER_EMAIL_FORM_NAMES = {
+  email: 'email',
+} as const;
+
+const ENTER_EMAIL_FORM_LABELS = {
+  email: 'Почта',
+} as const;
+
+export const EnterEmailForm = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<LoginFormType>({
+  } = useForm<EnterEmailType>({
     defaultValues: {
-      [LOGIN_FORM_NAMES.login]: '',
-      [LOGIN_FORM_NAMES.password]: '',
+      email: '',
     },
-    resolver: zodResolver(LoginFormValidation),
+    resolver: zodResolver(EnterEmailValidation),
   });
+
+  //TODO: add onSubmit listener
   const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
@@ -33,44 +39,31 @@ export const LoginForm = () => {
       <Box mb="80px">
         <Typography
           textAlign="center"
-          variant="h2"
+          variant="h3"
           color="secondary.contrastText"
         >
-          Добро пожаловать в Dizi IZI!
+          Введите почту, которая привязана к личному кабинету
         </Typography>
       </Box>
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
           <Stack rowGap={6}>
             <TextFieldWrapper
-              name={LOGIN_FORM_NAMES.login}
+              name={ENTER_EMAIL_FORM_NAMES.email}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={LOGIN_FORM_LABELS.login}
-              errorMessage={errors.login ? errors.login?.message : ' '}
-            />
-            <InputPasswordWrapper
-              name={LOGIN_FORM_NAMES.password}
-              control={control}
-              className={CLASS_NAMES_INPUT.dark}
-              label={LOGIN_FORM_LABELS.password}
-              errorMessage={errors.password ? errors.password?.message : ' '}
+              label={ENTER_EMAIL_FORM_LABELS.email}
+              errorMessage={errors.email ? errors.email?.message : ' '}
             />
           </Stack>
-          <Link href="enter-email" variant="s">
-            Забыли пароль?
-          </Link>
         </Stack>
 
         <Stack spacing={4} alignItems="center">
           <Box>
             <Button variant="default" size="large" type="submit">
-              Войти в личный кабинет
+              Получить код
             </Button>
           </Box>
-          <Link href="#" variant="linkButton">
-            Регистрация
-          </Link>
         </Stack>
       </form>
     </div>
