@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
 import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
 import { AccountSectionContainer } from '@/components/Account/AccountSections/AccountSectionContainer';
-import { a11yPropsFuncType } from './AccountMenu/accoutMenuTypes';
+import { a11yPropsFuncType, AccountMenuItemsType } from './accoutTypes';
 
 export const Account = () => {
   const [value, setValue] = useState(0);
@@ -30,7 +30,7 @@ export const Account = () => {
         aria-label="account-menu"
         orientation="vertical"
       >
-        {ACCOUNT_MENU_ITEMS.map((item, index) => (
+        {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
           <Tab
             key={index}
             label={<span className="tab__label">{item.name}</span>} //обертка в span, чтобы задать исключительно тексту z-index
@@ -41,7 +41,7 @@ export const Account = () => {
         ))}
       </Tabs>
       <Box width="74%">
-        {ACCOUNT_MENU_ITEMS.map((item, index) => (
+        {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
           <AccountSectionContainer key={index} value={value} index={index}>
             {item.component}
           </AccountSectionContainer>

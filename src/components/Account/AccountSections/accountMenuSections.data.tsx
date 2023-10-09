@@ -1,13 +1,7 @@
-import { ReactNode } from 'react';
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
 import { AccountQuestionLogOut } from '../AccountQuestion/AccountQuestionLogOut';
-import { AccountQuestionDeleteProfile } from '../AccountQuestion/AccountQuestionDeleteProfile';
-
-export type AccountMenuItemsType = {
-  name: string;
-  component: ReactNode | null;
-};
+import { AccountMenuItemsType } from '../accoutTypes';
 
 export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   {
