@@ -1,11 +1,7 @@
 import { FC } from 'react';
 import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import CheckIcon from '@mui/icons-material/Check';
 import { TariffType } from '../TariffSection/TariffDataTypes';
+import { TariffActionsList } from '../Tariff/TariffActionsList';
 
 export const TariffInfoList: FC<TariffType> = ({ tariff }) => (
   <>
@@ -55,37 +51,11 @@ export const TariffInfoList: FC<TariffType> = ({ tariff }) => (
           >
             Вам доступны
           </Typography>
-          <List
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '10px',
-              p: '0',
-            }}
-          >
-            {tariff.actions?.map((action) => (
-              <ListItem key={action} sx={{ p: '0' }}>
-                <ListItemIcon
-                  sx={{
-                    alignSelf: 'flex-start',
-                    pt: '5px',
-                    minWidth: '36px',
-                  }}
-                >
-                  <CheckIcon sx={{ color: 'secondary.contrastText' }} />
-                </ListItemIcon>
-                <ListItemText sx={{ p: '0' }}>
-                  <Typography
-                    sx={{ lineHeight: 'normal' }}
-                    variant="body2"
-                    color="secondary.contrastText"
-                  >
-                    {action}
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-            ))}
-          </List>
+          <TariffActionsList
+            actions={tariff.actions}
+            color="secondary.contrastText"
+            rowGap="10px"
+          />
         </>
       ) : null
     }
