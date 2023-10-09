@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
+import { AccountQuestionLogOut } from '../AccountQuestion/AccountQuestionLogOut';
+import { AccountQuestionDeleteProfile } from '../AccountQuestion/AccountQuestionDeleteProfile';
 
 export type AccountMenuItemsType = {
   name: string;
@@ -22,6 +24,6 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   },
   {
     name: 'Выйти',
-    component: <AccountSectionTemplate name="Выйти" />, // при верстке нужного компонента - заменить
+    component: <AccountQuestionLogOut />,
   },
 ];

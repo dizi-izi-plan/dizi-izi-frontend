@@ -40,7 +40,7 @@ export const Account = () => {
           />
         ))}
       </Tabs>
-      <Box>
+      <Box width="74%">
         {ACCOUNT_MENU_ITEMS.map((item, index) => (
           <AccountSectionContainer key={index} value={value} index={index}>
             {item.component}
