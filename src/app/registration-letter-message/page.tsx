@@ -1,6 +1,6 @@
-import { MessageContainer } from '@/components/MessageContainer/MessageContainer';
+import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 
-const RegistrationLetter = () => {
+const RegistrationLetterMessage = () => {
   const email = 'hhh1133@mail.ru'; // перекинуть сюда email со страницы регистрации
 
   const text = [
@@ -12,4 +12,4 @@ const RegistrationLetter = () => {
   return <MessageContainer text={text} />;
 };
 
-export default RegistrationLetter;
+export default RegistrationLetterMessage;
