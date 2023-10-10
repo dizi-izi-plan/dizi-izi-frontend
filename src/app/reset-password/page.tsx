@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 const FORM_MINWIDTH = '300px';
 const FORM_MAXWIDTH = '460px';
 
+//TODO: CHANGE STACK TO REUSED COMPONENT CONTAINER
 const ResetPassword = () => {
   return (
     <FormsContainer padding={14}>
