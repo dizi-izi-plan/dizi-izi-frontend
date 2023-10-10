@@ -14,7 +14,7 @@ export const PageContainer = ({ children, color }: PageContainerProps) => {
       flexDirection="row"
       p="44px 0 0"
       width="80%"
-      columnGap="128px"
+      columnGap="11%"
       m="0 auto 0"
       maxWidth="1120px"
       sx={{ backgroundColor: color }}

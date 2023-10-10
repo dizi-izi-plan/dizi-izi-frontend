@@ -34,6 +34,7 @@ export const Account = () => {
         onChange={handleChange}
         aria-label="account-menu"
         orientation="vertical"
+        sx={{ minWidth: '160px' }}
       >
         {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
           <Tab
