@@ -7,9 +7,12 @@ import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.sv
 import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
 import { AccountSectionContainer } from '@/components/Account/AccountSections/AccountSectionContainer';
 import { a11yPropsFuncType, AccountMenuItemsType } from './accoutTypes';
+import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
+import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 
 export const Account = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState<number>(0);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -21,6 +24,8 @@ export const Account = () => {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   };
+
+  // TODO: to add handleYes (~ dispatch logOut)
 
   return (
     <>
@@ -39,6 +44,12 @@ export const Account = () => {
             iconPosition="bottom"
           />
         ))}
+        <Tab
+          label={<span className="tab__label">Выйти</span>}
+          icon={<MenuUnderlineIcon />}
+          iconPosition="bottom"
+          onClick={() => setModalOpen(true)}
+        />
       </Tabs>
       <Box width="74%">
         {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
@@ -47,6 +58,15 @@ export const Account = () => {
           </AccountSectionContainer>
         ))}
       </Box>
+      <ModalTwoButtons
+        isModalOpen={isModalOpen}
+        text={['Вы уверены, что хотите выйти из профиля?']}
+        icon={<ModalIcon />}
+        handleClose={() => setModalOpen(false)}
+        // handleYes={() => }
+        nameButtonYes="Да"
+        nameButtonNo="Нет"
+      />
     </>
   );
 };

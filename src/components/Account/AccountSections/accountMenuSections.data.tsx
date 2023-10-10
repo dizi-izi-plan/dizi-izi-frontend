@@ -1,6 +1,5 @@
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
-import { AccountQuestionLogOut } from '../AccountQuestion/AccountQuestionLogOut';
 import { AccountMenuItemsType } from '../accoutTypes';
 
 export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
@@ -15,9 +14,5 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   {
     name: 'Профиль',
     component: <AccountSectionTemplate name="Профиль" />, // при верстке нужного компонента - заменить
-  },
-  {
-    name: 'Выйти',
-    component: <AccountQuestionLogOut />,
   },
 ];
