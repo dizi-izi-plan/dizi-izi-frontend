@@ -9,10 +9,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { EnterEmailType, EnterEmailValidation } from './validationSchema';
+import {
+  LoginValidation,
+  LoginFormType,
+} from '@/helpers/validation/validationTemplates';
 
 const ENTER_EMAIL_FORM_NAMES = {
-  email: 'email',
+  login: 'login',
 } as const;
 
 const ENTER_EMAIL_FORM_LABELS = {
@@ -24,11 +27,11 @@ export const EnterEmailForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<EnterEmailType>({
+  } = useForm<LoginFormType>({
     defaultValues: {
-      email: '',
+      login: '',
     },
-    resolver: zodResolver(EnterEmailValidation),
+    resolver: zodResolver(LoginValidation),
   });
 
   //TODO: add onSubmit listener
@@ -49,11 +52,11 @@ export const EnterEmailForm = () => {
         <Stack spacing={3} mb={4}>
           <Stack rowGap={6}>
             <TextFieldWrapper
-              name={ENTER_EMAIL_FORM_NAMES.email}
+              name={ENTER_EMAIL_FORM_NAMES.login}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
               label={ENTER_EMAIL_FORM_LABELS.email}
-              errorMessage={errors.email ? errors.email?.message : ' '}
+              errorMessage={errors.login ? errors.login?.message : ' '}
             />
           </Stack>
         </Stack>

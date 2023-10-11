@@ -4,12 +4,15 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
-import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { ResetPasswordType, ResetPasswordValidation } from './validationSchema';
+import {
+  PasswordValidation,
+  passwordFormType,
+} from '@/helpers/validation/validationTemplates';
+import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
 
 const RESET_PASSWORD_FORM_NAMES = {
   password: 'password',
@@ -24,11 +27,11 @@ export const ResetPasswordForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ResetPasswordType>({
+  } = useForm<passwordFormType>({
     defaultValues: {
       password: '',
     },
-    resolver: zodResolver(ResetPasswordValidation),
+    resolver: zodResolver(PasswordValidation),
   });
 
   //TODO: add onSubmit listener
@@ -48,7 +51,7 @@ export const ResetPasswordForm = () => {
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
           <Stack rowGap={6}>
-            <TextFieldWrapper
+            <InputPasswordWrapper
               name={RESET_PASSWORD_FORM_NAMES.password}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
