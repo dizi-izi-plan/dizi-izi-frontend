@@ -30,7 +30,7 @@ export const LoginForm = () => {
 
   return (
     <div>
-      <Box mb="80px">
+      <Box mb={10}>
         <Typography
           textAlign="center"
           variant="h2"
@@ -41,7 +41,7 @@ export const LoginForm = () => {
       </Box>
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
-          <Stack rowGap={6}>
+          <Stack rowGap={4}>
             <TextFieldWrapper
               name={LOGIN_FORM_NAMES.login}
               control={control}
