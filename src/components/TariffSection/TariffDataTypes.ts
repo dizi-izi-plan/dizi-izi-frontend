@@ -1,7 +1,9 @@
+export type ActionsType = string[];
+
 export type TariffInfo = {
   name: string;
   description?: string;
-  actions?: string[];
+  actions?: ActionsType;
 };
 
 export type TariffType = {

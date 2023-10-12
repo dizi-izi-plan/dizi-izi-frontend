@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { AccountSectionTemplate } from './AccountSectionTemplate';
+import { MyTariff } from '../../Tariff/MyTariff';
 
 export type AccountMenuItemsType = {
   name: string;
@@ -13,7 +14,7 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   },
   {
     name: 'Мой тариф',
-    component: <AccountSectionTemplate name="Мой тариф" />, // при верстке нужного компонента - заменить
+    component: <MyTariff />, // при верстке нужного компонента - заменить
   },
   {
     name: 'Профиль',
