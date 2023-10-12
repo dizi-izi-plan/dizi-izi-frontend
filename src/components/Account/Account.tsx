@@ -1,17 +1,20 @@
 'use client';
-import { useState } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
 import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
 import { AccountSectionContainer } from '@/components/Account/AccountSections/AccountSectionContainer';
-import { a11yPropsFuncType } from './AccountMenu/accoutMenuTypes';
+import { a11yPropsFuncType, AccountMenuItemsType } from './accoutTypes';
+import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
+import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 
 export const Account = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState<number>(0);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -22,6 +25,12 @@ export const Account = () => {
     };
   };
 
+  const returnUserToProfile = () => {
+    setValue(2);
+  };
+
+  // TODO: to add handleYes (~ dispatch logOut)
+
   return (
     <>
       <Tabs
@@ -29,8 +38,9 @@ export const Account = () => {
         onChange={handleChange}
         aria-label="account-menu"
         orientation="vertical"
+        sx={{ minWidth: '160px' }}
       >
-        {ACCOUNT_MENU_ITEMS.map((item, index) => (
+        {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
           <Tab
             key={index}
             label={<span className="tab__label">{item.name}</span>} //обертка в span, чтобы задать исключительно тексту z-index
@@ -39,14 +49,30 @@ export const Account = () => {
             iconPosition="bottom"
           />
         ))}
+        <Tab
+          label={<span className="tab__label">Выйти</span>}
+          icon={<MenuUnderlineIcon />}
+          iconPosition="bottom"
+          onClick={() => setModalOpen(true)}
+        />
       </Tabs>
-      <Box>
-        {ACCOUNT_MENU_ITEMS.map((item, index) => (
+      <Box width="74%">
+        {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
           <AccountSectionContainer key={index} value={value} index={index}>
             {item.component}
           </AccountSectionContainer>
         ))}
       </Box>
+      <ModalTwoButtons
+        isModalOpen={isModalOpen}
+        text={['Вы уверены, что хотите выйти из профиля?']}
+        icon={<ModalIcon />}
+        handleClose={() => setModalOpen(false)}
+        // handleYes={() => }
+        handleNo={returnUserToProfile}
+        nameButtonYes="Да"
+        nameButtonNo="Нет"
+      />
     </>
   );
 };
