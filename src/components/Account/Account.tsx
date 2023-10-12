@@ -25,6 +25,10 @@ export const Account = () => {
     };
   };
 
+  const returnUserToProfile = () => {
+    setValue(2);
+  };
+
   // TODO: to add handleYes (~ dispatch logOut)
 
   return (
@@ -65,6 +69,7 @@ export const Account = () => {
         icon={<ModalIcon />}
         handleClose={() => setModalOpen(false)}
         // handleYes={() => }
+        handleNo={returnUserToProfile}
         nameButtonYes="Да"
         nameButtonNo="Нет"
       />
