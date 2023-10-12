@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
@@ -14,7 +14,7 @@ export const Account = () => {
   const [value, setValue] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
