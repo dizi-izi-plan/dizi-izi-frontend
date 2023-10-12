@@ -8,12 +8,12 @@ export const MyTariff = () => {
   const myTariff: TariffInfo = tariffInfoList[0];
 
   return (
-    <Stack rowGap="32px">
+    <Stack rowGap={4}>
       <Typography variant="h2" color="primary.contrastText">
         {/* {myTariff.name} */}
         Сайт работает в тестовом режиме
       </Typography>
-      <Stack rowGap="23px">
+      <Stack rowGap={3}>
         <Typography variant="h3" color="primary.contrastText">
           Вам доступно:
         </Typography>
