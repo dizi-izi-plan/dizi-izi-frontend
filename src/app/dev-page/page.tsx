@@ -18,22 +18,18 @@ import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
-import { Cookie } from '@/components/Cookie/Cookie';
-import { FAQ } from '@/components/FAQ/FAQ';
-import { Steps } from '@/components/Step/Steps';
-import { TariffSection } from '@/components/TariffSection/TariffSection';
-import { LoginForm } from '@/components/Forms/LoginForm/LoginForm';
 import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
 import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
 import { ModalOneButton } from '@/components/Modal/ModalOneButton';
-import ModalIcon from '../../public/assets/icons/modal_icon.svg';
+import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 import {
   MODAL_YES_NO_QUESTIONS,
   MODAL_CONFIRM_QUESTIONS,
   MODAL_NOTICE,
 } from '@/components/Modal/modal.data';
+import { MuiButtons } from '@/mui/MuiButtons';
 
-export const DevPage: FC = () => {
+const DevPage: FC = () => {
   const [openYesNo, setOpenYesNo] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [open, setOpen] = useState(false);
@@ -197,22 +193,6 @@ export const DevPage: FC = () => {
           className={CLASS_NAMES_INPUT.light}
         />
       </Box>
-      <Cookie />
-      <Box sx={{ backgroundColor: 'secondary.main', p: 5 }}>
-        <Steps />
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'primary.contrastText',
-          p: 5,
-        }}
-      >
-        <FAQ></FAQ>
-        <LoginForm />
-      </Box>
-      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
-        <TariffSection />
-      </Box>
       <Typography>Открытие модалок:</Typography>
       <Stack direction="row" columnGap="20px">
         <Button
@@ -261,9 +241,9 @@ export const DevPage: FC = () => {
         handleClose={() => setOpen(false)}
         icon={<ModalIcon />}
       />
-      <Box sx={{ width: '100%', backgroundColor: 'primary.contrastText' }}>
-        <TariffSection />
-      </Box>
+      <MuiButtons />
     </>
   );
 };
+
+export default DevPage;
