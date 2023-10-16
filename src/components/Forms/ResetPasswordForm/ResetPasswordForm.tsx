@@ -9,17 +9,19 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import {
-  PasswordValidation,
-  passwordFormType,
+  ConfirmPasswordValidation,
+  confirmPasswordFormType,
 } from '@/helpers/validation/validationTemplates';
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
 
 const RESET_PASSWORD_FORM_NAMES = {
   password: 'password',
+  confirmPassword: 'confirmPassword',
 } as const;
 
 const RESET_PASSWORD_FORM_LABELS = {
-  password: 'Новый пароль',
+  password: 'Пароль',
+  confirmPassword: 'Повторите пароль',
 } as const;
 
 export const ResetPasswordForm = () => {
@@ -27,11 +29,11 @@ export const ResetPasswordForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<passwordFormType>({
+  } = useForm<confirmPasswordFormType>({
     defaultValues: {
       password: '',
     },
-    resolver: zodResolver(PasswordValidation),
+    resolver: zodResolver(ConfirmPasswordValidation),
   });
 
   //TODO: add onSubmit listener
@@ -58,13 +60,22 @@ export const ResetPasswordForm = () => {
               label={RESET_PASSWORD_FORM_LABELS.password}
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
+            <InputPasswordWrapper
+              name={RESET_PASSWORD_FORM_NAMES.confirmPassword}
+              control={control}
+              className={CLASS_NAMES_INPUT.dark}
+              label={RESET_PASSWORD_FORM_LABELS.confirmPassword}
+              errorMessage={
+                errors.confirmPassword ? errors.confirmPassword?.message : ' '
+              }
+            />
           </Stack>
         </Stack>
 
         <Stack spacing={4} alignItems="center">
           <Box>
             <Button variant="default" size="large" type="submit">
-              Подтверить
+              Подтвердить
             </Button>
           </Box>
         </Stack>
