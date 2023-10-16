@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import {
-  LoginValidation,
   ConfirmPasswordValidation,
-} from './validationTemplates';
+  LoginValidation,
+} from '../../../helpers/validation/validationTemplates';
 
 export const RegistrationFormValidation = LoginValidation.and(
   ConfirmPasswordValidation,
