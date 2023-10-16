@@ -68,7 +68,7 @@ export const LoginForm = () => {
               Войти в личный кабинет
             </Button>
           </Box>
-          <Link href="#" variant="linkButton">
+          <Link href="register" variant="linkButton">
             Регистрация
           </Link>
         </Stack>
