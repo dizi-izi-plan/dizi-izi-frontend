@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Image from 'next/image';
 import { Cookie } from '@/components/Cookie/Cookie';
@@ -10,6 +9,7 @@ import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
 import { EmailCopyLink } from '@/components/EmailCopyLink/EmailCopyLink';
+import { StartButtom } from '../components/StartButton/StartButton';
 
 export default function Home() {
   return (
@@ -46,7 +46,7 @@ export default function Home() {
                 </Typography>
               </Box>
 
-              <Button variant="default">Начать</Button>
+              <StartButtom />
             </Stack>
 
             <Stack
