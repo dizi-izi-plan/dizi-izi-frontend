@@ -5,8 +5,9 @@ import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
 import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
-import { AccountSectionContainer } from '@/components/Account/AccountSections/AccountSectionContainer';
-import { a11yPropsFuncType, AccountMenuItemsType } from './accoutTypes';
+import { TabContentContainer } from '../../containers/TabContentContainer/TabContentContainer';
+import { AccountMenuItemsType } from './accoutTypes';
+import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 
@@ -18,13 +19,6 @@ export const Account = () => {
     setValue(newValue);
   };
 
-  const a11yProps: a11yPropsFuncType = (index: number) => {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  };
-
   const returnUserToProfile = () => {
     setValue(2);
   };
@@ -34,6 +28,7 @@ export const Account = () => {
   return (
     <>
       <Tabs
+        className="account"
         value={value}
         onChange={handleChange}
         aria-label="account-menu"
@@ -58,9 +53,9 @@ export const Account = () => {
       </Tabs>
       <Box width="74%">
         {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
-          <AccountSectionContainer key={index} value={value} index={index}>
+          <TabContentContainer key={index} value={value} index={index}>
             {item.component}
-          </AccountSectionContainer>
+          </TabContentContainer>
         ))}
       </Box>
       <ModalTwoButtons
