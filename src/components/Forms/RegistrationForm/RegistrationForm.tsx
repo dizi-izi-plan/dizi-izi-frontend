@@ -6,25 +6,32 @@ import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
 import { InputPasswordWrapper } from '../../Input/InputPassword/InputPasswordWrapper';
-import { LOGIN_FORM_LABELS, LOGIN_FORM_NAMES } from './loginFormConstants';
-import { LoginFormType, LoginFormValidation } from './validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import {
+  REGISTRATION_FORM_LABELS,
+  REGISTRATION_FORM_NAMES,
+} from './registrationFormConstants';
+import {
+  RegistrationFormType,
+  RegistrationFormValidation,
+} from './validationSchema';
 
-export const LoginForm = () => {
+export const RegistrationForm = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<LoginFormType>({
+  } = useForm<RegistrationFormType>({
     defaultValues: {
-      [LOGIN_FORM_NAMES.login]: '',
-      [LOGIN_FORM_NAMES.password]: '',
+      [REGISTRATION_FORM_NAMES.login]: '',
+      [REGISTRATION_FORM_NAMES.password]: '',
+      [REGISTRATION_FORM_NAMES.confirmPassword]: '',
     },
-    resolver: zodResolver(LoginFormValidation),
+    resolver: zodResolver(RegistrationFormValidation),
   });
   const onSubmit = handleSubmit((data) => console.log(data));
 
@@ -33,44 +40,53 @@ export const LoginForm = () => {
       <Box mb={10}>
         <Typography
           textAlign="center"
-          variant="h2"
+          variant="h3"
           color="secondary.contrastText"
         >
-          Добро пожаловать в Dizi IZI!
+          Зарегистрироваться
         </Typography>
       </Box>
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
           <Stack rowGap={4}>
             <TextFieldWrapper
-              name={LOGIN_FORM_NAMES.login}
+              name={REGISTRATION_FORM_NAMES.login}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={LOGIN_FORM_LABELS.login}
+              label={REGISTRATION_FORM_LABELS.login}
               errorMessage={errors.login ? errors.login?.message : ' '}
             />
             <InputPasswordWrapper
-              name={LOGIN_FORM_NAMES.password}
+              name={REGISTRATION_FORM_NAMES.password}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={LOGIN_FORM_LABELS.password}
+              label={REGISTRATION_FORM_LABELS.password}
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
+            <InputPasswordWrapper
+              name={REGISTRATION_FORM_NAMES.confirmPassword}
+              control={control}
+              className={CLASS_NAMES_INPUT.dark}
+              label={REGISTRATION_FORM_LABELS.confirmPassword}
+              errorMessage={
+                errors.confirmPassword ? errors.confirmPassword?.message : ' '
+              }
+            />
           </Stack>
-          <Link href="enter-email" variant="s">
-            Забыли пароль?
-          </Link>
+          <Typography variant="caption" color="secondary.contrastText">
+            {'Регистрируясь, вы соглашаетесь '}
+            <Link href="#" variant="xs">
+              на обработку персональных данных.
+            </Link>
+          </Typography>
         </Stack>
 
-        <Stack spacing={4} alignItems="center">
+        <Stack spacing={4} alignItems="center" mb={5}>
           <Box>
             <Button variant="default" size="large" type="submit">
-              Войти в личный кабинет
+              Создать личный кабинет
             </Button>
           </Box>
-          <Link href="register" variant="linkButton">
-            Регистрация
-          </Link>
         </Stack>
       </form>
     </div>
