@@ -1,12 +1,20 @@
 import React from 'react';
-import { UseControllerProps, useController } from 'react-hook-form';
+import {
+  FieldValues,
+  UseControllerProps,
+  useController,
+} from 'react-hook-form';
 import { InputPassword, InputPasswordProps } from './InputPassword';
-import { LoginFormType } from '@/components/Forms/LoginForm/validationSchema';
 import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
 
-export const InputPasswordWrapper = (
-  props: UseControllerProps<LoginFormType> & InputPasswordProps,
+export type ControlledInputProps<T extends FieldValues> = InputPasswordProps &
+  UseControllerProps<T> & {
+    errorMessage?: string;
+  };
+
+export const InputPasswordWrapper = <T extends FieldValues>(
+  props: ControlledInputProps<T>,
 ) => {
   const { field } = useController(props);
 
