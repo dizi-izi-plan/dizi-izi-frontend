@@ -1,6 +1,6 @@
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
-import { AccountMenuItemsType } from '../accoutTypes';
+import { AccountMenuItemsType } from '../accountTypes';
 
 export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   {

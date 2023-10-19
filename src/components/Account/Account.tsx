@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
 import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
 import { TabContentContainer } from '../../containers/TabContentContainer/TabContentContainer';
-import { AccountMenuItemsType } from './accoutTypes';
+import { AccountMenuItemsType } from './accountTypes';
 import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
