@@ -9,7 +9,7 @@ import { Steps } from '@/components/Step/Steps';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
 import { EmailCopyLink } from '@/components/EmailCopyLink/EmailCopyLink';
-import { StartButtom } from '../components/StartButton/StartButton';
+import { StartButton } from '../components/StartButton/StartButton';
 
 export default function Home() {
   return (
@@ -46,7 +46,7 @@ export default function Home() {
                 </Typography>
               </Box>
 
-              <StartButtom />
+              <StartButton />
             </Stack>
 
             <Stack

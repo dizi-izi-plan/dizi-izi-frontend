@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 
-export const StartButtom = () => {
+export const StartButton = () => {
   const router = useRouter();
   const isLoggedIn = false;
 
