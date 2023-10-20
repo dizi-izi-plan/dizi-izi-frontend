@@ -1,5 +1,5 @@
 import { PageContainer } from '../../containers/PageContainer/PageContainer';
-import { Measurements } from '../../components/Measurments/Measurments';
+import { Measurements } from '../../components/Measurements/Measurements';
 
 const RoomMeasurements = () => {
   return (
