@@ -1,15 +1,15 @@
 import Box from '@mui/material/Box';
 
-interface AccountSectionContainerProps {
+interface TabContentContainerProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
 
-export const AccountSectionContainer = ({
+export const TabContentContainer = ({
   children,
   value,
   index,
-}: AccountSectionContainerProps) => {
+}: TabContentContainerProps) => {
   return <Box hidden={value !== index}>{children}</Box>;
 };

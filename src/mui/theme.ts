@@ -514,46 +514,84 @@ theme = createTheme(theme, {
       },
       styleOverrides: {
         root: {
-          width: '160px',
-          '& .MuiTabs-flexContainer': {
-            rowGap: '27px',
-          },
-          '& button.MuiTab-root': {
-            padding: '0 8px 0',
-            width: 'auto',
-            minWidth: 'auto',
-            maxWidth: 'min-content',
-            whiteSpace: 'nowrap',
-            minHeight: 'auto',
-            fontFamily: cabin.style.fontFamily,
-            fontSize: '24px',
-            fontWeight: '400',
-            lineHeight: '1',
-            color: theme.palette.black.main,
-            alignItems: 'start',
-            '&:hover': {
-              fontWeight: '600',
+          '&.account': {
+            width: '160px',
+            '& .MuiTabs-flexContainer': {
+              rowGap: '27px',
+            },
+            '& button.MuiTab-root': {
+              padding: '0 8px 0',
+              width: 'auto',
+              minWidth: 'auto',
+              maxWidth: 'min-content',
+              whiteSpace: 'nowrap',
+              minHeight: 'auto',
+              fontFamily: cabin.style.fontFamily,
+              fontSize: '24px',
+              fontWeight: '400',
+              lineHeight: '1',
+              color: theme.palette.black.main,
+              alignItems: 'start',
+              '&:hover': {
+                fontWeight: '600',
+              },
+            },
+            '& button.MuiTab-root .tab__label': {
+              zIndex: '2',
+            },
+            '& button.Mui-selected': {
+              color: theme.palette.black.main,
+            },
+            '& button .MuiTab-iconWrapper': {
+              width: '100%',
+              overflow: 'hidden',
+              position: 'absolute',
+              left: '0px',
+              bottom: '-3px',
+              marginTop: '0px',
+            },
+            '& button .MuiTab-iconWrapper path': {
+              stroke: theme.palette.secondary.contrastText,
+            },
+            '& button.Mui-selected .MuiTab-iconWrapper path': {
+              stroke: theme.palette.primary.main,
             },
           },
-          '& button.MuiTab-root .tab__label': {
-            zIndex: '2',
+          '&.measurement': {
+            color: theme.palette.myGrey.grey400,
+            '& .MuiTabs-flexContainer': {
+              justifyContent: 'space-between',
+            },
+            '& button.MuiTab-root': {
+              padding: '0',
+
+              width: 'auto',
+              minWidth: 'auto',
+              maxWidth: 'min-content',
+              whiteSpace: 'nowrap',
+              minHeight: 'auto',
+              fontFamily: cabin.style.fontFamily,
+              fontSize: '16px',
+              fontWeight: '500',
+              lineHeight: 'normal',
+            },
+            '& button.Mui-selected': {
+              color: theme.palette.black.main,
+            },
           },
-          '& button.Mui-selected': {
-            color: theme.palette.black.main,
-          },
-          '& button .MuiTab-iconWrapper': {
-            width: '100%',
-            overflow: 'hidden',
-            position: 'absolute',
-            left: '0px',
-            bottom: '-3px',
-            marginTop: '0px',
-          },
-          '& button .MuiTab-iconWrapper path': {
-            stroke: theme.palette.secondary.contrastText,
-          },
-          '& button.Mui-selected .MuiTab-iconWrapper path': {
-            stroke: theme.palette.primary.main,
+        },
+      },
+    },
+    MuiPopper: {
+      styleOverrides: {
+        root: {
+          '& .MuiTypography-root': {
+            fontFamily: manrope.style.fontFamily,
+            fontSize: 16,
+            fontStyle: 'normal',
+            fontWeight: 400,
+            lineHeight: 'normal',
+            letterSpacing: 'normal',
           },
         },
       },

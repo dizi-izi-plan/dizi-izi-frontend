@@ -58,7 +58,11 @@ export const PopperMessage = ({
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Box>
-              <Typography color={tipColor} variant={typographyVariant}>
+              <Typography
+                color={tipColor}
+                variant={typographyVariant}
+                // sx={{ fontFamily: '' }}
+              >
                 {tip}
               </Typography>
             </Box>
