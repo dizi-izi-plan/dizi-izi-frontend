@@ -61,7 +61,7 @@ export const Account = () => {
       <ModalTwoButtons
         isModalOpen={isModalOpen}
         text={['Вы уверены, что хотите выйти из профиля?']}
-        icon={<ModalIcon />}
+        icon={<ModalIcon width="75" height="126" />}
         handleClose={() => setModalOpen(false)}
         // handleYes={() => }
         handleNo={returnUserToProfile}
