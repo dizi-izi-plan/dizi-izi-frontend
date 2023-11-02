@@ -8,11 +8,11 @@ import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
 
 const headerLinksData = [
-  { label: 'о нас', href: '#about' },
-  { label: 'инструкции', href: '#instruction' },
-  { label: 'тарифы', href: '#tariffs' },
-  { label: 'f.a.q.', href: '#faq' },
-  { label: 'контакты', href: '#contacts' },
+  { label: 'о нас', href: '/#about' },
+  { label: 'инструкции', href: '/#instruction' },
+  { label: 'тарифы', href: '/#tariffs' },
+  { label: 'f.a.q.', href: '/#faq' },
+  { label: 'контакты', href: '/#contacts' },
 ];
 
 export const Header = () => {
@@ -37,7 +37,7 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Link href="#">
+            <Link href="/">
               <AppLogo />
             </Link>
             <Stack
