@@ -51,7 +51,7 @@ export const Account = () => {
           onClick={() => setModalOpen(true)}
         />
       </Tabs>
-      <Box width="74%">
+      <Box width="76%">
         {ACCOUNT_MENU_ITEMS.map((item: AccountMenuItemsType, index: number) => (
           <TabContentContainer key={index} value={value} index={index}>
             {item.component}

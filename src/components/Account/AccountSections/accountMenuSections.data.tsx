@@ -1,18 +1,12 @@
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
 import { AccountMenuItemsType } from '../accountTypes';
-import { LargeBoxButtonLink } from '@/components/LargeBoxButtonLink/LargeBoxButtonLink';
+import { LayoutsContainer } from '@/containers/LayoutsContainer/LayoutsContainer';
 
 export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   {
     name: 'Планировки',
-    component: (
-      <LargeBoxButtonLink
-        href="/personal-account/create-project"
-        title="Создать проект"
-        isDisabled={false}
-      />
-    ),
+    component: <LayoutsContainer />,
   },
   {
     name: 'Мой тариф',
