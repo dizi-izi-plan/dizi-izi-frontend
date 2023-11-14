@@ -1,11 +1,10 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { LargeBoxButtonLink } from '@/components/LargeBoxButtonLink/LargeBoxButtonLink';
 import { ModalOneButton } from '@/components/Modal/ModalOneButton';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
-import { useRouter } from 'next/navigation';
-import Button from '@mui/material/Button';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 const MODAL_TEXT = [
   'Генеририуемые планировки носят исключительно рекомендательный характер.',
