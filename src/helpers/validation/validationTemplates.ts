@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 export const LoginValidation = z.object({
-  login: z
+  email: z
     .string()
-    .min(8, { message: 'Логин должен содержать не менее 8 символов' })
-    .max(40, { message: 'Логин должен содержать не более 40 символов' })
+    .min(8, { message: 'Email должен содержать не менее 8 символов' })
+    .max(40, { message: 'Email должен содержать не более 40 символов' })
     .email({ message: 'Некорректный email адрес' }),
 });
 
