@@ -154,7 +154,11 @@ export default function Home() {
 
             <Box>
               <Stack id="contacts" flexDirection="column" spacing={8}>
-                <Typography variant="h2" color="secondary.contrastText">
+                <Typography
+                  variant="h2"
+                  color="secondary.contrastText"
+                  sx={{ fontSize: '48px' }}
+                >
                   НАШИ КОНТАКТЫ
                 </Typography>
 
