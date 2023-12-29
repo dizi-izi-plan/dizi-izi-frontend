@@ -21,7 +21,7 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormType>({
     defaultValues: {
-      [LOGIN_FORM_NAMES.login]: '',
+      [LOGIN_FORM_NAMES.email]: '',
       [LOGIN_FORM_NAMES.password]: '',
     },
     resolver: zodResolver(LoginFormValidation),
@@ -43,11 +43,11 @@ export const LoginForm = () => {
         <Stack spacing={3} mb={4}>
           <Stack rowGap={4}>
             <TextFieldWrapper
-              name={LOGIN_FORM_NAMES.login}
+              name={LOGIN_FORM_NAMES.email}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={LOGIN_FORM_LABELS.login}
-              errorMessage={errors.login ? errors.login?.message : ' '}
+              label={LOGIN_FORM_LABELS.email}
+              errorMessage={errors.email ? errors.email?.message : ' '}
             />
             <InputPasswordWrapper
               name={LOGIN_FORM_NAMES.password}
