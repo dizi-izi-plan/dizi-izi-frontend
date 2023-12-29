@@ -9,7 +9,7 @@ import UserLogo from '../../../public/assets/icons/user_logo.svg';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
-  { label: 'инструкции', href: '/#instruction' },
+  { label: 'инструкция', href: '/#instruction' },
   { label: 'тарифы', href: '/#tariffs' },
   { label: 'f.a.q.', href: '/#faq' },
   { label: 'контакты', href: '/#contacts' },
