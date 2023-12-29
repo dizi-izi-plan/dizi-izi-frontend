@@ -75,7 +75,7 @@ export const RegistrationForm = () => {
           </Stack>
           <Typography variant="caption" color="secondary.contrastText">
             {'Регистрируясь, вы соглашаетесь '}
-            <Link href="#" variant="xs">
+            <Link href="#" variant="xs" sx={{ textUnderlineOffset: '4px' }}>
               на обработку персональных данных.
             </Link>
           </Typography>
