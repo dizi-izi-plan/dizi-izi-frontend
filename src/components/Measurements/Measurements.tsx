@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -12,21 +11,17 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { PopperMessage } from '../Popper/PopperMessage';
 import { MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '../Forms/SizesForm/SizesForm';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '@/redux/hooks';
-import { setCurrentStep } from '@/redux/slices/measurements-slice';
-import { selectCurrentStep } from '@/redux/selectors/selector';
+import { useState } from 'react';
 
 export const Measurements = () => {
   const router = useRouter();
-  const currentStep = useSelector(selectCurrentStep);
-  const dispatch = useAppDispatch();
+  const [currentStep, setCurrentStep] = useState<number>(0);
 
   const handleBack = () => {
     if (currentStep === 0) {
       router.back();
     } else {
-      dispatch(setCurrentStep({ currentStep: currentStep - 1 }));
+      setCurrentStep(currentStep - 1);
     }
   };
 
@@ -34,7 +29,7 @@ export const Measurements = () => {
     if (currentStep === MEASUREMENTS_STEPS.length - 1) {
       router.push('/furniture');
     } else {
-      dispatch(setCurrentStep({ currentStep: currentStep + 1 }));
+      setCurrentStep(currentStep + 1);
     }
   };
 
@@ -60,7 +55,10 @@ export const Measurements = () => {
           Будет изображение
         </Box>
         <Stack width="25%">
-          <SizesForm />
+          <SizesForm
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+          />
         </Stack>
       </Stack>
     </Stack>
