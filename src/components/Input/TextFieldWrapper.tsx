@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent } from 'react';
 import {
   FieldValues,
   UseControllerProps,
@@ -7,6 +7,8 @@ import {
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
+
+const maxNumberInputLength = 4;
 
 export type ControlledInputProps<T extends FieldValues> = TextFieldProps &
   UseControllerProps<T> & {
@@ -21,9 +23,20 @@ export const TextFieldWrapper = <T extends FieldValues>({
 }: ControlledInputProps<T>) => {
   const { field } = useController<T>({ control, name });
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (props.type === 'number') {
+      const numericValue = value.replace(/\D/g, '');
+      if (numericValue.length <= maxNumberInputLength)
+        field.onChange(numericValue);
+    } else {
+      field.onChange(value);
+    }
+  };
+
   return (
     <Box>
-      <TextField {...field} {...props} />
+      <TextField {...field} {...props} onChange={onChange} />
       <FormHelperText
         sx={{
           color: 'error.main',
