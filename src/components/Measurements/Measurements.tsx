@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -19,6 +18,15 @@ import {
   SizesFormType,
   SizesFormValidation,
 } from '../Forms/SizesForm/validation';
+import { TabContentContainer } from '../../containers/TabContentContainer/TabContentContainer';
+import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
+
+import { MeasurementsImage } from './MeasurementsImage';
+
+type MeasurementsDataType = {
+  tabText: string;
+  title: string;
+};
 
 export const Measurements = () => {
   const router = useRouter();
@@ -73,9 +81,20 @@ export const Measurements = () => {
         </PopperMessage>
       </Stack>
       <Stack direction="row" width="100%" justifyContent="space-between">
-        <Box width="74%" height="638px">
-          Будет изображение
-        </Box>
+        <Stack
+          width="74%"
+          height="640px"
+          border="1px solid"
+          mb="80px"
+          alignItems="center"
+          sx={(theme) => ({
+            borderColor:
+              currentStep === 0 ? theme.palette.myGrey.grey400 : 'transparent',
+          })}
+          p="70px 50px 50px 60px"
+        >
+          <MeasurementsImage />
+        </Stack>
         <Stack width="25%">
           <SizesForm
             currentStep={currentStep}
