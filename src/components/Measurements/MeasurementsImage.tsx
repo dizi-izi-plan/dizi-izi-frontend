@@ -212,7 +212,7 @@ export const MeasurementsImage = () => {
               setVerticalWall(4000);
             }}
           >
-            Ширина больше высоты
+            Длина больше ширины
           </Button>
           <Button
             variant="default"
@@ -234,7 +234,7 @@ export const MeasurementsImage = () => {
               setVerticalWall(5000);
             }}
           >
-            Высота больше ширины
+            Ширина больше длины
           </Button>
         </Stack>
         <Stack direction="row" columnGap="20px">
