@@ -92,6 +92,7 @@ export const Measurements = () => {
               currentStep === 0 ? theme.palette.myGrey.grey400 : 'transparent',
           })}
           p="70px 50px 50px 60px"
+          position="relative"
         >
           <MeasurementsImage />
         </Stack>
