@@ -1,20 +1,49 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { WallNumbers } from './MeasurementsImageElements/WallNumbers';
+import { Door } from './MeasurementsImageElements/Door';
+
+type TDoor = {
+  wall: number;
+  size: number;
+  distance: number;
+  distanceFrom: number;
+  openInside: boolean;
+  openLeft: boolean;
+  isFocused: boolean;
+};
 
 export const MeasurementsImage = () => {
   const [horizontalWall, setHorizontalWall] = useState<number>(5000);
-  const [horizontalFocus, setHorizontalFocus] = useState<boolean>(true);
+  const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
 
   const [verticalWall, setVerticalWall] = useState<number>(4000);
   const [verticalFocus, setVerticalFocus] = useState<boolean>(false);
+
+  const [doors, setDoors] = useState<TDoor[]>([
+    {
+      wall: 4,
+      size: 800,
+      distance: 3000,
+      distanceFrom: 3,
+      openInside: true,
+      openLeft: false,
+      isFocused: false,
+    },
+    {
+      wall: 0,
+      size: 0,
+      distance: 0,
+      distanceFrom: 0,
+      openInside: true,
+      openLeft: true,
+      isFocused: false,
+    },
+  ]);
 
   const width = useMemo(() => {
     if (horizontalWall > 0) {
@@ -63,143 +92,20 @@ export const MeasurementsImage = () => {
         `,
         })}
       >
-        <Stack
-          position="absolute"
-          top="-20px"
-          left={!verticalFocus ? '-90px' : '-45px'}
-          direction="row"
-          alignItems="center"
-          display={verticalWall > 0 ? 'undefind' : 'none'}
-          height="calc(100% + 40px)"
-        >
-          <Stack
-            height="100%"
-            display={!verticalFocus ? 'undefind' : 'none'}
-            direction="row"
-            alignItems="center"
-          >
-            <Typography
-              variant="overline"
-              color="secondary.main"
-              fontWeight={500}
-              sx={{
-                transform: 'rotate(-90deg)',
-              }}
-            >
-              {verticalWall}
-            </Typography>
-            <Stack
-              height="100%"
-              alignItems="center"
-              position="relative"
-              p="3px 0"
-            >
-              <ArrowForwardIosRoundedIcon
-                fontSize="small"
-                sx={{
-                  position: 'absolute',
-                  top: '-5px',
-                  transform: 'rotate(-90deg)',
-                }}
-              />
-              <Box
-                height="100%"
-                sx={{
-                  backgroundColor: 'secondary.main',
-                  width: '2px',
-                }}
-              ></Box>
-              <ArrowBackIosNewRoundedIcon
-                fontSize="small"
-                sx={{
-                  position: 'absolute',
-                  bottom: '-5px',
-                  transform: 'rotate(-90deg)',
-                }}
-              />
-            </Stack>
-          </Stack>
-          <Typography variant="h3" color="myGrey.grey700" pl="10px">
-            1
-          </Typography>
-        </Stack>
-        <Stack
-          position="absolute"
-          top={!horizontalFocus ? '-80px' : '-55px'}
-          left="-20px"
-          alignItems="center"
-          display={horizontalWall > 0 ? 'undefind' : 'none'}
-          width="calc(100% + 40px)"
-        >
-          <Stack
-            width="100%"
-            display={!horizontalFocus ? 'undefind' : 'none'}
-            alignItems="center"
-          >
-            <Typography
-              variant="overline"
-              color="secondary.main"
-              fontWeight={500}
-              pb="3px"
-            >
-              {horizontalWall}
-            </Typography>
-            <Stack
-              width="100%"
-              direction="row"
-              alignItems="center"
-              position="relative"
-              p="0 3px 0"
-            >
-              <ArrowBackIosNewRoundedIcon
-                fontSize="small"
-                sx={{
-                  position: 'absolute',
-                  left: '-5px',
-                }}
-              />
-              <Box
-                height="2px"
-                position="relative"
-                top="-0.2px"
-                sx={{
-                  backgroundColor: 'secondary.main',
-                  width: '100%',
-                }}
-              ></Box>
-              <ArrowForwardIosRoundedIcon
-                fontSize="small"
-                sx={{
-                  position: 'absolute',
-                  right: '-5px',
-                }}
-              />
-            </Stack>
-          </Stack>
-          <Typography variant="h3" color="myGrey.grey700">
-            2
-          </Typography>
-        </Stack>
-        <Typography
-          variant="h3"
-          color="myGrey.grey700"
-          display={verticalWall > 0 ? 'undefind' : 'none'}
-          position="absolute"
-          top="calc(50% - 14px)"
-          right="-40px"
-        >
-          3
-        </Typography>
-        <Typography
-          variant="h3"
-          color="myGrey.grey700"
-          display={horizontalWall > 0 ? 'undefind' : 'none'}
-          position="absolute"
-          bottom="-50px"
-          left="calc(50% - 14px)"
-        >
-          4
-        </Typography>
+        <WallNumbers
+          horizontalWall={horizontalWall}
+          horizontalFocus={horizontalFocus}
+          verticalWall={verticalWall}
+          verticalFocus={verticalFocus}
+        />
+        {doors.map((door, index) => (
+          <Door
+            key={index}
+            door={door}
+            horizontalWall={horizontalWall}
+            verticalWall={verticalWall}
+          />
+        ))}
       </Stack>
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
         <Stack direction="row" columnGap="20px">
