@@ -94,7 +94,11 @@ export const Measurements = () => {
           p="70px 50px 50px 60px"
           position="relative"
         >
-          <MeasurementsImage />
+          <MeasurementsImage
+            stepOne={value === 0}
+            stepTwo={value === 1}
+            stepTree={value === 2}
+          />
         </Stack>
         <Stack width="25%">
           <SizesForm

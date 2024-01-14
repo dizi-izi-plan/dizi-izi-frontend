@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
@@ -17,7 +17,16 @@ type TDoor = {
   isFocused: boolean;
 };
 
-export const MeasurementsImage = () => {
+type MeasurementsImageProps = {
+  stepOne: boolean;
+  stepTwo: boolean;
+  stepTree: boolean;
+};
+
+export const MeasurementsImage = ({
+  stepOne,
+  stepTwo,
+}: MeasurementsImageProps) => {
   const [horizontalWall, setHorizontalWall] = useState<number>(5000);
   const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
 
@@ -28,17 +37,8 @@ export const MeasurementsImage = () => {
     {
       wall: 4,
       size: 800,
-      distance: 3000,
+      distance: 1000,
       distanceFrom: 3,
-      openInside: true,
-      openLeft: false,
-      isFocused: false,
-    },
-    {
-      wall: 0,
-      size: 0,
-      distance: 0,
-      distanceFrom: 0,
       openInside: true,
       openLeft: true,
       isFocused: false,
@@ -58,6 +58,13 @@ export const MeasurementsImage = () => {
       return '50%';
     }
   }, [horizontalWall, verticalWall]);
+
+  useEffect(() => {
+    if (stepTwo) {
+      setHorizontalFocus(false);
+      setVerticalFocus(false);
+    }
+  }, [stepTwo, setHorizontalFocus, setVerticalFocus]);
 
   return (
     <>
@@ -98,17 +105,23 @@ export const MeasurementsImage = () => {
           verticalWall={verticalWall}
           verticalFocus={verticalFocus}
         />
-        {doors.map((door, index) => (
-          <Door
-            key={index}
-            door={door}
-            horizontalWall={horizontalWall}
-            verticalWall={verticalWall}
-          />
-        ))}
+        {!stepOne &&
+          doors.map((door, index) => (
+            <Door
+              key={index}
+              door={door}
+              horizontalWall={horizontalWall}
+              verticalWall={verticalWall}
+            />
+          ))}
       </Stack>
+      {/*Раздел с кнопками для изменения параметров, пока нет формы. Удалить после*/}
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
-        <Stack direction="row" columnGap="20px">
+        <Stack
+          direction="row"
+          columnGap="20px"
+          display={stepOne ? 'undefind' : 'none'}
+        >
           <Button
             variant="default"
             sx={{ color: 'black.main', p: '10px 10px' }}
@@ -143,7 +156,11 @@ export const MeasurementsImage = () => {
             Ширина больше длины
           </Button>
         </Stack>
-        <Stack direction="row" columnGap="20px">
+        <Stack
+          direction="row"
+          columnGap="20px"
+          display={stepOne ? 'undefind' : 'none'}
+        >
           <Button
             variant="default"
             sx={{ color: 'black.main', p: '10px 10px' }}
@@ -176,6 +193,97 @@ export const MeasurementsImage = () => {
             }}
           >
             Снять фокус
+          </Button>
+        </Stack>
+        <Stack
+          direction="row"
+          columnGap="20px"
+          display={stepTwo ? 'undefind' : 'none'}
+        >
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setDoors((prev) => {
+                const newDoor = prev[0];
+                if (newDoor.wall < 4) {
+                  newDoor.wall += 1;
+                } else {
+                  newDoor.wall = 1;
+                }
+                if (newDoor.distanceFrom < 4) {
+                  newDoor.distanceFrom += 1;
+                } else {
+                  newDoor.distanceFrom = 1;
+                }
+                return [newDoor];
+              });
+            }}
+          >
+            Поменять стену
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setDoors((prev) => {
+                const newDoor = prev[0];
+                console.log(newDoor.distanceFrom);
+                if (newDoor.distanceFrom < 3) {
+                  newDoor.distanceFrom += 2;
+                } else {
+                  newDoor.distanceFrom -= 2;
+                }
+                console.log(newDoor.distanceFrom);
+                return [newDoor];
+              });
+            }}
+          >
+            Поменять стену, от которой идет расчет
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setDoors((prev) => {
+                const newDoor = prev[0];
+                newDoor.openLeft = !newDoor.openLeft;
+                return [newDoor];
+              });
+            }}
+          >
+            Открыть {doors[0].openLeft ? 'вправо' : 'влево'}
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setDoors((prev) => {
+                const newDoor = prev[0];
+                newDoor.openInside = !newDoor.openInside;
+                return [newDoor];
+              });
+            }}
+          >
+            Открыть {doors[0].openInside ? 'наружу' : 'внутрь'}
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setDoors((prev) => {
+                const newDoor = prev[0];
+                newDoor.isFocused = !newDoor.isFocused;
+                return [newDoor];
+              });
+            }}
+          >
+            {doors[0].isFocused ? 'Убрать фокус' : 'Дверь в фокусе'}
           </Button>
         </Stack>
       </Stack>
