@@ -34,12 +34,14 @@ export const Door = ({ door, horizontalWall, verticalWall }: DoorProps) => {
         return 'calc(50% - 75px)';
       if (door.distance / verticalWall < 0.5) return '25%';
       if (door.distance / verticalWall > 0.5) return '60%';
+      if (door.distance / verticalWall === 0.5) return '50%';
     }
     if (door.wall === 2 || door.wall === 4) {
       if ((door.distance + 0.5 * door.size) / horizontalWall === 0.5)
         return 'calc(50% - 75px)';
       if (door.distance / horizontalWall < 0.5) return '25%';
       if (door.distance / horizontalWall > 0.5) return 'calc(75% - 150px)';
+      if (door.distance / horizontalWall === 0.5) return '50%';
     }
   }, [door.distance, door.wall, door.size, verticalWall, horizontalWall]);
 

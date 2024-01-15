@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 
 import { WallNumbers } from './MeasurementsImageElements/WallNumbers';
 import { Door } from './MeasurementsImageElements/Door';
+import { Window } from './MeasurementsImageElements/Window';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
 
 type TDoor = {
@@ -19,15 +20,24 @@ type TDoor = {
   isFocused: boolean;
 };
 
+type TWindow = {
+  wall: number;
+  size: number;
+  distance: number;
+  distanceFrom: number;
+  isFocused: boolean;
+};
+
 type MeasurementsImageProps = {
   stepOne: boolean;
   stepTwo: boolean;
-  stepTree: boolean;
+  stepThree: boolean;
 };
 
 export const MeasurementsImage = ({
   stepOne,
   stepTwo,
+  stepThree,
 }: MeasurementsImageProps) => {
   const [horizontalWall, setHorizontalWall] = useState<number>(6000);
   const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
@@ -37,12 +47,22 @@ export const MeasurementsImage = ({
 
   const [doors, setDoors] = useState<TDoor[]>([
     {
-      wall: 4,
+      wall: 2,
       size: 800,
       distance: 1000,
-      distanceFrom: 3,
+      distanceFrom: 1,
       openInside: true,
       openLeft: true,
+      isFocused: false,
+    },
+  ]);
+
+  const [windows, setWindows] = useState<TWindow[]>([
+    {
+      wall: 1,
+      size: 1000,
+      distance: 2000,
+      distanceFrom: 2,
       isFocused: false,
     },
   ]);
@@ -158,6 +178,15 @@ export const MeasurementsImage = ({
             <Door
               key={index}
               door={door}
+              horizontalWall={horizontalWall}
+              verticalWall={verticalWall}
+            />
+          ))}
+        {stepThree &&
+          windows.map((window, index) => (
+            <Window
+              key={index}
+              window={window}
               horizontalWall={horizontalWall}
               verticalWall={verticalWall}
             />
@@ -332,6 +361,69 @@ export const MeasurementsImage = ({
             }}
           >
             {doors[0].isFocused ? 'Убрать фокус' : 'Дверь в фокусе'}
+          </Button>
+        </Stack>
+        <Stack
+          direction="row"
+          columnGap="20px"
+          display={stepThree ? 'undefind' : 'none'}
+        >
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setWindows((prev) => {
+                const newWindow = prev[0];
+                if (newWindow.wall < 4) {
+                  newWindow.wall += 1;
+                } else {
+                  newWindow.wall = 1;
+                }
+                if (newWindow.distanceFrom < 4) {
+                  newWindow.distanceFrom += 1;
+                } else {
+                  newWindow.distanceFrom = 1;
+                }
+                return [newWindow];
+              });
+            }}
+          >
+            Поменять стену
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setWindows((prev) => {
+                const newWindow = prev[0];
+                console.log(newWindow.distanceFrom);
+                if (newWindow.distanceFrom < 3) {
+                  newWindow.distanceFrom += 2;
+                } else {
+                  newWindow.distanceFrom -= 2;
+                }
+                console.log(newWindow.distanceFrom);
+                return [newWindow];
+              });
+            }}
+          >
+            Поменять стену, от которой идет расчет
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setWindows((prev) => {
+                const newWindow = prev[0];
+                newWindow.isFocused = !newWindow.isFocused;
+                return [newWindow];
+              });
+            }}
+          >
+            {doors[0].isFocused ? 'Убрать фокус' : 'Окно в фокусе'}
           </Button>
         </Stack>
       </Stack>
