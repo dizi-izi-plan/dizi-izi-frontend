@@ -4,11 +4,16 @@ import { useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 import { WallNumbers } from './MeasurementsImageElements/WallNumbers';
 import { Door } from './MeasurementsImageElements/Door';
 import { Window } from './MeasurementsImageElements/Window';
+import { DoorOrBalcony } from './MeasurementsImageElements/DoorOrBalcony';
+import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
+
+// import DoorIcon from '../../../public/assets/icons/measurements/icon_door.svg';
 
 type TDoor = {
   wall: number;
@@ -47,10 +52,10 @@ export const MeasurementsImage = ({
 
   const [doors, setDoors] = useState<TDoor[]>([
     {
-      wall: 2,
-      size: 800,
+      wall: 3,
+      size: 880,
       distance: 1000,
-      distanceFrom: 1,
+      distanceFrom: 4,
       openInside: true,
       openLeft: true,
       isFocused: false,
@@ -60,9 +65,21 @@ export const MeasurementsImage = ({
   const [windows, setWindows] = useState<TWindow[]>([
     {
       wall: 1,
-      size: 1000,
+      size: 800,
       distance: 2000,
       distanceFrom: 2,
+      isFocused: false,
+    },
+  ]);
+
+  const [balconies, setBalconies] = useState<TDoor[]>([
+    {
+      wall: 4,
+      size: 800,
+      distance: 200,
+      distanceFrom: 1,
+      openInside: true,
+      openLeft: true,
       isFocused: false,
     },
   ]);
@@ -106,7 +123,7 @@ export const MeasurementsImage = ({
     >
       <Stack
         display={
-          horizontalWall === 0 && verticalWall === 0 ? 'undefind' : 'none'
+          horizontalWall === 0 && verticalWall === 0 ? undefined : 'none'
         }
         position="relative"
         width="100%"
@@ -138,7 +155,7 @@ export const MeasurementsImage = ({
         width={width}
         height="100%"
         display={
-          horizontalWall !== 0 || verticalWall !== 0 ? 'undefind' : 'none'
+          horizontalWall !== 0 || verticalWall !== 0 ? undefined : 'none'
         }
         sx={(theme) => ({
           borderBottom: `solid ${horizontalWall > 0 ? '20px' : '0px'} ${
@@ -191,13 +208,22 @@ export const MeasurementsImage = ({
               verticalWall={verticalWall}
             />
           ))}
+        {stepThree &&
+          balconies.map((balcony, index) => (
+            <Balcony
+              key={index}
+              balcony={balcony}
+              horizontalWall={horizontalWall}
+              verticalWall={verticalWall}
+            />
+          ))}
       </Stack>
       {/*Раздел с кнопками для изменения параметров, пока нет формы. Удалить после*/}
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
         <Stack
           direction="row"
           columnGap="20px"
-          display={stepOne ? 'undefind' : 'none'}
+          display={stepOne ? undefined : 'none'}
         >
           <Button
             variant="default"
@@ -236,7 +262,7 @@ export const MeasurementsImage = ({
         <Stack
           direction="row"
           columnGap="20px"
-          display={stepOne ? 'undefind' : 'none'}
+          display={stepOne ? undefined : 'none'}
         >
           <Button
             variant="default"
@@ -275,7 +301,7 @@ export const MeasurementsImage = ({
         <Stack
           direction="row"
           columnGap="20px"
-          display={stepTwo ? 'undefind' : 'none'}
+          display={stepTwo ? undefined : 'none'}
         >
           <Button
             variant="default"
@@ -364,7 +390,7 @@ export const MeasurementsImage = ({
         <Stack
           direction="row"
           columnGap="20px"
-          display={stepThree ? 'undefind' : 'none'}
+          display={stepThree ? undefined : 'none'}
         >
           <Button
             variant="default"

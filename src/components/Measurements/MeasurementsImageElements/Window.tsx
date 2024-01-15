@@ -9,6 +9,8 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
+import { Line } from './Line';
+
 type TWindow = {
   wall: number;
   size: number;
@@ -59,35 +61,35 @@ export const Window = ({
 
   return (
     <Stack
-      display={window.size === 0 ? 'none' : 'undefind'}
+      display={window.size === 0 ? 'none' : undefined}
       position="absolute"
       top={
         window.wall === 2
           ? '-20px'
           : window.distanceFrom === 2
           ? '0px'
-          : 'undefind'
+          : undefined
       }
       bottom={
         window.wall === 4
           ? '-20px'
           : window.distanceFrom === 4
           ? '0px'
-          : 'undefind'
+          : undefined
       }
       right={
         window.wall === 3
           ? '-20px'
           : window.distanceFrom === 3
           ? '0px'
-          : 'undefind'
+          : undefined
       }
       left={
         window.wall === 1
           ? '-20px'
           : window.distanceFrom === 1
           ? '0px'
-          : 'undefind'
+          : undefined
       }
       direction={
         window.wall === 2 || window.wall === 4
@@ -180,30 +182,12 @@ export const Window = ({
       >
         {!window.isFocused && (
           <>
-            <Box
-              height={window.wall === 2 || window.wall === 4 ? '1px' : '100%'}
-              width={window.wall === 2 || window.wall === 4 ? '100%' : '1px'}
-              sx={(theme) => ({
-                backgroundColor: theme.palette.black.main,
-              })}
-            ></Box>
-            <Box
-              height={window.wall === 2 || window.wall === 4 ? '1px' : '100%'}
-              width={window.wall === 2 || window.wall === 4 ? '100%' : '1px'}
-              sx={(theme) => ({
-                backgroundColor: theme.palette.black.main,
-              })}
-            ></Box>
+            {[...new Array(2)].map((el, index) => (
+              <Line key={index} wall={window.wall} />
+            ))}
           </>
         )}
       </Stack>
-      {/* {!window.isFocused && (
-        <DoorIcon
-          style={{
-            transform: `${rotateWindow}`,
-          }}
-        />
-      )} */}
     </Stack>
   );
 };

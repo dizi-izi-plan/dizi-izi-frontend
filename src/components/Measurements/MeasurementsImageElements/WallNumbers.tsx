@@ -28,12 +28,12 @@ export const WallNumbers = ({
         left={!verticalFocus ? '-90px' : '-45px'}
         direction="row"
         alignItems="center"
-        display={verticalWall > 0 ? 'undefind' : 'none'}
+        display={verticalWall > 0 ? undefined : 'none'}
         height="calc(100% + 40px)"
       >
         <Stack
           height="100%"
-          display={!verticalFocus ? 'undefind' : 'none'}
+          display={!verticalFocus ? undefined : 'none'}
           direction="row"
           alignItems="center"
         >
@@ -87,12 +87,12 @@ export const WallNumbers = ({
         top={!horizontalFocus ? '-80px' : '-55px'}
         left="-20px"
         alignItems="center"
-        display={horizontalWall > 0 ? 'undefind' : 'none'}
+        display={horizontalWall > 0 ? undefined : 'none'}
         width="calc(100% + 40px)"
       >
         <Stack
           width="100%"
-          display={!horizontalFocus ? 'undefind' : 'none'}
+          display={!horizontalFocus ? undefined : 'none'}
           alignItems="center"
         >
           <Typography
@@ -142,7 +142,7 @@ export const WallNumbers = ({
       <Typography
         variant="h3"
         color="myGrey.grey700"
-        display={verticalWall > 0 ? 'undefind' : 'none'}
+        display={verticalWall > 0 ? undefined : 'none'}
         position="absolute"
         top="calc(50% - 14px)"
         right="-40px"
@@ -152,7 +152,7 @@ export const WallNumbers = ({
       <Typography
         variant="h3"
         color="myGrey.grey700"
-        display={horizontalWall > 0 ? 'undefind' : 'none'}
+        display={horizontalWall > 0 ? undefined : 'none'}
         position="absolute"
         bottom="-50px"
         left="calc(50% - 14px)"

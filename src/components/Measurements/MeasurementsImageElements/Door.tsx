@@ -71,19 +71,19 @@ export const Door = ({ door, horizontalWall, verticalWall }: DoorProps) => {
 
   return (
     <Stack
-      display={door.size === 0 ? 'none' : 'undefind'}
+      display={door.size === 0 ? 'none' : undefined}
       position="absolute"
       top={
-        door.wall === 2 ? '-20px' : door.distanceFrom === 2 ? '0px' : 'undefind'
+        door.wall === 2 ? '-20px' : door.distanceFrom === 2 ? '0px' : undefined
       }
       bottom={
-        door.wall === 4 ? '-20px' : door.distanceFrom === 4 ? '0px' : 'undefind'
+        door.wall === 4 ? '-20px' : door.distanceFrom === 4 ? '0px' : undefined
       }
       right={
-        door.wall === 3 ? '-20px' : door.distanceFrom === 3 ? '0px' : 'undefind'
+        door.wall === 3 ? '-20px' : door.distanceFrom === 3 ? '0px' : undefined
       }
       left={
-        door.wall === 1 ? '-20px' : door.distanceFrom === 1 ? '0px' : 'undefind'
+        door.wall === 1 ? '-20px' : door.distanceFrom === 1 ? '0px' : undefined
       }
       direction={
         door.wall === 2 || door.wall === 4
