@@ -95,9 +95,9 @@ export const Measurements = () => {
           position="relative"
         >
           <MeasurementsImage
-            stepOne={value === 0}
-            stepTwo={value === 1}
-            stepTree={value === 2}
+            stepOne={currentStep === 0}
+            stepTwo={currentStep === 1}
+            stepTree={currentStep === 2}
           />
         </Stack>
         <Stack width="25%">

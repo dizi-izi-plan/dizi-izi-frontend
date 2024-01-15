@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import { WallNumbers } from './MeasurementsImageElements/WallNumbers';
 import { Door } from './MeasurementsImageElements/Door';
+import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
 
 type TDoor = {
   wall: number;
@@ -27,7 +29,7 @@ export const MeasurementsImage = ({
   stepOne,
   stepTwo,
 }: MeasurementsImageProps) => {
-  const [horizontalWall, setHorizontalWall] = useState<number>(5000);
+  const [horizontalWall, setHorizontalWall] = useState<number>(6000);
   const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
 
   const [verticalWall, setVerticalWall] = useState<number>(4000);
@@ -67,11 +69,57 @@ export const MeasurementsImage = ({
   }, [stepTwo, setHorizontalFocus, setVerticalFocus]);
 
   return (
-    <>
+    <Stack
+      width="74%"
+      height="640px"
+      border="1px solid"
+      mb="80px"
+      alignItems="center"
+      sx={(theme) => ({
+        borderColor:
+          stepOne && (horizontalWall !== 0 || verticalWall !== 0)
+            ? theme.palette.myGrey.grey400
+            : 'transparent',
+      })}
+      p="70px 50px 50px 60px"
+      position="relative"
+    >
+      <Stack
+        display={
+          horizontalWall === 0 && verticalWall === 0 ? 'undefind' : 'none'
+        }
+        position="relative"
+        width="100%"
+        height="100%"
+        sx={(theme) => ({
+          border: `solid 20px ${theme.palette.myGrey.grey200}`,
+        })}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography
+          variant="h2"
+          color="myGrey.grey800"
+          maxWidth="400px"
+          textAlign="center"
+        >
+          Введите параметры помещения
+        </Typography>
+        <DoorTransparentIcon
+          style={{
+            position: 'absolute',
+            bottom: '-20px',
+            right: '70px',
+          }}
+        />
+      </Stack>
       <Stack
         position="relative"
         width={width}
         height="100%"
+        display={
+          horizontalWall !== 0 || verticalWall !== 0 ? 'undefind' : 'none'
+        }
         sx={(theme) => ({
           borderBottom: `solid ${horizontalWall > 0 ? '20px' : '0px'} ${
             horizontalFocus && horizontalWall > 1
@@ -287,7 +335,7 @@ export const MeasurementsImage = ({
           </Button>
         </Stack>
       </Stack>
-    </>
+    </Stack>
   );
 };
 
