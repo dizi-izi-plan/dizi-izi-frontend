@@ -307,13 +307,11 @@ export const MeasurementsImage = ({
             onClick={() => {
               setDoors((prev) => {
                 const newDoor = prev[0];
-                console.log(newDoor.distanceFrom);
                 if (newDoor.distanceFrom < 3) {
                   newDoor.distanceFrom += 2;
                 } else {
                   newDoor.distanceFrom -= 2;
                 }
-                console.log(newDoor.distanceFrom);
                 return [newDoor];
               });
             }}
@@ -398,13 +396,11 @@ export const MeasurementsImage = ({
             onClick={() => {
               setWindows((prev) => {
                 const newWindow = prev[0];
-                console.log(newWindow.distanceFrom);
                 if (newWindow.distanceFrom < 3) {
                   newWindow.distanceFrom += 2;
                 } else {
                   newWindow.distanceFrom -= 2;
                 }
-                console.log(newWindow.distanceFrom);
                 return [newWindow];
               });
             }}
