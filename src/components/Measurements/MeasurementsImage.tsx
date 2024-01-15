@@ -4,16 +4,12 @@ import { useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 
 import { WallNumbers } from './MeasurementsImageElements/WallNumbers';
 import { Door } from './MeasurementsImageElements/Door';
 import { Window } from './MeasurementsImageElements/Window';
-import { DoorOrBalcony } from './MeasurementsImageElements/DoorOrBalcony';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
-
-// import DoorIcon from '../../../public/assets/icons/measurements/icon_door.svg';
 
 type TDoor = {
   wall: number;
