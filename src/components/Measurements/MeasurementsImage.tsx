@@ -388,6 +388,7 @@ export const MeasurementsImage = ({
           columnGap="20px"
           display={stepThree ? undefined : 'none'}
         >
+          <Typography>ОКНО</Typography>
           <Button
             variant="default"
             sx={{ color: 'black.main', p: '10px 10px' }}
@@ -442,6 +443,96 @@ export const MeasurementsImage = ({
             }}
           >
             {doors[0].isFocused ? 'Убрать фокус' : 'Окно в фокусе'}
+          </Button>
+        </Stack>
+        <Stack
+          direction="row"
+          columnGap="20px"
+          display={stepThree ? undefined : 'none'}
+        >
+          <Typography>БАЛКОН</Typography>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setBalconies((prev) => {
+                const newBalcony = prev[0];
+                if (newBalcony.wall < 4) {
+                  newBalcony.wall += 1;
+                } else {
+                  newBalcony.wall = 1;
+                }
+                if (newBalcony.distanceFrom < 4) {
+                  newBalcony.distanceFrom += 1;
+                } else {
+                  newBalcony.distanceFrom = 1;
+                }
+                return [newBalcony];
+              });
+            }}
+          >
+            Поменять стену
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setBalconies((prev) => {
+                const newBalcony = prev[0];
+                if (newBalcony.distanceFrom < 3) {
+                  newBalcony.distanceFrom += 2;
+                } else {
+                  newBalcony.distanceFrom -= 2;
+                }
+                return [newBalcony];
+              });
+            }}
+          >
+            Поменять стену, от которой идет расчет
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setBalconies((prev) => {
+                const newBalcony = prev[0];
+                newBalcony.openLeft = !newBalcony.openLeft;
+                return [newBalcony];
+              });
+            }}
+          >
+            Открыть {doors[0].openLeft ? 'вправо' : 'влево'}
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setBalconies((prev) => {
+                const newBalcony = prev[0];
+                newBalcony.openInside = !newBalcony.openInside;
+                return [newBalcony];
+              });
+            }}
+          >
+            Открыть {doors[0].openInside ? 'наружу' : 'внутрь'}
+          </Button>
+          <Button
+            variant="default"
+            sx={{ color: 'black.main', p: '10px 10px' }}
+            size="medium"
+            onClick={() => {
+              setBalconies((prev) => {
+                const newBalcony = prev[0];
+                newBalcony.isFocused = !newBalcony.isFocused;
+                return [newBalcony];
+              });
+            }}
+          >
+            {doors[0].isFocused ? 'Убрать фокус' : 'Балкон в фокусе'}
           </Button>
         </Stack>
       </Stack>

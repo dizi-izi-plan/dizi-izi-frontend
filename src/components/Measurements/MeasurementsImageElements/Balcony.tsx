@@ -276,24 +276,26 @@ export const Balcony = ({
             </>
           )}
         </Stack>
-        <Stack
-          height={balcony.wall === 2 || balcony.wall === 4 ? '9px' : '120px'}
-          width={balcony.wall === 2 || balcony.wall === 4 ? '120px' : '9px'}
-          direction={
-            balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
-          }
-          position="absolute"
-          zIndex={1}
-          justifyContent="center"
-          alignItems="center"
-          sx={(theme) => ({
-            backgroundColor: 'secondary.contrastText',
-            border: `1px solid ${theme.palette.black.main}`,
-            ...balconyPosition,
-          })}
-        >
-          <Line wall={balcony.wall}></Line>
-        </Stack>
+        {!balcony.isFocused && (
+          <Stack
+            height={balcony.wall === 2 || balcony.wall === 4 ? '9px' : '120px'}
+            width={balcony.wall === 2 || balcony.wall === 4 ? '120px' : '9px'}
+            direction={
+              balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
+            }
+            position="absolute"
+            zIndex={1}
+            justifyContent="center"
+            alignItems="center"
+            sx={(theme) => ({
+              backgroundColor: 'secondary.contrastText',
+              border: `1px solid ${theme.palette.black.main}`,
+              ...balconyPosition,
+            })}
+          >
+            <Line wall={balcony.wall}></Line>
+          </Stack>
+        )}
       </Box>
     </Stack>
   );
