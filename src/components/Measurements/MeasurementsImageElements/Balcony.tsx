@@ -246,31 +246,36 @@ export const Balcony = ({
           </>
         )}
       </Stack>
-      <Stack
-        height={balcony.wall === 2 || balcony.wall === 4 ? '20px' : '350px'}
-        width={balcony.wall === 2 || balcony.wall === 4 ? '350px' : '20px'}
-        sx={(theme) => ({
-          backgroundColor: balcony.isFocused
-            ? 'primary.main'
-            : 'secondary.contrastText',
-          border: balcony.isFocused
-            ? 'none'
-            : `1px solid ${theme.palette.black.main}`,
-        })}
-        justifyContent="center"
-        alignItems="center"
-        rowGap="6px"
-        columnGap="6px"
-        direction={balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'}
-        position="relative"
-      >
-        {!balcony.isFocused && (
-          <>
-            {[...new Array(2)].map((el, index) => (
-              <Line key={index} wall={balcony.wall} />
-            ))}
-          </>
-        )}
+      <Box position="relative">
+        <Stack
+          height={balcony.wall === 2 || balcony.wall === 4 ? '20px' : '350px'}
+          width={balcony.wall === 2 || balcony.wall === 4 ? '350px' : '20px'}
+          sx={(theme) => ({
+            backgroundColor: balcony.isFocused
+              ? 'primary.main'
+              : 'secondary.contrastText',
+            border: balcony.isFocused
+              ? 'none'
+              : `1px solid ${theme.palette.black.main}`,
+          })}
+          justifyContent="center"
+          alignItems="center"
+          rowGap="6px"
+          columnGap="6px"
+          direction={
+            balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
+          }
+          position="relative"
+          zIndex={2}
+        >
+          {!balcony.isFocused && (
+            <>
+              {[...new Array(2)].map((el, index) => (
+                <Line key={index} wall={balcony.wall} />
+              ))}
+            </>
+          )}
+        </Stack>
         <Stack
           height={balcony.wall === 2 || balcony.wall === 4 ? '9px' : '120px'}
           width={balcony.wall === 2 || balcony.wall === 4 ? '120px' : '9px'}
@@ -278,6 +283,7 @@ export const Balcony = ({
             balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
           }
           position="absolute"
+          zIndex={1}
           justifyContent="center"
           alignItems="center"
           sx={(theme) => ({
@@ -288,7 +294,7 @@ export const Balcony = ({
         >
           <Line wall={balcony.wall}></Line>
         </Stack>
-      </Stack>
+      </Box>
     </Stack>
   );
 };

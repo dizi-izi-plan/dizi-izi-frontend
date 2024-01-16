@@ -49,9 +49,9 @@ export const MeasurementsImage = ({
   const [doors, setDoors] = useState<TDoor[]>([
     {
       wall: 3,
-      size: 880,
+      size: 800,
       distance: 1000,
-      distanceFrom: 4,
+      distanceFrom: 2,
       openInside: true,
       openLeft: true,
       isFocused: false,
@@ -60,22 +60,22 @@ export const MeasurementsImage = ({
 
   const [windows, setWindows] = useState<TWindow[]>([
     {
-      wall: 1,
+      wall: 2,
       size: 800,
       distance: 2000,
-      distanceFrom: 2,
+      distanceFrom: 1,
       isFocused: false,
     },
   ]);
 
   const [balconies, setBalconies] = useState<TDoor[]>([
     {
-      wall: 4,
-      size: 800,
-      distance: 200,
-      distanceFrom: 1,
+      wall: 1,
+      size: 880,
+      distance: 1000,
+      distanceFrom: 2,
       openInside: true,
-      openLeft: true,
+      openLeft: false,
       isFocused: false,
     },
   ]);
