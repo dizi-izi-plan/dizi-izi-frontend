@@ -1,83 +1,26 @@
-// 'use client';
 import { useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
+import { TBalcony } from '../MeasurementsTypes';
 import { Line } from './Line';
-
-type TBalcony = {
-  wall: number;
-  size: number;
-  distance: number;
-  distanceFrom: number;
-  openInside: boolean;
-  openLeft: boolean;
-  isFocused: boolean;
-};
+import { ImageElementContainer } from './ImageElementContainer';
 
 type BalconyProps = {
   balcony: TBalcony;
   horizontalWall: number;
   verticalWall: number;
+  wallThickness: number;
 };
 
 export const Balcony = ({
   balcony,
   horizontalWall,
   verticalWall,
+  wallThickness,
 }: BalconyProps) => {
-  const arrowSize = useMemo(() => {
-    if (balcony.wall === 1 || balcony.wall === 3) {
-      if ((balcony.distance + 0.5 * balcony.size) / verticalWall === 0.5)
-        return 'calc(50% - 75px)';
-      if (balcony.distance / verticalWall < 0.5) return '25%';
-      if (balcony.distance / verticalWall > 0.5) return '60%';
-      if (balcony.distance / verticalWall === 0.5) return '50%';
-    }
-    if (balcony.wall === 2 || balcony.wall === 4) {
-      if ((balcony.distance + 0.5 * balcony.size) / horizontalWall === 0.5)
-        return 'calc(50% - 75px)';
-      if (balcony.distance / horizontalWall < 0.5) return '25%';
-      if (balcony.distance / horizontalWall > 0.5) return 'calc(75% - 350px)';
-      if (balcony.distance / horizontalWall === 0.5) return '50%';
-    }
-  }, [
-    balcony.distance,
-    balcony.wall,
-    balcony.size,
-    verticalWall,
-    horizontalWall,
-  ]);
-
-  const reversedOrder = useMemo(() => {
-    if (
-      (balcony.wall === 1 || balcony.wall === 3) &&
-      balcony.distanceFrom === 2
-    )
-      return false;
-    if (
-      (balcony.wall === 1 || balcony.wall === 3) &&
-      balcony.distanceFrom === 4
-    )
-      return true;
-
-    if (
-      (balcony.wall === 2 || balcony.wall === 4) &&
-      balcony.distanceFrom === 1
-    )
-      return false;
-    if (
-      (balcony.wall === 2 || balcony.wall === 4) &&
-      balcony.distanceFrom === 3
-    )
-      return true;
-  }, [balcony.wall, balcony.distanceFrom]);
+  const elementImageSize = 350;
 
   const balconyPosition = useMemo(() => {
     if (balcony.wall === 1) {
@@ -143,113 +86,25 @@ export const Balcony = ({
   }, [balcony.wall, balcony.openLeft]);
 
   return (
-    <Stack
-      display={balcony.size === 0 ? 'none' : undefined}
-      position="absolute"
-      top={
-        balcony.wall === 2
-          ? '-20px'
-          : balcony.distanceFrom === 2
-          ? '0px'
-          : undefined
-      }
-      bottom={
-        balcony.wall === 4
-          ? '-20px'
-          : balcony.distanceFrom === 4
-          ? '0px'
-          : undefined
-      }
-      right={
-        balcony.wall === 3
-          ? '-20px'
-          : balcony.distanceFrom === 3
-          ? '0px'
-          : undefined
-      }
-      left={
-        balcony.wall === 1
-          ? '-20px'
-          : balcony.distanceFrom === 1
-          ? '0px'
-          : undefined
-      }
-      direction={
-        balcony.wall === 2 || balcony.wall === 4
-          ? reversedOrder
-            ? 'row-reverse'
-            : 'row'
-          : reversedOrder
-          ? 'column-reverse'
-          : 'column'
-      }
-      width={balcony.wall === 2 || balcony.wall === 4 ? '100%' : 'auto'}
-      height={balcony.wall === 2 || balcony.wall === 4 ? 'auto' : '100%'}
-      alignItems={
-        balcony.wall === 4 || balcony.wall === 3 ? 'flex-end' : 'flex-start'
-      }
+    <ImageElementContainer
+      element={balcony}
+      horizontalWall={horizontalWall}
+      verticalWall={verticalWall}
+      wallThickness={wallThickness}
+      elementImageSize={elementImageSize}
     >
-      <Stack
-        height={balcony.wall === 2 || balcony.wall === 4 ? '20px' : arrowSize}
-        width={balcony.wall === 2 || balcony.wall === 4 ? arrowSize : '20px'}
-        position="relative"
-        justifyContent="center"
-        alignItems="center"
-        p={balcony.wall === 2 || balcony.wall === 4 ? '0 5px' : '5px 0'}
-      >
-        <Box
-          height={balcony.wall === 2 || balcony.wall === 4 ? '2px' : '100%'}
-          width={balcony.wall === 2 || balcony.wall === 4 ? '100%' : '2px'}
-          sx={{
-            backgroundColor: balcony.isFocused
-              ? 'primary.main'
-              : 'myGrey.grey700',
-          }}
-        ></Box>
-        {balcony.wall === 2 || balcony.wall === 4 ? (
-          <>
-            <ArrowLeftIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                left: '-10px',
-                color: balcony.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-            <ArrowRightIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                right: '-10px',
-                color: balcony.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <ArrowDropUpIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                top: '-10px',
-                color: balcony.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-            <ArrowDropDownIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                bottom: '-10px',
-                color: balcony.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-          </>
-        )}
-      </Stack>
       <Box position="relative">
         <Stack
-          height={balcony.wall === 2 || balcony.wall === 4 ? '20px' : '350px'}
-          width={balcony.wall === 2 || balcony.wall === 4 ? '350px' : '20px'}
+          height={
+            balcony.wall === 2 || balcony.wall === 4
+              ? `${wallThickness}px`
+              : `${elementImageSize}px`
+          }
+          width={
+            balcony.wall === 2 || balcony.wall === 4
+              ? `${elementImageSize}px`
+              : `${wallThickness}px`
+          }
           sx={(theme) => ({
             backgroundColor: balcony.isFocused
               ? 'primary.main'
@@ -297,6 +152,6 @@ export const Balcony = ({
           </Stack>
         )}
       </Box>
-    </Stack>
+    </ImageElementContainer>
   );
 };

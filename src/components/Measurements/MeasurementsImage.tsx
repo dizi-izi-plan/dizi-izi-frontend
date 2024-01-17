@@ -10,24 +10,7 @@ import { Door } from './MeasurementsImageElements/Door';
 import { Window } from './MeasurementsImageElements/Window';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
-
-type TDoor = {
-  wall: number;
-  size: number;
-  distance: number;
-  distanceFrom: number;
-  openInside: boolean;
-  openLeft: boolean;
-  isFocused: boolean;
-};
-
-type TWindow = {
-  wall: number;
-  size: number;
-  distance: number;
-  distanceFrom: number;
-  isFocused: boolean;
-};
+import { TDoor, TWindow, TBalcony } from './MeasurementsTypes';
 
 type MeasurementsImageProps = {
   stepOne: boolean;
@@ -40,6 +23,7 @@ export const MeasurementsImage = ({
   stepTwo,
   stepThree,
 }: MeasurementsImageProps) => {
+  const wallThickness = 20;
   const [horizontalWall, setHorizontalWall] = useState<number>(6000);
   const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
 
@@ -49,8 +33,8 @@ export const MeasurementsImage = ({
   const [doors, setDoors] = useState<TDoor[]>([
     {
       wall: 3,
-      size: 800,
-      distance: 1000,
+      size: 1000,
+      distance: 4000,
       distanceFrom: 2,
       openInside: true,
       openLeft: true,
@@ -68,13 +52,12 @@ export const MeasurementsImage = ({
     },
   ]);
 
-  const [balconies, setBalconies] = useState<TDoor[]>([
+  const [balconies, setBalconies] = useState<TBalcony[]>([
     {
       wall: 1,
       size: 880,
       distance: 1000,
       distanceFrom: 2,
-      openInside: true,
       openLeft: false,
       isFocused: false,
     },
@@ -125,7 +108,7 @@ export const MeasurementsImage = ({
         width="100%"
         height="100%"
         sx={(theme) => ({
-          border: `solid 20px ${theme.palette.myGrey.grey200}`,
+          border: `solid ${wallThickness}px ${theme.palette.myGrey.grey200}`,
         })}
         justifyContent="center"
         alignItems="center"
@@ -141,7 +124,7 @@ export const MeasurementsImage = ({
         <DoorTransparentIcon
           style={{
             position: 'absolute',
-            bottom: '-20px',
+            bottom: `-${wallThickness}px`,
             right: '70px',
           }}
         />
@@ -154,25 +137,33 @@ export const MeasurementsImage = ({
           horizontalWall !== 0 || verticalWall !== 0 ? undefined : 'none'
         }
         sx={(theme) => ({
-          borderBottom: `solid ${horizontalWall > 0 ? '20px' : '0px'} ${
+          borderBottom: `solid ${
+            horizontalWall > 0 ? `${wallThickness}px` : '0px'
+          } ${
             horizontalFocus && horizontalWall > 1
               ? theme.palette.primary.main
               : theme.palette.myGrey.grey700
           }
         `,
-          borderTop: `solid ${horizontalWall > 0 ? '20px' : '0px'} ${
+          borderTop: `solid ${
+            horizontalWall > 0 ? `${wallThickness}px` : '0px'
+          } ${
             horizontalFocus && horizontalWall > 1
               ? theme.palette.primary.main
               : theme.palette.myGrey.grey700
           }
         `,
-          borderLeft: `solid ${verticalWall > 0 ? '20px' : '0px'} ${
+          borderLeft: `solid ${
+            verticalWall > 0 ? `${wallThickness}px` : '0px'
+          } ${
             verticalFocus && verticalWall > 1
               ? theme.palette.primary.main
               : theme.palette.myGrey.grey700
           }
         `,
-          borderRight: `solid ${verticalWall > 0 ? '20px' : '0px'} ${
+          borderRight: `solid ${
+            verticalWall > 0 ? `${wallThickness}px` : '0px'
+          } ${
             verticalFocus && verticalWall > 1
               ? theme.palette.primary.main
               : theme.palette.myGrey.grey700
@@ -193,6 +184,7 @@ export const MeasurementsImage = ({
               door={door}
               horizontalWall={horizontalWall}
               verticalWall={verticalWall}
+              wallThickness={wallThickness}
             />
           ))}
         {stepThree &&
@@ -202,6 +194,7 @@ export const MeasurementsImage = ({
               window={window}
               horizontalWall={horizontalWall}
               verticalWall={verticalWall}
+              wallThickness={wallThickness}
             />
           ))}
         {stepThree &&
@@ -211,10 +204,11 @@ export const MeasurementsImage = ({
               balcony={balcony}
               horizontalWall={horizontalWall}
               verticalWall={verticalWall}
+              wallThickness={wallThickness}
             />
           ))}
       </Stack>
-      {/*Раздел с кнопками для изменения параметров, пока нет формы. Удалить после*/}
+      {/*Раздел с кнопками для изменения параметров - ПРИМЕР для Кати и дизайнеров, пока нет формы. Удалить после*/}
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
         <Stack
           direction="row"
@@ -442,7 +436,7 @@ export const MeasurementsImage = ({
               });
             }}
           >
-            {doors[0].isFocused ? 'Убрать фокус' : 'Окно в фокусе'}
+            {windows[0].isFocused ? 'Убрать фокус' : 'Окно в фокусе'}
           </Button>
         </Stack>
         <Stack
@@ -504,21 +498,7 @@ export const MeasurementsImage = ({
               });
             }}
           >
-            Открыть {doors[0].openLeft ? 'вправо' : 'влево'}
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setBalconies((prev) => {
-                const newBalcony = prev[0];
-                newBalcony.openInside = !newBalcony.openInside;
-                return [newBalcony];
-              });
-            }}
-          >
-            Открыть {doors[0].openInside ? 'наружу' : 'внутрь'}
+            Открыть {balconies[0].openLeft ? 'вправо' : 'влево'}
           </Button>
           <Button
             variant="default"
@@ -532,7 +512,7 @@ export const MeasurementsImage = ({
               });
             }}
           >
-            {doors[0].isFocused ? 'Убрать фокус' : 'Балкон в фокусе'}
+            {balconies[0].isFocused ? 'Убрать фокус' : 'Балкон в фокусе'}
           </Button>
         </Stack>
       </Stack>
