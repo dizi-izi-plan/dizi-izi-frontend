@@ -6,20 +6,35 @@ import { TabContentContainer } from '@/containers/TabContentContainer/TabContent
 import { a11yProps } from '@/containers/TabContentContainer/tabConstants';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { Walls } from './Steps/Step1';
-import { SyntheticEvent } from 'react';
-import { useAppDispatch } from '@/redux/hooks';
-import { setCurrentStep } from '@/redux/slices/measurements-slice';
-import { selectCurrentStep } from '@/redux/selectors/selector';
-import { useSelector } from 'react-redux';
+import { Walls } from './Steps/Step1/Step1';
+import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
+import { useForm } from 'react-hook-form';
+import { SizesFormType, SizesFormValidation } from './validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { initialStepsState } from './defaultValues';
 
-export const SizesForm = () => {
-  const currentStep = useSelector(selectCurrentStep);
-  const dispatch = useAppDispatch();
+type SizesFormProps = {
+  currentStep: number;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
+};
 
-  const handleTabChange = (event: SyntheticEvent, currentStep: number) => {
-    dispatch(setCurrentStep({ currentStep }));
+export const SizesForm = ({ currentStep, setCurrentStep }: SizesFormProps) => {
+  const handleTabChange = (event: SyntheticEvent, step: number) => {
+    setCurrentStep(step);
   };
+
+  const {
+    control,
+    getValues,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<SizesFormType>({
+    defaultValues: { ...initialStepsState },
+    resolver: zodResolver(SizesFormValidation),
+  });
+
+  if (Object.keys(errors).length > 0) console.log('Form errors:', errors);
 
   return (
     <>
@@ -39,15 +54,22 @@ export const SizesForm = () => {
           />
         ))}
       </Tabs>
-      <TabContentContainer index={0} value={currentStep}>
-        <Walls />
-      </TabContentContainer>
-      <TabContentContainer index={1} value={currentStep}>
-        Форма для дверей
-      </TabContentContainer>
-      <TabContentContainer index={2} value={currentStep}>
-        Форма для окон
-      </TabContentContainer>
+      <form>
+        <TabContentContainer index={0} value={currentStep}>
+          <Walls
+            control={control}
+            getValues={getValues}
+            setValue={setValue}
+            watch={watch}
+          />
+        </TabContentContainer>
+        <TabContentContainer index={1} value={currentStep}>
+          Форма для дверей
+        </TabContentContainer>
+        <TabContentContainer index={2} value={currentStep}>
+          Форма для окон
+        </TabContentContainer>
+      </form>
     </>
   );
 };
