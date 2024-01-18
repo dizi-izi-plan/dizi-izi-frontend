@@ -8,34 +8,38 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { Walls } from './Steps/Step1/Step1';
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
-import { useForm } from 'react-hook-form';
-import { SizesFormType, SizesFormValidation } from './validation';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { initialStepsState } from './defaultValues';
+import { SizesFormType } from './validation';
+import {
+  Control,
+  FieldErrors,
+  UseFormHandleSubmit,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 
 type SizesFormProps = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<number>>;
+  setValue: UseFormSetValue<SizesFormType>;
+  watch: UseFormWatch<SizesFormType>;
+  control: Control<SizesFormType>;
+  errors?: FieldErrors<SizesFormType>;
+  handleSubmit: UseFormHandleSubmit<SizesFormType>;
+  isValid: boolean;
 };
 
-export const SizesForm = ({ currentStep, setCurrentStep }: SizesFormProps) => {
+export const SizesForm = ({
+  currentStep,
+  setCurrentStep,
+  setValue,
+  watch,
+  control,
+  handleSubmit,
+  isValid,
+}: SizesFormProps) => {
   const handleTabChange = (event: SyntheticEvent, step: number) => {
-    setCurrentStep(step);
+    if (isValid) setCurrentStep(step);
   };
-
-  const {
-    control,
-    getValues,
-    setValue,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SizesFormType>({
-    defaultValues: { ...initialStepsState },
-    resolver: zodResolver(SizesFormValidation),
-  });
-
-  if (Object.keys(errors).length > 0) console.log('Form errors:', errors);
 
   const onSubmit = handleSubmit((data) => {
     console.log('sizes', data);
@@ -63,9 +67,9 @@ export const SizesForm = ({ currentStep, setCurrentStep }: SizesFormProps) => {
         <TabContentContainer index={0} value={currentStep}>
           <Walls
             control={control}
-            getValues={getValues}
             setValue={setValue}
             watch={watch}
+            isValid={isValid}
           />
         </TabContentContainer>
         <TabContentContainer index={1} value={currentStep}>

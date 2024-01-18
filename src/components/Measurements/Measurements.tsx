@@ -12,24 +12,46 @@ import { PopperMessage } from '../Popper/PopperMessage';
 import { MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '../Forms/SizesForm/SizesForm';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { initialStepsState } from '../Forms/SizesForm/defaultValues';
+import {
+  SizesFormType,
+  SizesFormValidation,
+} from '../Forms/SizesForm/validation';
 
 export const Measurements = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(0);
 
+  const {
+    control,
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<SizesFormType>({
+    defaultValues: { ...initialStepsState },
+    resolver: zodResolver(SizesFormValidation),
+  });
+
   const handleBack = () => {
-    if (currentStep === 0) {
-      router.back();
-    } else {
-      setCurrentStep(currentStep - 1);
+    if (isValid) {
+      if (currentStep === 0) {
+        router.back();
+      } else {
+        setCurrentStep(currentStep - 1);
+      }
     }
   };
 
   const handleForward = () => {
-    if (currentStep === MEASUREMENTS_STEPS.length - 1) {
-      router.push('/furniture');
-    } else {
-      setCurrentStep(currentStep + 1);
+    if (isValid) {
+      if (currentStep === MEASUREMENTS_STEPS.length - 1) {
+        router.push('/furniture');
+      } else {
+        setCurrentStep(currentStep + 1);
+      }
     }
   };
 
@@ -58,6 +80,12 @@ export const Measurements = () => {
           <SizesForm
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            control={control}
+            setValue={setValue}
+            watch={watch}
+            handleSubmit={handleSubmit}
+            errors={errors}
+            isValid={isValid}
           />
         </Stack>
       </Stack>
