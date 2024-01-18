@@ -1,26 +1,24 @@
 import { FocusEvent } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { CORRESPONDING_WALLS, STEP1, WALLS_NAMES_TYPE } from '../../formData';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import {
-  Control,
-  UseFormGetValues,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
-import { SizesFormType } from '../../validation';
-
-const INPUT_LIMIT_NUMBER = 4;
+  ERROR_MESSAGES,
+  MAX_WALLS_INPUT_LENGTH,
+  MIN_WALLS_INPUT_LENGTH,
+  SizesFormType,
+} from '../../validation';
 
 type WallsProps = {
   setValue: UseFormSetValue<SizesFormType>;
-  getValues: UseFormGetValues<SizesFormType>;
   watch: UseFormWatch<SizesFormType>;
   control: Control<SizesFormType>;
+  isValid: boolean;
 };
 
-export const Walls = ({ setValue, control }: WallsProps) => {
+export const Walls = ({ setValue, control, isValid }: WallsProps) => {
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
     const wallName = name.replace('walls.', '') as WALLS_NAMES_TYPE;
     return CORRESPONDING_WALLS[wallName];
@@ -28,7 +26,9 @@ export const Walls = ({ setValue, control }: WallsProps) => {
 
   const setCorrespondingWallValue = (name: string, newValue: string) => {
     const correspondingWall = getCorrespondingWall(name);
-    setValue(`walls.${correspondingWall}`, newValue);
+    setValue(`walls.${correspondingWall}`, newValue, {
+      shouldValidate: true,
+    });
   };
 
   const onBlur = (e: FocusEvent<HTMLInputElement>) => {
@@ -45,13 +45,17 @@ export const Walls = ({ setValue, control }: WallsProps) => {
           control={control}
           className={CLASS_NAMES_INPUT.grey}
           onBlur={onBlur}
-          errorMessage={''}
           placeholder={field.placeholder}
           type="number"
-          min={INPUT_LIMIT_NUMBER}
-          max={INPUT_LIMIT_NUMBER}
+          min={MIN_WALLS_INPUT_LENGTH}
+          max={MAX_WALLS_INPUT_LENGTH}
         />
       ))}
+      {!isValid && (
+        <Typography variant="caption" color="error" textAlign="center">
+          {ERROR_MESSAGES.minWallsSizes}
+        </Typography>
+      )}
     </Stack>
   );
 };
