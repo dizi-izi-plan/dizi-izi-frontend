@@ -1,10 +1,10 @@
 import { z, number, string } from 'zod';
 
 export const WallsValidation = z.object({
-  firstWall: z.union([number(), string()]),
-  secondWall: z.union([number(), string()]),
-  thirdWall: z.union([number(), string()]),
-  forthWall: z.union([number(), string()]),
+  first: z.union([number(), string()]),
+  second: z.union([number(), string()]),
+  third: z.union([number(), string()]),
+  forth: z.union([number(), string()]),
 });
 
 export const SizesFormValidation = z.object({

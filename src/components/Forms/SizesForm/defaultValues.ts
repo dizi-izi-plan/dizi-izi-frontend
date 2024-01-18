@@ -1,10 +1,10 @@
 import { SizesFormType } from './validation';
 
 export const walls = {
-  firstWall: '',
-  secondWall: '',
-  thirdWall: '',
-  forthWall: '',
+  first: '',
+  second: '',
+  third: '',
+  forth: '',
 };
 
 export const initialStepsState: SizesFormType = {
