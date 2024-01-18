@@ -9,6 +9,6 @@ export const walls = {
 
 export const initialStepsState: SizesFormType = {
   walls,
-  doors: {},
-  windows: {},
+  // doors: {},
+  // windows: {},
 };

@@ -1,17 +1,27 @@
 import { z, number, string } from 'zod';
 
+export const MIN_WALLS_INPUT_LENGTH = 4;
+export const MAX_WALLS_INPUT_LENGTH = 4;
+
+export const ERROR_MESSAGES = {
+  minWallsSizes: 'Длина стен не может быть меньше 1000мм',
+};
+
+const wallValidation = z
+  .union([number(), string()])
+  .refine((value) => `${value}`.length >= MIN_WALLS_INPUT_LENGTH);
+
 export const WallsValidation = z.object({
-  first: z.union([number(), string()]),
-  second: z.union([number(), string()]),
-  third: z.union([number(), string()]),
-  forth: z.union([number(), string()]),
+  first: wallValidation,
+  second: wallValidation,
+  third: wallValidation,
+  forth: wallValidation,
 });
 
 export const SizesFormValidation = z.object({
   walls: WallsValidation,
-  doors: z.object({}),
-  windows: z.object({}),
+  // doors: z.object({}),
+  // windows: z.object({}),
 });
 
-export type Step1FormType = z.infer<typeof WallsValidation>;
 export type SizesFormType = z.infer<typeof SizesFormValidation>;
