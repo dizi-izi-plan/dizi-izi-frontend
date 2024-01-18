@@ -8,11 +8,11 @@ import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const maxNumberInputLength = 4;
-
 export type ControlledInputProps<T extends FieldValues> = TextFieldProps &
   UseControllerProps<T> & {
     errorMessage?: string;
+    min?: number;
+    max?: number;
   };
 
 export const TextFieldWrapper = <T extends FieldValues>({
@@ -26,9 +26,7 @@ export const TextFieldWrapper = <T extends FieldValues>({
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (props.type === 'number') {
-      const numericValue = value.replace(/\D/g, '');
-      if (numericValue.length <= maxNumberInputLength)
-        field.onChange(numericValue);
+      if (props.max && value.length <= props.max) field.onChange(value);
     } else {
       field.onChange(value);
     }
