@@ -28,6 +28,7 @@ export const SizesForm = ({ currentStep, setCurrentStep }: SizesFormProps) => {
     getValues,
     setValue,
     watch,
+    handleSubmit,
     formState: { errors },
   } = useForm<SizesFormType>({
     defaultValues: { ...initialStepsState },
@@ -35,6 +36,10 @@ export const SizesForm = ({ currentStep, setCurrentStep }: SizesFormProps) => {
   });
 
   if (Object.keys(errors).length > 0) console.log('Form errors:', errors);
+
+  const onSubmit = handleSubmit((data) => {
+    console.log('sizes', data);
+  });
 
   return (
     <>
@@ -54,7 +59,7 @@ export const SizesForm = ({ currentStep, setCurrentStep }: SizesFormProps) => {
           />
         ))}
       </Tabs>
-      <form>
+      <form onSubmit={onSubmit}>
         <TabContentContainer index={0} value={currentStep}>
           <Walls
             control={control}
