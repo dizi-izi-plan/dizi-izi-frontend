@@ -224,7 +224,7 @@ const DevPage: FC = () => {
         text={MODAL_YES_NO_QUESTIONS[0]}
         isModalOpen={openYesNo}
         handleClose={() => setOpenYesNo(false)}
-        icon={<ModalIcon />}
+        icon={<ModalIcon width="75" height="126" />}
         nameButtonYes={'Да'}
         nameButtonNo={'Нет'}
       />
@@ -232,14 +232,14 @@ const DevPage: FC = () => {
         text={MODAL_CONFIRM_QUESTIONS[0]}
         isModalOpen={openConfirm}
         handleClose={() => setOpenConfirm(false)}
-        icon={<ModalIcon />}
+        icon={<ModalIcon width="75" height="126" />}
         nameButton={'Продолжить'}
       />
       <ModalCommonTemplate
         text={MODAL_NOTICE[0]}
         isModalOpen={open}
         handleClose={() => setOpen(false)}
-        icon={<ModalIcon />}
+        icon={<ModalIcon width="75" height="126" />}
       />
       <MuiButtons />
     </>

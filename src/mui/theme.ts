@@ -438,8 +438,11 @@ theme = createTheme(theme, {
         {
           props: { variant: 'empty' },
           style: {
+            width: 'fit-content',
+            minWidth: 'fit-content',
             borderRadius: 0,
             backgroundColor: 'transparent',
+            padding: '0',
             '&:hover': {
               backgroundColor: 'transparent',
             },

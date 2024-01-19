@@ -1,11 +1,12 @@
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
 import { AccountMenuItemsType } from '../accountTypes';
+import { LayoutsContainer } from '@/containers/LayoutsContainer/LayoutsContainer';
 
 export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   {
     name: 'Планировки',
-    component: <AccountSectionTemplate name="Планировки" />, // при верстке нужного компонента - заменить
+    component: <LayoutsContainer />,
   },
   {
     name: 'Мой тариф',
