@@ -49,6 +49,7 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
           onChangeHandler={onChange}
           placeholder={field.placeholder}
           type="number"
+          step={1}
           min={MIN_WALLS_INPUT_LENGTH}
           max={MAX_WALLS_INPUT_LENGTH}
         />

@@ -13,6 +13,7 @@ export type ControlledInputProps<T extends FieldValues> = TextFieldProps &
     errorMessage?: string;
     min?: number;
     max?: number;
+    step?: number;
     onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
   };
 
