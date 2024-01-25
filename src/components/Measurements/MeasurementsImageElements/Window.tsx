@@ -1,8 +1,11 @@
+import { useMemo } from 'react';
+
 import Stack from '@mui/material/Stack';
 
 import { TWindow } from '../MeasurementsTypes';
 import { Line } from './Line';
 import { ImageElementContainer } from './ImageElementContainer';
+import { getElementSize } from '../helpers';
 
 type WindowProps = {
   window: TWindow;
@@ -17,7 +20,14 @@ export const Window = ({
   verticalWall,
   wallThickness,
 }: WindowProps) => {
-  const elementImageSize = 200;
+  const elementImageSize = useMemo(() => {
+    return getElementSize(
+      window.wall,
+      window.size,
+      verticalWall,
+      horizontalWall,
+    );
+  }, [horizontalWall, verticalWall, window.size, window.wall]);
 
   return (
     <ImageElementContainer
@@ -25,17 +35,16 @@ export const Window = ({
       horizontalWall={horizontalWall}
       verticalWall={verticalWall}
       wallThickness={wallThickness}
-      elementImageSize={elementImageSize}
     >
       <Stack
         height={
           window.wall === 2 || window.wall === 4
             ? `${wallThickness}px`
-            : `${elementImageSize}px`
+            : `${elementImageSize}%`
         }
         width={
           window.wall === 2 || window.wall === 4
-            ? `${elementImageSize}px`
+            ? `${elementImageSize}%`
             : `${wallThickness}px`
         }
         sx={(theme) => ({

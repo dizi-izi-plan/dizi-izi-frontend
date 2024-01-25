@@ -9,13 +9,13 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { TImageElementContainer } from '../MeasurementsTypes';
+import { getOrder, getElementSize } from '../helpers';
 
 type ImageElementContainerProps = {
   element: TImageElementContainer;
   horizontalWall: number;
   verticalWall: number;
   wallThickness: number;
-  elementImageSize: number;
   children: ReactNode;
 };
 
@@ -24,56 +24,19 @@ export const ImageElementContainer = ({
   horizontalWall,
   verticalWall,
   wallThickness,
-  elementImageSize,
   children,
 }: ImageElementContainerProps) => {
   const arrowSize = useMemo(() => {
-    if (element.wall === 1 || element.wall === 3) {
-      if ((element.distance + 0.5 * element.size) / verticalWall === 0.5)
-        return `calc(50% - ${elementImageSize / 2}px)`;
-      if (element.distance / verticalWall < 0.5) return '25%';
-      if (element.distance / verticalWall > 0.5) return '60%';
-      if (element.distance / verticalWall === 0.5) return '50%';
-    }
-    if (element.wall === 2 || element.wall === 4) {
-      if ((element.distance + 0.5 * element.size) / horizontalWall === 0.5)
-        return `calc(50% - ${elementImageSize / 2}px)`;
-      if (element.distance / horizontalWall < 0.5) return '25%';
-      if (element.distance / horizontalWall > 0.5)
-        return `calc(75% - ${elementImageSize}px)`;
-      if (element.distance / horizontalWall === 0.5) return '50%';
-    }
-  }, [
-    element.distance,
-    element.wall,
-    element.size,
-    verticalWall,
-    horizontalWall,
-    elementImageSize,
-  ]);
+    return getElementSize(
+      element.wall,
+      element.distance,
+      verticalWall,
+      horizontalWall,
+    );
+  }, [horizontalWall, verticalWall, element.distance, element.wall]);
 
-  const reversedOrder = useMemo(() => {
-    if (
-      (element.wall === 1 || element.wall === 3) &&
-      element.distanceFrom === 2
-    )
-      return false;
-    if (
-      (element.wall === 1 || element.wall === 3) &&
-      element.distanceFrom === 4
-    )
-      return true;
-
-    if (
-      (element.wall === 2 || element.wall === 4) &&
-      element.distanceFrom === 1
-    )
-      return false;
-    if (
-      (element.wall === 2 || element.wall === 4) &&
-      element.distanceFrom === 3
-    )
-      return true;
+  const isOrderReversed = useMemo(() => {
+    return getOrder(element.wall, element.distanceFrom);
   }, [element.wall, element.distanceFrom]);
 
   return (
@@ -110,10 +73,10 @@ export const ImageElementContainer = ({
       }
       direction={
         element.wall === 2 || element.wall === 4
-          ? reversedOrder
+          ? isOrderReversed
             ? 'row-reverse'
             : 'row'
-          : reversedOrder
+          : isOrderReversed
           ? 'column-reverse'
           : 'column'
       }
@@ -127,11 +90,11 @@ export const ImageElementContainer = ({
         height={
           element.wall === 2 || element.wall === 4
             ? `${wallThickness}px`
-            : arrowSize
+            : `${arrowSize}%`
         }
         width={
           element.wall === 2 || element.wall === 4
-            ? arrowSize
+            ? `${arrowSize}%`
             : `${wallThickness}px`
         }
         position="relative"

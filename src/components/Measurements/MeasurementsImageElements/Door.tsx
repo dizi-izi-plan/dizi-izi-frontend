@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 
-import DoorIcon from '../../../../public/assets/icons/measurements/icon_door.svg';
 import { TDoor } from '../MeasurementsTypes';
 import { ImageElementContainer } from './ImageElementContainer';
+import { getElementSize } from '../helpers';
 
 type DoorProps = {
   door: TDoor;
@@ -19,7 +19,10 @@ export const Door = ({
   verticalWall,
   wallThickness,
 }: DoorProps) => {
-  const elementImageSize = 150;
+  const doorRef = useRef<HTMLDivElement>(null);
+  const elementImageSize = useMemo(() => {
+    return getElementSize(door.wall, door.size, verticalWall, horizontalWall);
+  }, [horizontalWall, verticalWall, door.size, door.wall]);
 
   const rotateDoor = useMemo(() => {
     if (door.wall === 1) return 'rotate(90deg)';
@@ -28,10 +31,28 @@ export const Door = ({
     if (door.wall === 4) return 'rotate(0deg)';
   }, [door.wall]);
 
-  const openRight = useMemo(() => {
-    if (!door.openLeft) return 'scaleX(-1)';
-    if (door.openLeft) return 'scaleX(1)';
-  }, [door.openLeft]);
+  const [currentDoorSizes, setCurrentDoorSizes] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    if (doorRef.current !== null) {
+      const doorObserved = doorRef.current;
+      const observer = new ResizeObserver(() => {
+        if (doorRef.current?.offsetWidth && doorRef.current?.offsetHeight) {
+          setCurrentDoorSizes({
+            width: doorRef.current?.offsetWidth,
+            height: doorRef.current?.offsetHeight,
+          });
+        }
+      });
+      observer.observe(doorObserved);
+      return () => {
+        observer.unobserve(doorObserved);
+      };
+    }
+  }, []);
 
   return (
     <ImageElementContainer
@@ -39,17 +60,17 @@ export const Door = ({
       horizontalWall={horizontalWall}
       verticalWall={verticalWall}
       wallThickness={wallThickness}
-      elementImageSize={elementImageSize}
     >
       <Box
+        ref={doorRef}
         height={
           door.wall === 2 || door.wall === 4
             ? `${wallThickness}px`
-            : `${elementImageSize}px`
+            : `${elementImageSize}%`
         }
         width={
           door.wall === 2 || door.wall === 4
-            ? `${elementImageSize}px`
+            ? `${elementImageSize}%`
             : `${wallThickness}px`
         }
         display={
@@ -67,11 +88,25 @@ export const Door = ({
         })}
       ></Box>
       {door.openInside && !door.isFocused && (
-        <DoorIcon
-          style={{
-            transform: `${rotateDoor} ${openRight}`,
+        <Box
+          sx={{
+            width: `${Math.max(
+              currentDoorSizes.height,
+              currentDoorSizes.width,
+            )}px`,
+            height: `${Math.max(
+              currentDoorSizes.height,
+              currentDoorSizes.width,
+            )}px`,
+            backgroundColor: 'white',
+            transform: `${rotateDoor}`,
+            border: '1px solid black',
+            borderBottomColor: 'white',
+            borderRadius: `${
+              door.openLeft ? '0px 100% 0px 0px' : '100% 0px 0px 0px'
+            }`,
           }}
-        />
+        ></Box>
       )}
     </ImageElementContainer>
   );

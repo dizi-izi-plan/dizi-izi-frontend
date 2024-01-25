@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -23,29 +23,30 @@ export const MeasurementsImage = ({
   stepTwo,
   stepThree,
 }: MeasurementsImageProps) => {
+  const room = useRef<HTMLDivElement>(null);
   const wallThickness = 20;
   const [horizontalWall, setHorizontalWall] = useState<number>(6000);
   const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
 
-  const [verticalWall, setVerticalWall] = useState<number>(4000);
+  const [verticalWall, setVerticalWall] = useState<number>(5000);
   const [verticalFocus, setVerticalFocus] = useState<boolean>(false);
 
   const [doors, setDoors] = useState<TDoor[]>([
     {
       wall: 3,
       size: 1000,
-      distance: 4000,
+      distance: 2000,
       distanceFrom: 2,
       openInside: true,
       openLeft: true,
-      isFocused: false,
+      isFocused: true,
     },
   ]);
 
   const [windows, setWindows] = useState<TWindow[]>([
     {
       wall: 2,
-      size: 800,
+      size: 1500,
       distance: 2000,
       distanceFrom: 1,
       isFocused: false,
@@ -55,13 +56,18 @@ export const MeasurementsImage = ({
   const [balconies, setBalconies] = useState<TBalcony[]>([
     {
       wall: 1,
-      size: 880,
-      distance: 1000,
+      size: 2000,
+      distance: 500,
       distanceFrom: 2,
       openLeft: false,
       isFocused: false,
     },
   ]);
+
+  const [currentSizes, setCurrentSizes] = useState({
+    width: 640,
+    height: 520,
+  });
 
   const width = useMemo(() => {
     if (horizontalWall > 0) {
@@ -70,12 +76,44 @@ export const MeasurementsImage = ({
       } else if (horizontalWall === verticalWall) {
         return '520px';
       } else {
-        return '400px';
+        const index = horizontalWall / verticalWall;
+        return `${index * currentSizes.height}px`;
       }
     } else {
       return '50%';
     }
-  }, [horizontalWall, verticalWall]);
+  }, [horizontalWall, verticalWall, currentSizes.height]);
+
+  const height = useMemo(() => {
+    if (verticalWall > 0) {
+      if (verticalWall >= horizontalWall) {
+        return '520px';
+      } else {
+        const index = verticalWall / horizontalWall;
+        return `${index * currentSizes.width}px`;
+      }
+    } else {
+      return '520px';
+    }
+  }, [horizontalWall, verticalWall, currentSizes.width]);
+
+  useEffect(() => {
+    if (room.current !== null) {
+      const roomObserved = room.current;
+      const observer = new ResizeObserver(() => {
+        if (room.current?.offsetWidth && room.current?.offsetHeight) {
+          setCurrentSizes({
+            width: room.current?.offsetWidth,
+            height: room.current?.offsetHeight,
+          });
+        }
+      });
+      observer.observe(roomObserved);
+      return () => {
+        observer.unobserve(roomObserved);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     if (stepTwo) {
@@ -130,9 +168,10 @@ export const MeasurementsImage = ({
         />
       </Stack>
       <Stack
+        ref={room}
         position="relative"
         width={width}
-        height="100%"
+        height={height}
         display={
           horizontalWall !== 0 || verticalWall !== 0 ? undefined : 'none'
         }

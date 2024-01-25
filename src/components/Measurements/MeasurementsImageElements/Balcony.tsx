@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { TBalcony } from '../MeasurementsTypes';
 import { Line } from './Line';
 import { ImageElementContainer } from './ImageElementContainer';
+import { getElementSize } from '../helpers';
 
 type BalconyProps = {
   balcony: TBalcony;
@@ -20,7 +21,14 @@ export const Balcony = ({
   verticalWall,
   wallThickness,
 }: BalconyProps) => {
-  const elementImageSize = 350;
+  const elementImageSize = useMemo(() => {
+    return getElementSize(
+      balcony.wall,
+      balcony.size,
+      verticalWall,
+      horizontalWall,
+    );
+  }, [horizontalWall, verticalWall, balcony.size, balcony.wall]);
 
   const balconyPosition = useMemo(() => {
     if (balcony.wall === 1) {
@@ -91,20 +99,23 @@ export const Balcony = ({
       horizontalWall={horizontalWall}
       verticalWall={verticalWall}
       wallThickness={wallThickness}
-      elementImageSize={elementImageSize}
     >
-      <Box position="relative">
+      <Box
+        position="relative"
+        height={
+          balcony.wall === 2 || balcony.wall === 4
+            ? `${wallThickness}px`
+            : `${elementImageSize}%`
+        }
+        width={
+          balcony.wall === 2 || balcony.wall === 4
+            ? `${elementImageSize}%`
+            : `${wallThickness}px`
+        }
+      >
         <Stack
-          height={
-            balcony.wall === 2 || balcony.wall === 4
-              ? `${wallThickness}px`
-              : `${elementImageSize}px`
-          }
-          width={
-            balcony.wall === 2 || balcony.wall === 4
-              ? `${elementImageSize}px`
-              : `${wallThickness}px`
-          }
+          height="100%"
+          width="100%"
           sx={(theme) => ({
             backgroundColor: balcony.isFocused
               ? 'primary.main'
@@ -133,8 +144,8 @@ export const Balcony = ({
         </Stack>
         {!balcony.isFocused && (
           <Stack
-            height={balcony.wall === 2 || balcony.wall === 4 ? '9px' : '120px'}
-            width={balcony.wall === 2 || balcony.wall === 4 ? '120px' : '9px'}
+            height={balcony.wall === 2 || balcony.wall === 4 ? '9px' : '33%'}
+            width={balcony.wall === 2 || balcony.wall === 4 ? '33%' : '9px'}
             direction={
               balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
             }
