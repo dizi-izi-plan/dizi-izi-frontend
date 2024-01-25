@@ -37,9 +37,7 @@ export const Measurements = () => {
 
   const handleBack = () => {
     if (isValid) {
-      if (currentStep === 0) {
-        router.back();
-      } else {
+      if (currentStep > 0) {
         setCurrentStep(currentStep - 1);
       }
     }
@@ -58,11 +56,13 @@ export const Measurements = () => {
   return (
     <Stack width="100%" spacing="51px">
       <Stack direction="row" justifyContent="space-between" width="100%">
-        <PopperMessage tip="Назад">
-          <Button variant="empty" onClick={handleBack}>
-            <ArrowBackIcon />
-          </Button>
-        </PopperMessage>
+        {currentStep > 0 && (
+          <PopperMessage tip="Назад">
+            <Button variant="empty" onClick={handleBack}>
+              <ArrowBackIcon />
+            </Button>
+          </PopperMessage>
+        )}
         <Typography variant="h3" color="primary.contrastText">
           {MEASUREMENTS_STEPS[currentStep].title}
         </Typography>
