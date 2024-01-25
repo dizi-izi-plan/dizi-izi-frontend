@@ -1,4 +1,4 @@
-import { FocusEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
 import { Stack, Typography } from '@mui/material';
@@ -25,14 +25,17 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
 
   const setCorrespondingWallValue = (name: string, newValue: string) => {
     const correspondingWall = getCorrespondingWall(name);
-    setValue(`${correspondingWall}`, newValue, {
+    setValue(correspondingWall, newValue, {
       shouldValidate: true,
     });
   };
 
-  const onBlur = (e: FocusEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    setCorrespondingWallValue(target.name, target.value);
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
+
+    if (value.length <= MAX_WALLS_INPUT_LENGTH) {
+      setCorrespondingWallValue(name, value);
+    }
   };
 
   return (
@@ -43,7 +46,7 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
           name={`${field.number}` as keyof SizesFormType}
           control={control}
           className={CLASS_NAMES_INPUT.grey}
-          onBlur={onBlur}
+          onChangeHandler={onChange}
           placeholder={field.placeholder}
           type="number"
           min={MIN_WALLS_INPUT_LENGTH}
