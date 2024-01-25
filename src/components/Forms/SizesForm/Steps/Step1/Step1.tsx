@@ -20,13 +20,12 @@ type WallsProps = {
 
 export const Walls = ({ setValue, control, isValid }: WallsProps) => {
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
-    const wallName = name.replace('walls.', '') as WALLS_NAMES_TYPE;
-    return CORRESPONDING_WALLS[wallName];
+    return CORRESPONDING_WALLS[name as WALLS_NAMES_TYPE];
   };
 
   const setCorrespondingWallValue = (name: string, newValue: string) => {
     const correspondingWall = getCorrespondingWall(name);
-    setValue(`walls.${correspondingWall}`, newValue, {
+    setValue(`${correspondingWall}`, newValue, {
       shouldValidate: true,
     });
   };
@@ -41,7 +40,7 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
       {STEP1.map((field, ind) => (
         <TextFieldWrapper
           key={ind}
-          name={`walls.${field.number}` as keyof SizesFormType}
+          name={`${field.number}` as keyof SizesFormType}
           control={control}
           className={CLASS_NAMES_INPUT.grey}
           onBlur={onBlur}

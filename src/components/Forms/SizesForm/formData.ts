@@ -1,17 +1,17 @@
 import { ObjectValues } from '@/types/types';
 
 export enum WALLS {
-  first = 'first',
-  second = 'second',
-  third = 'third',
-  forth = 'forth',
+  first = 'walls.first',
+  second = 'walls.second',
+  third = 'walls.third',
+  forth = 'walls.forth',
 }
 
 export const CORRESPONDING_WALLS = {
-  first: WALLS.third,
-  second: WALLS.forth,
-  third: WALLS.first,
-  forth: WALLS.second,
+  'walls.first': WALLS.third,
+  'walls.second': WALLS.forth,
+  'walls.third': WALLS.first,
+  'walls.forth': WALLS.second,
 } as const;
 
 export type WALLS_NAMES_TYPE = ObjectValues<typeof CORRESPONDING_WALLS>;
