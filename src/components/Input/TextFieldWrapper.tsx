@@ -13,12 +13,14 @@ export type ControlledInputProps<T extends FieldValues> = TextFieldProps &
     errorMessage?: string;
     min?: number;
     max?: number;
+    onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
   };
 
 export const TextFieldWrapper = <T extends FieldValues>({
   name,
   control,
   errorMessage,
+  onChangeHandler,
   ...props
 }: ControlledInputProps<T>) => {
   const { field } = useController<T>({ control, name });
@@ -26,10 +28,13 @@ export const TextFieldWrapper = <T extends FieldValues>({
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (props.type === 'number') {
-      if (props.max && value.length <= props.max) field.onChange(value);
+      if (props.max && value.length <= props.max) {
+        field.onChange(value);
+      }
     } else {
       field.onChange(value);
     }
+    if (onChangeHandler) onChangeHandler(e);
   };
 
   return (
