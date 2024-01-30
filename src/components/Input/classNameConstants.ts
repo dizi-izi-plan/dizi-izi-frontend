@@ -6,7 +6,6 @@ export const CLASS_NAMES_INPUT = {
   grey: 'subvariant-grey',
 } as const;
 
-// TODO: FIX TYPO
 export const CLASS_NAMES_LABEL = {
   start: 'subvariant-start',
   end: 'subvariant-end',
