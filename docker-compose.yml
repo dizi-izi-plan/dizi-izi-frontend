@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  front-dev:
+    container_name: dizi-izi-frontend
+    image: dizi-izi-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./public:/app/public
+      - ./src:/app/src
+    command: npm run dev
