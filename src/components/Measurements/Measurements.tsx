@@ -18,15 +18,8 @@ import {
   SizesFormType,
   SizesFormValidation,
 } from '../Forms/SizesForm/validation';
-import { TabContentContainer } from '../../containers/TabContentContainer/TabContentContainer';
-import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 
 import { MeasurementsImage } from './MeasurementsImage';
-
-type MeasurementsDataType = {
-  tabText: string;
-  title: string;
-};
 
 export const Measurements = () => {
   const router = useRouter();
@@ -81,25 +74,11 @@ export const Measurements = () => {
         </PopperMessage>
       </Stack>
       <Stack direction="row" width="100%" justifyContent="space-between">
-        <Stack
-          width="74%"
-          height="640px"
-          border="1px solid"
-          mb="80px"
-          alignItems="center"
-          sx={(theme) => ({
-            borderColor:
-              currentStep === 0 ? theme.palette.myGrey.grey400 : 'transparent',
-          })}
-          p="70px 50px 50px 60px"
-          position="relative"
-        >
-          <MeasurementsImage
-            stepOne={currentStep === 0}
-            stepTwo={currentStep === 1}
-            stepThree={currentStep === 2}
-          />
-        </Stack>
+        <MeasurementsImage
+          stepOne={currentStep === 0}
+          stepTwo={currentStep === 1}
+          stepThree={currentStep === 2}
+        />
         <Stack width="25%">
           <SizesForm
             currentStep={currentStep}
