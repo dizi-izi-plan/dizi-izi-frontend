@@ -75,7 +75,7 @@ export const Door = ({
         }
         display={
           (door.openInside && door.isFocused) || !door.openInside
-            ? 'udefined'
+            ? undefined
             : 'none'
         }
         sx={(theme) => ({
