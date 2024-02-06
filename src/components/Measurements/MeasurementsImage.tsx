@@ -11,24 +11,39 @@ import { Window } from './MeasurementsImageElements/Window';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
 import { TDoor, TWindow, TBalcony } from './MeasurementsTypes';
+import { SizesFormType } from '../Forms/SizesForm/validation';
+import { Control } from 'react-hook-form';
+import { WALLS } from '../Forms/SizesForm/formData';
+import { useWatch } from 'react-hook-form';
 
 type MeasurementsImageProps = {
   stepOne: boolean;
   stepTwo: boolean;
   stepThree: boolean;
+  control: Control<SizesFormType>;
 };
 
 export const MeasurementsImage = ({
   stepOne,
   stepTwo,
   stepThree,
+  control,
 }: MeasurementsImageProps) => {
   const room = useRef<HTMLDivElement>(null);
   const wallThickness = 20;
-  const [horizontalWall, setHorizontalWall] = useState<number>(6000);
-  const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
 
-  const [verticalWall, setVerticalWall] = useState<number>(5000);
+  const verticalWall = useWatch({
+    control,
+    name: WALLS.first,
+    defaultValue: 0,
+  }) as number;
+  const horizontalWall = useWatch({
+    control,
+    name: WALLS.second,
+    defaultValue: 0,
+  }) as number;
+
+  const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
   const [verticalFocus, setVerticalFocus] = useState<boolean>(false);
 
   const [doors, setDoors] = useState<TDoor[]>([
@@ -249,45 +264,6 @@ export const MeasurementsImage = ({
       </Stack>
       {/*Раздел с кнопками для изменения параметров - ПРИМЕР для Кати и дизайнеров, пока нет формы. Удалить после*/}
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
-        <Stack
-          direction="row"
-          columnGap="20px"
-          display={stepOne ? undefined : 'none'}
-        >
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setHorizontalWall(5000);
-              setVerticalWall(4000);
-            }}
-          >
-            Длина больше ширины
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setHorizontalWall(5000);
-              setVerticalWall(5000);
-            }}
-          >
-            Квадрат
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setHorizontalWall(4000);
-              setVerticalWall(5000);
-            }}
-          >
-            Ширина больше длины
-          </Button>
-        </Stack>
         <Stack
           direction="row"
           columnGap="20px"

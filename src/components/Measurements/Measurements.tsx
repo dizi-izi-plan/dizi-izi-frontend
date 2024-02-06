@@ -78,6 +78,7 @@ export const Measurements = () => {
           stepOne={currentStep === 0}
           stepTwo={currentStep === 1}
           stepThree={currentStep === 2}
+          control={control}
         />
         <Stack width="23%">
           <SizesForm
