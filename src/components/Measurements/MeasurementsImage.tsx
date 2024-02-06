@@ -11,10 +11,12 @@ import { Window } from './MeasurementsImageElements/Window';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
 import { TDoor, TWindow, TBalcony } from './MeasurementsTypes';
-import { SizesFormType } from '../Forms/SizesForm/validation';
+import { SizesFormType } from '@/components/Forms/SizesForm/validation';
 import { Control } from 'react-hook-form';
-import { WALLS } from '../Forms/SizesForm/formData';
+import { WALLS } from '@/components/Forms/SizesForm/formData';
 import { useWatch } from 'react-hook-form';
+import { useAppSelector } from '@/redux/hooks';
+import { selectBedroomFocusedField } from '@/redux/slices/focusedFields-slice';
 
 type MeasurementsImageProps = {
   stepOne: boolean;
@@ -31,20 +33,40 @@ export const MeasurementsImage = ({
 }: MeasurementsImageProps) => {
   const room = useRef<HTMLDivElement>(null);
   const wallThickness = 20;
+  const focusedBedroomField = useAppSelector(selectBedroomFocusedField);
 
-  const verticalWall = useWatch({
-    control,
-    name: WALLS.first,
-    defaultValue: 0,
-  }) as number;
-  const horizontalWall = useWatch({
-    control,
-    name: WALLS.second,
-    defaultValue: 0,
-  }) as number;
+  const verticalWall = Number(
+    useWatch({
+      control,
+      name: WALLS.first,
+      defaultValue: 0,
+    }),
+  );
+  const horizontalWall = Number(
+    useWatch({
+      control,
+      name: WALLS.second,
+      defaultValue: 0,
+    }),
+  );
 
-  const [horizontalFocus, setHorizontalFocus] = useState<boolean>(false);
-  const [verticalFocus, setVerticalFocus] = useState<boolean>(false);
+  const horizontalFocus = useMemo(() => {
+    if (
+      focusedBedroomField === WALLS.second ||
+      focusedBedroomField === WALLS.forth
+    )
+      return true;
+    return false;
+  }, [focusedBedroomField]);
+
+  const verticalFocus = useMemo(() => {
+    if (
+      focusedBedroomField === WALLS.first ||
+      focusedBedroomField === WALLS.third
+    )
+      return true;
+    return false;
+  }, [focusedBedroomField]);
 
   const [doors, setDoors] = useState<TDoor[]>([
     {
@@ -130,13 +152,6 @@ export const MeasurementsImage = ({
     }
   }, []);
 
-  useEffect(() => {
-    if (stepTwo) {
-      setHorizontalFocus(false);
-      setVerticalFocus(false);
-    }
-  }, [stepTwo, setHorizontalFocus, setVerticalFocus]);
-
   return (
     <Stack
       width="74%"
@@ -146,7 +161,7 @@ export const MeasurementsImage = ({
       alignItems="center"
       sx={(theme) => ({
         borderColor:
-          stepOne && (horizontalWall !== 0 || verticalWall !== 0)
+          stepOne && (horizontalWall > 0 || verticalWall > 0)
             ? theme.palette.myGrey.grey400
             : 'transparent',
       })}
@@ -158,6 +173,7 @@ export const MeasurementsImage = ({
           horizontalWall === 0 && verticalWall === 0 ? undefined : 'none'
         }
         position="relative"
+        top="-20px"
         width="100%"
         height="100%"
         sx={(theme) => ({
@@ -187,9 +203,7 @@ export const MeasurementsImage = ({
         position="relative"
         width={width}
         height={height}
-        display={
-          horizontalWall !== 0 || verticalWall !== 0 ? undefined : 'none'
-        }
+        display={horizontalWall > 0 || verticalWall > 0 ? undefined : 'none'}
         sx={(theme) => ({
           borderBottom: `solid ${
             horizontalWall > 0 ? `${wallThickness}px` : '0px'
@@ -264,45 +278,6 @@ export const MeasurementsImage = ({
       </Stack>
       {/*Раздел с кнопками для изменения параметров - ПРИМЕР для Кати и дизайнеров, пока нет формы. Удалить после*/}
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
-        <Stack
-          direction="row"
-          columnGap="20px"
-          display={stepOne ? undefined : 'none'}
-        >
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setVerticalFocus(true);
-              setHorizontalFocus(false);
-            }}
-          >
-            Фокус 1 и 3
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setVerticalFocus(false);
-              setHorizontalFocus(true);
-            }}
-          >
-            Фокус 2 и 4
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setVerticalFocus(false);
-              setHorizontalFocus(false);
-            }}
-          >
-            Снять фокус
-          </Button>
-        </Stack>
         <Stack
           direction="row"
           columnGap="20px"

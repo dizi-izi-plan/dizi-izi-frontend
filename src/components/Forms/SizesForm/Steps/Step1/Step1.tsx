@@ -10,6 +10,11 @@ import {
   MIN_WALLS_INPUT_LENGTH,
   SizesFormType,
 } from '../../validation';
+import { useAppDispatch } from '@/redux/hooks';
+import {
+  addBedroomFocusedField,
+  deleteBedroomFocusedField,
+} from '@/redux/slices/focusedFields-slice';
 
 type WallsProps = {
   setValue: UseFormSetValue<SizesFormType>;
@@ -19,6 +24,8 @@ type WallsProps = {
 };
 
 export const Walls = ({ setValue, control, isValid }: WallsProps) => {
+  const dispatch = useAppDispatch();
+
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
     return CORRESPONDING_WALLS[name as WALLS_NAMES_TYPE];
   };
@@ -52,6 +59,8 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
           step={1}
           min={MIN_WALLS_INPUT_LENGTH}
           max={MAX_WALLS_INPUT_LENGTH}
+          onFocus={() => dispatch(addBedroomFocusedField(field.number))}
+          onBlur={() => dispatch(deleteBedroomFocusedField())}
         />
       ))}
       {!isValid && (

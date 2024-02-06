@@ -7,17 +7,17 @@ import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import { PopperMessage } from '../Popper/PopperMessage';
+import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { MEASUREMENTS_STEPS } from './data';
-import { SizesForm } from '../Forms/SizesForm/SizesForm';
+import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { initialStepsState } from '../Forms/SizesForm/defaultValues';
+import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
 import {
   SizesFormType,
   SizesFormValidation,
-} from '../Forms/SizesForm/validation';
+} from '@/components/Forms/SizesForm/validation';
 
 import { MeasurementsImage } from './MeasurementsImage';
 

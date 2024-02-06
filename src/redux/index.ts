@@ -1,9 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { enableMapSet } from 'immer';
 import { citiesReducer } from './slices/cities-slice';
+import { focusedFieldsReducer } from './slices/focusedFields-slice';
+
+enableMapSet();
 
 export const store = configureStore({
   reducer: {
     cities: citiesReducer,
+    focusedFields: focusedFieldsReducer,
   },
   devTools: true,
 });
