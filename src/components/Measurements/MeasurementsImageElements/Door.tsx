@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 import { TDoor } from '../MeasurementsTypes';
 import { ImageElementContainer } from './ImageElementContainer';
-import { getElementSize } from '../helpers';
+import { getDoorStyles } from './elementsStyles';
 
 type DoorProps = {
   door: TDoor;
@@ -20,16 +20,16 @@ export const Door = ({
   wallThickness,
 }: DoorProps) => {
   const doorRef = useRef<HTMLDivElement>(null);
-  const elementImageSize = useMemo(() => {
-    return getElementSize(door.wall, door.size, verticalWall, horizontalWall);
-  }, [horizontalWall, verticalWall, door.size, door.wall]);
 
-  const rotateDoor = useMemo(() => {
-    if (door.wall === 1) return 'rotate(90deg)';
-    if (door.wall === 2) return 'rotate(180deg)';
-    if (door.wall === 3) return 'rotate(-90deg)';
-    if (door.wall === 4) return 'rotate(0deg)';
-  }, [door.wall]);
+  const doorStyles = useMemo(() => {
+    return getDoorStyles(
+      wallThickness,
+      door.wall,
+      door.size,
+      verticalWall,
+      horizontalWall,
+    );
+  }, [wallThickness, door.wall, door.size, verticalWall, horizontalWall]);
 
   const [currentDoorSizes, setCurrentDoorSizes] = useState({
     width: 0,
@@ -63,16 +63,8 @@ export const Door = ({
     >
       <Box
         ref={doorRef}
-        height={
-          door.wall === 2 || door.wall === 4
-            ? `${wallThickness}px`
-            : `${elementImageSize}%`
-        }
-        width={
-          door.wall === 2 || door.wall === 4
-            ? `${elementImageSize}%`
-            : `${wallThickness}px`
-        }
+        height={doorStyles[door.wall].height}
+        width={doorStyles[door.wall].width}
         display={
           (door.openInside && door.isFocused) || !door.openInside
             ? undefined
@@ -99,7 +91,7 @@ export const Door = ({
               currentDoorSizes.width,
             )}px`,
             backgroundColor: 'white',
-            transform: `${rotateDoor}`,
+            transform: `${doorStyles[door.wall].rotate}`,
             border: '1px solid black',
             borderBottomColor: 'white',
             borderRadius: `${

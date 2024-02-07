@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import { TWindow } from '../MeasurementsTypes';
 import { Line } from './Line';
 import { ImageElementContainer } from './ImageElementContainer';
-import { getElementSize } from '../helpers';
+import { getWindowStyles } from './elementsStyles';
 
 type WindowProps = {
   window: TWindow;
@@ -20,14 +20,15 @@ export const Window = ({
   verticalWall,
   wallThickness,
 }: WindowProps) => {
-  const elementImageSize = useMemo(() => {
-    return getElementSize(
+  const windowStyles = useMemo(() => {
+    return getWindowStyles(
+      wallThickness,
       window.wall,
       window.size,
       verticalWall,
       horizontalWall,
     );
-  }, [horizontalWall, verticalWall, window.size, window.wall]);
+  }, [wallThickness, horizontalWall, verticalWall, window.size, window.wall]);
 
   return (
     <ImageElementContainer
@@ -37,16 +38,8 @@ export const Window = ({
       wallThickness={wallThickness}
     >
       <Stack
-        height={
-          window.wall === 2 || window.wall === 4
-            ? `${wallThickness}px`
-            : `${elementImageSize}%`
-        }
-        width={
-          window.wall === 2 || window.wall === 4
-            ? `${elementImageSize}%`
-            : `${wallThickness}px`
-        }
+        height={windowStyles[window.wall].height}
+        width={windowStyles[window.wall].width}
         sx={(theme) => ({
           backgroundColor: window.isFocused
             ? 'primary.main'
@@ -59,7 +52,7 @@ export const Window = ({
         alignItems="center"
         rowGap="6px"
         columnGap="6px"
-        direction={window.wall === 2 || window.wall === 4 ? 'column' : 'row'}
+        direction={windowStyles[window.wall].direction}
       >
         {!window.isFocused && (
           <>

@@ -70,10 +70,11 @@ export const MeasurementsImage = ({
 
   const [doors, setDoors] = useState<TDoor[]>([
     {
-      wall: 3,
-      size: 1000,
-      distance: 2000,
-      distanceFrom: 2,
+      wall: WALLS.third,
+      size: 800,
+      distance: 500,
+      distanceFromLeft: true,
+      distanceFromRight: false,
       openInside: true,
       openLeft: true,
       isFocused: true,
@@ -82,20 +83,22 @@ export const MeasurementsImage = ({
 
   const [windows, setWindows] = useState<TWindow[]>([
     {
-      wall: 2,
-      size: 1500,
-      distance: 2000,
-      distanceFrom: 1,
+      wall: WALLS.second,
+      size: 1200,
+      distance: 500,
+      distanceFromLeft: false,
+      distanceFromRight: true,
       isFocused: false,
     },
   ]);
 
   const [balconies, setBalconies] = useState<TBalcony[]>([
     {
-      wall: 1,
-      size: 2000,
+      wall: WALLS.first,
+      size: 1500,
       distance: 500,
-      distanceFrom: 2,
+      distanceFromLeft: true,
+      distanceFromRight: false,
       openLeft: false,
       isFocused: false,
     },
@@ -290,33 +293,12 @@ export const MeasurementsImage = ({
             onClick={() => {
               setDoors((prev) => {
                 const newDoor = prev[0];
-                if (newDoor.wall < 4) {
-                  newDoor.wall += 1;
+                if (newDoor.distanceFromLeft) {
+                  newDoor.distanceFromLeft = false;
+                  newDoor.distanceFromRight = true;
                 } else {
-                  newDoor.wall = 1;
-                }
-                if (newDoor.distanceFrom < 4) {
-                  newDoor.distanceFrom += 1;
-                } else {
-                  newDoor.distanceFrom = 1;
-                }
-                return [newDoor];
-              });
-            }}
-          >
-            Поменять стену
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setDoors((prev) => {
-                const newDoor = prev[0];
-                if (newDoor.distanceFrom < 3) {
-                  newDoor.distanceFrom += 2;
-                } else {
-                  newDoor.distanceFrom -= 2;
+                  newDoor.distanceFromLeft = true;
+                  newDoor.distanceFromRight = false;
                 }
                 return [newDoor];
               });
@@ -380,33 +362,12 @@ export const MeasurementsImage = ({
             onClick={() => {
               setWindows((prev) => {
                 const newWindow = prev[0];
-                if (newWindow.wall < 4) {
-                  newWindow.wall += 1;
+                if (newWindow.distanceFromLeft) {
+                  newWindow.distanceFromLeft = false;
+                  newWindow.distanceFromRight = true;
                 } else {
-                  newWindow.wall = 1;
-                }
-                if (newWindow.distanceFrom < 4) {
-                  newWindow.distanceFrom += 1;
-                } else {
-                  newWindow.distanceFrom = 1;
-                }
-                return [newWindow];
-              });
-            }}
-          >
-            Поменять стену
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setWindows((prev) => {
-                const newWindow = prev[0];
-                if (newWindow.distanceFrom < 3) {
-                  newWindow.distanceFrom += 2;
-                } else {
-                  newWindow.distanceFrom -= 2;
+                  newWindow.distanceFromLeft = true;
+                  newWindow.distanceFromRight = false;
                 }
                 return [newWindow];
               });
@@ -442,33 +403,12 @@ export const MeasurementsImage = ({
             onClick={() => {
               setBalconies((prev) => {
                 const newBalcony = prev[0];
-                if (newBalcony.wall < 4) {
-                  newBalcony.wall += 1;
+                if (newBalcony.distanceFromLeft) {
+                  newBalcony.distanceFromLeft = false;
+                  newBalcony.distanceFromRight = true;
                 } else {
-                  newBalcony.wall = 1;
-                }
-                if (newBalcony.distanceFrom < 4) {
-                  newBalcony.distanceFrom += 1;
-                } else {
-                  newBalcony.distanceFrom = 1;
-                }
-                return [newBalcony];
-              });
-            }}
-          >
-            Поменять стену
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setBalconies((prev) => {
-                const newBalcony = prev[0];
-                if (newBalcony.distanceFrom < 3) {
-                  newBalcony.distanceFrom += 2;
-                } else {
-                  newBalcony.distanceFrom -= 2;
+                  newBalcony.distanceFromLeft = true;
+                  newBalcony.distanceFromRight = false;
                 }
                 return [newBalcony];
               });

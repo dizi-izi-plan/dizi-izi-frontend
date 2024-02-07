@@ -1,14 +1,16 @@
 import Box from '@mui/material/Box';
+import { TWalls } from '../MeasurementsTypes';
+import { lineStyles } from './elementsStyles';
 
 type LineProps = {
-  wall: number;
+  wall: TWalls;
 };
 
 export const Line = ({ wall }: LineProps) => {
   return (
     <Box
-      height={wall === 2 || wall === 4 ? '1px' : '100%'}
-      width={wall === 2 || wall === 4 ? '100%' : '1px'}
+      height={lineStyles[wall].height}
+      width={lineStyles[wall].width}
       sx={(theme) => ({
         backgroundColor: theme.palette.black.main,
       })}

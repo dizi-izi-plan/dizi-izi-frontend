@@ -9,7 +9,8 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { TImageElementContainer } from '../MeasurementsTypes';
-import { getOrder, getElementSize } from '../helpers';
+import { WALLS } from '@/components/Forms/SizesForm/formData';
+import { getElementContainerStyles } from './elementsStyles';
 
 type ImageElementContainerProps = {
   element: TImageElementContainer;
@@ -26,92 +27,53 @@ export const ImageElementContainer = ({
   wallThickness,
   children,
 }: ImageElementContainerProps) => {
-  const arrowSize = useMemo(() => {
-    return getElementSize(
+  const elementStyles = useMemo(() => {
+    return getElementContainerStyles(
+      wallThickness,
       element.wall,
       element.distance,
       verticalWall,
       horizontalWall,
     );
-  }, [horizontalWall, verticalWall, element.distance, element.wall]);
-
-  const isOrderReversed = useMemo(() => {
-    return getOrder(element.wall, element.distanceFrom);
-  }, [element.wall, element.distanceFrom]);
+  }, [
+    wallThickness,
+    horizontalWall,
+    verticalWall,
+    element.distance,
+    element.wall,
+  ]);
 
   return (
     <Stack
       display={element.size === 0 ? 'none' : undefined}
       position="absolute"
-      top={
-        element.wall === 2
-          ? `-${wallThickness}px`
-          : element.distanceFrom === 2
-          ? '0px'
-          : undefined
-      }
-      bottom={
-        element.wall === 4
-          ? `-${wallThickness}px`
-          : element.distanceFrom === 4
-          ? '0px'
-          : undefined
-      }
-      right={
-        element.wall === 3
-          ? `-${wallThickness}px`
-          : element.distanceFrom === 3
-          ? '0px'
-          : undefined
-      }
-      left={
-        element.wall === 1
-          ? `-${wallThickness}px`
-          : element.distanceFrom === 1
-          ? '0px'
-          : undefined
-      }
-      direction={
-        element.wall === 2 || element.wall === 4
-          ? isOrderReversed
-            ? 'row-reverse'
-            : 'row'
-          : isOrderReversed
-          ? 'column-reverse'
-          : 'column'
-      }
-      width={element.wall === 2 || element.wall === 4 ? '100%' : 'auto'}
-      height={element.wall === 2 || element.wall === 4 ? 'auto' : '100%'}
-      alignItems={
-        element.wall === 4 || element.wall === 3 ? 'flex-end' : 'flex-start'
-      }
+      width={elementStyles[element.wall].container.width}
+      height={elementStyles[element.wall].container.height}
+      alignItems={elementStyles[element.wall].container.alignItems}
+      sx={{
+        ...(element.distanceFromLeft
+          ? elementStyles[element.wall].container.position.distFromLeft
+          : elementStyles[element.wall].container.position.distFromRight),
+      }}
     >
       <Stack
-        height={
-          element.wall === 2 || element.wall === 4
-            ? `${wallThickness}px`
-            : `${arrowSize}%`
-        }
-        width={
-          element.wall === 2 || element.wall === 4
-            ? `${arrowSize}%`
-            : `${wallThickness}px`
-        }
+        height={elementStyles[element.wall].arrow.height}
+        width={elementStyles[element.wall].arrow.width}
         position="relative"
         justifyContent="center"
         alignItems="center"
-        p={element.wall === 2 || element.wall === 4 ? '0 5px' : '5px 0'}
+        p={elementStyles[element.wall].arrow.padding}
       >
         <Box
-          height={element.wall === 2 || element.wall === 4 ? '2px' : '100%'}
-          width={element.wall === 2 || element.wall === 4 ? '100%' : '2px'}
+          height={elementStyles[element.wall].line.height}
+          width={elementStyles[element.wall].line.width}
           sx={{
             backgroundColor: element.isFocused
               ? 'primary.main'
               : 'myGrey.grey700',
           }}
         ></Box>
-        {element.wall === 2 || element.wall === 4 ? (
+        {element.wall === WALLS.second || element.wall === WALLS.forth ? (
           <>
             <ArrowLeftIcon
               fontSize="large"

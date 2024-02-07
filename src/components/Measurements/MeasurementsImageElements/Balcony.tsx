@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { TBalcony } from '../MeasurementsTypes';
 import { Line } from './Line';
 import { ImageElementContainer } from './ImageElementContainer';
-import { getElementSize } from '../helpers';
+import { getBalconyStyles } from './elementsStyles';
 
 type BalconyProps = {
   balcony: TBalcony;
@@ -21,77 +21,15 @@ export const Balcony = ({
   verticalWall,
   wallThickness,
 }: BalconyProps) => {
-  const elementImageSize = useMemo(() => {
-    return getElementSize(
+  const balconyStyles = useMemo(() => {
+    return getBalconyStyles(
+      wallThickness,
       balcony.wall,
       balcony.size,
       verticalWall,
       horizontalWall,
     );
-  }, [horizontalWall, verticalWall, balcony.size, balcony.wall]);
-
-  const balconyPosition = useMemo(() => {
-    if (balcony.wall === 1) {
-      if (balcony.openLeft) {
-        return {
-          top: '0px',
-          right: '-15px',
-          transform: 'rotate(-15deg)',
-        };
-      } else {
-        return {
-          bottom: '0px',
-          right: '-15px',
-          transform: 'rotate(15deg)',
-        };
-      }
-    }
-    if (balcony.wall === 2) {
-      if (balcony.openLeft) {
-        return {
-          bottom: '-15px',
-          right: '0px',
-          transform: 'rotate(-15deg)',
-        };
-      } else {
-        return {
-          bottom: '-15px',
-          left: '0px',
-          transform: 'rotate(15deg)',
-        };
-      }
-    }
-    if (balcony.wall === 3) {
-      if (balcony.openLeft) {
-        return {
-          bottom: '0px',
-          left: '-15px',
-          transform: 'rotate(-15deg)',
-        };
-      } else {
-        return {
-          top: '0px',
-          left: '-15px',
-          transform: 'rotate(15deg)',
-        };
-      }
-    }
-    if (balcony.wall === 4) {
-      if (balcony.openLeft) {
-        return {
-          top: '-15px',
-          left: '0px',
-          transform: 'rotate(-15deg)',
-        };
-      } else {
-        return {
-          top: '-15px',
-          right: '0px',
-          transform: 'rotate(15deg)',
-        };
-      }
-    }
-  }, [balcony.wall, balcony.openLeft]);
+  }, [horizontalWall, verticalWall, balcony.size, balcony.wall, wallThickness]);
 
   return (
     <ImageElementContainer
@@ -102,16 +40,8 @@ export const Balcony = ({
     >
       <Box
         position="relative"
-        height={
-          balcony.wall === 2 || balcony.wall === 4
-            ? `${wallThickness}px`
-            : `${elementImageSize}%`
-        }
-        width={
-          balcony.wall === 2 || balcony.wall === 4
-            ? `${elementImageSize}%`
-            : `${wallThickness}px`
-        }
+        height={balconyStyles[balcony.wall].window.height}
+        width={balconyStyles[balcony.wall].window.width}
       >
         <Stack
           height="100%"
@@ -128,9 +58,7 @@ export const Balcony = ({
           alignItems="center"
           rowGap="6px"
           columnGap="6px"
-          direction={
-            balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
-          }
+          direction={balconyStyles[balcony.wall].window.direction}
           position="relative"
           zIndex={2}
         >
@@ -144,11 +72,9 @@ export const Balcony = ({
         </Stack>
         {!balcony.isFocused && (
           <Stack
-            height={balcony.wall === 2 || balcony.wall === 4 ? '9px' : '33%'}
-            width={balcony.wall === 2 || balcony.wall === 4 ? '33%' : '9px'}
-            direction={
-              balcony.wall === 2 || balcony.wall === 4 ? 'column' : 'row'
-            }
+            height={balconyStyles[balcony.wall].door.height}
+            width={balconyStyles[balcony.wall].door.width}
+            direction={balconyStyles[balcony.wall].door.direction}
             position="absolute"
             zIndex={1}
             justifyContent="center"
@@ -156,7 +82,9 @@ export const Balcony = ({
             sx={(theme) => ({
               backgroundColor: 'secondary.contrastText',
               border: `1px solid ${theme.palette.black.main}`,
-              ...balconyPosition,
+              ...(balcony.openLeft
+                ? balconyStyles[balcony.wall].door.position.openLeft
+                : balconyStyles[balcony.wall].door.position.openRight),
             })}
           >
             <Line wall={balcony.wall}></Line>
