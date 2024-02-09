@@ -12,11 +12,11 @@ import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
 import { TDoor, TWindow, TBalcony } from './MeasurementsTypes';
 import { SizesFormType } from '@/components/Forms/SizesForm/validation';
-import { Control } from 'react-hook-form';
+import { Control, useFormState } from 'react-hook-form';
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { useWatch } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectBedroomFocusedField } from '@/redux/slices/focusedFields-slice';
+import { useFieldValue } from './useFieldValue';
 
 type MeasurementsImageProps = {
   stepOne: boolean;
@@ -35,20 +35,19 @@ export const MeasurementsImage = ({
   const wallThickness = 20;
   const focusedBedroomField = useAppSelector(selectBedroomFocusedField);
 
-  const verticalWall = Number(
-    useWatch({
-      control,
-      name: WALLS.first,
-      defaultValue: 0,
-    }),
-  );
-  const horizontalWall = Number(
-    useWatch({
-      control,
-      name: WALLS.second,
-      defaultValue: 0,
-    }),
-  );
+  const { errors } = useFormState({ control });
+
+  const verticalWall = useFieldValue({
+    control,
+    fieldName: WALLS.first,
+    error: Boolean(errors.walls?.first) || Boolean(errors.walls?.third),
+  });
+
+  const horizontalWall = useFieldValue({
+    control,
+    fieldName: WALLS.second,
+    error: Boolean(errors.walls?.second) || Boolean(errors.walls?.forth),
+  });
 
   const horizontalFocus = useMemo(() => {
     if (
