@@ -24,12 +24,12 @@ export const WallNumbers = ({
     <>
       <Stack
         position="absolute"
-        top="-20px"
+        top={horizontalWall > 0 ? '-20px' : '0px'}
         left={!verticalFocus ? '-90px' : '-45px'}
         direction="row"
         alignItems="center"
         display={verticalWall > 0 ? undefined : 'none'}
-        height="calc(100% + 40px)"
+        height={horizontalWall > 0 ? 'calc(100% + 40px)' : '100%'}
       >
         <Stack
           height="100%"
@@ -85,10 +85,10 @@ export const WallNumbers = ({
       <Stack
         position="absolute"
         top={!horizontalFocus ? '-80px' : '-55px'}
-        left="-20px"
+        left={verticalWall > 0 ? '-20px' : '0px'}
         alignItems="center"
         display={horizontalWall > 0 ? undefined : 'none'}
-        width="calc(100% + 40px)"
+        width={verticalWall > 0 ? 'calc(100% + 40px)' : '100%'}
       >
         <Stack
           width="100%"
