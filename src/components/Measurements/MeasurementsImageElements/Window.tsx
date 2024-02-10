@@ -4,8 +4,8 @@ import Stack from '@mui/material/Stack';
 
 import { TWindow } from '../MeasurementsTypes';
 import { Line } from './Line';
-import { ImageElementContainer } from './ImageElementContainer';
-import { getWindowStyles } from './elementsStyles';
+import { ElementContainer } from './ElementContainer';
+import { getWindowStyles } from './getElementsStyles';
 
 type WindowProps = {
   window: TWindow;
@@ -31,7 +31,7 @@ export const Window = ({
   }, [wallThickness, horizontalWall, verticalWall, window.size, window.wall]);
 
   return (
-    <ImageElementContainer
+    <ElementContainer
       element={window}
       horizontalWall={horizontalWall}
       verticalWall={verticalWall}
@@ -62,6 +62,6 @@ export const Window = ({
           </>
         )}
       </Stack>
-    </ImageElementContainer>
+    </ElementContainer>
   );
 };

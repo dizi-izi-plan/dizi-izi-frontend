@@ -19,7 +19,7 @@ export type TDoor = TBalcony & {
   openInside: boolean;
 };
 
-export type TImageElementContainer = TWindow;
+export type TElementContainer = TWindow;
 
 export type TLineStyles = {
   [T in TWalls]: {

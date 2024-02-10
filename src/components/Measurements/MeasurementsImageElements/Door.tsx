@@ -3,8 +3,8 @@ import { useMemo, useRef, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 
 import { TDoor } from '../MeasurementsTypes';
-import { ImageElementContainer } from './ImageElementContainer';
-import { getDoorStyles } from './elementsStyles';
+import { ElementContainer } from './ElementContainer';
+import { getDoorStyles } from './getElementsStyles';
 
 type DoorProps = {
   door: TDoor;
@@ -55,7 +55,7 @@ export const Door = ({
   }, []);
 
   return (
-    <ImageElementContainer
+    <ElementContainer
       element={door}
       horizontalWall={horizontalWall}
       verticalWall={verticalWall}
@@ -100,6 +100,6 @@ export const Door = ({
           }}
         ></Box>
       )}
-    </ImageElementContainer>
+    </ElementContainer>
   );
 };

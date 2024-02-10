@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { TWalls } from '../MeasurementsTypes';
-import { lineStyles } from './elementsStyles';
+import { lineStyles } from './getElementsStyles';
 
 type LineProps = {
   wall: TWalls;

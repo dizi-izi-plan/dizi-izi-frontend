@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { citiesReducer } from './slices/cities-slice';
-import { focusedFieldsReducer } from './slices/focusedFields-slice';
+import { fieldOnFocusReducer } from './slices/focusedFields-slice';
 
 export const store = configureStore({
   reducer: {
     cities: citiesReducer,
-    focusedFields: focusedFieldsReducer,
+    fieldOnFocus: fieldOnFocusReducer,
   },
   devTools: true,
 });

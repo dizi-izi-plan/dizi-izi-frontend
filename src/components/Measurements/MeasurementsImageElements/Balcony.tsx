@@ -5,8 +5,8 @@ import Stack from '@mui/material/Stack';
 
 import { TBalcony } from '../MeasurementsTypes';
 import { Line } from './Line';
-import { ImageElementContainer } from './ImageElementContainer';
-import { getBalconyStyles } from './elementsStyles';
+import { ElementContainer } from './ElementContainer';
+import { getBalconyStyles } from './getElementsStyles';
 
 type BalconyProps = {
   balcony: TBalcony;
@@ -32,7 +32,7 @@ export const Balcony = ({
   }, [horizontalWall, verticalWall, balcony.size, balcony.wall, wallThickness]);
 
   return (
-    <ImageElementContainer
+    <ElementContainer
       element={balcony}
       horizontalWall={horizontalWall}
       verticalWall={verticalWall}
@@ -91,6 +91,6 @@ export const Balcony = ({
           </Stack>
         )}
       </Box>
-    </ImageElementContainer>
+    </ElementContainer>
   );
 };

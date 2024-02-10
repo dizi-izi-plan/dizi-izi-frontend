@@ -15,7 +15,7 @@ import { SizesFormType } from '@/components/Forms/SizesForm/validation';
 import { Control, useFormState } from 'react-hook-form';
 import { WALLS } from '@/components/Forms/SizesForm/formData';
 import { useAppSelector } from '@/redux/hooks';
-import { selectBedroomFocusedField } from '@/redux/slices/focusedFields-slice';
+import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
 import { useFieldValue } from './useFieldValue';
 
 type MeasurementsImageProps = {
@@ -33,7 +33,7 @@ export const MeasurementsImage = ({
 }: MeasurementsImageProps) => {
   const room = useRef<HTMLDivElement>(null);
   const wallThickness = 20;
-  const focusedBedroomField = useAppSelector(selectBedroomFocusedField);
+  const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
   const { errors } = useFormState({ control });
 
@@ -50,22 +50,16 @@ export const MeasurementsImage = ({
   });
 
   const horizontalFocus = useMemo(() => {
-    if (
-      focusedBedroomField === WALLS.second ||
-      focusedBedroomField === WALLS.forth
-    )
+    if (fieldOnFocus === WALLS.second || fieldOnFocus === WALLS.forth)
       return true;
     return false;
-  }, [focusedBedroomField]);
+  }, [fieldOnFocus]);
 
   const verticalFocus = useMemo(() => {
-    if (
-      focusedBedroomField === WALLS.first ||
-      focusedBedroomField === WALLS.third
-    )
+    if (fieldOnFocus === WALLS.first || fieldOnFocus === WALLS.third)
       return true;
     return false;
-  }, [focusedBedroomField]);
+  }, [fieldOnFocus]);
 
   const [doors, setDoors] = useState<TDoor[]>([
     {
@@ -171,9 +165,7 @@ export const MeasurementsImage = ({
       position="relative"
     >
       <Stack
-        display={
-          horizontalWall === 0 && verticalWall === 0 ? undefined : 'none'
-        }
+        display={horizontalWall === 0 && verticalWall === 0 ? 'flex' : 'none'}
         position="relative"
         top="-20px"
         width="100%"
@@ -203,10 +195,11 @@ export const MeasurementsImage = ({
       <Stack
         ref={room}
         position="relative"
-        width={width}
-        height={height}
-        display={horizontalWall > 0 || verticalWall > 0 ? undefined : 'none'}
+        width={horizontalWall > 0 || verticalWall > 0 ? width : '0px'}
+        height={horizontalWall > 0 || verticalWall > 0 ? height : '0px'}
         sx={(theme) => ({
+          transition: 'opacity, border 0.3s linear',
+          opacity: horizontalWall > 0 || verticalWall > 0 ? 1 : 0,
           borderBottom: `solid ${
             horizontalWall > 0 ? `${wallThickness}px` : '0px'
           } ${

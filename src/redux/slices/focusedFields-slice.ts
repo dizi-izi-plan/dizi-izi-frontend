@@ -1,35 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { WALLS } from '../../components/Forms/SizesForm/formData';
 import { RootState } from '../index';
 
-type TBedroomFields = WALLS.first | WALLS.second | WALLS.third | WALLS.forth;
+export type TFieldOnFocus = { data: string | null };
 
-export type FocusedFieldsState = {
-  bedroom: TBedroomFields | null;
-};
+const initialState: TFieldOnFocus = { data: null };
 
-const initialState: FocusedFieldsState = {
-  bedroom: null,
-};
-
-const focusedFieldsSlice = createSlice({
-  name: 'focusedFields',
+const fieldOnFocusSlice = createSlice({
+  name: 'fieldOnFocus',
   initialState,
   reducers: {
     addBedroomFocusedField: (state, action) => {
-      state.bedroom = action.payload;
+      state.data = action.payload;
     },
     deleteBedroomFocusedField: (state) => {
-      state.bedroom = null;
+      state.data = null;
     },
   },
   extraReducers: {},
 });
 
 export const { addBedroomFocusedField, deleteBedroomFocusedField } =
-  focusedFieldsSlice.actions;
+  fieldOnFocusSlice.actions;
 
-export const focusedFieldsReducer = focusedFieldsSlice.reducer;
+export const fieldOnFocusReducer = fieldOnFocusSlice.reducer;
 
-export const selectBedroomFocusedField = (state: RootState) =>
-  state.focusedFields.bedroom;
+export const selectFieldOnFocus = (state: RootState) => state.fieldOnFocus.data;

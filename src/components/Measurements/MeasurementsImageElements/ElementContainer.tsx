@@ -8,25 +8,25 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { TImageElementContainer } from '../MeasurementsTypes';
+import { TElementContainer } from '../MeasurementsTypes';
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { getElementContainerStyles } from './elementsStyles';
+import { getElementContainerStyles } from './getElementsStyles';
 
-type ImageElementContainerProps = {
-  element: TImageElementContainer;
+type ElementContainerProps = {
+  element: TElementContainer;
   horizontalWall: number;
   verticalWall: number;
   wallThickness: number;
   children: ReactNode;
 };
 
-export const ImageElementContainer = ({
+export const ElementContainer = ({
   element,
   horizontalWall,
   verticalWall,
   wallThickness,
   children,
-}: ImageElementContainerProps) => {
+}: ElementContainerProps) => {
   const elementStyles = useMemo(() => {
     return getElementContainerStyles(
       wallThickness,
