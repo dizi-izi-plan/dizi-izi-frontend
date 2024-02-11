@@ -27,7 +27,7 @@ export const RegistrationForm = () => {
     formState: { errors },
   } = useForm<RegistrationFormType>({
     defaultValues: {
-      [REGISTRATION_FORM_NAMES.login]: '',
+      [REGISTRATION_FORM_NAMES.email]: '',
       [REGISTRATION_FORM_NAMES.password]: '',
       [REGISTRATION_FORM_NAMES.confirmPassword]: '',
     },
@@ -50,11 +50,11 @@ export const RegistrationForm = () => {
         <Stack spacing={3} mb={4}>
           <Stack rowGap={4}>
             <TextFieldWrapper
-              name={REGISTRATION_FORM_NAMES.login}
+              name={REGISTRATION_FORM_NAMES.email}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={REGISTRATION_FORM_LABELS.login}
-              errorMessage={errors.login ? errors.login?.message : ' '}
+              label={REGISTRATION_FORM_LABELS.email}
+              errorMessage={errors.email ? errors.email?.message : ' '}
             />
             <InputPasswordWrapper
               name={REGISTRATION_FORM_NAMES.password}
@@ -75,7 +75,7 @@ export const RegistrationForm = () => {
           </Stack>
           <Typography variant="caption" color="secondary.contrastText">
             {'Регистрируясь, вы соглашаетесь '}
-            <Link href="#" variant="xs">
+            <Link href="#" variant="xs" sx={{ textUnderlineOffset: '4px' }}>
               на обработку персональных данных.
             </Link>
           </Typography>

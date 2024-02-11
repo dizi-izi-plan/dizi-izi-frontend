@@ -15,7 +15,7 @@ import {
 } from '@/helpers/validation/validationTemplates';
 
 const ENTER_EMAIL_FORM_NAMES = {
-  login: 'login',
+  email: 'email',
 } as const;
 
 const ENTER_EMAIL_FORM_LABELS = {
@@ -29,7 +29,7 @@ export const EnterEmailForm = () => {
     formState: { errors },
   } = useForm<LoginFormType>({
     defaultValues: {
-      login: '',
+      email: '',
     },
     resolver: zodResolver(LoginValidation),
   });
@@ -52,11 +52,11 @@ export const EnterEmailForm = () => {
         <Stack spacing={3} mb={4}>
           <Stack rowGap={6}>
             <TextFieldWrapper
-              name={ENTER_EMAIL_FORM_NAMES.login}
+              name={ENTER_EMAIL_FORM_NAMES.email}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
               label={ENTER_EMAIL_FORM_LABELS.email}
-              errorMessage={errors.login ? errors.login?.message : ' '}
+              errorMessage={errors.email ? errors.email?.message : ' '}
             />
           </Stack>
         </Stack>
