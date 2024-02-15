@@ -27,7 +27,7 @@ docker-compose up -d
 docker-compose down
 ```
 
-Docker might be useful when you don't want to install Node.js and dependencies on your machine. Containers can be deleted easier after work. It's configured in such a way that you can work with public and src folders, and changes will appear on a page.
+Docker might be useful when you don't want to install Node.js and dependencies on your machine. Containers can be deleted easier after work. It's configured in such a way that you can work with public and src folders, and changes will appear on a page (`need to uncomment the "volumes" section in the docker-compose.yml file`).
 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
