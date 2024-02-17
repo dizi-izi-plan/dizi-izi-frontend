@@ -1,0 +1,20 @@
+name: Check
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  lint:
+    name: Running lint check for code
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4
+      - name: Check Node version
+        run: node -v
+      - name: Install deps
+        run: npm ci
+      - name: Lint
+        run: npm run lint
