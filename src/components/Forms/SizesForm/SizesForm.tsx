@@ -53,15 +53,20 @@ export const SizesForm = ({
         onChange={handleTabChange}
         aria-label="measurement-steps"
         variant="fullWidth"
+        sx={{
+          display: currentStep === 3 ? 'none' : undefined,
+        }}
       >
-        {MEASUREMENTS_STEPS.map((item: MeasurementsDataType, index: number) => (
-          <Tab
-            key={index}
-            label={item.tabText}
-            {...a11yProps(index)}
-            sx={{ p: '0' }}
-          />
-        ))}
+        {MEASUREMENTS_STEPS.slice(0, 3).map(
+          (item: MeasurementsDataType, index: number) => (
+            <Tab
+              key={index}
+              label={item.tabText}
+              {...a11yProps(index)}
+              sx={{ p: '0' }}
+            />
+          ),
+        )}
       </Tabs>
       <form onSubmit={onSubmit}>
         <TabContentContainer index={0} value={currentStep}>

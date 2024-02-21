@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -22,7 +21,6 @@ import {
 import { MeasurementsImage } from './MeasurementsImage';
 
 export const Measurements = () => {
-  const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   const {
@@ -46,29 +44,51 @@ export const Measurements = () => {
 
   const handleForward = () => {
     if (isValid) {
-      if (currentStep === MEASUREMENTS_STEPS.length - 1) {
-        router.push('/furniture');
-      } else {
-        setCurrentStep(currentStep + 1);
-      }
+      setCurrentStep(currentStep + 1);
     }
   };
 
   return (
     <Stack width="100%" spacing="51px">
       <Stack direction="row" justifyContent="space-between" width="100%">
-        {currentStep > 0 && (
-          <PopperMessage tip="Назад">
-            <Button variant="empty" onClick={handleBack}>
-              <ArrowBackIcon />
-            </Button>
-          </PopperMessage>
-        )}
-        <Typography variant="h3" color="primary.contrastText">
+        <PopperMessage tip={currentStep !== 0 ? 'Назад' : ''}>
+          <Button
+            variant="empty"
+            onClick={handleBack}
+            disabled={currentStep === 0}
+            sx={{
+              opacity: currentStep === 0 ? 0 : 1,
+            }}
+          >
+            <ArrowBackIcon />
+          </Button>
+        </PopperMessage>
+        <Typography
+          variant="h3"
+          color="primary.contrastText"
+          sx={{
+            opacity: currentStep === 3 ? 0 : 1,
+          }}
+        >
           {MEASUREMENTS_STEPS[currentStep].title}
         </Typography>
-        <PopperMessage tip="Вперед">
-          <Button variant="empty" onClick={handleForward}>
+        <PopperMessage
+          tip={
+            currentStep === 3
+              ? ''
+              : isValid
+              ? 'Вперед'
+              : 'Закончите текущий шаг'
+          }
+        >
+          <Button
+            variant="empty"
+            onClick={handleForward}
+            disabled={currentStep === 3 || !isValid}
+            sx={{
+              opacity: currentStep === 3 ? 0 : 1,
+            }}
+          >
             <ArrowForwardIcon />
           </Button>
         </PopperMessage>
@@ -79,8 +99,9 @@ export const Measurements = () => {
           stepTwo={currentStep === 1}
           stepThree={currentStep === 2}
           control={control}
+          display={currentStep === 3 ? 'none' : undefined}
         />
-        <Stack width="23%">
+        <Stack width={currentStep === 4 ? '100%' : '23%'}>
           <SizesForm
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
