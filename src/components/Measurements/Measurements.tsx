@@ -21,7 +21,7 @@ import {
 import { MeasurementsImage } from './MeasurementsImage';
 
 export const Measurements = () => {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<number>(3);
 
   const {
     control,
@@ -101,7 +101,7 @@ export const Measurements = () => {
           control={control}
           display={currentStep === 3 ? 'none' : undefined}
         />
-        <Stack width={currentStep === 4 ? '100%' : '23%'}>
+        <Stack width={currentStep === 3 ? '100%' : '23%'}>
           <SizesForm
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}

@@ -7,6 +7,7 @@ import { a11yProps } from '@/containers/TabContentContainer/tabConstants';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { Walls } from './Steps/Step1/Step1';
+import { Furniture } from './Steps/Step4/Step4';
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { SizesFormType } from './validation';
 import {
@@ -82,6 +83,14 @@ export const SizesForm = ({
         </TabContentContainer>
         <TabContentContainer index={2} value={currentStep}>
           Форма для окон
+        </TabContentContainer>
+        <TabContentContainer index={3} value={currentStep}>
+          <Furniture
+          // control={control}
+          // setValue={setValue}
+          // watch={watch}
+          // isValid={isValid}
+          />
         </TabContentContainer>
       </form>
     </>
