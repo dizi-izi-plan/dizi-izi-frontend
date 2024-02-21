@@ -241,6 +241,50 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          '&.subvariant-grey': {
+            '& .MuiInputBase-input': {
+              color: theme.palette.black.main,
+              fontSize: 18,
+              padding: '10px 16px',
+              textAlign: 'center',
+              borderRadius: 0,
+              boxSizing: 'border-box',
+              borderWidth: 1,
+              borderStyle: 'solid',
+              '& fieldset': {
+                border: 'none',
+              },
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'transparent',
+            },
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '&.subvariant-grey': {
+            fontFamily: manrope.style.fontFamily,
+            color: theme.palette.myGrey.grey300,
+            opacity: 1,
+            fontSize: 18,
+            left: '50%',
+            transform: 'translate(-50%, 16px) scale(1)',
+          },
+        },
+        shrink: {
+          '&.subvariant-grey': {
+            left: '0',
+            transform: 'translate(0%, -20px) scale(0.75)',
+          },
+        },
+      },
+    },
     MuiFormControlLabel: {
       styleOverrides: {
         root: {
