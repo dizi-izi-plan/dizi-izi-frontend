@@ -24,6 +24,7 @@ const furnitureItemValidation = z.number();
 
 export const FurnitureValidation = z.object({
   bed: furnitureItemValidation,
+  bedsNumber: furnitureItemValidation,
   wardrobe: furnitureItemValidation,
 });
 

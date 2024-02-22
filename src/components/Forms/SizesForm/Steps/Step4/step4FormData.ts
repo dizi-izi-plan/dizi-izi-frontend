@@ -7,6 +7,7 @@ import bed900x2000 from '../../../../../../public/assets/icons/furniture/bed_900
 
 export enum FURNITURE {
   bed = 'furniture.bed',
+  bedsNumber = 'furniture.bedsNumber',
   wardrobe = 'furniture.wardrobe',
 }
 

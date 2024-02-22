@@ -9,6 +9,7 @@ export const walls = {
 
 export const furniture = {
   bed: 0,
+  bedsNumber: 1,
   wardrobe: 0,
 };
 

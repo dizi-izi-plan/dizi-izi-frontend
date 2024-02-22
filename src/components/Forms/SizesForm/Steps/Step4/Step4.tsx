@@ -1,5 +1,6 @@
-import React, { ChangeEvent } from 'react';
-import Box from '@mui/material/Stack';
+import React, { useEffect, ChangeEvent } from 'react';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { SubstepContainer } from './SubstepContainer';
@@ -7,9 +8,15 @@ import { UnderlinedButton } from '@/components/Buttons/UnderlinedButton/Underlin
 import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { SizesFormType } from '../../validation';
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import { STEP4 } from './step4FormData';
+import {
+  Control,
+  UseFormSetValue,
+  UseFormWatch,
+  useWatch,
+} from 'react-hook-form';
+import { STEP4, FURNITURE } from './step4FormData';
 import { RadioImage } from './RadioImage';
+import { RadioNumber } from './RadioNumber';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
 
 type FurnitureProps = {
@@ -20,10 +27,30 @@ type FurnitureProps = {
 };
 
 export const Furniture = ({ control, setValue }: FurnitureProps) => {
+  const currentBed = useWatch({
+    control,
+    name: STEP4[0].name,
+  });
+
+  const currentBedsNumber = useWatch({
+    control,
+    name: FURNITURE.bedsNumber,
+  });
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
     setValue(name as FURNITURE_NAMES_TYPE, Number(value));
   };
+
+  useEffect(() => {
+    // checking: only a single bed could have number 2
+    if (
+      currentBed !== STEP4[0].radioArr[STEP4[0].radioArr.length - 1].id &&
+      currentBedsNumber !== 1
+    ) {
+      setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
+    }
+  }, [currentBed, setValue, currentBedsNumber]);
 
   return (
     <Box position="relative" width="100%">
@@ -55,6 +82,36 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             <RadioImage key={item.id} data={item} />
           ))}
         </RadioGroupWrapper>
+        <Stack
+          direction="row"
+          alignItems="center"
+          columnGap="40px"
+          sx={{
+            opacity:
+              currentBed === STEP4[0].radioArr[STEP4[0].radioArr.length - 1].id
+                ? 1
+                : 0,
+            transition: 'opacity 0.3s linear',
+          }}
+        >
+          <Typography variant="body1" color="second.main">
+            Выберите количество
+          </Typography>
+          <RadioGroupWrapper
+            name={FURNITURE.bedsNumber}
+            control={control}
+            onChange={handleChange}
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              columnGap: '13px',
+            }}
+          >
+            <RadioNumber value={1} />
+            <RadioNumber value={2} />
+          </RadioGroupWrapper>
+        </Stack>
       </SubstepContainer>
       <SubstepContainer title="Выберите шкаф" skipSubstep={true}>
         <Typography variant="caption" color="secondary.main">

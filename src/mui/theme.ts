@@ -278,12 +278,15 @@ theme = createTheme(theme, {
           padding: 0,
           '&.Mui-checked': {
             color: theme.palette.black.main,
+            transition: 'color 0.3s linear',
           },
-          '&:hover img': {
+          '&:hover img, &:hover .MuiTypography-root': {
             background: theme.palette.primary.main,
+            transition: 'background 0.3s linear',
           },
-          '&.Mui-checked img': {
+          '&.Mui-checked img, &.Mui-checked .MuiTypography-root': {
             background: theme.palette.primary.dark,
+            transition: 'background 0.3s linear',
           },
         },
       },

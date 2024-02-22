@@ -25,6 +25,7 @@ export const RadioImage = ({ data }: RadioImageProps) => {
         <Radio
           icon={<Image src={data.imageSrc} alt={''} />}
           checkedIcon={<Image src={data.imageSrc} alt={''} />}
+          disableRipple
         />
       }
     />
