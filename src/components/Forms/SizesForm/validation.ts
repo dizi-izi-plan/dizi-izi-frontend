@@ -20,10 +20,18 @@ export const WallsValidation = z.object({
   forth: wallValidation,
 });
 
+const furnitureItemValidation = z.number();
+
+export const FurnitureValidation = z.object({
+  bed: furnitureItemValidation,
+  wardrobe: furnitureItemValidation,
+});
+
 export const SizesFormValidation = z.object({
   walls: WallsValidation,
   // doors: z.object({}),
   // windows: z.object({}),
+  furniture: FurnitureValidation,
 });
 
 export type SizesFormType = z.infer<typeof SizesFormValidation>;

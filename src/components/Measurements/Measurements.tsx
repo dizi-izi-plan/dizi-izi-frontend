@@ -21,7 +21,7 @@ import {
 import { MeasurementsImage } from './MeasurementsImage';
 
 export const Measurements = () => {
-  const [currentStep, setCurrentStep] = useState<number>(3);
+  const [currentStep, setCurrentStep] = useState<number>(0);
 
   const {
     control,

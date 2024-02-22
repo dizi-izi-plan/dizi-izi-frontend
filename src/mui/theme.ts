@@ -279,6 +279,12 @@ theme = createTheme(theme, {
           '&.Mui-checked': {
             color: theme.palette.black.main,
           },
+          '&:hover img': {
+            background: theme.palette.primary.main,
+          },
+          '&.Mui-checked img': {
+            background: theme.palette.primary.dark,
+          },
         },
       },
     },

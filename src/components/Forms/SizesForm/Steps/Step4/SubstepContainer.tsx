@@ -7,7 +7,7 @@ import { PopperMessage } from '@/components/Popper/PopperMessage';
 type SubstepContainerProps = {
   title: string;
   children: ReactNode;
-  skipSubstep?: boolean;
+  skipSubstep: boolean;
 };
 
 export const SubstepContainer = ({

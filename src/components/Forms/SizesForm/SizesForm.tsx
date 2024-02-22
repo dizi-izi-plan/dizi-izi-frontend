@@ -48,27 +48,26 @@ export const SizesForm = ({
 
   return (
     <>
-      <Tabs
-        className="measurement"
-        value={currentStep}
-        onChange={handleTabChange}
-        aria-label="measurement-steps"
-        variant="fullWidth"
-        sx={{
-          display: currentStep === 3 ? 'none' : undefined,
-        }}
-      >
-        {MEASUREMENTS_STEPS.slice(0, 3).map(
-          (item: MeasurementsDataType, index: number) => (
-            <Tab
-              key={index}
-              label={item.tabText}
-              {...a11yProps(index)}
-              sx={{ p: '0' }}
-            />
-          ),
-        )}
-      </Tabs>
+      {currentStep < 3 && (
+        <Tabs
+          className="measurement"
+          value={currentStep}
+          onChange={handleTabChange}
+          aria-label="measurement-steps"
+          variant="fullWidth"
+        >
+          {MEASUREMENTS_STEPS.slice(0, 3).map(
+            (item: MeasurementsDataType, index: number) => (
+              <Tab
+                key={index}
+                label={item.tabText}
+                {...a11yProps(index)}
+                sx={{ p: '0' }}
+              />
+            ),
+          )}
+        </Tabs>
+      )}
       <form onSubmit={onSubmit}>
         <TabContentContainer index={0} value={currentStep}>
           <Walls
@@ -86,10 +85,10 @@ export const SizesForm = ({
         </TabContentContainer>
         <TabContentContainer index={3} value={currentStep}>
           <Furniture
-          // control={control}
-          // setValue={setValue}
-          // watch={watch}
-          // isValid={isValid}
+            control={control}
+            setValue={setValue}
+            watch={watch}
+            isValid={isValid}
           />
         </TabContentContainer>
       </form>

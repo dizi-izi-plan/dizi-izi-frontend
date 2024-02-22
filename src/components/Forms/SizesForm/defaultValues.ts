@@ -7,8 +7,14 @@ export const walls = {
   forth: '',
 };
 
+export const furniture = {
+  bed: 0,
+  wardrobe: 0,
+};
+
 export const initialStepsState: SizesFormType = {
   walls,
   // doors: {},
   // windows: {},
+  furniture,
 };
