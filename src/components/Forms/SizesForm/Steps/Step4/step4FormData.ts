@@ -29,6 +29,7 @@ export type TRadioItem = {
   width: number;
   imageSrc: string;
   className?: string;
+  maxNumber?: number;
 };
 
 type TStep4 = {
@@ -78,6 +79,7 @@ export const STEP4: TStep4[] = [
         length: 2000,
         width: 900,
         imageSrc: bed900x2000,
+        maxNumber: 2,
       },
     ],
   },

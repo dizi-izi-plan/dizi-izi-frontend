@@ -1,6 +1,5 @@
 import React, { useEffect, ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { SubstepContainer } from './SubstepContainer';
@@ -16,7 +15,6 @@ import {
 } from 'react-hook-form';
 import { STEP4, FURNITURE } from './step4FormData';
 import { RadioImage } from './RadioImage';
-import { RadioNumber } from './RadioNumber';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
 
 type FurnitureProps = {
@@ -42,6 +40,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
     setValue(name as FURNITURE_NAMES_TYPE, Number(value));
   };
 
+  console.log(currentBed, currentBedsNumber);
   useEffect(() => {
     // checking: only a single bed could have number 2
     if (
@@ -67,6 +66,11 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
       <SubstepContainer
         title={STEP4[0].title}
         skipSubstep={STEP4[0].skipSubstep}
+        control={control}
+        handleChange={handleChange}
+        number={
+          STEP4[0].radioArr.find((item) => item.id === currentBed)?.maxNumber
+        }
       >
         <RadioGroupWrapper
           name={STEP4[0].name}
@@ -85,40 +89,12 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             <RadioImage key={item.id} data={item} />
           ))}
         </RadioGroupWrapper>
-        <Stack
-          direction="row"
-          alignItems="center"
-          columnGap="40px"
-          sx={{
-            opacity:
-              currentBed === STEP4[0].radioArr[STEP4[0].radioArr.length - 1].id
-                ? 1
-                : 0,
-            transition: 'opacity 0.3s linear',
-          }}
-        >
-          <Typography variant="body1" color="second.main">
-            Выберите количество
-          </Typography>
-          <RadioGroupWrapper
-            name={FURNITURE.bedsNumber}
-            control={control}
-            onChange={handleChange}
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              columnGap: '13px',
-            }}
-          >
-            <RadioNumber value={1} />
-            <RadioNumber value={2} />
-          </RadioGroupWrapper>
-        </Stack>
       </SubstepContainer>
       <SubstepContainer
         title={STEP4[1].title}
         skipSubstep={STEP4[1].skipSubstep}
+        control={control}
+        handleChange={handleChange}
       >
         <RadioGroupWrapper
           name={STEP4[1].name}
@@ -138,7 +114,12 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           ))}
         </RadioGroupWrapper>
       </SubstepContainer>
-      <SubstepContainer title="Выберите мебель" skipSubstep={true}>
+      <SubstepContainer
+        title="Выберите мебель"
+        skipSubstep={true}
+        control={control}
+        handleChange={handleChange}
+      >
         <Typography variant="caption" color="secondary.main">
           Здесь будет другая мебель
         </Typography>
