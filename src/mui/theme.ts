@@ -288,6 +288,14 @@ theme = createTheme(theme, {
             background: theme.palette.primary.dark,
             transition: 'background 0.3s linear',
           },
+          '&:hover img.conicGradient': {
+            background: `conic-gradient(${theme.palette.primary.main} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
+            transition: 'background 0.3s linear',
+          },
+          '&.Mui-checked img.conicGradient': {
+            background: `conic-gradient(${theme.palette.primary.dark} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
+            transition: 'background 0.3s linear',
+          },
         },
       },
     },

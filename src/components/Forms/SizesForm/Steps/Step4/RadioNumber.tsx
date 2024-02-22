@@ -15,6 +15,7 @@ export const RadioNumber = ({ value }: RadioNumberProps) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: '0px',
   };
 
   return (

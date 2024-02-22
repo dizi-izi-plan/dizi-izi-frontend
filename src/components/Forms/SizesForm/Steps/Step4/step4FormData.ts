@@ -28,6 +28,7 @@ export type TRadioItem = {
   length: number;
   width: number;
   imageSrc: string;
+  className?: string;
 };
 
 type TStep4 = {
@@ -119,6 +120,7 @@ export const STEP4: TStep4[] = [
         length: 1200,
         width: 1200,
         imageSrc: wardrobe1200x1200,
+        className: 'conicGradient',
       },
       {
         id: 11,

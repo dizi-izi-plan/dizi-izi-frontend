@@ -28,6 +28,7 @@ export const RadioImage = ({ data }: RadioImageProps) => {
               src={data.imageSrc}
               alt={data.name}
               style={{ borderRadius: '4px' }}
+              className={data.className}
             />
           }
           checkedIcon={
@@ -35,6 +36,7 @@ export const RadioImage = ({ data }: RadioImageProps) => {
               src={data.imageSrc}
               alt={data.name}
               style={{ borderRadius: '4px' }}
+              className={data.className}
             />
           }
           disableRipple
