@@ -23,8 +23,20 @@ export const RadioImage = ({ data }: RadioImageProps) => {
       label={data.name}
       control={
         <Radio
-          icon={<Image src={data.imageSrc} alt={''} />}
-          checkedIcon={<Image src={data.imageSrc} alt={''} />}
+          icon={
+            <Image
+              src={data.imageSrc}
+              alt={data.name}
+              style={{ borderRadius: '4px' }}
+            />
+          }
+          checkedIcon={
+            <Image
+              src={data.imageSrc}
+              alt={data.name}
+              style={{ borderRadius: '4px' }}
+            />
+          }
           disableRipple
         />
       }

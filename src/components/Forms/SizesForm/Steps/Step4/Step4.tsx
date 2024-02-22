@@ -76,6 +76,9 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            rowGap: '60px',
+            columnGap: '70px',
           }}
         >
           {STEP4[0].radioArr.map((item) => (
@@ -113,10 +116,27 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           </RadioGroupWrapper>
         </Stack>
       </SubstepContainer>
-      <SubstepContainer title="Выберите шкаф" skipSubstep={true}>
-        <Typography variant="caption" color="secondary.main">
-          Здесь будут шкафы
-        </Typography>
+      <SubstepContainer
+        title={STEP4[1].title}
+        skipSubstep={STEP4[1].skipSubstep}
+      >
+        <RadioGroupWrapper
+          name={STEP4[1].name}
+          control={control}
+          onChange={handleChange}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            rowGap: '60px',
+            columnGap: '70px',
+          }}
+        >
+          {STEP4[1].radioArr.map((item) => (
+            <RadioImage key={item.id} data={item} />
+          ))}
+        </RadioGroupWrapper>
       </SubstepContainer>
       <SubstepContainer title="Выберите мебель" skipSubstep={true}>
         <Typography variant="caption" color="secondary.main">
