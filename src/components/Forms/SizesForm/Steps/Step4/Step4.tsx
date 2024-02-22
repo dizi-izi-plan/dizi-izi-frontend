@@ -40,7 +40,6 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
     setValue(name as FURNITURE_NAMES_TYPE, Number(value));
   };
 
-  console.log(currentBed, currentBedsNumber);
   useEffect(() => {
     // checking: only a single bed could have number 2
     if (

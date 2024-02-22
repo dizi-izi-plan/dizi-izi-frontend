@@ -280,6 +280,9 @@ theme = createTheme(theme, {
             color: theme.palette.black.main,
             transition: 'color 0.3s linear',
           },
+          '& img, & .MuiTypography-root, & img.conicGradient': {
+            background: theme.palette.secondary.contrastText,
+          },
           '&:hover img, &:hover .MuiTypography-root': {
             background: theme.palette.primary.main,
             transition: 'background 0.3s linear',
