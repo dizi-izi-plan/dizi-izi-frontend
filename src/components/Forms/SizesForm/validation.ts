@@ -22,10 +22,13 @@ export const WallsValidation = z.object({
 
 const furnitureItemValidation = z.number();
 
+const otherFurnitureValidation = z.array(z.number());
+
 export const FurnitureValidation = z.object({
   bed: furnitureItemValidation,
   bedsNumber: furnitureItemValidation,
   wardrobe: furnitureItemValidation,
+  other: otherFurnitureValidation,
 });
 
 export const SizesFormValidation = z.object({

@@ -309,6 +309,25 @@ theme = createTheme(theme, {
           '&.Mui-checked': {
             color: theme.palette.primary.main,
           },
+          '& img, & .MuiTypography-root, & img.conicGradient': {
+            background: theme.palette.secondary.contrastText,
+          },
+          '&:hover img, &:hover .MuiTypography-root': {
+            background: theme.palette.primary.main,
+            transition: 'background 0.3s linear',
+          },
+          '&.Mui-checked img, &.Mui-checked .MuiTypography-root': {
+            background: theme.palette.primary.dark,
+            transition: 'background 0.3s linear',
+          },
+          '&:hover img.conicGradient': {
+            background: `conic-gradient(${theme.palette.primary.main} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
+            transition: 'background 0.3s linear',
+          },
+          '&.Mui-checked img.conicGradient': {
+            background: `conic-gradient(${theme.palette.primary.dark} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
+            transition: 'background 0.3s linear',
+          },
         },
       },
     },

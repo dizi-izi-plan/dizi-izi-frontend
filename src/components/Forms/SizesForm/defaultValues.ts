@@ -11,6 +11,7 @@ export const furniture = {
   bed: 0,
   bedsNumber: 1,
   wardrobe: 0,
+  other: [],
 };
 
 export const initialStepsState: SizesFormType = {

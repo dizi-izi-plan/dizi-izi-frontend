@@ -14,10 +14,23 @@ import wardrobe1600x600 from '../../../../../../public/assets/icons/furniture/wa
 import wardrobe1800x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1800_600.svg?url';
 import wardrobe2000x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_2000_600.svg?url';
 
+import armchair800X800 from '../../../../../../public/assets/icons/furniture/other/armchair_800_800.svg?url';
+import bedsideTable400x400 from '../../../../../../public/assets/icons/furniture/other/bedside-table_400_400.svg?url';
+import bureau from '../../../../../../public/assets/icons/furniture/other/bureau.svg?url';
+import chest900x500 from '../../../../../../public/assets/icons/furniture/other/chest_900_500.svg?url';
+import chidBed1200x900 from '../../../../../../public/assets/icons/furniture/other/chid-bed_1200_900.svg?url';
+import desk from '../../../../../../public/assets/icons/furniture/other/desk.svg?url';
+import dresser900x800 from '../../../../../../public/assets/icons/furniture/other/dresser_900_800.svg?url';
+import nightstand600x600 from '../../../../../../public/assets/icons/furniture/other/nightstand_600_600.svg?url';
+import plant from '../../../../../../public/assets/icons/furniture/other/plant.svg?url';
+import TVChest from '../../../../../../public/assets/icons/furniture/other/TV-chest.svg?url';
+import TV from '../../../../../../public/assets/icons/furniture/other/TV.svg?url';
+
 export enum FURNITURE {
   bed = 'furniture.bed',
   bedsNumber = 'furniture.bedsNumber',
   wardrobe = 'furniture.wardrobe',
+  other = 'furniture.other',
 }
 
 export type FURNITURE_NAMES_TYPE = ObjectValues<typeof FURNITURE>;
@@ -144,6 +157,90 @@ export const STEP4: TStep4[] = [
         length: 2000,
         width: 600,
         imageSrc: wardrobe2000x600,
+      },
+    ],
+  },
+  {
+    title: 'Выберите мебель',
+    name: FURNITURE.other,
+    skipSubstep: true,
+    radioArr: [
+      {
+        id: 14,
+        name: 'Детская кроватка 1200х900',
+        length: 1200,
+        width: 900,
+        imageSrc: chidBed1200x900,
+      },
+      {
+        id: 15,
+        name: 'Кресло',
+        length: 800,
+        width: 800,
+        imageSrc: armchair800X800,
+      },
+      {
+        id: 16,
+        name: 'Прикроватная тумба ',
+        length: 600,
+        width: 600,
+        imageSrc: nightstand600x600,
+      },
+      {
+        id: 17,
+        name: 'Комод',
+        length: 900,
+        width: 500,
+        imageSrc: chest900x500,
+      },
+      {
+        id: 18,
+        name: 'Растение',
+        length: 300,
+        width: 300,
+        imageSrc: plant,
+      },
+      {
+        id: 19,
+        name: 'Прикроватный столик',
+        length: 1600,
+        width: 600,
+        imageSrc: bedsideTable400x400,
+      },
+      {
+        id: 20,
+        name: 'Письменный стол со стулом',
+        length: 1200,
+        width: 600,
+        imageSrc: desk,
+      },
+      {
+        id: 21,
+        name: 'Бюро со стулом',
+        length: 800,
+        width: 400,
+        imageSrc: bureau,
+      },
+      {
+        id: 22,
+        name: 'Туалетный столик',
+        length: 900,
+        width: 800,
+        imageSrc: dresser900x800,
+      },
+      {
+        id: 23,
+        name: 'Комод с телевизором',
+        length: 1200,
+        width: 500,
+        imageSrc: TVChest,
+      },
+      {
+        id: 24,
+        name: 'Телевизор',
+        length: 1126,
+        width: 400,
+        imageSrc: TV,
       },
     ],
   },
