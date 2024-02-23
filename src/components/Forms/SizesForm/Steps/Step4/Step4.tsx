@@ -225,6 +225,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
               key={item.id}
               label={item.name}
               value={item.id}
+              lableMinHeight="52px"
               control={
                 <Checkbox
                   name={String(item.id)}
