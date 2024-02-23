@@ -45,15 +45,21 @@ export type TRadioItem = {
   maxNumber?: number;
 };
 
-type TStep4 = {
+type TSubtep4 = {
   title: string;
   name: FURNITURE_NAMES_TYPE;
   skipSubstep: boolean;
   radioArr: TRadioItem[];
 };
 
-export const STEP4: TStep4[] = [
-  {
+type TSubsteps4 = FURNITURE.bed | FURNITURE.wardrobe | FURNITURE.other;
+
+type TStep4 = {
+  [T in TSubsteps4]: TSubtep4;
+};
+
+export const STEP4: TStep4 = {
+  [FURNITURE.bed]: {
     title: 'Выберите кровать',
     name: FURNITURE.bed,
     skipSubstep: false,
@@ -96,7 +102,7 @@ export const STEP4: TStep4[] = [
       },
     ],
   },
-  {
+  [FURNITURE.wardrobe]: {
     title: 'Выберите шкаф',
     name: FURNITURE.wardrobe,
     skipSubstep: true,
@@ -160,7 +166,7 @@ export const STEP4: TStep4[] = [
       },
     ],
   },
-  {
+  [FURNITURE.other]: {
     title: 'Выберите мебель',
     name: FURNITURE.other,
     skipSubstep: true,
@@ -244,4 +250,4 @@ export const STEP4: TStep4[] = [
       },
     ],
   },
-];
+};

@@ -35,7 +35,7 @@ export const UnderlinedButton = ({ text, ...props }: UnderlinedButtonProps) => {
           backgroundColor: 'primary.main',
           transition: 'opacity 0.3s linear',
         }}
-      ></Box>
+      />
     </Button>
   );
 };

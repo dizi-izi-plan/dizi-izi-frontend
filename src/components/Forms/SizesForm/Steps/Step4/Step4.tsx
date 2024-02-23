@@ -18,7 +18,7 @@ import {
 } from 'react-hook-form';
 import { STEP4, FURNITURE } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { FormControlLabelImage } from './FormControlLabelImage';
 
 type FurnitureProps = {
   setValue: UseFormSetValue<SizesFormType>;
@@ -30,7 +30,7 @@ type FurnitureProps = {
 export const Furniture = ({ control, setValue }: FurnitureProps) => {
   const currentBed = useWatch({
     control,
-    name: STEP4[0].name,
+    name: STEP4[FURNITURE.bed].name,
   });
 
   const currentBedsNumber = useWatch({
@@ -38,10 +38,24 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
     name: FURNITURE.bedsNumber,
   });
 
+  const currentWardrobe = useWatch({
+    control,
+    name: FURNITURE.wardrobe,
+  });
+
   const currentOtherFurniture = useWatch({
     control,
-    name: STEP4[2].name,
+    name: STEP4[FURNITURE.other].name,
   }) as number[];
+
+  useEffect(() => {
+    console.log(
+      currentBed,
+      currentBedsNumber,
+      currentWardrobe,
+      currentOtherFurniture,
+    );
+  }, [currentBed, currentBedsNumber, currentWardrobe, currentOtherFurniture]);
 
   const handleRaioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
@@ -55,38 +69,28 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         if (currentOtherFurniture.includes(Number(name))) return;
         const newOtherFurniture = currentOtherFurniture;
         newOtherFurniture.push(Number(name));
-        setValue(STEP4[2].name as FURNITURE_NAMES_TYPE, newOtherFurniture);
+        setValue(
+          STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
+          newOtherFurniture,
+        );
       } else {
         const newOtherFurniture = currentOtherFurniture.filter(
           (item) => item !== Number(name),
         );
-        setValue(STEP4[2].name as FURNITURE_NAMES_TYPE, newOtherFurniture);
+        setValue(
+          STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
+          newOtherFurniture,
+        );
       }
     },
     [currentOtherFurniture, setValue],
   );
 
-  const getRagioCheckboxStyles = (lableMinHeight: string | undefined) => {
-    return {
-      margin: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      rowGap: '10px',
-      '& .MuiTypography-root': {
-        maxWidth: '180px',
-        minHeight: lableMinHeight,
-        display: 'flex',
-        alignItems: 'flex-end',
-      },
-    };
-  };
-
   const substepStules = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
     flexWrap: 'wrap',
     rowGap: '60px',
     columnGap: '30px',
@@ -95,7 +99,9 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
   useEffect(() => {
     // checking: only a single bed could have number 2
     if (
-      currentBed !== STEP4[0].radioArr[STEP4[0].radioArr.length - 1].id &&
+      currentBed !==
+        STEP4[FURNITURE.bed].radioArr[STEP4[FURNITURE.bed].radioArr.length - 1]
+          .id &&
       currentBedsNumber !== 1
     ) {
       setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
@@ -115,35 +121,35 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         </PopperMessage>
       </Box>
       <SubstepContainer
-        title={STEP4[0].title}
-        skipSubstep={STEP4[0].skipSubstep}
+        title={STEP4[FURNITURE.bed].title}
+        skipSubstep={STEP4[FURNITURE.bed].skipSubstep}
         control={control}
         handleChange={handleRaioGroupChange}
         number={
-          STEP4[0].radioArr.find((item) => item.id === currentBed)?.maxNumber
+          STEP4[FURNITURE.bed].radioArr.find((item) => item.id === currentBed)
+            ?.maxNumber
         }
       >
         <RadioGroupWrapper
-          name={STEP4[0].name}
+          name={STEP4[FURNITURE.bed].name}
           control={control}
           onChange={handleRaioGroupChange}
           sx={{
             ...substepStules,
           }}
+          className="radio-checkbox-image"
         >
-          {STEP4[0].radioArr.map((item) => (
-            <FormControlLabel
+          {STEP4[FURNITURE.bed].radioArr.map((item) => (
+            <FormControlLabelImage
               key={item.id}
-              value={item.id}
               label={item.name}
-              sx={{ ...getRagioCheckboxStyles(undefined) }}
+              value={item.id}
               control={
                 <Radio
                   icon={
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
-                      style={{ borderRadius: '4px' }}
                       className={item.className}
                     />
                   }
@@ -151,7 +157,6 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
-                      style={{ borderRadius: '4px' }}
                       className={item.className}
                     />
                   }
@@ -163,32 +168,30 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         </RadioGroupWrapper>
       </SubstepContainer>
       <SubstepContainer
-        title={STEP4[1].title}
-        skipSubstep={STEP4[1].skipSubstep}
+        title={STEP4[FURNITURE.wardrobe].title}
+        skipSubstep={STEP4[FURNITURE.wardrobe].skipSubstep}
         control={control}
         handleChange={handleRaioGroupChange}
       >
         <RadioGroupWrapper
-          name={STEP4[1].name}
+          name={STEP4[FURNITURE.wardrobe].name}
           control={control}
           onChange={handleRaioGroupChange}
           sx={{
             ...substepStules,
           }}
         >
-          {STEP4[1].radioArr.map((item) => (
-            <FormControlLabel
+          {STEP4[FURNITURE.wardrobe].radioArr.map((item) => (
+            <FormControlLabelImage
               key={item.id}
-              value={item.id}
               label={item.name}
-              sx={{ ...getRagioCheckboxStyles(undefined) }}
+              value={item.id}
               control={
                 <Radio
                   icon={
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
-                      style={{ borderRadius: '4px' }}
                       className={item.className}
                     />
                   }
@@ -196,7 +199,6 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
-                      style={{ borderRadius: '4px' }}
                       className={item.className}
                     />
                   }
@@ -208,8 +210,8 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         </RadioGroupWrapper>
       </SubstepContainer>
       <SubstepContainer
-        title={STEP4[2].title}
-        skipSubstep={STEP4[2].skipSubstep}
+        title={STEP4[FURNITURE.other].title}
+        skipSubstep={STEP4[FURNITURE.other].skipSubstep}
         control={control}
         handleChange={handleRaioGroupChange}
       >
@@ -218,11 +220,11 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             ...substepStules,
           }}
         >
-          {STEP4[2].radioArr.map((item) => (
-            <FormControlLabel
+          {STEP4[FURNITURE.other].radioArr.map((item) => (
+            <FormControlLabelImage
               key={item.id}
               label={item.name}
-              sx={{ ...getRagioCheckboxStyles('52px') }}
+              value={item.id}
               control={
                 <Checkbox
                   name={String(item.id)}
@@ -231,7 +233,6 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
-                      style={{ borderRadius: '4px' }}
                       className={item.className}
                     />
                   }
@@ -239,7 +240,6 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
-                      style={{ borderRadius: '4px' }}
                       className={item.className}
                     />
                   }

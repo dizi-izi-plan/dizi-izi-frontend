@@ -276,28 +276,19 @@ theme = createTheme(theme, {
         root: {
           color: theme.palette.black.main,
           padding: 0,
+          transition: 'all 0.3s linear',
           '&.Mui-checked': {
             color: theme.palette.black.main,
-            transition: 'color 0.3s linear',
           },
-          '& img, & .MuiTypography-root, & img.conicGradient': {
+          '& .MuiTypography-root': {
             background: theme.palette.secondary.contrastText,
+            transition: 'all 0.3s linear',
           },
-          '&:hover img, &:hover .MuiTypography-root': {
+          '&:hover .MuiTypography-root': {
             background: theme.palette.primary.main,
-            transition: 'background 0.3s linear',
           },
-          '&.Mui-checked img, &.Mui-checked .MuiTypography-root': {
+          '&.Mui-checked .MuiTypography-root': {
             background: theme.palette.primary.dark,
-            transition: 'background 0.3s linear',
-          },
-          '&:hover img.conicGradient': {
-            background: `conic-gradient(${theme.palette.primary.main} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
-            transition: 'background 0.3s linear',
-          },
-          '&.Mui-checked img.conicGradient': {
-            background: `conic-gradient(${theme.palette.primary.dark} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
-            transition: 'background 0.3s linear',
           },
         },
       },
@@ -308,25 +299,6 @@ theme = createTheme(theme, {
           color: theme.palette.primary.main,
           '&.Mui-checked': {
             color: theme.palette.primary.main,
-          },
-          '& img, & .MuiTypography-root, & img.conicGradient': {
-            background: theme.palette.secondary.contrastText,
-          },
-          '&:hover img, &:hover .MuiTypography-root': {
-            background: theme.palette.primary.main,
-            transition: 'background 0.3s linear',
-          },
-          '&.Mui-checked img, &.Mui-checked .MuiTypography-root': {
-            background: theme.palette.primary.dark,
-            transition: 'background 0.3s linear',
-          },
-          '&:hover img.conicGradient': {
-            background: `conic-gradient(${theme.palette.primary.main} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
-            transition: 'background 0.3s linear',
-          },
-          '&.Mui-checked img.conicGradient': {
-            background: `conic-gradient(${theme.palette.primary.dark} 270deg, ${theme.palette.secondary.contrastText} 90deg)`,
-            transition: 'background 0.3s linear',
           },
         },
       },
