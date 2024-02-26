@@ -181,13 +181,14 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           <UnderlinedButton
             text="Автоматический подбор мебели"
             endIcon={<ArrowForwardIcon fontSize="small" />}
-            onClick={() =>
+            onClick={() => {
               helpChooseFurniture([
                 FURNITURE.bed,
                 FURNITURE.wardrobe,
                 FURNITURE.other,
-              ])
-            }
+              ]);
+              window.scrollTo(0, window.innerHeight * 2);
+            }}
           />
         </PopperMessage>
       </Box>
