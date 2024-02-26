@@ -52,7 +52,7 @@ type TSubtep4 = {
   radioArr: TRadioItem[];
 };
 
-type TSubsteps4 = FURNITURE.bed | FURNITURE.wardrobe | FURNITURE.other;
+export type TSubsteps4 = FURNITURE.bed | FURNITURE.wardrobe | FURNITURE.other;
 
 type TStep4 = {
   [T in TSubsteps4]: TSubtep4;
@@ -173,7 +173,7 @@ export const STEP4: TStep4 = {
     radioArr: [
       {
         id: 14,
-        name: 'Детская кроватка 1200х900',
+        name: 'Детская кроватка',
         length: 1200,
         width: 900,
         imageSrc: chidBed1200x900,
@@ -187,7 +187,7 @@ export const STEP4: TStep4 = {
       },
       {
         id: 16,
-        name: 'Прикроватная тумба ',
+        name: 'Прикроватная тумба',
         length: 600,
         width: 600,
         imageSrc: nightstand600x600,
@@ -209,8 +209,8 @@ export const STEP4: TStep4 = {
       {
         id: 19,
         name: 'Прикроватный столик',
-        length: 1600,
-        width: 600,
+        length: 400,
+        width: 400,
         imageSrc: bedsideTable400x400,
       },
       {
@@ -231,7 +231,7 @@ export const STEP4: TStep4 = {
         id: 22,
         name: 'Туалетный столик',
         length: 900,
-        width: 800,
+        width: 400,
         imageSrc: dresser900x800,
       },
       {
@@ -245,7 +245,7 @@ export const STEP4: TStep4 = {
         id: 24,
         name: 'Телевизор',
         length: 1126,
-        width: 400,
+        width: 400, // ??
         imageSrc: TV,
       },
     ],

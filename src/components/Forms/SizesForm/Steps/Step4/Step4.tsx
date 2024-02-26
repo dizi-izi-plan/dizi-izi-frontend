@@ -16,9 +16,11 @@ import {
   UseFormWatch,
   useWatch,
 } from 'react-hook-form';
-import { STEP4, FURNITURE } from './step4FormData';
+import { STEP4, FURNITURE, TSubsteps4 } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
 import { FormControlLabelImage } from './FormControlLabelImage';
+import { WALLS } from '../../formData';
+import { autoSelection, ERoomSize } from './autoFurnitureSelection';
 
 type FurnitureProps = {
   setValue: UseFormSetValue<SizesFormType>;
@@ -47,6 +49,46 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
     control,
     name: STEP4[FURNITURE.other].name,
   }) as number[];
+
+  const verticalWall = useWatch({
+    control,
+    name: WALLS.first,
+  }) as number;
+
+  const horizontalWall = useWatch({
+    control,
+    name: WALLS.second,
+  }) as number;
+
+  const helpChooseFurniture = useCallback(
+    (substeps: TSubsteps4[]) => {
+      const roomArea = verticalWall * horizontalWall;
+
+      if (roomArea > 16000000) {
+        substeps.forEach((substep: TSubsteps4) => {
+          setValue(
+            STEP4[substep].name as FURNITURE_NAMES_TYPE,
+            autoSelection[ERoomSize.L][substep],
+          );
+        });
+      } else if (roomArea > 12000000) {
+        substeps.forEach((substep) => {
+          setValue(
+            STEP4[substep].name as FURNITURE_NAMES_TYPE,
+            autoSelection[ERoomSize.M][substep],
+          );
+        });
+      } else {
+        substeps.forEach((substep) => {
+          setValue(
+            STEP4[substep].name as FURNITURE_NAMES_TYPE,
+            autoSelection[ERoomSize.S][substep],
+          );
+        });
+      }
+    },
+    [verticalWall, horizontalWall, setValue],
+  );
 
   useEffect(() => {
     console.log(
@@ -117,6 +159,13 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           <UnderlinedButton
             text="Автоматический подбор мебели"
             endIcon={<ArrowForwardIcon fontSize="small" />}
+            onClick={() =>
+              helpChooseFurniture([
+                FURNITURE.bed,
+                FURNITURE.wardrobe,
+                FURNITURE.other,
+              ])
+            }
           />
         </PopperMessage>
       </Box>
@@ -129,6 +178,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           STEP4[FURNITURE.bed].radioArr.find((item) => item.id === currentBed)
             ?.maxNumber
         }
+        handleOnClick={() => helpChooseFurniture([FURNITURE.bed])}
       >
         <RadioGroupWrapper
           name={STEP4[FURNITURE.bed].name}
@@ -172,6 +222,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         skipSubstep={STEP4[FURNITURE.wardrobe].skipSubstep}
         control={control}
         handleChange={handleRaioGroupChange}
+        handleOnClick={() => helpChooseFurniture([FURNITURE.wardrobe])}
       >
         <RadioGroupWrapper
           name={STEP4[FURNITURE.wardrobe].name}
@@ -214,6 +265,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         skipSubstep={STEP4[FURNITURE.other].skipSubstep}
         control={control}
         handleChange={handleRaioGroupChange}
+        handleOnClick={() => helpChooseFurniture([FURNITURE.other])}
       >
         <Stack
           sx={{
@@ -230,6 +282,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
                 <Checkbox
                   name={String(item.id)}
                   onChange={handleCheckboxChange}
+                  checked={currentOtherFurniture.includes(item.id)}
                   icon={
                     <Image
                       src={item.imageSrc}

@@ -16,6 +16,7 @@ type SubstepContainerProps = {
   control: Control<SizesFormType>;
   number?: number | undefined;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleOnClick: () => void;
 };
 
 export const SubstepContainer = ({
@@ -25,6 +26,7 @@ export const SubstepContainer = ({
   control,
   handleChange,
   number,
+  handleOnClick,
 }: SubstepContainerProps) => {
   return (
     <Stack rowGap={5} padding="35px 0px">
@@ -32,7 +34,7 @@ export const SubstepContainer = ({
         <Typography variant="h2" color="secondary.main" whiteSpace="nowrap">
           {title}
         </Typography>
-        <UnderlinedButton text="Помощь в выборе" />
+        <UnderlinedButton text="Помощь в выборе" onClick={handleOnClick} />
         {skipSubstep && (
           <PopperMessage tip={'Продолжить без выбора'}>
             <UnderlinedButton text="Пропустить шаг" />
