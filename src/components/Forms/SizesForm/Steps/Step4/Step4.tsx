@@ -22,6 +22,7 @@ import { FormControlLabelImage } from './FormControlLabelImage';
 import { WALLS } from '../../formData';
 import { autoSelection, ERoomSize } from './autoFurnitureSelection';
 import { Button } from '@mui/material';
+import ArrowUp from '../../../../../../public/assets/icons/icon_arrow_up.svg';
 
 type FurnitureProps = {
   setValue: UseFormSetValue<SizesFormType>;
@@ -31,9 +32,14 @@ type FurnitureProps = {
 };
 
 export const Furniture = ({ control, setValue }: FurnitureProps) => {
+  const [scrollTop, setScrollTop] = useState<number | null>(null);
   const [isWardrobeSkipped, setWardrobeSkipped] = useState<boolean>(false);
   const [isOtherFurnitureSkipped, setOtherFurnitureSkipped] =
     useState<boolean>(false);
+
+  const handleScroll = () => {
+    setScrollTop(window.scrollY);
+  };
 
   const currentBed = useWatch({
     control,
@@ -157,6 +163,14 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
       setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
     }
   }, [currentBed, setValue, currentBedsNumber]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <Stack position="relative" width="100%" alignItems="center" pb="66px">
@@ -334,6 +348,24 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             Показать планировку
           </Button>
         )}
+      <Button
+        variant="default"
+        color="primary"
+        sx={{
+          position: 'fixed',
+          bottom: '100px',
+          right: '100px',
+          minHeight: '62px',
+          minWidth: '62px',
+          borderRadius: '50%',
+          border: (theme) => `1px solid ${theme.palette.black.main}`,
+          opacity: scrollTop && scrollTop > window.innerHeight ? 1 : 0,
+        }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        disableRipple
+      >
+        <ArrowUp />
+      </Button>
     </Stack>
   );
 };
