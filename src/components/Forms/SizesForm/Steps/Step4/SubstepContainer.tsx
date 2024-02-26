@@ -1,5 +1,5 @@
 import { ReactNode, ChangeEvent } from 'react';
-import Stack from '@mui/material/Stack';
+import Stack, { StackProps } from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { UnderlinedButton } from '@/components/Buttons/UnderlinedButton/UnderlinedButton';
 import { PopperMessage } from '@/components/Popper/PopperMessage';
@@ -9,14 +9,15 @@ import { FURNITURE } from './step4FormData';
 import { SizesFormType } from '../../validation';
 import { Control } from 'react-hook-form';
 
-type SubstepContainerProps = {
+type SubstepContainerProps = StackProps & {
   title: string;
   children: ReactNode;
   skipSubstep: boolean;
   control: Control<SizesFormType>;
   number?: number | undefined;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleOnClick: () => void;
+  handleOnHelp: () => void;
+  handleOnSkip?: () => void;
 };
 
 export const SubstepContainer = ({
@@ -26,18 +27,19 @@ export const SubstepContainer = ({
   control,
   handleChange,
   number,
-  handleOnClick,
+  handleOnHelp,
+  handleOnSkip,
 }: SubstepContainerProps) => {
   return (
-    <Stack rowGap={5} padding="35px 0px">
+    <Stack rowGap={5} padding="35px 0px" width="100%">
       <Stack direction="row" columnGap={5} alignItems="center">
         <Typography variant="h2" color="secondary.main" whiteSpace="nowrap">
           {title}
         </Typography>
-        <UnderlinedButton text="Помощь в выборе" onClick={handleOnClick} />
+        <UnderlinedButton text="Помощь в выборе" onClick={handleOnHelp} />
         {skipSubstep && (
           <PopperMessage tip={'Продолжить без выбора'}>
-            <UnderlinedButton text="Пропустить шаг" />
+            <UnderlinedButton text="Пропустить шаг" onClick={handleOnSkip} />
           </PopperMessage>
         )}
       </Stack>

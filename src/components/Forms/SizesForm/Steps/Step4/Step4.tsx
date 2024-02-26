@@ -1,4 +1,4 @@
-import React, { useEffect, ChangeEvent, useCallback } from 'react';
+import React, { useEffect, ChangeEvent, useCallback, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
@@ -21,6 +21,7 @@ import { FURNITURE_NAMES_TYPE } from './step4FormData';
 import { FormControlLabelImage } from './FormControlLabelImage';
 import { WALLS } from '../../formData';
 import { autoSelection, ERoomSize } from './autoFurnitureSelection';
+import { Button } from '@mui/material';
 
 type FurnitureProps = {
   setValue: UseFormSetValue<SizesFormType>;
@@ -30,6 +31,10 @@ type FurnitureProps = {
 };
 
 export const Furniture = ({ control, setValue }: FurnitureProps) => {
+  const [isWardrobeSkipped, setWardrobeSkipped] = useState<boolean>(false);
+  const [isOtherFurnitureSkipped, setOtherFurnitureSkipped] =
+    useState<boolean>(false);
+
   const currentBed = useWatch({
     control,
     name: STEP4[FURNITURE.bed].name,
@@ -90,14 +95,17 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
     [verticalWall, horizontalWall, setValue],
   );
 
-  useEffect(() => {
-    console.log(
-      currentBed,
-      currentBedsNumber,
-      currentWardrobe,
-      currentOtherFurniture,
-    );
-  }, [currentBed, currentBedsNumber, currentWardrobe, currentOtherFurniture]);
+  const handleOnSkip = (
+    substep: TSubsteps4,
+    setSubstepSkipped: (boolean: boolean) => void,
+  ) => {
+    setSubstepSkipped(true);
+    if (substep === FURNITURE.wardrobe) {
+      setValue(STEP4[substep].name as FURNITURE_NAMES_TYPE, 0);
+    } else {
+      setValue(STEP4[substep].name as FURNITURE_NAMES_TYPE, [0]);
+    }
+  };
 
   const handleRaioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
@@ -151,7 +159,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
   }, [currentBed, setValue, currentBedsNumber]);
 
   return (
-    <Box position="relative" width="100%">
+    <Stack position="relative" width="100%" alignItems="center" pb="66px">
       <Box position="absolute" top="-86px" right="0">
         <PopperMessage
           tip={'Dizi izi подберет мебель под параметры вашего помещения'}
@@ -178,7 +186,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           STEP4[FURNITURE.bed].radioArr.find((item) => item.id === currentBed)
             ?.maxNumber
         }
-        handleOnClick={() => helpChooseFurniture([FURNITURE.bed])}
+        handleOnHelp={() => helpChooseFurniture([FURNITURE.bed])}
       >
         <RadioGroupWrapper
           name={STEP4[FURNITURE.bed].name}
@@ -217,93 +225,115 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           ))}
         </RadioGroupWrapper>
       </SubstepContainer>
-      <SubstepContainer
-        title={STEP4[FURNITURE.wardrobe].title}
-        skipSubstep={STEP4[FURNITURE.wardrobe].skipSubstep}
-        control={control}
-        handleChange={handleRaioGroupChange}
-        handleOnClick={() => helpChooseFurniture([FURNITURE.wardrobe])}
-      >
-        <RadioGroupWrapper
-          name={STEP4[FURNITURE.wardrobe].name}
+      {Number(currentBed) !== 0 && (
+        <SubstepContainer
+          title={STEP4[FURNITURE.wardrobe].title}
+          skipSubstep={STEP4[FURNITURE.wardrobe].skipSubstep}
           control={control}
-          onChange={handleRaioGroupChange}
-          sx={{
-            ...substepStules,
-          }}
+          handleChange={handleRaioGroupChange}
+          handleOnHelp={() => helpChooseFurniture([FURNITURE.wardrobe])}
+          handleOnSkip={() =>
+            handleOnSkip(FURNITURE.wardrobe, setWardrobeSkipped)
+          }
         >
-          {STEP4[FURNITURE.wardrobe].radioArr.map((item) => (
-            <FormControlLabelImage
-              key={item.id}
-              label={item.name}
-              value={item.id}
-              control={
-                <Radio
-                  icon={
-                    <Image
-                      src={item.imageSrc}
-                      alt={item.name}
-                      className={item.className}
-                    />
-                  }
-                  checkedIcon={
-                    <Image
-                      src={item.imageSrc}
-                      alt={item.name}
-                      className={item.className}
-                    />
-                  }
-                  disableRipple
-                />
-              }
-            />
-          ))}
-        </RadioGroupWrapper>
-      </SubstepContainer>
-      <SubstepContainer
-        title={STEP4[FURNITURE.other].title}
-        skipSubstep={STEP4[FURNITURE.other].skipSubstep}
-        control={control}
-        handleChange={handleRaioGroupChange}
-        handleOnClick={() => helpChooseFurniture([FURNITURE.other])}
-      >
-        <Stack
-          sx={{
-            ...substepStules,
-          }}
+          <RadioGroupWrapper
+            name={STEP4[FURNITURE.wardrobe].name}
+            control={control}
+            onChange={handleRaioGroupChange}
+            sx={{
+              ...substepStules,
+            }}
+          >
+            {STEP4[FURNITURE.wardrobe].radioArr.map((item) => (
+              <FormControlLabelImage
+                key={item.id}
+                label={item.name}
+                value={item.id}
+                control={
+                  <Radio
+                    icon={
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.name}
+                        className={item.className}
+                      />
+                    }
+                    checkedIcon={
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.name}
+                        className={item.className}
+                      />
+                    }
+                    disableRipple
+                  />
+                }
+              />
+            ))}
+          </RadioGroupWrapper>
+        </SubstepContainer>
+      )}
+      {(Number(currentWardrobe) !== 0 || isWardrobeSkipped) && (
+        <SubstepContainer
+          title={STEP4[FURNITURE.other].title}
+          skipSubstep={STEP4[FURNITURE.other].skipSubstep}
+          control={control}
+          handleChange={handleRaioGroupChange}
+          handleOnHelp={() => helpChooseFurniture([FURNITURE.other])}
+          handleOnSkip={() =>
+            handleOnSkip(FURNITURE.other, setOtherFurnitureSkipped)
+          }
         >
-          {STEP4[FURNITURE.other].radioArr.map((item) => (
-            <FormControlLabelImage
-              key={item.id}
-              label={item.name}
-              value={item.id}
-              lableMinHeight="52px"
-              control={
-                <Checkbox
-                  name={String(item.id)}
-                  onChange={handleCheckboxChange}
-                  checked={currentOtherFurniture.includes(item.id)}
-                  icon={
-                    <Image
-                      src={item.imageSrc}
-                      alt={item.name}
-                      className={item.className}
-                    />
-                  }
-                  checkedIcon={
-                    <Image
-                      src={item.imageSrc}
-                      alt={item.name}
-                      className={item.className}
-                    />
-                  }
-                  disableRipple
-                />
-              }
-            />
-          ))}
-        </Stack>
-      </SubstepContainer>
-    </Box>
+          <Stack
+            sx={{
+              ...substepStules,
+            }}
+          >
+            {STEP4[FURNITURE.other].radioArr.map((item) => (
+              <FormControlLabelImage
+                key={item.id}
+                label={item.name}
+                value={item.id}
+                lableMinHeight="52px"
+                control={
+                  <Checkbox
+                    name={String(item.id)}
+                    onChange={handleCheckboxChange}
+                    checked={currentOtherFurniture.includes(item.id)}
+                    icon={
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.name}
+                        className={item.className}
+                      />
+                    }
+                    checkedIcon={
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.name}
+                        className={item.className}
+                      />
+                    }
+                    disableRipple
+                  />
+                }
+              />
+            ))}
+          </Stack>
+        </SubstepContainer>
+      )}
+      {Number(currentBed) !== 0 &&
+        (Number(currentWardrobe) !== 0 || isWardrobeSkipped) &&
+        (currentOtherFurniture.length !== 0 || isOtherFurnitureSkipped) && (
+          <Button
+            variant="default"
+            color="secondary"
+            sx={{ width: '390px', height: '64px', fontWeight: 500 }}
+            type="submit"
+          >
+            Показать планировку
+          </Button>
+        )}
+    </Stack>
   );
 };
