@@ -1,4 +1,10 @@
-import React, { useEffect, ChangeEvent, useCallback, useState } from 'react';
+import React, {
+  useEffect,
+  ChangeEvent,
+  useCallback,
+  useState,
+  useMemo,
+} from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
@@ -16,13 +22,20 @@ import {
   UseFormWatch,
   useWatch,
 } from 'react-hook-form';
-import { STEP4, FURNITURE, TSubsteps4 } from './step4FormData';
+import { STEP4, FURNITURE, TSubsteps4, TRadioItem } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
 import { FormControlLabelImage } from './FormControlLabelImage';
 import { WALLS } from '../../formData';
 import { autoSelection, ERoomSize } from './autoFurnitureSelection';
 import { Button } from '@mui/material';
 import ArrowUp from '../../../../../../public/assets/icons/icon_arrow_up.svg';
+import { ModalOneButton } from '@/components/Modal/ModalOneButton';
+import ModalIcon from '../../../../../../public/assets/icons/modal_icon.svg';
+
+const MODAL_TEXT = [
+  'Размер комнаты не позволяет добавить больше позиций.',
+  'Вы можете поменять размеры и количество на любом из пройденных этапов',
+];
 
 type FurnitureProps = {
   setValue: UseFormSetValue<SizesFormType>;
@@ -32,6 +45,8 @@ type FurnitureProps = {
 };
 
 export const Furniture = ({ control, setValue }: FurnitureProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const [scrollTop, setScrollTop] = useState<number | null>(null);
   const [isWardrobeSkipped, setWardrobeSkipped] = useState<boolean>(false);
   const [isOtherFurnitureSkipped, setOtherFurnitureSkipped] =
@@ -142,7 +157,44 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
     [currentOtherFurniture, setValue],
   );
 
-  const substepStules = {
+  const getFurnitureArea = (substep: TSubsteps4, id: number) => {
+    const currentFurniture = STEP4[substep].radioArr.find(
+      (el: TRadioItem) => el.id === id,
+    );
+    return Number(currentFurniture?.width) * Number(currentFurniture?.length);
+  };
+
+  const checkAllFurnitureArea = useMemo(() => {
+    const allowedArea = verticalWall * horizontalWall * 0.65;
+
+    const bedArea = getFurnitureArea(FURNITURE.bed, Number(currentBed));
+    const wardrobeArea = getFurnitureArea(
+      FURNITURE.wardrobe,
+      Number(currentWardrobe),
+    );
+    let otherArea;
+    if (currentOtherFurniture.length) {
+      otherArea = currentOtherFurniture.reduce(
+        (sum: number, current: number): number =>
+          sum + getFurnitureArea(FURNITURE.other, Number(current)),
+      );
+    } else {
+      otherArea = 0;
+    }
+
+    const currentFurnitureArea = bedArea + wardrobeArea + otherArea;
+
+    if (currentFurnitureArea <= allowedArea) return true;
+    return false;
+  }, [
+    verticalWall,
+    horizontalWall,
+    currentBed,
+    currentWardrobe,
+    currentOtherFurniture,
+  ]);
+
+  const substepStyles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -208,7 +260,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           control={control}
           onChange={handleRaioGroupChange}
           sx={{
-            ...substepStules,
+            ...substepStyles,
           }}
           className="radio-checkbox-image"
         >
@@ -256,7 +308,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             control={control}
             onChange={handleRaioGroupChange}
             sx={{
-              ...substepStules,
+              ...substepStyles,
             }}
           >
             {STEP4[FURNITURE.wardrobe].radioArr.map((item) => (
@@ -301,7 +353,7 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
         >
           <Stack
             sx={{
-              ...substepStules,
+              ...substepStyles,
             }}
           >
             {STEP4[FURNITURE.other].radioArr.map((item) => (
@@ -344,7 +396,11 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             variant="default"
             color="secondary"
             sx={{ width: '390px', height: '64px', fontWeight: 500 }}
-            type="submit"
+            type={checkAllFurnitureArea ? 'submit' : 'button'}
+            onClick={() => {
+              if (checkAllFurnitureArea) return;
+              setModalOpen(true);
+            }}
           >
             Показать планировку
           </Button>
@@ -367,6 +423,14 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
       >
         <ArrowUp />
       </Button>
+      <ModalOneButton
+        text={MODAL_TEXT}
+        isModalOpen={isModalOpen}
+        handleConfirm={() => setModalOpen(false)}
+        handleClose={() => setModalOpen(false)}
+        icon={<ModalIcon width="75" height="126" />}
+        nameButton={'Продолжить'}
+      />
     </Stack>
   );
 };
