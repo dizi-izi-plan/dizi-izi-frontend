@@ -29,6 +29,7 @@ export const Measurements = () => {
     watch,
     handleSubmit,
     formState: { errors, isValid },
+    resetField,
   } = useForm<SizesFormType>({
     defaultValues: { ...initialStepsState },
     resolver: zodResolver(SizesFormValidation),
@@ -111,6 +112,7 @@ export const Measurements = () => {
             handleSubmit={handleSubmit}
             errors={errors}
             isValid={isValid}
+            resetField={resetField}
           />
         </Stack>
       </Stack>

@@ -21,6 +21,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
   useWatch,
+  UseFormResetField,
 } from 'react-hook-form';
 import { STEP4, FURNITURE, TSubsteps4, TRadioItem } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
@@ -42,9 +43,14 @@ type FurnitureProps = {
   watch: UseFormWatch<SizesFormType>;
   control: Control<SizesFormType>;
   isValid: boolean;
+  resetField: UseFormResetField<SizesFormType>;
 };
 
-export const Furniture = ({ control, setValue }: FurnitureProps) => {
+export const Furniture = ({
+  control,
+  setValue,
+  resetField,
+}: FurnitureProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [scrollTop, setScrollTop] = useState<number | null>(null);
@@ -223,6 +229,13 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    resetField(FURNITURE.bed);
+    resetField(FURNITURE.bedsNumber);
+    resetField(FURNITURE.wardrobe);
+    resetField(FURNITURE.other);
+  }, [verticalWall, horizontalWall, resetField]);
 
   return (
     <Stack position="relative" width="100%" alignItems="center" pb="66px">

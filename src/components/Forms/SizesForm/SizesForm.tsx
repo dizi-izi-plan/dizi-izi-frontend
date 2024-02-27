@@ -16,6 +16,7 @@ import {
   UseFormHandleSubmit,
   UseFormSetValue,
   UseFormWatch,
+  UseFormResetField,
 } from 'react-hook-form';
 
 type SizesFormProps = {
@@ -27,6 +28,7 @@ type SizesFormProps = {
   errors?: FieldErrors<SizesFormType>;
   handleSubmit: UseFormHandleSubmit<SizesFormType>;
   isValid: boolean;
+  resetField: UseFormResetField<SizesFormType>;
 };
 
 export const SizesForm = ({
@@ -37,6 +39,7 @@ export const SizesForm = ({
   control,
   handleSubmit,
   isValid,
+  resetField,
 }: SizesFormProps) => {
   const handleTabChange = (event: SyntheticEvent, step: number) => {
     if (isValid) setCurrentStep(step);
@@ -89,6 +92,7 @@ export const SizesForm = ({
             setValue={setValue}
             watch={watch}
             isValid={isValid}
+            resetField={resetField}
           />
         </TabContentContainer>
       </form>
