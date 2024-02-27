@@ -93,6 +93,7 @@ export const SizesForm = ({
             watch={watch}
             isValid={isValid}
             resetField={resetField}
+            currentStep={currentStep}
           />
         </TabContentContainer>
       </form>

@@ -44,12 +44,14 @@ type FurnitureProps = {
   control: Control<SizesFormType>;
   isValid: boolean;
   resetField: UseFormResetField<SizesFormType>;
+  currentStep: number;
 };
 
 export const Furniture = ({
   control,
   setValue,
   resetField,
+  currentStep,
 }: FurnitureProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -91,6 +93,16 @@ export const Furniture = ({
     control,
     name: WALLS.second,
   }) as number;
+
+  const substepStyles = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+    rowGap: '60px',
+    columnGap: '30px',
+  };
 
   const helpChooseFurniture = useCallback(
     (substeps: TSubsteps4[]) => {
@@ -170,14 +182,14 @@ export const Furniture = ({
     return Number(currentFurniture?.width) * Number(currentFurniture?.length);
   };
 
-  const checkAllFurnitureArea = useMemo(() => {
+  const checkAllFurnitureArea: boolean = useMemo(() => {
     const allowedArea = verticalWall * horizontalWall * 0.65;
 
-    const bedArea = getFurnitureArea(FURNITURE.bed, Number(currentBed));
-    const wardrobeArea = getFurnitureArea(
-      FURNITURE.wardrobe,
-      Number(currentWardrobe),
-    );
+    const bedArea =
+      getFurnitureArea(FURNITURE.bed, Number(currentBed)) * currentBedsNumber ||
+      0;
+    const wardrobeArea =
+      getFurnitureArea(FURNITURE.wardrobe, Number(currentWardrobe)) || 0;
     let otherArea;
     if (currentOtherFurniture.length) {
       otherArea = currentOtherFurniture.reduce(
@@ -196,19 +208,24 @@ export const Furniture = ({
     verticalWall,
     horizontalWall,
     currentBed,
+    currentBedsNumber,
     currentWardrobe,
     currentOtherFurniture,
   ]);
 
-  const substepStyles = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    flexWrap: 'wrap',
-    rowGap: '60px',
-    columnGap: '30px',
-  };
+  useEffect(() => {
+    // show message only on this step (prevent if user decide to change walls sizes)
+    if (!checkAllFurnitureArea && currentStep === 3) {
+      setModalOpen(true);
+    }
+  }, [
+    checkAllFurnitureArea,
+    currentBed,
+    currentBedsNumber,
+    currentWardrobe,
+    currentOtherFurniture,
+    currentStep,
+  ]);
 
   useEffect(() => {
     // checking: only a single bed could have number 2
@@ -410,10 +427,6 @@ export const Furniture = ({
             color="secondary"
             sx={{ width: '390px', height: '64px', fontWeight: 500 }}
             type={checkAllFurnitureArea ? 'submit' : 'button'}
-            onClick={() => {
-              if (checkAllFurnitureArea) return;
-              setModalOpen(true);
-            }}
           >
             Показать планировку
           </Button>
