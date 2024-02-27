@@ -245,7 +245,7 @@ export const STEP4: TStep4 = {
         id: 24,
         name: 'Телевизор',
         length: 1126,
-        width: 0,
+        width: 700,
         imageSrc: TV,
       },
     ],
