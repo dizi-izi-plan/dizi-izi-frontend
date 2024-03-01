@@ -39,8 +39,8 @@ export const SizesForm = ({
   control,
   handleSubmit,
   isValid,
-  resetField,
-}: SizesFormProps) => {
+} // resetField,
+: SizesFormProps) => {
   const handleTabChange = (event: SyntheticEvent, step: number) => {
     if (isValid) setCurrentStep(step);
   };
@@ -92,7 +92,7 @@ export const SizesForm = ({
             setValue={setValue}
             watch={watch}
             isValid={isValid}
-            resetField={resetField}
+            // resetField={resetField}
             currentStep={currentStep}
           />
         </TabContentContainer>

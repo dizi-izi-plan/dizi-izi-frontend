@@ -21,13 +21,15 @@ import {
   UseFormSetValue,
   UseFormWatch,
   useWatch,
-  UseFormResetField,
 } from 'react-hook-form';
 import { STEP4, FURNITURE, TSubsteps4, TRadioItem } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
 import { FormControlLabelImage } from './FormControlLabelImage';
-import { WALLS } from '../../formData';
-import { autoSelection, ERoomSize } from './autoFurnitureSelection';
+import {
+  AUTO_SELECTION,
+  ERoomSize,
+  ROOM_SIZES,
+} from './autoFurnitureSelection';
 import { Button } from '@mui/material';
 import ArrowUp from '../../../../../../public/assets/icons/icon_arrow_up.svg';
 import { ModalOneButton } from '@/components/Modal/ModalOneButton';
@@ -43,14 +45,12 @@ type FurnitureProps = {
   watch: UseFormWatch<SizesFormType>;
   control: Control<SizesFormType>;
   isValid: boolean;
-  resetField: UseFormResetField<SizesFormType>;
   currentStep: number;
 };
 
 export const Furniture = ({
   control,
   setValue,
-  resetField,
   currentStep,
 }: FurnitureProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -64,35 +64,9 @@ export const Furniture = ({
     setScrollTop(window.scrollY);
   };
 
-  const currentBed = useWatch({
+  const allForm = useWatch({
     control,
-    name: STEP4[FURNITURE.bed].name,
-  });
-
-  const currentBedsNumber = useWatch({
-    control,
-    name: FURNITURE.bedsNumber,
-  });
-
-  const currentWardrobe = useWatch({
-    control,
-    name: FURNITURE.wardrobe,
-  });
-
-  const currentOtherFurniture = useWatch({
-    control,
-    name: STEP4[FURNITURE.other].name,
-  }) as number[];
-
-  const verticalWall = useWatch({
-    control,
-    name: WALLS.first,
-  }) as number;
-
-  const horizontalWall = useWatch({
-    control,
-    name: WALLS.second,
-  }) as number;
+  }) as SizesFormType;
 
   const substepStyles = {
     display: 'flex',
@@ -106,32 +80,33 @@ export const Furniture = ({
 
   const helpChooseFurniture = useCallback(
     (substeps: TSubsteps4[]) => {
-      const roomArea = verticalWall * horizontalWall;
+      const roomArea =
+        Number(allForm.walls.first) * Number(allForm.walls.second);
 
-      if (roomArea > 16000000) {
+      if (roomArea > ROOM_SIZES.roomArea.L) {
         substeps.forEach((substep: TSubsteps4) => {
           setValue(
             STEP4[substep].name as FURNITURE_NAMES_TYPE,
-            autoSelection[ERoomSize.L][substep],
+            AUTO_SELECTION[ERoomSize.L][substep] as number | number[],
           );
         });
-      } else if (roomArea > 12000000) {
+      } else if (roomArea > ROOM_SIZES.roomArea.M) {
         substeps.forEach((substep) => {
           setValue(
             STEP4[substep].name as FURNITURE_NAMES_TYPE,
-            autoSelection[ERoomSize.M][substep],
+            AUTO_SELECTION[ERoomSize.M][substep] as number | number[],
           );
         });
       } else {
         substeps.forEach((substep) => {
           setValue(
             STEP4[substep].name as FURNITURE_NAMES_TYPE,
-            autoSelection[ERoomSize.S][substep],
+            AUTO_SELECTION[ERoomSize.S][substep] as number | number[],
           );
         });
       }
     },
-    [verticalWall, horizontalWall, setValue],
+    [allForm.walls.first, allForm.walls.second, setValue],
   );
 
   const handleOnSkip = (
@@ -142,28 +117,38 @@ export const Furniture = ({
     if (substep === FURNITURE.wardrobe) {
       setValue(STEP4[substep].name as FURNITURE_NAMES_TYPE, 0);
     } else {
-      setValue(STEP4[substep].name as FURNITURE_NAMES_TYPE, [0]);
+      setValue(STEP4[substep].name as FURNITURE_NAMES_TYPE, []);
+    }
+  };
+
+  const checkBedNumbers = (value: number) => {
+    const newBed = STEP4[FURNITURE.bed].radioArr.find(
+      (bed) => bed.id === value,
+    );
+    if (!newBed?.maxNumber) {
+      setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
     }
   };
 
   const handleRaioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
     setValue(name as FURNITURE_NAMES_TYPE, Number(value));
+    if (name === FURNITURE.bed) checkBedNumbers(Number(value));
   };
 
   const handleCheckboxChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, checked } = event.target as HTMLInputElement;
       if (checked) {
-        if (currentOtherFurniture.includes(Number(name))) return;
-        const newOtherFurniture = currentOtherFurniture;
+        if (allForm.furniture.other.includes(Number(name))) return;
+        const newOtherFurniture = allForm.furniture.other;
         newOtherFurniture.push(Number(name));
         setValue(
           STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
           newOtherFurniture,
         );
       } else {
-        const newOtherFurniture = currentOtherFurniture.filter(
+        const newOtherFurniture = allForm.furniture.other.filter(
           (item) => item !== Number(name),
         );
         setValue(
@@ -172,29 +157,31 @@ export const Furniture = ({
         );
       }
     },
-    [currentOtherFurniture, setValue],
+    [allForm.furniture.other, setValue],
   );
 
   const getFurnitureArea = (substep: TSubsteps4, id: number) => {
     const currentFurniture = STEP4[substep].radioArr.find(
       (el: TRadioItem) => el.id === id,
     );
-    return Number(currentFurniture?.width) * Number(currentFurniture?.length);
+    return (currentFurniture?.width ?? 0) * (currentFurniture?.length ?? 0);
   };
 
   const checkAllFurnitureArea: boolean = useMemo(() => {
-    const allowedArea = verticalWall * horizontalWall * 0.65;
+    const allowedArea =
+      Number(allForm.walls.first) *
+      Number(allForm.walls.second) *
+      ROOM_SIZES.filledAreaPercent;
 
     const bedArea =
-      getFurnitureArea(FURNITURE.bed, Number(currentBed)) * currentBedsNumber ||
-      0;
+      getFurnitureArea(FURNITURE.bed, allForm.furniture.bed) *
+        allForm.furniture.bedsNumber || 0;
     const wardrobeArea =
-      getFurnitureArea(FURNITURE.wardrobe, Number(currentWardrobe)) || 0;
+      getFurnitureArea(FURNITURE.wardrobe, allForm.furniture.wardrobe) || 0;
     let otherArea;
-    if (currentOtherFurniture.length) {
-      otherArea = currentOtherFurniture.reduce(
-        (sum: number, current: number): number =>
-          sum + getFurnitureArea(FURNITURE.other, Number(current)),
+    if (allForm.furniture.other.length) {
+      otherArea = allForm.furniture.other.reduce(
+        (sum, current) => sum + getFurnitureArea(FURNITURE.other, current),
       );
     } else {
       otherArea = 0;
@@ -205,12 +192,12 @@ export const Furniture = ({
     if (currentFurnitureArea <= allowedArea) return true;
     return false;
   }, [
-    verticalWall,
-    horizontalWall,
-    currentBed,
-    currentBedsNumber,
-    currentWardrobe,
-    currentOtherFurniture,
+    allForm.walls.first,
+    allForm.walls.second,
+    allForm.furniture.bed,
+    allForm.furniture.bedsNumber,
+    allForm.furniture.wardrobe,
+    allForm.furniture.other,
   ]);
 
   useEffect(() => {
@@ -220,24 +207,12 @@ export const Furniture = ({
     }
   }, [
     checkAllFurnitureArea,
-    currentBed,
-    currentBedsNumber,
-    currentWardrobe,
-    currentOtherFurniture,
+    allForm.furniture.bed,
+    allForm.furniture.bedsNumber,
+    allForm.furniture.wardrobe,
+    allForm.furniture.other,
     currentStep,
   ]);
-
-  useEffect(() => {
-    // checking: only a single bed could have number 2
-    if (
-      currentBed !==
-        STEP4[FURNITURE.bed].radioArr[STEP4[FURNITURE.bed].radioArr.length - 1]
-          .id &&
-      currentBedsNumber !== 1
-    ) {
-      setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
-    }
-  }, [currentBed, setValue, currentBedsNumber]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -248,11 +223,13 @@ export const Furniture = ({
   }, []);
 
   useEffect(() => {
-    resetField(FURNITURE.bed);
-    resetField(FURNITURE.bedsNumber);
-    resetField(FURNITURE.wardrobe);
-    resetField(FURNITURE.other);
-  }, [verticalWall, horizontalWall, resetField]);
+    setValue(FURNITURE.bed as FURNITURE_NAMES_TYPE, 0);
+    setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 0);
+    setValue(FURNITURE.wardrobe as FURNITURE_NAMES_TYPE, 0);
+    setWardrobeSkipped(false);
+    setOtherFurnitureSkipped(false);
+    setValue(FURNITURE.other as FURNITURE_NAMES_TYPE, []);
+  }, [allForm.walls.first, allForm.walls.second, setValue]);
 
   return (
     <Stack position="relative" width="100%" alignItems="center" pb="66px">
@@ -280,8 +257,9 @@ export const Furniture = ({
         control={control}
         handleChange={handleRaioGroupChange}
         number={
-          STEP4[FURNITURE.bed].radioArr.find((item) => item.id === currentBed)
-            ?.maxNumber
+          STEP4[FURNITURE.bed].radioArr.find(
+            (item) => item.id === allForm.furniture.bed,
+          )?.maxNumber
         }
         handleOnHelp={() => helpChooseFurniture([FURNITURE.bed])}
       >
@@ -322,7 +300,7 @@ export const Furniture = ({
           ))}
         </RadioGroupWrapper>
       </SubstepContainer>
-      {Number(currentBed) !== 0 && (
+      {allForm.furniture.bed !== 0 && (
         <SubstepContainer
           title={STEP4[FURNITURE.wardrobe].title}
           skipSubstep={STEP4[FURNITURE.wardrobe].skipSubstep}
@@ -370,7 +348,7 @@ export const Furniture = ({
           </RadioGroupWrapper>
         </SubstepContainer>
       )}
-      {(Number(currentWardrobe) !== 0 || isWardrobeSkipped) && (
+      {(allForm.furniture.wardrobe !== 0 || isWardrobeSkipped) && (
         <SubstepContainer
           title={STEP4[FURNITURE.other].title}
           skipSubstep={STEP4[FURNITURE.other].skipSubstep}
@@ -396,7 +374,7 @@ export const Furniture = ({
                   <Checkbox
                     name={String(item.id)}
                     onChange={handleCheckboxChange}
-                    checked={currentOtherFurniture.includes(item.id)}
+                    checked={allForm.furniture.other.includes(item.id)}
                     icon={
                       <Image
                         src={item.imageSrc}
@@ -419,9 +397,9 @@ export const Furniture = ({
           </Stack>
         </SubstepContainer>
       )}
-      {Number(currentBed) !== 0 &&
-        (Number(currentWardrobe) !== 0 || isWardrobeSkipped) &&
-        (currentOtherFurniture.length !== 0 || isOtherFurnitureSkipped) && (
+      {allForm.furniture.bed !== 0 &&
+        (allForm.furniture.wardrobe !== 0 || isWardrobeSkipped) &&
+        (allForm.furniture.other.length !== 0 || isOtherFurnitureSkipped) && (
           <Button
             variant="default"
             color="secondary"

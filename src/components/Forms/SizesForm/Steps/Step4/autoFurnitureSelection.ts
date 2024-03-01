@@ -1,4 +1,5 @@
-import { FURNITURE, TSubsteps4 } from './step4FormData';
+import { ObjectValues } from '@/types/types';
+import { FURNITURE } from './step4FormData';
 
 export enum ERoomSize {
   S = 'S',
@@ -6,15 +7,7 @@ export enum ERoomSize {
   L = 'L',
 }
 
-type TRoomSize = ERoomSize.S | ERoomSize.M | ERoomSize.L;
-
-type TAutoSelection = {
-  [T in TRoomSize]: {
-    [T in TSubsteps4]: number | number[];
-  };
-};
-
-export const autoSelection: TAutoSelection = {
+export const AUTO_SELECTION = {
   [ERoomSize.S]: {
     [FURNITURE.bed]: 4,
     [FURNITURE.wardrobe]: 8,
@@ -30,4 +23,16 @@ export const autoSelection: TAutoSelection = {
     [FURNITURE.wardrobe]: 12,
     [FURNITURE.other]: [19, 22, 15, 23],
   },
-};
+} as const;
+
+export type TAutoSelection = ObjectValues<typeof AUTO_SELECTION>;
+
+export const ROOM_SIZES = {
+  roomArea: {
+    L: 16000000,
+    M: 12000000,
+  },
+  filledAreaPercent: 0.65,
+} as const;
+
+export type ROOM_SIZES_TYPE = ObjectValues<typeof ROOM_SIZES>;

@@ -1,30 +1,30 @@
 import { ObjectValues } from '@/types/types';
-import bed1800x2000 from '../../../../../../public/assets/icons/furniture/beds/bed_1800_2000.svg?url';
-import bed1600x2000 from '../../../../../../public/assets/icons/furniture/beds/bed_1600_2000.svg?url';
-import bed1400x2000 from '../../../../../../public/assets/icons/furniture/beds/bed_1400_2000.svg?url';
-import bed1200x2000 from '../../../../../../public/assets/icons/furniture/beds/bed_1200_2000.svg?url';
-import bed900x2000 from '../../../../../../public/assets/icons/furniture/beds/bed_900_2000.svg?url';
+import bed1800x2000 from '@public/assets/icons/furniture/beds/bed_1800_2000.svg?url';
+import bed1600x2000 from '@public/assets/icons/furniture/beds/bed_1600_2000.svg?url';
+import bed1400x2000 from '@public/assets/icons/furniture/beds/bed_1400_2000.svg?url';
+import bed1200x2000 from '@public/assets/icons/furniture/beds/bed_1200_2000.svg?url';
+import bed900x2000 from '@public/assets/icons/furniture/beds/bed_900_2000.svg?url';
 
-import wardrobe600x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_600_600.svg?url';
-import wardrobe1000x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1000_600.svg?url';
-import wardrobe1200x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1200_600.svg?url';
-import wardrobe1200x1200 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1200_1200.svg?url';
-import wardrobe1400x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1400_600.svg?url';
-import wardrobe1600x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1600_600.svg?url';
-import wardrobe1800x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_1800_600.svg?url';
-import wardrobe2000x600 from '../../../../../../public/assets/icons/furniture/wardrobes/wardrobe_2000_600.svg?url';
+import wardrobe600x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_600_600.svg?url';
+import wardrobe1000x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_1000_600.svg?url';
+import wardrobe1200x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_1200_600.svg?url';
+import wardrobe1200x1200 from '@public/assets/icons/furniture/wardrobes/wardrobe_1200_1200.svg?url';
+import wardrobe1400x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_1400_600.svg?url';
+import wardrobe1600x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_1600_600.svg?url';
+import wardrobe1800x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_1800_600.svg?url';
+import wardrobe2000x600 from '@public/assets/icons/furniture/wardrobes/wardrobe_2000_600.svg?url';
 
-import armchair800X800 from '../../../../../../public/assets/icons/furniture/other/armchair_800_800.svg?url';
-import bedsideTable400x400 from '../../../../../../public/assets/icons/furniture/other/bedside-table_400_400.svg?url';
-import bureau from '../../../../../../public/assets/icons/furniture/other/bureau.svg?url';
-import chest900x500 from '../../../../../../public/assets/icons/furniture/other/chest_900_500.svg?url';
-import chidBed1200x900 from '../../../../../../public/assets/icons/furniture/other/chid-bed_1200_900.svg?url';
-import desk from '../../../../../../public/assets/icons/furniture/other/desk.svg?url';
-import dresser900x800 from '../../../../../../public/assets/icons/furniture/other/dresser_900_800.svg?url';
-import nightstand600x600 from '../../../../../../public/assets/icons/furniture/other/nightstand_600_600.svg?url';
-import plant from '../../../../../../public/assets/icons/furniture/other/plant.svg?url';
-import TVChest from '../../../../../../public/assets/icons/furniture/other/TV-chest.svg?url';
-import TV from '../../../../../../public/assets/icons/furniture/other/TV.svg?url';
+import armchair800X800 from '@public/assets/icons/furniture/other/armchair_800_800.svg?url';
+import bedsideTable400x400 from '@public/assets/icons/furniture/other/bedside-table_400_400.svg?url';
+import bureau from '@public/assets/icons/furniture/other/bureau.svg?url';
+import chest900x500 from '@public/assets/icons/furniture/other/chest_900_500.svg?url';
+import chidBed1200x900 from '@public/assets/icons/furniture/other/chid-bed_1200_900.svg?url';
+import desk from '@public/assets/icons/furniture/other/desk.svg?url';
+import dresser900x800 from '@public/assets/icons/furniture/other/dresser_900_800.svg?url';
+import nightstand600x600 from '@public/assets/icons/furniture/other/nightstand_600_600.svg?url';
+import plant from '@public/assets/icons/furniture/other/plant.svg?url';
+import TVChest from '@public/assets/icons/furniture/other/TV-chest.svg?url';
+import TV from '@public/assets/icons/furniture/other/TV.svg?url';
 
 export enum FURNITURE {
   bed = 'furniture.bed',
