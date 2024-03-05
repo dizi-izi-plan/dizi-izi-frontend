@@ -46,9 +46,9 @@ export const SelectWrapper = <T extends FieldValues>({
           field.onChange(value);
         }}
       >
-        {options.map((option, indx) => (
-          <MenuItem key={indx} value={option.value}>
-            {option.text}
+        {options.map(({ value, text }, indx) => (
+          <MenuItem key={indx} value={value}>
+            {text}
           </MenuItem>
         ))}
       </Select>
