@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  ChangeEvent,
-  useCallback,
-  useState,
-  useMemo,
-} from 'react';
+import React, { useEffect, ChangeEvent, useCallback, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
@@ -45,14 +39,9 @@ type FurnitureProps = {
   watch: UseFormWatch<SizesFormType>;
   control: Control<SizesFormType>;
   isValid: boolean;
-  currentStep: number;
 };
 
-export const Furniture = ({
-  control,
-  setValue,
-  currentStep,
-}: FurnitureProps) => {
+export const Furniture = ({ control, setValue }: FurnitureProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [scrollTop, setScrollTop] = useState<number | null>(null);
