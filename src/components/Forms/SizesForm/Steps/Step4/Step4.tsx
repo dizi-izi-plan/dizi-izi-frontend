@@ -130,23 +130,107 @@ export const Furniture = ({
     }
   };
 
+  const checkAllFurnitureArea = useCallback(
+    (
+      bedId: number | null,
+      wardrobeId: number | null,
+      otherId: number[] | null,
+    ) => {
+      const allowedArea =
+        Number(allForm.walls.first) *
+        Number(allForm.walls.second) *
+        ROOM_SIZES.filledAreaPercent;
+
+      const bedArea =
+        getFurnitureArea(FURNITURE.bed, bedId || allForm.furniture.bed) *
+          allForm.furniture.bedsNumber || 0;
+      const wardrobeArea =
+        getFurnitureArea(
+          FURNITURE.wardrobe,
+          wardrobeId || allForm.furniture.wardrobe,
+        ) || 0;
+      let otherArea;
+      if (otherId?.length) {
+        otherArea = otherId.reduce(
+          (sum, current) => sum + getFurnitureArea(FURNITURE.other, current),
+        );
+      } else if (allForm.furniture.other.length) {
+        otherArea = allForm.furniture.other.reduce(
+          (sum, current) => sum + getFurnitureArea(FURNITURE.other, current),
+        );
+      } else {
+        otherArea = 0;
+      }
+
+      const currentFurnitureArea = bedArea + wardrobeArea + otherArea;
+
+      if (currentFurnitureArea <= allowedArea) return true;
+      return false;
+    },
+    [
+      allForm.furniture.bed,
+      allForm.furniture.bedsNumber,
+      allForm.furniture.other,
+      allForm.furniture.wardrobe,
+      allForm.walls.first,
+      allForm.walls.second,
+    ],
+  );
+
   const handleRaioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
-    setValue(name as FURNITURE_NAMES_TYPE, Number(value));
-    if (name === FURNITURE.bed) checkBedNumbers(Number(value));
+
+    let bedId = null;
+    let wardrobeId = null;
+
+    if (name === FURNITURE.bed) {
+      bedId = Number(value);
+    } else {
+      wardrobeId = Number(value);
+    }
+
+    const isEnoughSpaceForFurniture = checkAllFurnitureArea(
+      bedId,
+      wardrobeId,
+      null,
+    );
+
+    if (isEnoughSpaceForFurniture) {
+      setValue(name as FURNITURE_NAMES_TYPE, Number(value));
+      if (name === FURNITURE.bed) checkBedNumbers(Number(value));
+    } else {
+      setModalOpen(true);
+    }
   };
 
   const handleCheckboxChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, checked } = event.target as HTMLInputElement;
+
       if (checked) {
         if (allForm.furniture.other.includes(Number(name))) return;
         const newOtherFurniture = allForm.furniture.other;
         newOtherFurniture.push(Number(name));
-        setValue(
-          STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
+
+        const isEnoughSpaceForFurniture = checkAllFurnitureArea(
+          null,
+          null,
           newOtherFurniture,
         );
+
+        if (isEnoughSpaceForFurniture) {
+          setValue(
+            STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
+            newOtherFurniture,
+          );
+        } else {
+          newOtherFurniture.pop();
+          setValue(
+            STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
+            newOtherFurniture,
+          );
+          setModalOpen(true);
+        }
       } else {
         const newOtherFurniture = allForm.furniture.other.filter(
           (item) => item !== Number(name),
@@ -157,7 +241,7 @@ export const Furniture = ({
         );
       }
     },
-    [allForm.furniture.other, setValue],
+    [allForm.furniture.other, setValue, checkAllFurnitureArea],
   );
 
   const getFurnitureArea = (substep: TSubsteps4, id: number) => {
@@ -166,53 +250,6 @@ export const Furniture = ({
     );
     return (currentFurniture?.width ?? 0) * (currentFurniture?.length ?? 0);
   };
-
-  const checkAllFurnitureArea: boolean = useMemo(() => {
-    const allowedArea =
-      Number(allForm.walls.first) *
-      Number(allForm.walls.second) *
-      ROOM_SIZES.filledAreaPercent;
-
-    const bedArea =
-      getFurnitureArea(FURNITURE.bed, allForm.furniture.bed) *
-        allForm.furniture.bedsNumber || 0;
-    const wardrobeArea =
-      getFurnitureArea(FURNITURE.wardrobe, allForm.furniture.wardrobe) || 0;
-    let otherArea;
-    if (allForm.furniture.other.length) {
-      otherArea = allForm.furniture.other.reduce(
-        (sum, current) => sum + getFurnitureArea(FURNITURE.other, current),
-      );
-    } else {
-      otherArea = 0;
-    }
-
-    const currentFurnitureArea = bedArea + wardrobeArea + otherArea;
-
-    if (currentFurnitureArea <= allowedArea) return true;
-    return false;
-  }, [
-    allForm.walls.first,
-    allForm.walls.second,
-    allForm.furniture.bed,
-    allForm.furniture.bedsNumber,
-    allForm.furniture.wardrobe,
-    allForm.furniture.other,
-  ]);
-
-  useEffect(() => {
-    // show message only on this step (prevent if user decide to change walls sizes)
-    if (!checkAllFurnitureArea && currentStep === 3) {
-      setModalOpen(true);
-    }
-  }, [
-    checkAllFurnitureArea,
-    allForm.furniture.bed,
-    allForm.furniture.bedsNumber,
-    allForm.furniture.wardrobe,
-    allForm.furniture.other,
-    currentStep,
-  ]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -224,7 +261,7 @@ export const Furniture = ({
 
   useEffect(() => {
     setValue(FURNITURE.bed as FURNITURE_NAMES_TYPE, 0);
-    setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 0);
+    setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
     setValue(FURNITURE.wardrobe as FURNITURE_NAMES_TYPE, 0);
     setWardrobeSkipped(false);
     setOtherFurnitureSkipped(false);
@@ -404,7 +441,7 @@ export const Furniture = ({
             variant="default"
             color="secondary"
             sx={{ width: '390px', height: '64px', fontWeight: 500 }}
-            type={checkAllFurnitureArea ? 'submit' : 'button'}
+            type="submit"
           >
             Показать планировку
           </Button>
