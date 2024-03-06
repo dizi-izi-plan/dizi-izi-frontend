@@ -2,8 +2,7 @@ import { ChangeEvent } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
 import { Stack, Typography } from '@mui/material';
-import { CORRESPONDING_WALLS, STEP1, WALLS_NAMES_TYPE } from '../../formData';
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { CORRESPONDING_WALLS, STEP1, WALLS_NAMES_TYPE } from '../formData';
 import {
   ERROR_MESSAGES,
   MAX_WALLS_INPUT_LENGTH,
@@ -15,15 +14,9 @@ import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
+import { FormProps } from '../types';
 
-type WallsProps = {
-  setValue: UseFormSetValue<SizesFormType>;
-  watch: UseFormWatch<SizesFormType>;
-  control: Control<SizesFormType>;
-  isValid: boolean;
-};
-
-export const Walls = ({ setValue, control, isValid }: WallsProps) => {
+export const Walls = ({ setValue, control, isValid, watch }: FormProps) => {
   const dispatch = useAppDispatch();
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
