@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
 import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Image from 'next/image';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { SubstepContainer } from './SubstepContainer';
@@ -18,7 +19,6 @@ import {
 } from 'react-hook-form';
 import { STEP4, FURNITURE, TSubsteps4, TRadioItem } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
-import { FormControlLabelImage } from './FormControlLabelImage';
 import {
   AUTO_SELECTION,
   ERoomSize,
@@ -299,7 +299,8 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
           className="radio-checkbox-image"
         >
           {STEP4[FURNITURE.bed].radioArr.map((item) => (
-            <FormControlLabelImage
+            <FormControlLabel
+              className="subvariant-furniture"
               key={item.id}
               label={item.name}
               value={item.id}
@@ -346,7 +347,8 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             }}
           >
             {STEP4[FURNITURE.wardrobe].radioArr.map((item) => (
-              <FormControlLabelImage
+              <FormControlLabel
+                className="subvariant-furniture"
                 key={item.id}
                 label={item.name}
                 value={item.id}
@@ -391,11 +393,16 @@ export const Furniture = ({ control, setValue }: FurnitureProps) => {
             }}
           >
             {STEP4[FURNITURE.other].radioArr.map((item) => (
-              <FormControlLabelImage
+              <FormControlLabel
+                className="subvariant-furniture"
                 key={item.id}
                 label={item.name}
                 value={item.id}
-                lableMinHeight="52px"
+                sx={{
+                  '& .MuiTypography-root': {
+                    minHeight: '52px',
+                  },
+                }}
                 control={
                   <Checkbox
                     name={String(item.id)}
