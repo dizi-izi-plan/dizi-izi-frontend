@@ -268,6 +268,31 @@ theme = createTheme(theme, {
             columnGap: 8,
             justifyContent: 'flex-start',
           },
+          '&.subvariant-furniture': {
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            rowGap: '10px',
+            position: 'relative',
+            zIndex: 1,
+            '& .MuiTypography-root': {
+              maxWidth: '180px',
+              display: 'flex',
+              alignItems: 'flex-start',
+            },
+            '&:hover .MuiTypography-root': {
+              textDecoration: 'underline 4px',
+              textDecorationColor: theme.palette.primary.main,
+              textUnderlineOffset: '5px',
+            },
+            '&:has(.Mui-checked) .MuiTypography-root': {
+              textDecoration: 'underline 4px',
+              textDecorationColor: theme.palette.primary.dark,
+              textUnderlineOffset: '5px',
+            },
+          },
         },
       },
     },
@@ -276,8 +301,19 @@ theme = createTheme(theme, {
         root: {
           color: theme.palette.black.main,
           padding: 0,
+          transition: 'all 0.3s linear',
           '&.Mui-checked': {
             color: theme.palette.black.main,
+          },
+          '& .MuiTypography-root': {
+            background: theme.palette.secondary.contrastText,
+            transition: 'all 0.3s linear',
+          },
+          '&:hover .MuiTypography-root': {
+            background: theme.palette.primary.main,
+          },
+          '&.Mui-checked .MuiTypography-root': {
+            background: theme.palette.primary.dark,
           },
         },
       },
