@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState, useRef } from 'react';
-import Stack from '@mui/material/Stack';
+import Stack, { StackProps } from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
@@ -18,7 +18,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
 import { useFieldValue } from './useFieldValue';
 
-type MeasurementsImageProps = {
+type MeasurementsImageProps = StackProps & {
   stepOne: boolean;
   stepTwo: boolean;
   stepThree: boolean;
@@ -30,6 +30,7 @@ export const MeasurementsImage = ({
   stepTwo,
   stepThree,
   control,
+  ...props
 }: MeasurementsImageProps) => {
   const room = useRef<HTMLDivElement>(null);
   const wallThickness = 20;
@@ -163,6 +164,7 @@ export const MeasurementsImage = ({
       })}
       p="70px 50px 50px 60px"
       position="relative"
+      {...props}
     >
       <Stack
         display={horizontalWall === 0 && verticalWall === 0 ? 'flex' : 'none'}

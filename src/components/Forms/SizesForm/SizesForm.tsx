@@ -7,6 +7,7 @@ import { a11yProps } from '@/containers/TabContentContainer/tabConstants';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { Walls } from './Steps/Step1/Step1';
+import { Furniture } from './Steps/Step4/Step4';
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { SizesFormType } from './validation';
 import {
@@ -15,6 +16,7 @@ import {
   UseFormHandleSubmit,
   UseFormSetValue,
   UseFormWatch,
+  UseFormResetField,
 } from 'react-hook-form';
 
 type SizesFormProps = {
@@ -26,6 +28,7 @@ type SizesFormProps = {
   errors?: FieldErrors<SizesFormType>;
   handleSubmit: UseFormHandleSubmit<SizesFormType>;
   isValid: boolean;
+  resetField: UseFormResetField<SizesFormType>;
 };
 
 export const SizesForm = ({
@@ -35,7 +38,7 @@ export const SizesForm = ({
   watch,
   control,
   handleSubmit,
-  isValid,
+  isValid, // resetField,
 }: SizesFormProps) => {
   const handleTabChange = (event: SyntheticEvent, step: number) => {
     if (isValid) setCurrentStep(step);
@@ -47,22 +50,26 @@ export const SizesForm = ({
 
   return (
     <>
-      <Tabs
-        className="measurement"
-        value={currentStep}
-        onChange={handleTabChange}
-        aria-label="measurement-steps"
-        variant="fullWidth"
-      >
-        {MEASUREMENTS_STEPS.map((item: MeasurementsDataType, index: number) => (
-          <Tab
-            key={index}
-            label={item.tabText}
-            {...a11yProps(index)}
-            sx={{ p: '0' }}
-          />
-        ))}
-      </Tabs>
+      {currentStep < 3 && (
+        <Tabs
+          className="measurement"
+          value={currentStep}
+          onChange={handleTabChange}
+          aria-label="measurement-steps"
+          variant="fullWidth"
+        >
+          {MEASUREMENTS_STEPS.slice(0, 3).map(
+            (item: MeasurementsDataType, index: number) => (
+              <Tab
+                key={index}
+                label={item.tabText}
+                {...a11yProps(index)}
+                sx={{ p: '0' }}
+              />
+            ),
+          )}
+        </Tabs>
+      )}
       <form onSubmit={onSubmit}>
         <TabContentContainer index={0} value={currentStep}>
           <Walls
@@ -77,6 +84,14 @@ export const SizesForm = ({
         </TabContentContainer>
         <TabContentContainer index={2} value={currentStep}>
           Форма для окон
+        </TabContentContainer>
+        <TabContentContainer index={3} value={currentStep}>
+          <Furniture
+            control={control}
+            setValue={setValue}
+            watch={watch}
+            isValid={isValid}
+          />
         </TabContentContainer>
       </form>
     </>

@@ -12,6 +12,24 @@ yarn dev
 pnpm dev
 ```
 
+Or, run the development server in [Docker](https://www.docker.com/get-started/):
+
+- Build image (This is a long-term process and can take up to 3 minutes. You need to rebuild only when dependencies or configuration files were changed, in other words, when it's necessary to run the **npm build** command.):
+```bash
+docker-compose build
+```
+- Run the server:
+```bash
+docker-compose up -d
+```
+- Stop the server and delete container:
+```bash
+docker-compose down
+```
+
+Docker might be useful when you don't want to install Node.js and dependencies on your machine. Containers can be deleted easier after work. It's configured in such a way that you can work with public and src folders, and changes will appear on a page (`need to uncomment the "volumes" section in the docker-compose.yml file`).
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.

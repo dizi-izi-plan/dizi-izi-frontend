@@ -1,8 +1,21 @@
-# build env
-FROM node:16-alpine as build
+# Dockerize a node app
+FROM node:20.11-alpine as build
+
+# Add labels
+LABEL author='Dizi-izi-Team'
+LABEL maintainer='<https://github.com/dizi-izi-plan>'
+
+# Create app directory
 WORKDIR /app
+
+# Install app dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
+
+# Build app
 COPY . ./
 RUN npm run build
-CMD cp -r build result_build
+
+EXPOSE 3000
+
+CMD npm start
