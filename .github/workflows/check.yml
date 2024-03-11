@@ -1,14 +1,19 @@
-name: Check
+name: Tests
 on:
+  workflow_call:
   workflow_dispatch:
   push:
+    branches-ignore:
+      - main
+      - develop
   pull_request:
     branches:
       - main
       - develop
+
 jobs:
   lint:
-    name: Running lint check for code
+    name: Lint check
     runs-on: ubuntu-22.04
     steps:
       - name: Repository checkout
