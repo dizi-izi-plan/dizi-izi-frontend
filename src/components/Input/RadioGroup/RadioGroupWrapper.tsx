@@ -45,27 +45,10 @@ export const RadioGroupWrapper = <T extends FieldValues>({
   };
 
   return (
-    radios.length > 0 && (
-      <Box minWidth="fit-content">
-        <FormControl sx={{ width: '100%' }}>
-          <RadioGroup
-            {...field}
-            {...props}
-            row={row}
-            sx={groupSx}
-            onChange={onChange}
-          >
-            {radios.map(({ value, label }, indx) => (
-              <FormControlLabel
-                key={indx}
-                value={value}
-                control={<Radio />}
-                label={label}
-                className={className}
-                sx={labelSx}
-              />
-            ))}
-          </RadioGroup>
+    <>
+      {!radios && (
+        <Box>
+          <RadioGroup {...field} {...props} />
           <FormHelperText
             sx={{
               color: 'error.main',
@@ -73,8 +56,40 @@ export const RadioGroupWrapper = <T extends FieldValues>({
           >
             {errorMessage}
           </FormHelperText>
-        </FormControl>
-      </Box>
-    )
+        </Box>
+      )}
+
+      {radios && radios.length > 0 && (
+        <Box minWidth="fit-content">
+          <FormControl sx={{ width: '100%' }}>
+            <RadioGroup
+              {...field}
+              {...props}
+              row={row}
+              sx={groupSx}
+              onChange={onChange}
+            >
+              {radios.map(({ value, label }, indx) => (
+                <FormControlLabel
+                  key={indx}
+                  value={value}
+                  control={<Radio />}
+                  label={label}
+                  className={className}
+                  sx={labelSx}
+                />
+              ))}
+            </RadioGroup>
+            <FormHelperText
+              sx={{
+                color: 'error.main',
+              }}
+            >
+              {errorMessage}
+            </FormHelperText>
+          </FormControl>
+        </Box>
+      )}
+    </>
   );
 };
