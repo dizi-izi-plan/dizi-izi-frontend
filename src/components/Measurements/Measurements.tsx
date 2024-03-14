@@ -26,7 +26,10 @@ export const Measurements = () => {
   const {
     control,
     setValue,
+    getValues,
+    trigger,
     watch,
+    setError,
     handleSubmit,
     formState: { errors, isValid },
     resetField,
@@ -35,18 +38,31 @@ export const Measurements = () => {
     resolver: zodResolver(SizesFormValidation),
   });
 
-  const handleBack = () => {
-    if (isValid) {
-      if (currentStep > 0) {
-        setCurrentStep(currentStep - 1);
-      }
+  const handleBack = async () => {
+    const isValid = await validateStep();
+
+    if (!isValid) return;
+
+    if (currentStep > 0) {
+      setCurrentStep((step) => step - 1);
     }
   };
 
-  const handleForward = () => {
-    if (isValid) {
-      setCurrentStep(currentStep + 1);
-    }
+  const validateStep = async () => {
+    const fields = MEASUREMENTS_STEPS[currentStep].fields;
+
+    // TODO: define FieldNames correctly
+    // @ts-ignore
+    const output = await trigger(fields as FieldNames, { shouldFocus: true });
+    return output;
+  };
+
+  const handleForward = async () => {
+    const isValid = await validateStep();
+
+    if (!isValid) return;
+
+    setCurrentStep((step) => step + 1);
   };
 
   return (
@@ -104,12 +120,15 @@ export const Measurements = () => {
         />
         <Stack width={currentStep === 3 ? '100%' : '23%'}>
           <SizesForm
+            validateStep={validateStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             control={control}
             setValue={setValue}
             watch={watch}
             handleSubmit={handleSubmit}
+            getValues={getValues}
+            setError={setError}
             errors={errors}
             isValid={isValid}
             resetField={resetField}
