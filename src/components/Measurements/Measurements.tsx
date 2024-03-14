@@ -52,7 +52,6 @@ export const Measurements = () => {
     const fields = MEASUREMENTS_STEPS[currentStep].fields;
 
     // TODO: define FieldNames correctly
-    // @ts-ignore
     const output = await trigger(fields as FieldNames, { shouldFocus: true });
     return output;
   };
