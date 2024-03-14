@@ -1,5 +1,5 @@
 import { RadioType } from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { ObjectValues } from '@/types/types';
+import { WALLS_NAMES_TYPE } from './types';
 
 export const SIDE = {
   left: 'left',
@@ -52,8 +52,6 @@ export const NEIGHBOR_WALLS: { [K in WALLS_NAMES_TYPE]: RadioType[] } = {
   ],
 };
 
-export type WALLS_NAMES_TYPE = ObjectValues<typeof CORRESPONDING_WALLS>;
-
 export const STEP1 = [
   {
     number: WALLS.first,
@@ -78,6 +76,15 @@ export const OPEN = {
   inside: 'inside',
   outside: 'outside',
 };
+
+export const DOOR_NAMES = {
+  wallNumber: 'door.wallNumber',
+  size: 'door.size',
+  distanceToWall: 'door.distanceToWall',
+  toWall: 'door.toWall',
+  side: 'door.side',
+  open: 'door.open',
+} as const;
 
 export const STEP2 = {
   wallNumber: {
