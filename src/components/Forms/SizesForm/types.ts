@@ -18,7 +18,7 @@ export type FormProps = {
   control: Control<SizesFormType>;
   isValid?: boolean;
   errors?: FieldErrors<SizesFormType>;
-  validateStep?: () => boolean;
+  validateStep?: () => Promise<boolean>;
 };
 
 export type WALLS_NAMES_TYPE = ObjectValues<typeof CORRESPONDING_WALLS>;
