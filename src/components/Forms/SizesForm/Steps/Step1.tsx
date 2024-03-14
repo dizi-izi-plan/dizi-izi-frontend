@@ -1,23 +1,24 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
 import { Stack, Typography } from '@mui/material';
-import { CORRESPONDING_WALLS, STEP1, WALLS_NAMES_TYPE } from '../formData';
+import { CORRESPONDING_WALLS, STEP1 } from '../formData';
 import {
   ERROR_MESSAGES,
   MAX_WALLS_INPUT_LENGTH,
   MIN_WALLS_INPUT_LENGTH,
   SizesFormType,
-} from '../../validation';
+} from '../validation';
 import { useAppDispatch } from '@/redux/hooks';
 import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
-import { FormProps } from '../types';
+import { FormProps, WALLS_NAMES_TYPE } from '../types';
 
-export const Walls = ({ setValue, control, isValid, watch }: FormProps) => {
+export const Walls = ({ setValue, control, validateStep }: FormProps) => {
   const dispatch = useAppDispatch();
+  const [isStepValid, setIsStepValid] = useState(false);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
     return CORRESPONDING_WALLS[name as WALLS_NAMES_TYPE];
@@ -30,11 +31,16 @@ export const Walls = ({ setValue, control, isValid, watch }: FormProps) => {
     });
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
 
     if (value.length <= MAX_WALLS_INPUT_LENGTH) {
       setCorrespondingWallValue(name, value);
+    }
+
+    if (validateStep) {
+      const isValid = await validateStep();
+      setIsStepValid(isValid);
     }
   };
 
@@ -56,7 +62,7 @@ export const Walls = ({ setValue, control, isValid, watch }: FormProps) => {
           onBlur={() => dispatch(deleteBedroomFocusedField())}
         />
       ))}
-      {!isValid && (
+      {!isStepValid && (
         <Typography variant="caption" color="error" textAlign="center">
           {ERROR_MESSAGES.minWallsSizes}
         </Typography>
