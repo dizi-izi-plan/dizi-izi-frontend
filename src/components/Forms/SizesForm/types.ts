@@ -20,6 +20,6 @@ export type FormProps = {
   errors?: FieldErrors<SizesFormType>;
   validateStep?: () => Promise<boolean>;
 };
-
+export type WALL_NUM = 'first' | 'second' | 'third' | 'forth';
 export type WALLS_NAMES_TYPE = ObjectValues<typeof CORRESPONDING_WALLS>;
 export type DOOR_NAMES_TYPE = ObjectValues<typeof DOOR_NAMES>;

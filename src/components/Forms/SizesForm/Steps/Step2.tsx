@@ -11,7 +11,7 @@ import {
   MIN_DOOR_DISTANCE_TO_WALL,
   SizesFormType,
 } from '../validation';
-import { FormProps, WALLS_NAMES_TYPE } from '../types';
+import { FormProps, WALLS_NAMES_TYPE, WALL_NUM } from '../types';
 import { NEIGHBOR_WALLS, STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import {
@@ -41,7 +41,9 @@ export const Door = ({
 
     if (getValues) {
       const form = getValues();
-      const wallNum = form.door.wallNumber.split('.')[1];
+      console.log('form', form);
+
+      const wallNum = form.door.wallNumber.split('.')[1] as WALL_NUM;
       const wallLength = form.walls[wallNum];
       const doorSize = form.door.size;
       const restLength =
