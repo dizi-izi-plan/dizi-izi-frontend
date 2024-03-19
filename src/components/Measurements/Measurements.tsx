@@ -7,7 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { PopperMessage } from '@/components/Popper/PopperMessage';
-import { MEASUREMENTS_STEPS } from './data';
+import { FieldNames, MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -50,8 +50,6 @@ export const Measurements = () => {
 
   const validateStep = async () => {
     const fields = MEASUREMENTS_STEPS[currentStep].fields;
-
-    // TODO: define FieldNames correctly
     const output = await trigger(fields as FieldNames, { shouldFocus: true });
     return output;
   };

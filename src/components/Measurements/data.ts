@@ -1,5 +1,8 @@
+import { WALLS } from '../Forms/SizesForm/formData';
+import { DOOR_NAMES_TYPE, WALLS_NAMES_TYPE } from '../Forms/SizesForm/types';
+
 // TODO: add WindowsFields
-export type FieldNames = string[];
+export type FieldNames = WALLS_NAMES_TYPE[] | DOOR_NAMES_TYPE[];
 
 export type MeasurementsDataType = {
   tabText: string;
@@ -11,7 +14,7 @@ export const MEASUREMENTS_STEPS: MeasurementsDataType[] = [
   {
     tabText: '1 шаг',
     title: 'Обмеры помещения',
-    fields: ['walls.first', 'walls.second', 'walls.third', 'walls.forth'],
+    fields: [WALLS.first, WALLS.second, WALLS.third, WALLS.forth],
   },
   {
     tabText: '2 шаг',
