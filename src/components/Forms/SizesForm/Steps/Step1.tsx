@@ -14,10 +14,16 @@ import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
-import { FormProps, WALLS_NAMES_TYPE } from '../types';
+import { WALLS_NAMES_TYPE } from '../types';
+import { useFormContext } from 'react-hook-form';
 
-export const Walls = ({ setValue, control, validateStep }: FormProps) => {
+type WallsProps = {
+  validateStep?: () => Promise<boolean>;
+};
+
+export const Walls = ({ validateStep }: WallsProps) => {
   const dispatch = useAppDispatch();
+  const { setValue, control } = useFormContext();
   const [isStepValid, setIsStepValid] = useState(false);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {

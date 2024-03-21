@@ -11,12 +11,7 @@ import { UnderlinedButton } from '@/components/Buttons/UnderlinedButton/Underlin
 import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { SizesFormType } from '../../validation';
-import {
-  Control,
-  UseFormSetValue,
-  UseFormWatch,
-  useWatch,
-} from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { STEP4, FURNITURE, TSubsteps4, TRadioItem } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
 import {
@@ -34,15 +29,9 @@ const MODAL_TEXT = [
   'Вы можете поменять размеры и количество на любом из пройденных этапов',
 ];
 
-type FurnitureProps = {
-  setValue: UseFormSetValue<SizesFormType>;
-  watch: UseFormWatch<SizesFormType>;
-  control: Control<SizesFormType>;
-  isValid: boolean;
-};
-
-export const Furniture = ({ control, setValue }: FurnitureProps) => {
+export const Furniture = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { control, setValue } = useFormContext();
 
   const [scrollTop, setScrollTop] = useState<number | null>(null);
   const [isWardrobeSkipped, setWardrobeSkipped] = useState<boolean>(false);

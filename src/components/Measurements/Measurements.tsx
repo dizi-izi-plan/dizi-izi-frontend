@@ -10,7 +10,7 @@ import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { FieldNames, MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
 import {
@@ -23,26 +23,20 @@ import { MeasurementsImage } from './MeasurementsImage';
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
-  const {
-    control,
-    setValue,
-    getValues,
-    trigger,
-    watch,
-    setError,
-    handleSubmit,
-    formState: { errors, isValid },
-    resetField,
-  } = useForm<SizesFormType>({
+  const methods = useForm<SizesFormType>({
     defaultValues: { ...initialStepsState },
     resolver: zodResolver(SizesFormValidation),
   });
 
+  const {
+    control,
+    trigger,
+    formState: { isValid },
+  } = methods;
+
   const handleBack = async () => {
     const isValid = await validateStep();
-
     if (!isValid) return;
-
     if (currentStep > 0) {
       setCurrentStep((step) => step - 1);
     }
@@ -56,9 +50,7 @@ export const Measurements = () => {
 
   const handleForward = async () => {
     const isValid = await validateStep();
-
     if (!isValid) return;
-
     setCurrentStep((step) => step + 1);
   };
 
@@ -116,20 +108,13 @@ export const Measurements = () => {
           display={currentStep === 3 ? 'none' : undefined}
         />
         <Stack width={currentStep === 3 ? '100%' : '23%'}>
-          <SizesForm
-            validateStep={validateStep}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            control={control}
-            setValue={setValue}
-            watch={watch}
-            handleSubmit={handleSubmit}
-            getValues={getValues}
-            setError={setError}
-            errors={errors}
-            isValid={isValid}
-            resetField={resetField}
-          />
+          <FormProvider {...methods}>
+            <SizesForm
+              validateStep={validateStep}
+              currentStep={currentStep}
+              setCurrentStep={setCurrentStep}
+            />
+          </FormProvider>
         </Stack>
       </Stack>
     </Stack>

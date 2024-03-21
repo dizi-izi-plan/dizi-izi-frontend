@@ -11,7 +11,7 @@ import {
   MIN_DOOR_DISTANCE_TO_WALL,
   SizesFormType,
 } from '../validation';
-import { FormProps, WALLS_NAMES_TYPE, WALL_NUM } from '../types';
+import { WALLS_NAMES_TYPE, WALL_NUM } from '../types';
 import { NEIGHBOR_WALLS, STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import {
@@ -19,14 +19,13 @@ import {
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { ChangeEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-export const Door = ({
-  control,
-  errors,
-  watch,
-  getValues,
-  setError,
-}: FormProps) => {
+export const Door = () => {
+  const { control, formState, watch, getValues, setError } =
+    useFormContext<SizesFormType>();
+  const { errors } = formState;
+
   const toWallRadios = (): RadioType[] => {
     const selectedWall = watch(STEP2.wallNumber.name as WALLS_NAMES_TYPE);
 
@@ -41,8 +40,6 @@ export const Door = ({
 
     if (getValues) {
       const form = getValues();
-      console.log('form', form);
-
       const wallNum = form.door.wallNumber.split('.')[1] as WALL_NUM;
       const wallLength = form.walls[wallNum];
       const doorSize = form.door.size;
@@ -52,13 +49,7 @@ export const Door = ({
         Number(value) -
         MIN_DOOR_DISTANCE_TO_WALL;
 
-      console.log('wallLength', wallLength);
-      console.log('doorSize', doorSize);
-      console.log('restLength', restLength);
-
       if (restLength < 0 && setError) {
-        console.log('less');
-
         setError('door.distanceToWall', {
           message: ERROR_MESSAGES.maxDistanceToWall,
         });
