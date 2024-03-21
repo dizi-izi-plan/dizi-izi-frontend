@@ -18,7 +18,7 @@ export type RadioType = {
 
 export type ControlledInputProps<T extends FieldValues> = RadioGroupProps &
   UseControllerProps<T> & {
-    radios: RadioType[];
+    radios?: RadioType[];
     errorMessage?: string;
     groupSx?: Record<string, string | number>;
     labelSx?: Record<string, string | number>;
