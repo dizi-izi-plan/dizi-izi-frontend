@@ -88,7 +88,7 @@ export const DOOR_NAMES = {
 
 export const STEP2 = {
   wallNumber: {
-    name: 'door.wallNumber',
+    name: DOOR_NAMES.wallNumber,
     placeholder: 'Дверь на стене номер',
     options: [
       {
@@ -110,18 +110,18 @@ export const STEP2 = {
     ],
   },
   doorSize: {
-    name: 'door.size',
+    name: DOOR_NAMES.size,
     placeholder: 'Размер двери в мм',
   },
   fromDoorTo: {
-    name: 'door.distanceToWall',
+    name: DOOR_NAMES.distanceToWall,
     placeholder: 'Расстояние от двери',
   },
   toWall: {
-    name: 'door.toWall',
+    name: DOOR_NAMES.toWall,
   },
   openLeftRight: {
-    name: 'door.side',
+    name: DOOR_NAMES.side,
     radios: [
       { value: SIDE.left, label: 'Открывается влево' },
       {
@@ -131,7 +131,7 @@ export const STEP2 = {
     ],
   },
   openInsideOutside: {
-    name: 'door.open',
+    name: DOOR_NAMES.open,
     radios: [
       {
         value: OPEN.inside,
