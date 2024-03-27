@@ -31,7 +31,7 @@ const MODAL_TEXT = [
 
 export const Furniture = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { control, setValue } = useFormContext();
+  const { control, setValue } = useFormContext<SizesFormType>();
 
   const [scrollTop, setScrollTop] = useState<number | null>(null);
   const [isWardrobeSkipped, setWardrobeSkipped] = useState<boolean>(false);

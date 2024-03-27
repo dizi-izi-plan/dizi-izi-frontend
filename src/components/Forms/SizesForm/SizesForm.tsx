@@ -13,6 +13,7 @@ import { useFormContext } from 'react-hook-form';
 import { Door } from './Steps/Step2';
 import { useAppSelector } from '@/redux/hooks';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
+import { SizesFormType } from './validation';
 
 type SizesFormProps = {
   currentStep: number;
@@ -27,7 +28,7 @@ export const SizesForm = ({
   handleBack,
   handleForward,
 }: SizesFormProps) => {
-  const { handleSubmit } = useFormContext();
+  const { handleSubmit } = useFormContext<SizesFormType>();
   const isStepValid = useAppSelector(selectIsStepValid);
 
   const handleTabChange = async (event: SyntheticEvent, step: number) => {

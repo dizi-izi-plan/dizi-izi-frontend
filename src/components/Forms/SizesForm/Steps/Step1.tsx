@@ -20,7 +20,7 @@ import { selectIsStepValid } from '@/redux/slices/current-slice';
 
 export const Walls = () => {
   const dispatch = useAppDispatch();
-  const { setValue, control } = useFormContext();
+  const { setValue, control } = useFormContext<SizesFormType>();
   const isStepValid = useAppSelector(selectIsStepValid);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
