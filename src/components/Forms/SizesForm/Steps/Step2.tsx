@@ -5,25 +5,21 @@ import {
 } from '@/components/Input/classNameConstants';
 import { Stack } from '@mui/material';
 import {
-  ERROR_MESSAGES,
   MAX_DOOR_INPUT_LENGTH,
   MAX_WALLS_INPUT_LENGTH,
-  MIN_DOOR_DISTANCE_TO_WALL,
   SizesFormType,
 } from '../validation';
-import { WALLS_NAMES_TYPE, WALL_NUM } from '../types';
+import { WALLS_NAMES_TYPE } from '../types';
 import { NEIGHBOR_WALLS, STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import {
   RadioGroupWrapper,
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 export const Door = () => {
-  const { control, formState, watch, getValues, setError } =
-    useFormContext<SizesFormType>();
+  const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors } = formState;
 
   const toWallRadios = (): RadioType[] => {
@@ -33,28 +29,6 @@ export const Door = () => {
       return NEIGHBOR_WALLS[selectedWall as keyof typeof NEIGHBOR_WALLS];
     }
     return [];
-  };
-
-  const checkDistanceToWall = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target as HTMLInputElement;
-
-    if (getValues) {
-      const form = getValues();
-      const wallNum = form.door.wallNumber.split('.')[1] as WALL_NUM;
-      const wallLength = form.walls[wallNum];
-      const doorSize = form.door.size;
-      const restLength =
-        Number(wallLength) -
-        Number(doorSize) -
-        Number(value) -
-        MIN_DOOR_DISTANCE_TO_WALL;
-
-      if (restLength < 0 && setError) {
-        setError('door.distanceToWall', {
-          message: ERROR_MESSAGES.maxDistanceToWall,
-        });
-      }
-    }
   };
 
   return (
@@ -74,9 +48,7 @@ export const Door = () => {
         type="number"
         step={1}
         max={MAX_DOOR_INPUT_LENGTH}
-        errorMessage={
-          (errors && errors?.door && errors?.door?.size?.message) || ''
-        }
+        errorMessage={errors?.door?.size?.message || ''}
       />
       <Stack direction="row" gap={3}>
         <TextFieldWrapper
@@ -86,12 +58,8 @@ export const Door = () => {
           placeholder={STEP2.fromDoorTo.placeholder}
           type="number"
           step={1}
-          onChangeHandler={checkDistanceToWall}
           max={MAX_WALLS_INPUT_LENGTH}
-          errorMessage={
-            (errors && errors?.door && errors?.door?.distanceToWall?.message) ||
-            ''
-          }
+          errorMessage={errors?.door?.distanceToWall?.message || ''}
         />
         <RadioGroupWrapper
           name={`${STEP2.toWall.name}` as keyof SizesFormType}
