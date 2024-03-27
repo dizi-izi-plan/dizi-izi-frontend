@@ -43,7 +43,13 @@ export const Measurements = () => {
   }
 
   useEffect(() => {
-    const subscription = watch((_value) => {
+    const validateStep = async () => {
+      const fields = MEASUREMENTS_STEPS[currentStep].fields;
+      const output = await trigger(fields as FieldNames, { shouldFocus: true });
+      dispatch(setIsStepValid(output));
+    };
+
+    const subscription = watch(() => {
       void validateStep();
     });
 
@@ -56,12 +62,6 @@ export const Measurements = () => {
     if (currentStep > 0) {
       setCurrentStep((step) => step - 1);
     }
-  };
-
-  const validateStep = async () => {
-    const fields = MEASUREMENTS_STEPS[currentStep].fields;
-    const output = await trigger(fields as FieldNames, { shouldFocus: true });
-    dispatch(setIsStepValid(output));
   };
 
   const handleForward = async () => {
