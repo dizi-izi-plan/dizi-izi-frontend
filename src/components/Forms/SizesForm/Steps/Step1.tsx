@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
 import { Stack, Typography } from '@mui/material';
@@ -9,22 +9,19 @@ import {
   MIN_WALLS_INPUT_LENGTH,
   SizesFormType,
 } from '../validation';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
 import { WALLS_NAMES_TYPE } from '../types';
 import { useFormContext } from 'react-hook-form';
+import { selectIsStepValid } from '@/redux/slices/current-slice';
 
-type WallsProps = {
-  validateStep?: () => Promise<boolean>;
-};
-
-export const Walls = ({ validateStep }: WallsProps) => {
+export const Walls = () => {
   const dispatch = useAppDispatch();
   const { setValue, control } = useFormContext();
-  const [isStepValid, setIsStepValid] = useState(false);
+  const isStepValid = useAppSelector(selectIsStepValid);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
     return CORRESPONDING_WALLS[name as WALLS_NAMES_TYPE];
@@ -42,11 +39,6 @@ export const Walls = ({ validateStep }: WallsProps) => {
 
     if (value.length <= MAX_WALLS_INPUT_LENGTH) {
       setCorrespondingWallValue(name, value);
-    }
-
-    if (validateStep) {
-      const isValid = await validateStep();
-      setIsStepValid(isValid);
     }
   };
 
