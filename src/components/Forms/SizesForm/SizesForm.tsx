@@ -11,23 +11,32 @@ import { Walls } from './Steps/Step1';
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Door } from './Steps/Step2';
+import { useAppSelector } from '@/redux/hooks';
+import { selectIsStepValid } from '@/redux/slices/current-slice';
 
 type SizesFormProps = {
   currentStep: number;
-  validateStep: () => Promise<boolean>;
   setCurrentStep: Dispatch<SetStateAction<number>>;
+  handleForward: () => void;
+  handleBack: () => void;
 };
 
 export const SizesForm = ({
   currentStep,
   setCurrentStep,
-  validateStep,
+  handleBack,
+  handleForward,
 }: SizesFormProps) => {
   const { handleSubmit } = useFormContext();
+  const isStepValid = useAppSelector(selectIsStepValid);
 
   const handleTabChange = async (event: SyntheticEvent, step: number) => {
-    const isValid = await validateStep();
-    if (!isValid) return;
+    if (step < currentStep) {
+      handleBack();
+    } else {
+      if (!isStepValid) return;
+      handleForward();
+    }
     setCurrentStep(step);
   };
 
@@ -59,7 +68,7 @@ export const SizesForm = ({
       )}
       <form onSubmit={onSubmit}>
         <TabContentContainer index={0} value={currentStep}>
-          <Walls validateStep={validateStep} />
+          <Walls />
         </TabContentContainer>
         <TabContentContainer index={1} value={currentStep}>
           <Door />
