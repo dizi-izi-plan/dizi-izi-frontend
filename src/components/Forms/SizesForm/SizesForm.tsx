@@ -6,42 +6,39 @@ import { TabContentContainer } from '@/containers/TabContentContainer/TabContent
 import { a11yProps } from '@/containers/TabContentContainer/tabConstants';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { Walls } from './Steps/Step1/Step1';
 import { Furniture } from './Steps/Step4/Step4';
+import { Walls } from './Steps/Step1';
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { Door } from './Steps/Step2';
+import { useAppSelector } from '@/redux/hooks';
+import { selectIsStepValid } from '@/redux/slices/current-slice';
 import { SizesFormType } from './validation';
-import {
-  Control,
-  FieldErrors,
-  UseFormHandleSubmit,
-  UseFormSetValue,
-  UseFormWatch,
-  UseFormResetField,
-} from 'react-hook-form';
 
 type SizesFormProps = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<number>>;
-  setValue: UseFormSetValue<SizesFormType>;
-  watch: UseFormWatch<SizesFormType>;
-  control: Control<SizesFormType>;
-  errors?: FieldErrors<SizesFormType>;
-  handleSubmit: UseFormHandleSubmit<SizesFormType>;
-  isValid: boolean;
-  resetField: UseFormResetField<SizesFormType>;
+  handleForward: () => void;
+  handleBack: () => void;
 };
 
 export const SizesForm = ({
   currentStep,
   setCurrentStep,
-  setValue,
-  watch,
-  control,
-  handleSubmit,
-  isValid, // resetField,
+  handleBack,
+  handleForward,
 }: SizesFormProps) => {
-  const handleTabChange = (event: SyntheticEvent, step: number) => {
-    if (isValid) setCurrentStep(step);
+  const { handleSubmit } = useFormContext<SizesFormType>();
+  const isStepValid = useAppSelector(selectIsStepValid);
+
+  const handleTabChange = async (event: SyntheticEvent, step: number) => {
+    if (step < currentStep) {
+      handleBack();
+    } else {
+      if (!isStepValid) return;
+      handleForward();
+    }
+    setCurrentStep(step);
   };
 
   const onSubmit = handleSubmit((data) => {
@@ -72,26 +69,16 @@ export const SizesForm = ({
       )}
       <form onSubmit={onSubmit}>
         <TabContentContainer index={0} value={currentStep}>
-          <Walls
-            control={control}
-            setValue={setValue}
-            watch={watch}
-            isValid={isValid}
-          />
+          <Walls />
         </TabContentContainer>
         <TabContentContainer index={1} value={currentStep}>
-          Форма для дверей
+          <Door />
         </TabContentContainer>
         <TabContentContainer index={2} value={currentStep}>
           Форма для окон
         </TabContentContainer>
         <TabContentContainer index={3} value={currentStep}>
-          <Furniture
-            control={control}
-            setValue={setValue}
-            watch={watch}
-            isValid={isValid}
-          />
+          <Furniture />
         </TabContentContainer>
       </form>
     </>
