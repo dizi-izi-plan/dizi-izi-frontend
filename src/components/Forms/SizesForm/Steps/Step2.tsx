@@ -9,27 +9,44 @@ import {
   MAX_WALLS_INPUT_LENGTH,
   SizesFormType,
 } from '../validation';
-import { WALLS_NAMES_TYPE } from '../types';
-import { NEIGHBOR_WALLS, STEP2 } from '../formData';
+import { STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import {
   RadioGroupWrapper,
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { useFormContext } from 'react-hook-form';
+import { useMemo } from 'react';
+import { WALLS_NAMES_TYPE } from '../types';
+
+const TO_WALL_RADIOS_EVEN: RadioType[] = [
+  {
+    label: 'До стены 2',
+    value: '2',
+  },
+  { label: 'До стены 4', value: '4' },
+];
+
+const TO_WALL_RADIOS_UNEVEN: RadioType[] = [
+  { label: 'До стены 1', value: '1' },
+  {
+    label: 'До стены 3',
+    value: '3',
+  },
+];
 
 export const Door = () => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors } = formState;
 
-  const toWallRadios = (): RadioType[] => {
+  const toWallRadios = useMemo((): RadioType[] => {
     const selectedWall = watch(STEP2.wallNumber.name as WALLS_NAMES_TYPE);
 
-    if (selectedWall) {
-      return NEIGHBOR_WALLS[selectedWall as keyof typeof NEIGHBOR_WALLS];
+    if (selectedWall === 'walls.first' || selectedWall === 'walls.third') {
+      return TO_WALL_RADIOS_EVEN;
     }
-    return [];
-  };
+    return TO_WALL_RADIOS_UNEVEN;
+  }, [watch]);
 
   return (
     <Stack gap={3}>
@@ -65,10 +82,11 @@ export const Door = () => {
           name={`${STEP2.toWall.name}` as keyof SizesFormType}
           control={control}
           className={CLASS_NAMES_LABEL.end}
-          radios={toWallRadios()}
+          radios={toWallRadios}
           labelSx={{
             marginRight: 0,
           }}
+          errorMessage={errors?.door?.toWall?.message || ''}
         />
       </Stack>
       <Stack mt={8}>

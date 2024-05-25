@@ -1,4 +1,3 @@
-import { RadioType } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { WALLS_NAMES_TYPE } from './types';
 
 export const SIDE = {
@@ -21,35 +20,27 @@ export const CORRESPONDING_WALLS = {
   'walls.forth': WALLS.second,
 } as const;
 
-export const NEIGHBOR_WALLS: { [K in WALLS_NAMES_TYPE]: RadioType[] } = {
-  'walls.first': [
-    {
-      label: 'До стены 2',
-      value: SIDE.left,
-    },
-    { label: 'До стены 4', value: SIDE.right },
-  ],
-  'walls.second': [
-    { label: 'До стены 1', value: SIDE.right },
-    {
-      label: 'До стены 3',
-      value: SIDE.left,
-    },
-  ],
-  'walls.third': [
-    { label: 'До стены 2', value: SIDE.right },
-    {
-      label: 'До стены 4',
-      value: SIDE.left,
-    },
-  ],
-  'walls.forth': [
-    {
-      label: 'До стены 1',
-      value: SIDE.left,
-    },
-    { label: 'До стены 3', value: SIDE.right },
-  ],
+export const NEIGHBOR_WALLS: {
+  [K in WALLS_NAMES_TYPE]: { [key: number]: string };
+} = {
+  'walls.first': {
+    2: SIDE.left,
+    4: SIDE.right,
+  },
+  'walls.second': {
+    1: SIDE.right,
+    3: SIDE.left,
+  },
+
+  'walls.third': {
+    2: SIDE.right,
+    4: SIDE.left,
+  },
+
+  'walls.forth': {
+    1: SIDE.left,
+    3: SIDE.right,
+  },
 };
 
 export const STEP1 = [

@@ -12,7 +12,7 @@ export const door = {
   wallNumber: '',
   size: '',
   distanceToWall: '',
-  toWall: SIDE.left,
+  toWall: '',
   side: SIDE.left,
   open: OPEN.inside,
 };

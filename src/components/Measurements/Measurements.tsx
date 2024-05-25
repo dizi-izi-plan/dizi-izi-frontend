@@ -56,7 +56,7 @@ export const Measurements = () => {
     validateStep();
 
     return () => subscription.unsubscribe();
-  }, [watch, currentStep]);
+  }, [watch, currentStep, dispatch, trigger]);
 
   const handleBack = async () => {
     if (currentStep > 0) {

@@ -47,7 +47,7 @@ export const DoorValidation = z.object({
   wallNumber: string().min(1, { message: ERROR_MESSAGES.required }),
   size: doorSize,
   distanceToWall: string().min(1, { message: ERROR_MESSAGES.required }),
-  toWall: string(),
+  toWall: string().min(1, { message: ERROR_MESSAGES.required }),
   side: string(),
   open: string(),
 });
