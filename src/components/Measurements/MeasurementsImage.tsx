@@ -152,7 +152,7 @@ export const MeasurementsImage = ({
   return (
     <Stack
       width="74%"
-      height="640px"
+      minHeight="640px"
       border="1px solid"
       mb="80px"
       alignItems="center"
