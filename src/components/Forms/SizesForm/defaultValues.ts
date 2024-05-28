@@ -1,3 +1,4 @@
+import { OPEN, SIDE } from './formData';
 import { SizesFormType } from './validation';
 
 export const walls = {
@@ -5,6 +6,15 @@ export const walls = {
   second: '',
   third: '',
   forth: '',
+};
+
+export const door = {
+  wallNumber: 'walls.first',
+  size: '',
+  distanceToWall: '',
+  toWall: '2',
+  side: SIDE.left,
+  open: OPEN.inside,
 };
 
 export const furniture = {
@@ -16,7 +26,7 @@ export const furniture = {
 
 export const initialStepsState: SizesFormType = {
   walls,
-  // doors: {},
+  door,
   // windows: {},
   furniture,
 };

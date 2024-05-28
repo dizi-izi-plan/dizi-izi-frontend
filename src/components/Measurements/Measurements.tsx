@@ -7,10 +7,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { PopperMessage } from '@/components/Popper/PopperMessage';
-import { MEASUREMENTS_STEPS } from './data';
+import { FieldNames, MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
 import {
@@ -19,34 +19,54 @@ import {
 } from '@/components/Forms/SizesForm/validation';
 
 import { MeasurementsImage } from './MeasurementsImage';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  selectIsStepValid,
+  setIsStepValid,
+} from '@/redux/slices/current-slice';
 
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const dispatch = useAppDispatch();
+  const isStepValid = useAppSelector(selectIsStepValid);
 
-  const {
-    control,
-    setValue,
-    watch,
-    handleSubmit,
-    formState: { errors, isValid },
-    resetField,
-  } = useForm<SizesFormType>({
+  const methods = useForm<SizesFormType>({
     defaultValues: { ...initialStepsState },
     resolver: zodResolver(SizesFormValidation),
   });
 
-  const handleBack = () => {
-    if (isValid) {
-      if (currentStep > 0) {
-        setCurrentStep(currentStep - 1);
-      }
+  const { control, trigger, watch, formState } = methods;
+  const { errors } = formState;
+
+  if (Object.values(errors).length > 0) {
+    console.log('errors', errors);
+  }
+
+  useEffect(() => {
+    const validateStep = async () => {
+      const fields = MEASUREMENTS_STEPS[currentStep].fields;
+      const output = await trigger(fields as FieldNames, { shouldFocus: true });
+      dispatch(setIsStepValid(output));
+    };
+
+    const subscription = watch(() => {
+      void validateStep();
+    });
+
+    validateStep();
+
+    return () => subscription.unsubscribe();
+  }, [watch, currentStep, dispatch, trigger]);
+
+  const handleBack = async () => {
+    if (currentStep > 0) {
+      setCurrentStep((step) => step - 1);
     }
   };
 
-  const handleForward = () => {
-    if (isValid) {
-      setCurrentStep(currentStep + 1);
-    }
+  const handleForward = async () => {
+    if (!isStepValid) return;
+    setCurrentStep((step) => step + 1);
   };
 
   return (
@@ -77,7 +97,7 @@ export const Measurements = () => {
           tip={
             currentStep === 3
               ? ''
-              : isValid
+              : isStepValid
               ? 'Вперед'
               : 'Закончите текущий шаг'
           }
@@ -85,7 +105,7 @@ export const Measurements = () => {
           <Button
             variant="empty"
             onClick={handleForward}
-            disabled={currentStep === 3 || !isValid}
+            disabled={currentStep === 3 || !isStepValid}
             sx={{
               opacity: currentStep === 3 ? 0 : 1,
             }}
@@ -103,17 +123,14 @@ export const Measurements = () => {
           display={currentStep === 3 ? 'none' : undefined}
         />
         <Stack width={currentStep === 3 ? '100%' : '23%'}>
-          <SizesForm
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            control={control}
-            setValue={setValue}
-            watch={watch}
-            handleSubmit={handleSubmit}
-            errors={errors}
-            isValid={isValid}
-            resetField={resetField}
-          />
+          <FormProvider {...methods}>
+            <SizesForm
+              currentStep={currentStep}
+              handleForward={handleForward}
+              handleBack={handleBack}
+              setCurrentStep={setCurrentStep}
+            />
+          </FormProvider>
         </Stack>
       </Stack>
     </Stack>

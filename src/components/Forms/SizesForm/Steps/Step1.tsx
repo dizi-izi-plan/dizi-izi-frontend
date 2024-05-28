@@ -1,30 +1,30 @@
 import { ChangeEvent } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
-import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
-import { Stack, Typography } from '@mui/material';
-import { CORRESPONDING_WALLS, STEP1, WALLS_NAMES_TYPE } from '../../formData';
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import {
+  CLASS_NAMES_HELPER,
+  CLASS_NAMES_INPUT,
+} from '@/components/Input/classNameConstants';
+import { FormHelperText, Stack } from '@mui/material';
+import { CORRESPONDING_WALLS, STEP1 } from '../formData';
 import {
   ERROR_MESSAGES,
   MAX_WALLS_INPUT_LENGTH,
   MIN_WALLS_INPUT_LENGTH,
   SizesFormType,
-} from '../../validation';
-import { useAppDispatch } from '@/redux/hooks';
+} from '../validation';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
+import { WALLS_NAMES_TYPE } from '../types';
+import { useFormContext } from 'react-hook-form';
+import { selectIsStepValid } from '@/redux/slices/current-slice';
 
-type WallsProps = {
-  setValue: UseFormSetValue<SizesFormType>;
-  watch: UseFormWatch<SizesFormType>;
-  control: Control<SizesFormType>;
-  isValid: boolean;
-};
-
-export const Walls = ({ setValue, control, isValid }: WallsProps) => {
+export const Walls = () => {
   const dispatch = useAppDispatch();
+  const { setValue, control } = useFormContext<SizesFormType>();
+  const isStepValid = useAppSelector(selectIsStepValid);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
     return CORRESPONDING_WALLS[name as WALLS_NAMES_TYPE];
@@ -37,7 +37,7 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
     });
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
 
     if (value.length <= MAX_WALLS_INPUT_LENGTH) {
@@ -63,10 +63,10 @@ export const Walls = ({ setValue, control, isValid }: WallsProps) => {
           onBlur={() => dispatch(deleteBedroomFocusedField())}
         />
       ))}
-      {!isValid && (
-        <Typography variant="caption" color="error" textAlign="center">
+      {!isStepValid && (
+        <FormHelperText className={CLASS_NAMES_HELPER.centered}>
           {ERROR_MESSAGES.minWallsSizes}
-        </Typography>
+        </FormHelperText>
       )}
     </Stack>
   );

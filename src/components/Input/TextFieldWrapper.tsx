@@ -28,8 +28,8 @@ export const TextFieldWrapper = <T extends FieldValues>({
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (props.type === 'number') {
-      if (props.max && value.length <= props.max) {
+    if (props.max) {
+      if (value.length <= props.max) {
         field.onChange(value);
       }
     } else {
@@ -39,15 +39,9 @@ export const TextFieldWrapper = <T extends FieldValues>({
   };
 
   return (
-    <Box>
+    <Box width="100%">
       <TextField {...field} {...props} onChange={onChange} />
-      <FormHelperText
-        sx={{
-          color: 'error.main',
-        }}
-      >
-        {errorMessage}
-      </FormHelperText>
+      <FormHelperText>{errorMessage}</FormHelperText>
     </Box>
   );
 };

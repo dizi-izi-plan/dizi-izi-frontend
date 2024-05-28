@@ -21,13 +21,7 @@ export const CheckboxWrapper = <T extends FieldValues>(
   return (
     <Box>
       <Checkbox {...field} {...props} />
-      <FormHelperText
-        sx={{
-          color: 'error.main',
-        }}
-      >
-        {props.errorMessage}
-      </FormHelperText>
+      <FormHelperText>{props.errorMessage}</FormHelperText>
     </Box>
   );
 };
