@@ -92,7 +92,7 @@ export const Door = () => {
           <FormHelperText>{errors.door.distanceToWall.message}</FormHelperText>
         )}
       </Stack>
-      <Stack mt={8}>
+      <Stack>
         <RadioGroupWrapper
           name={`${STEP2.openLeftRight.name}` as keyof SizesFormType}
           control={control}

@@ -9,10 +9,10 @@ export const walls = {
 };
 
 export const door = {
-  wallNumber: '',
+  wallNumber: 'walls.first',
   size: '',
   distanceToWall: '',
-  toWall: '',
+  toWall: '2',
   side: SIDE.left,
   open: OPEN.inside,
 };
