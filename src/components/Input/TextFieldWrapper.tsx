@@ -41,13 +41,7 @@ export const TextFieldWrapper = <T extends FieldValues>({
   return (
     <Box width="100%">
       <TextField {...field} {...props} onChange={onChange} />
-      <FormHelperText
-        sx={{
-          color: 'error.main',
-        }}
-      >
-        {errorMessage}
-      </FormHelperText>
+      <FormHelperText>{errorMessage}</FormHelperText>
     </Box>
   );
 };

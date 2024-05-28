@@ -1,7 +1,10 @@
 import { ChangeEvent } from 'react';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
-import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
-import { Stack, Typography } from '@mui/material';
+import {
+  CLASS_NAMES_HELPER,
+  CLASS_NAMES_INPUT,
+} from '@/components/Input/classNameConstants';
+import { FormHelperText, Stack } from '@mui/material';
 import { CORRESPONDING_WALLS, STEP1 } from '../formData';
 import {
   ERROR_MESSAGES,
@@ -61,9 +64,9 @@ export const Walls = () => {
         />
       ))}
       {!isStepValid && (
-        <Typography variant="caption" color="error" textAlign="center">
+        <FormHelperText className={CLASS_NAMES_HELPER.centered}>
           {ERROR_MESSAGES.minWallsSizes}
-        </Typography>
+        </FormHelperText>
       )}
     </Stack>
   );

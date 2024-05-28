@@ -372,6 +372,16 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.error.main,
+          '&.subvariant-centered': {
+            textAlign: 'center',
+          },
+        },
+      },
+    },
     MuiLink: {
       styleOverrides: {
         root: {

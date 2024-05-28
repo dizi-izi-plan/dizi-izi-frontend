@@ -3,7 +3,7 @@ import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
-import { Stack } from '@mui/material';
+import { FormHelperText, Stack } from '@mui/material';
 import {
   MAX_DOOR_INPUT_LENGTH,
   MAX_WALLS_INPUT_LENGTH,
@@ -67,27 +67,30 @@ export const Door = () => {
         max={MAX_DOOR_INPUT_LENGTH}
         errorMessage={errors?.door?.size?.message || ''}
       />
-      <Stack direction="row" gap={3}>
-        <TextFieldWrapper
-          name={`${STEP2.fromDoorTo.name}` as keyof SizesFormType}
-          control={control}
-          className={CLASS_NAMES_INPUT.grey}
-          placeholder={STEP2.fromDoorTo.placeholder}
-          type="number"
-          step={1}
-          max={MAX_WALLS_INPUT_LENGTH}
-          errorMessage={errors?.door?.distanceToWall?.message || ''}
-        />
-        <RadioGroupWrapper
-          name={`${STEP2.toWall.name}` as keyof SizesFormType}
-          control={control}
-          className={CLASS_NAMES_LABEL.end}
-          radios={toWallRadios}
-          labelSx={{
-            marginRight: 0,
-          }}
-          errorMessage={errors?.door?.toWall?.message || ''}
-        />
+      <Stack>
+        <Stack direction="row" gap={3}>
+          <TextFieldWrapper
+            name={`${STEP2.fromDoorTo.name}` as keyof SizesFormType}
+            control={control}
+            className={CLASS_NAMES_INPUT.grey}
+            placeholder={STEP2.fromDoorTo.placeholder}
+            type="number"
+            step={1}
+            max={MAX_WALLS_INPUT_LENGTH}
+          />
+          <RadioGroupWrapper
+            name={`${STEP2.toWall.name}` as keyof SizesFormType}
+            control={control}
+            className={CLASS_NAMES_LABEL.end}
+            radios={toWallRadios}
+            labelSx={{
+              marginRight: 0,
+            }}
+          />
+        </Stack>
+        {errors.door?.distanceToWall && (
+          <FormHelperText>{errors.door.distanceToWall.message}</FormHelperText>
+        )}
       </Stack>
       <Stack mt={8}>
         <RadioGroupWrapper

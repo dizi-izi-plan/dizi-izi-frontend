@@ -49,13 +49,7 @@ export const RadioGroupWrapper = <T extends FieldValues>({
       {!radios && (
         <Box>
           <RadioGroup {...field} {...props} />
-          <FormHelperText
-            sx={{
-              color: 'error.main',
-            }}
-          >
-            {errorMessage}
-          </FormHelperText>
+          <FormHelperText>{errorMessage}</FormHelperText>
         </Box>
       )}
 
@@ -80,13 +74,7 @@ export const RadioGroupWrapper = <T extends FieldValues>({
                 />
               ))}
             </RadioGroup>
-            <FormHelperText
-              sx={{
-                color: 'error.main',
-              }}
-            >
-              {errorMessage}
-            </FormHelperText>
+            <FormHelperText>{errorMessage}</FormHelperText>
           </FormControl>
         </Box>
       )}

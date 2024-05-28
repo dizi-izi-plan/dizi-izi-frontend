@@ -11,6 +11,10 @@ export const CLASS_NAMES_LABEL = {
   end: 'subvariant-end',
 } as const;
 
+export const CLASS_NAMES_HELPER = {
+  centered: 'subvariant-centered',
+} as const;
+
 export type InputVariant = ObjectValues<typeof CLASS_NAMES_INPUT>;
 
 export type LabelVariant = ObjectValues<typeof CLASS_NAMES_LABEL>;

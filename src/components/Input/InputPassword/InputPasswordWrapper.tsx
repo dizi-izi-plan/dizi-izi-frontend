@@ -21,13 +21,7 @@ export const InputPasswordWrapper = <T extends FieldValues>(
   return (
     <Box>
       <InputPassword {...field} {...props} />
-      <FormHelperText
-        sx={{
-          color: 'error.main',
-        }}
-      >
-        {props.errorMessage}
-      </FormHelperText>
+      <FormHelperText>{props.errorMessage}</FormHelperText>
     </Box>
   );
 };
