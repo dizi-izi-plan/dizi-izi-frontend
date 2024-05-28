@@ -1,10 +1,10 @@
 import { Control, useWatch } from 'react-hook-form';
 import { SizesFormType } from '@/components/Forms/SizesForm/validation';
-import { TWalls } from './MeasurementsTypes';
+import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 
 type UseFieldValueProps = {
   control: Control<SizesFormType>;
-  fieldName: TWalls;
+  fieldName: WALLS_NAMES_TYPE;
   error: boolean;
 };
 

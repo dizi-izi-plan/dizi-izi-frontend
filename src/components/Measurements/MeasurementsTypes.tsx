@@ -1,9 +1,7 @@
-import { WALLS } from '@/components/Forms/SizesForm/formData';
-
-export type TWalls = WALLS.first | WALLS.second | WALLS.third | WALLS.forth;
+import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 
 export type TWindow = {
-  wall: TWalls;
+  wall: WALLS_NAMES_TYPE;
   size: number;
   distance: number;
   distanceFromLeft: boolean;
@@ -22,14 +20,14 @@ export type TDoor = TBalcony & {
 export type TElementContainer = TWindow;
 
 export type TLineStyles = {
-  [T in TWalls]: {
+  [T in WALLS_NAMES_TYPE]: {
     height: string;
     width: string;
   };
 };
 
 export type TWindowStyles = {
-  [T in TWalls]: {
+  [T in WALLS_NAMES_TYPE]: {
     height: string;
     width: string;
     direction: 'column' | 'row';
@@ -37,7 +35,7 @@ export type TWindowStyles = {
 };
 
 export type TDoorStyles = {
-  [T in TWalls]: {
+  [T in WALLS_NAMES_TYPE]: {
     height: string;
     width: string;
     rotate: string;
@@ -53,7 +51,7 @@ type TBalconyDoorPosition = {
 } | null;
 
 export type TBalconyStyles = {
-  [T in TWalls]: {
+  [T in WALLS_NAMES_TYPE]: {
     window: {
       height: string;
       width: string;
@@ -80,7 +78,7 @@ type TPositionStyles = {
 };
 
 export type TElementContainerStyles = {
-  [T in TWalls]: {
+  [T in WALLS_NAMES_TYPE]: {
     container: {
       width: string;
       height: string;

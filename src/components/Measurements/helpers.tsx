@@ -1,8 +1,8 @@
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { TWalls } from './MeasurementsTypes';
+import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 
 export const getElementSize = (
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,

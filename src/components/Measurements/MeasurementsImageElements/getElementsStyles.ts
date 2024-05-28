@@ -1,5 +1,5 @@
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { TWalls } from '../MeasurementsTypes';
+import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 import {
   TLineStyles,
   TWindowStyles,
@@ -11,7 +11,7 @@ import { getElementSize } from '../helpers';
 
 export const getDoorStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
@@ -68,7 +68,7 @@ export const lineStyles: TLineStyles = {
 
 export const getWindowStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
@@ -106,7 +106,7 @@ export const getWindowStyles = (
 
 export const getBalconyStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
@@ -204,7 +204,7 @@ export const getBalconyStyles = (
 
 export const getElementContainerStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,

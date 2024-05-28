@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
-import { TWalls } from '../MeasurementsTypes';
+import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 import { lineStyles } from './getElementsStyles';
 
 type LineProps = {
-  wall: TWalls;
+  wall: WALLS_NAMES_TYPE;
 };
 
 export const Line = ({ wall }: LineProps) => {
