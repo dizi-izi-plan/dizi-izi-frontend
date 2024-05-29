@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useAppDispatch } from '@/redux/hooks';
 import {
   addBedroomFocusedField,
@@ -20,8 +22,6 @@ import {
   RadioGroupWrapper,
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { useFormContext } from 'react-hook-form';
-import { useEffect, useMemo } from 'react';
 import { WALLS_NAMES_TYPE } from '../types';
 import { WALLS } from '../formData';
 
@@ -43,6 +43,7 @@ const TO_WALL_RADIOS_UNEVEN: RadioType[] = [
 
 export const Door = () => {
   const dispatch = useAppDispatch();
+  const [isFocused, setFocused] = useState<boolean>(false);
 
   const { control, formState, watch, setValue } =
     useFormContext<SizesFormType>();
@@ -67,6 +68,14 @@ export const Door = () => {
       });
   }, [selectedWall, setValue]);
 
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(addBedroomFocusedField(STEP2.doorSize.name));
+    } else {
+      dispatch(deleteBedroomFocusedField());
+    }
+  }, [dispatch, isFocused]);
+
   return (
     <Stack gap={3}>
       <SelectWrapper
@@ -76,20 +85,21 @@ export const Door = () => {
         options={STEP2.wallNumber.options}
         className={CLASS_NAMES_INPUT.grey}
       />
-      <TextFieldWrapper
-        name={`${STEP2.doorSize.name}` as keyof SizesFormType}
-        control={control}
-        className={CLASS_NAMES_INPUT.grey}
-        placeholder={STEP2.doorSize.placeholder}
-        type="number"
-        step={1}
-        max={MAX_DOOR_INPUT_LENGTH}
-        errorMessage={errors?.door?.size?.message || ''}
-        onFocus={() => dispatch(addBedroomFocusedField(STEP2.doorSize.name))}
-        onBlur={() => dispatch(deleteBedroomFocusedField())}
-      />
-      <Stack>
-        <Stack direction="row" gap={3}>
+      <Stack
+        onMouseEnter={() => setFocused(true)}
+        onMouseLeave={() => setFocused(false)}
+      >
+        <TextFieldWrapper
+          name={`${STEP2.doorSize.name}` as keyof SizesFormType}
+          control={control}
+          className={CLASS_NAMES_INPUT.grey}
+          placeholder={STEP2.doorSize.placeholder}
+          type="number"
+          step={1}
+          max={MAX_DOOR_INPUT_LENGTH}
+          errorMessage={errors?.door?.size?.message || ''}
+        />
+        <Stack direction="row" gap={3} mt={3}>
           <TextFieldWrapper
             name={`${STEP2.fromDoorTo.name}` as keyof SizesFormType}
             control={control}
@@ -98,10 +108,6 @@ export const Door = () => {
             type="number"
             step={1}
             max={MAX_WALLS_INPUT_LENGTH}
-            onFocus={() =>
-              dispatch(addBedroomFocusedField(STEP2.fromDoorTo.name))
-            }
-            onBlur={() => dispatch(deleteBedroomFocusedField())}
           />
           <RadioGroupWrapper
             name={`${STEP2.toWall.name}` as keyof SizesFormType}
@@ -111,8 +117,6 @@ export const Door = () => {
             labelSx={{
               marginRight: 0,
             }}
-            onFocus={() => dispatch(addBedroomFocusedField(STEP2.toWall.name))}
-            onBlur={() => dispatch(deleteBedroomFocusedField())}
           />
         </Stack>
         {errors.door?.distanceToWall && (
