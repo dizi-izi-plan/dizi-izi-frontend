@@ -117,7 +117,6 @@ export const Measurements = () => {
       <Stack direction="row" width="100%" justifyContent="space-between">
         <MeasurementsImage
           stepOne={currentStep === 0}
-          stepTwo={currentStep === 1}
           stepThree={currentStep === 2}
           control={control}
           display={currentStep === 3 ? 'none' : undefined}
