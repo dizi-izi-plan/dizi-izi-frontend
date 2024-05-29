@@ -89,14 +89,7 @@ export const Door = () => {
         onBlur={() => dispatch(deleteBedroomFocusedField())}
       />
       <Stack>
-        <Stack
-          direction="row"
-          gap={3}
-          onFocus={() =>
-            dispatch(addBedroomFocusedField(STEP2.fromDoorTo.name))
-          }
-          onBlur={() => dispatch(deleteBedroomFocusedField())}
-        >
+        <Stack direction="row" gap={3}>
           <TextFieldWrapper
             name={`${STEP2.fromDoorTo.name}` as keyof SizesFormType}
             control={control}
@@ -105,6 +98,10 @@ export const Door = () => {
             type="number"
             step={1}
             max={MAX_WALLS_INPUT_LENGTH}
+            onFocus={() =>
+              dispatch(addBedroomFocusedField(STEP2.fromDoorTo.name))
+            }
+            onBlur={() => dispatch(deleteBedroomFocusedField())}
           />
           <RadioGroupWrapper
             name={`${STEP2.toWall.name}` as keyof SizesFormType}
@@ -114,6 +111,8 @@ export const Door = () => {
             labelSx={{
               marginRight: 0,
             }}
+            onFocus={() => dispatch(addBedroomFocusedField(STEP2.toWall.name))}
+            onBlur={() => dispatch(deleteBedroomFocusedField())}
           />
         </Stack>
         {errors.door?.distanceToWall && (

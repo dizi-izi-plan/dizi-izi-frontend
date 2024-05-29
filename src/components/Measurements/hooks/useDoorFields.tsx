@@ -59,7 +59,8 @@ export const useDoorFields = (control: Control<SizesFormType>): TDoor => {
   const isFocused = useMemo(() => {
     if (
       fieldOnFocus === DOOR_NAMES.size ||
-      fieldOnFocus === DOOR_NAMES.distanceToWall
+      fieldOnFocus === DOOR_NAMES.distanceToWall ||
+      fieldOnFocus === DOOR_NAMES.toWall
     )
       return true;
     return false;
