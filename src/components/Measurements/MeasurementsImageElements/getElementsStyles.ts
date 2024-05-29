@@ -221,7 +221,12 @@ export const getElementContainerStyles = (
   verticalWall: number,
   horizontalWall: number,
 ): TElementContainerStyles => {
-  const arrowSize = getElementSize(wall, size, verticalWall, horizontalWall);
+  let arrowSize;
+  if (size >= 200) {
+    arrowSize = getElementSize(wall, size, verticalWall, horizontalWall);
+  } else if (size > 0) {
+    arrowSize = 5;
+  }
 
   return {
     [WALLS.first]: {

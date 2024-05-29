@@ -43,6 +43,7 @@ const TO_WALL_RADIOS_UNEVEN: RadioType[] = [
 
 export const Door = () => {
   const dispatch = useAppDispatch();
+  const [isHovered, setHovered] = useState<boolean>(false);
   const [isFocused, setFocused] = useState<boolean>(false);
 
   const { control, formState, watch, setValue } =
@@ -69,12 +70,12 @@ export const Door = () => {
   }, [selectedWall, setValue]);
 
   useEffect(() => {
-    if (isFocused) {
+    if (isHovered || isFocused) {
       dispatch(addBedroomFocusedField(STEP2.doorSize.name));
     } else {
       dispatch(deleteBedroomFocusedField());
     }
-  }, [dispatch, isFocused]);
+  }, [dispatch, isHovered, isFocused]);
 
   return (
     <Stack gap={3}>
@@ -86,8 +87,8 @@ export const Door = () => {
         className={CLASS_NAMES_INPUT.grey}
       />
       <Stack
-        onMouseEnter={() => setFocused(true)}
-        onMouseLeave={() => setFocused(false)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         <TextFieldWrapper
           name={`${STEP2.doorSize.name}` as keyof SizesFormType}
@@ -98,6 +99,8 @@ export const Door = () => {
           step={1}
           max={MAX_DOOR_INPUT_LENGTH}
           errorMessage={errors?.door?.size?.message || ''}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
         />
         <Stack direction="row" gap={3} mt={3}>
           <TextFieldWrapper
@@ -108,6 +111,8 @@ export const Door = () => {
             type="number"
             step={1}
             max={MAX_WALLS_INPUT_LENGTH}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
           />
           <RadioGroupWrapper
             name={`${STEP2.toWall.name}` as keyof SizesFormType}

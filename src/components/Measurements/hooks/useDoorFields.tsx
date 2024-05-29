@@ -7,6 +7,7 @@ import {
   DOOR_NAMES,
   SIDE,
   OPEN,
+  STEP2,
 } from '@/components/Forms/SizesForm/formData';
 import { SizesFormType } from '@/components/Forms/SizesForm/validation';
 import { TDoor } from '../MeasurementsTypes';
@@ -57,12 +58,7 @@ export const useDoorFields = (control: Control<SizesFormType>): TDoor => {
     (wallNumber === WALLS.forth && toWall === WALLS.first);
 
   const isFocused = useMemo(() => {
-    if (
-      fieldOnFocus === DOOR_NAMES.size ||
-      fieldOnFocus === DOOR_NAMES.distanceToWall ||
-      fieldOnFocus === DOOR_NAMES.toWall
-    )
-      return true;
+    if (fieldOnFocus === STEP2.doorSize.name) return true;
     return false;
   }, [fieldOnFocus]);
 
