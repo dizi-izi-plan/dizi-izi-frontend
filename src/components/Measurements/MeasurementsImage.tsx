@@ -35,7 +35,7 @@ export const MeasurementsImage = ({
   const { verticalWall, horizontalWall, horizontalFocus, verticalFocus } =
     useWallsFields(control);
 
-  const door = useDoorFields(control);
+  const door = useDoorFields(control, stepOne);
 
   const [windows, setWindows] = useState<TWindow[]>([
     {
@@ -204,14 +204,12 @@ export const MeasurementsImage = ({
           verticalWall={verticalWall}
           verticalFocus={verticalFocus}
         />
-        {!stepOne && (
-          <Door
-            door={door}
-            horizontalWall={horizontalWall}
-            verticalWall={verticalWall}
-            wallThickness={wallThickness}
-          />
-        )}
+        <Door
+          door={door}
+          horizontalWall={horizontalWall}
+          verticalWall={verticalWall}
+          wallThickness={wallThickness}
+        />
         {stepThree &&
           windows.map((window, index) => (
             <Window

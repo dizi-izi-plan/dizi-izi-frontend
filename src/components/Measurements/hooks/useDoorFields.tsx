@@ -12,7 +12,10 @@ import { SizesFormType } from '@/components/Forms/SizesForm/validation';
 import { TDoor } from '../MeasurementsTypes';
 import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 
-export const useDoorFields = (control: Control<SizesFormType>): TDoor => {
+export const useDoorFields = (
+  control: Control<SizesFormType>,
+  invisible: boolean,
+): TDoor => {
   const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
   const { errors } = useFormState({
@@ -48,7 +51,7 @@ export const useDoorFields = (control: Control<SizesFormType>): TDoor => {
 
   return {
     wall: doorForm?.wallNumber as WALLS_NAMES_TYPE,
-    size: errors.door?.size ? 0 : Number(doorForm?.size),
+    size: errors.door?.size || invisible ? 0 : Number(doorForm?.size),
     distance: errors.door?.distanceToWall
       ? 0
       : Number(doorForm?.distanceToWall),
