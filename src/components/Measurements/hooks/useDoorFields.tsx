@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
-import { Control, useWatch } from 'react-hook-form';
+import { Control, useWatch, useFormState } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
 import {
   WALLS,
-  DOOR_NAMES,
   SIDE,
   OPEN,
   STEP2,
@@ -16,46 +15,31 @@ import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 export const useDoorFields = (control: Control<SizesFormType>): TDoor => {
   const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
-  const wallNumber = useWatch({
+  const { errors } = useFormState({
     control,
-    name: DOOR_NAMES.wallNumber,
   });
-  const doorSize = Number(
-    useWatch({
-      control,
-      name: DOOR_NAMES.size,
-    }),
-  );
-  const distanceToWall = Number(
-    useWatch({
-      control,
-      name: DOOR_NAMES.distanceToWall,
-    }),
-  );
-  const toWall = useWatch({
+
+  const doorForm = useWatch({
     control,
-    name: DOOR_NAMES.toWall,
-  });
-  const openLeftRight = useWatch({
-    control,
-    name: DOOR_NAMES.side,
-  });
-  const openInsideOutside = useWatch({
-    control,
-    name: DOOR_NAMES.open,
-  });
+  }).door;
 
   const distanceFromLeft =
-    (wallNumber === WALLS.first && toWall === WALLS.forth) ||
-    (wallNumber === WALLS.second && toWall === WALLS.first) ||
-    (wallNumber === WALLS.third && toWall === WALLS.second) ||
-    (wallNumber === WALLS.forth && toWall === WALLS.third);
+    (doorForm?.wallNumber === WALLS.first &&
+      doorForm?.toWall === WALLS.forth) ||
+    (doorForm?.wallNumber === WALLS.second &&
+      doorForm?.toWall === WALLS.first) ||
+    (doorForm?.wallNumber === WALLS.third &&
+      doorForm?.toWall === WALLS.second) ||
+    (doorForm?.wallNumber === WALLS.forth && doorForm?.toWall === WALLS.third);
 
   const distanceFromRight =
-    (wallNumber === WALLS.first && toWall === WALLS.second) ||
-    (wallNumber === WALLS.second && toWall === WALLS.third) ||
-    (wallNumber === WALLS.third && toWall === WALLS.forth) ||
-    (wallNumber === WALLS.forth && toWall === WALLS.first);
+    (doorForm?.wallNumber === WALLS.first &&
+      doorForm?.toWall === WALLS.second) ||
+    (doorForm?.wallNumber === WALLS.second &&
+      doorForm?.toWall === WALLS.third) ||
+    (doorForm?.wallNumber === WALLS.third &&
+      doorForm?.toWall === WALLS.forth) ||
+    (doorForm?.wallNumber === WALLS.forth && doorForm?.toWall === WALLS.first);
 
   const isFocused = useMemo(() => {
     if (fieldOnFocus === STEP2.doorSize.name) return true;
@@ -63,13 +47,15 @@ export const useDoorFields = (control: Control<SizesFormType>): TDoor => {
   }, [fieldOnFocus]);
 
   return {
-    wall: wallNumber as WALLS_NAMES_TYPE,
-    size: doorSize,
-    distance: distanceToWall,
+    wall: doorForm?.wallNumber as WALLS_NAMES_TYPE,
+    size: errors.door?.size ? 0 : Number(doorForm?.size),
+    distance: errors.door?.distanceToWall
+      ? 0
+      : Number(doorForm?.distanceToWall),
     distanceFromLeft: distanceFromLeft,
     distanceFromRight: distanceFromRight,
-    openInside: openInsideOutside === OPEN.inside,
-    openLeft: openLeftRight === SIDE.left,
+    openInside: doorForm?.open === OPEN.inside,
+    openLeft: doorForm?.side === SIDE.left,
     isFocused: isFocused,
   };
 };
