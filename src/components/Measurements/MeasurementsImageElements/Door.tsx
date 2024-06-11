@@ -95,7 +95,7 @@ export const Door = ({
             border: '1px solid black',
             borderBottomColor: 'white',
             borderRadius: `${
-              door.openLeft ? '0px 100% 0px 0px' : '100% 0px 0px 0px'
+              door.openLeft ? '100% 0px 0px 0px' : '0px 100% 0px 0px'
             }`,
           }}
         ></Box>

@@ -1,4 +1,4 @@
-import { OPEN, SIDE } from './formData';
+import { OPEN, SIDE, WALLS } from './formData';
 import { SizesFormType } from './validation';
 
 export const walls = {
@@ -12,7 +12,7 @@ export const door = {
   wallNumber: 'walls.first',
   size: '',
   distanceToWall: '',
-  toWall: '2',
+  toWall: WALLS.second,
   side: SIDE.left,
   open: OPEN.inside,
 };

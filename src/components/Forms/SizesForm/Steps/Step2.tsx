@@ -1,3 +1,10 @@
+import { useEffect, useMemo, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useAppDispatch } from '@/redux/hooks';
+import {
+  addBedroomFocusedField,
+  deleteBedroomFocusedField,
+} from '@/redux/slices/focusedFields-slice';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
 import {
   CLASS_NAMES_INPUT,
@@ -15,38 +22,60 @@ import {
   RadioGroupWrapper,
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { useFormContext } from 'react-hook-form';
-import { useMemo } from 'react';
 import { WALLS_NAMES_TYPE } from '../types';
+import { WALLS } from '../formData';
 
 const TO_WALL_RADIOS_EVEN: RadioType[] = [
   {
     label: 'До стены 2',
-    value: '2',
+    value: WALLS.second,
   },
-  { label: 'До стены 4', value: '4' },
+  { label: 'До стены 4', value: WALLS.forth },
 ];
 
 const TO_WALL_RADIOS_UNEVEN: RadioType[] = [
-  { label: 'До стены 1', value: '1' },
+  { label: 'До стены 1', value: WALLS.first },
   {
     label: 'До стены 3',
-    value: '3',
+    value: WALLS.third,
   },
 ];
 
 export const Door = () => {
-  const { control, formState, watch } = useFormContext<SizesFormType>();
+  const dispatch = useAppDispatch();
+  const [isHovered, setHovered] = useState<boolean>(false);
+  const [isFocused, setFocused] = useState<boolean>(false);
+
+  const { control, formState, watch, setValue } =
+    useFormContext<SizesFormType>();
   const { errors } = formState;
+  const selectedWall = watch(STEP2.wallNumber.name as WALLS_NAMES_TYPE);
 
   const toWallRadios = useMemo((): RadioType[] => {
-    const selectedWall = watch(STEP2.wallNumber.name as WALLS_NAMES_TYPE);
-
-    if (selectedWall === 'walls.first' || selectedWall === 'walls.third') {
+    if (selectedWall === WALLS.first || selectedWall === WALLS.third) {
       return TO_WALL_RADIOS_EVEN;
     }
     return TO_WALL_RADIOS_UNEVEN;
-  }, [watch]);
+  }, [selectedWall]);
+
+  useEffect(() => {
+    if (selectedWall === WALLS.first || selectedWall === WALLS.third)
+      setValue(STEP2.toWall.name, WALLS.second, {
+        shouldValidate: true,
+      });
+    if (selectedWall === WALLS.second || selectedWall === WALLS.forth)
+      setValue(STEP2.toWall.name, WALLS.first, {
+        shouldValidate: true,
+      });
+  }, [selectedWall, setValue]);
+
+  useEffect(() => {
+    if (isHovered || isFocused) {
+      dispatch(addBedroomFocusedField(STEP2.doorSize.name));
+    } else {
+      dispatch(deleteBedroomFocusedField());
+    }
+  }, [dispatch, isHovered, isFocused]);
 
   return (
     <Stack gap={3}>
@@ -57,18 +86,23 @@ export const Door = () => {
         options={STEP2.wallNumber.options}
         className={CLASS_NAMES_INPUT.grey}
       />
-      <TextFieldWrapper
-        name={`${STEP2.doorSize.name}` as keyof SizesFormType}
-        control={control}
-        className={CLASS_NAMES_INPUT.grey}
-        placeholder={STEP2.doorSize.placeholder}
-        type="number"
-        step={1}
-        max={MAX_DOOR_INPUT_LENGTH}
-        errorMessage={errors?.door?.size?.message || ''}
-      />
-      <Stack>
-        <Stack direction="row" gap={3}>
+      <Stack
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <TextFieldWrapper
+          name={`${STEP2.doorSize.name}` as keyof SizesFormType}
+          control={control}
+          className={CLASS_NAMES_INPUT.grey}
+          placeholder={STEP2.doorSize.placeholder}
+          type="number"
+          step={1}
+          max={MAX_DOOR_INPUT_LENGTH}
+          errorMessage={errors?.door?.size?.message || ''}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        />
+        <Stack direction="row" gap={3} mt={3}>
           <TextFieldWrapper
             name={`${STEP2.fromDoorTo.name}` as keyof SizesFormType}
             control={control}
@@ -77,6 +111,8 @@ export const Door = () => {
             type="number"
             step={1}
             max={MAX_WALLS_INPUT_LENGTH}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
           />
           <RadioGroupWrapper
             name={`${STEP2.toWall.name}` as keyof SizesFormType}

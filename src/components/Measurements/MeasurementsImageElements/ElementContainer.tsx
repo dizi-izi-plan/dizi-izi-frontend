@@ -73,45 +73,47 @@ export const ElementContainer = ({
               : 'myGrey.grey700',
           }}
         ></Box>
-        {element.wall === WALLS.second || element.wall === WALLS.forth ? (
-          <>
-            <ArrowLeftIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                left: '-10px',
-                color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-            <ArrowRightIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                right: '-10px',
-                color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <ArrowDropUpIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                top: '-10px',
-                color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-            <ArrowDropDownIcon
-              fontSize="large"
-              sx={{
-                position: 'absolute',
-                bottom: '-10px',
-                color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
-              }}
-            />
-          </>
-        )}
+        {element.distance > 0 ? (
+          element.wall === WALLS.second || element.wall === WALLS.forth ? (
+            <>
+              <ArrowLeftIcon
+                fontSize="large"
+                sx={{
+                  position: 'absolute',
+                  left: '-10px',
+                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                }}
+              />
+              <ArrowRightIcon
+                fontSize="large"
+                sx={{
+                  position: 'absolute',
+                  right: '-10px',
+                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <ArrowDropUpIcon
+                fontSize="large"
+                sx={{
+                  position: 'absolute',
+                  top: '-10px',
+                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                }}
+              />
+              <ArrowDropDownIcon
+                fontSize="large"
+                sx={{
+                  position: 'absolute',
+                  bottom: '-10px',
+                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                }}
+              />
+            </>
+          )
+        ) : null}
       </Stack>
       {children}
     </Stack>

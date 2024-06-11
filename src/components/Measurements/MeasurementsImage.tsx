@@ -10,70 +10,32 @@ import { Door } from './MeasurementsImageElements/Door';
 import { Window } from './MeasurementsImageElements/Window';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
-import { TDoor, TWindow, TBalcony } from './MeasurementsTypes';
+import { TWindow, TBalcony } from './MeasurementsTypes';
 import { SizesFormType } from '@/components/Forms/SizesForm/validation';
-import { Control, useFormState } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { useAppSelector } from '@/redux/hooks';
-import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
-import { useFieldValue } from './useFieldValue';
+import { useDoorFields } from './hooks/useDoorFields';
+import { useWallsFields } from './hooks/useWallsFields';
 
 type MeasurementsImageProps = StackProps & {
   stepOne: boolean;
-  stepTwo: boolean;
   stepThree: boolean;
   control: Control<SizesFormType>;
 };
 
 export const MeasurementsImage = ({
   stepOne,
-  stepTwo,
   stepThree,
   control,
   ...props
 }: MeasurementsImageProps) => {
   const room = useRef<HTMLDivElement>(null);
   const wallThickness = 20;
-  const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
-  const { errors } = useFormState({ control });
+  const { verticalWall, horizontalWall, horizontalFocus, verticalFocus } =
+    useWallsFields(control);
 
-  const verticalWall = useFieldValue({
-    control,
-    fieldName: WALLS.first,
-    error: Boolean(errors.walls?.first) || Boolean(errors.walls?.third),
-  });
-
-  const horizontalWall = useFieldValue({
-    control,
-    fieldName: WALLS.second,
-    error: Boolean(errors.walls?.second) || Boolean(errors.walls?.forth),
-  });
-
-  const horizontalFocus = useMemo(() => {
-    if (fieldOnFocus === WALLS.second || fieldOnFocus === WALLS.forth)
-      return true;
-    return false;
-  }, [fieldOnFocus]);
-
-  const verticalFocus = useMemo(() => {
-    if (fieldOnFocus === WALLS.first || fieldOnFocus === WALLS.third)
-      return true;
-    return false;
-  }, [fieldOnFocus]);
-
-  const [doors, setDoors] = useState<TDoor[]>([
-    {
-      wall: WALLS.third,
-      size: 800,
-      distance: 500,
-      distanceFromLeft: true,
-      distanceFromRight: false,
-      openInside: true,
-      openLeft: true,
-      isFocused: true,
-    },
-  ]);
+  const door = useDoorFields(control, stepOne);
 
   const [windows, setWindows] = useState<TWindow[]>([
     {
@@ -152,7 +114,7 @@ export const MeasurementsImage = ({
   return (
     <Stack
       width="74%"
-      height="640px"
+      minHeight="640px"
       border="1px solid"
       mb="80px"
       alignItems="center"
@@ -242,16 +204,12 @@ export const MeasurementsImage = ({
           verticalWall={verticalWall}
           verticalFocus={verticalFocus}
         />
-        {!stepOne &&
-          doors.map((door, index) => (
-            <Door
-              key={index}
-              door={door}
-              horizontalWall={horizontalWall}
-              verticalWall={verticalWall}
-              wallThickness={wallThickness}
-            />
-          ))}
+        <Door
+          door={door}
+          horizontalWall={horizontalWall}
+          verticalWall={verticalWall}
+          wallThickness={wallThickness}
+        />
         {stepThree &&
           windows.map((window, index) => (
             <Window
@@ -275,74 +233,6 @@ export const MeasurementsImage = ({
       </Stack>
       {/*Раздел с кнопками для изменения параметров - ПРИМЕР для Кати и дизайнеров, пока нет формы. Удалить после*/}
       <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
-        <Stack
-          direction="row"
-          columnGap="20px"
-          display={stepTwo ? undefined : 'none'}
-        >
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setDoors((prev) => {
-                const newDoor = prev[0];
-                if (newDoor.distanceFromLeft) {
-                  newDoor.distanceFromLeft = false;
-                  newDoor.distanceFromRight = true;
-                } else {
-                  newDoor.distanceFromLeft = true;
-                  newDoor.distanceFromRight = false;
-                }
-                return [newDoor];
-              });
-            }}
-          >
-            Поменять стену, от которой идет расчет
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setDoors((prev) => {
-                const newDoor = prev[0];
-                newDoor.openLeft = !newDoor.openLeft;
-                return [newDoor];
-              });
-            }}
-          >
-            Открыть {doors[0].openLeft ? 'вправо' : 'влево'}
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setDoors((prev) => {
-                const newDoor = prev[0];
-                newDoor.openInside = !newDoor.openInside;
-                return [newDoor];
-              });
-            }}
-          >
-            Открыть {doors[0].openInside ? 'наружу' : 'внутрь'}
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setDoors((prev) => {
-                const newDoor = prev[0];
-                newDoor.isFocused = !newDoor.isFocused;
-                return [newDoor];
-              });
-            }}
-          >
-            {doors[0].isFocused ? 'Убрать фокус' : 'Дверь в фокусе'}
-          </Button>
-        </Stack>
         <Stack
           direction="row"
           columnGap="20px"

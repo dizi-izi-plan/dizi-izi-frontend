@@ -1,5 +1,5 @@
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { TWalls } from '../MeasurementsTypes';
+import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
 import {
   TLineStyles,
   TWindowStyles,
@@ -11,7 +11,7 @@ import { getElementSize } from '../helpers';
 
 export const getDoorStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
@@ -68,7 +68,7 @@ export const lineStyles: TLineStyles = {
 
 export const getWindowStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
@@ -106,7 +106,7 @@ export const getWindowStyles = (
 
 export const getBalconyStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
@@ -130,8 +130,12 @@ export const getBalconyStyles = (
         height: '33%',
         direction: 'row',
         position: {
-          openLeft: { top: '0px', right: '-15px', transform: 'rotate(-15deg)' },
           openRight: {
+            top: '0px',
+            right: '-15px',
+            transform: 'rotate(-15deg)',
+          },
+          openLeft: {
             bottom: '0px',
             right: '-15px',
             transform: 'rotate(15deg)',
@@ -150,12 +154,12 @@ export const getBalconyStyles = (
         height: '9px',
         direction: 'column',
         position: {
-          openLeft: {
+          openRight: {
             bottom: '-15px',
             right: '0px',
             transform: 'rotate(-15deg)',
           },
-          openRight: {
+          openLeft: {
             bottom: '-15px',
             left: '0px',
             transform: 'rotate(15deg)',
@@ -174,12 +178,16 @@ export const getBalconyStyles = (
         height: '33%',
         direction: 'row',
         position: {
-          openLeft: {
+          openRight: {
             bottom: '0px',
             left: '-15px',
             transform: 'rotate(-15deg)',
           },
-          openRight: { top: '0px', left: '-15px', transform: 'rotate(15deg)' },
+          openLeft: {
+            top: '0px',
+            left: '-15px',
+            transform: 'rotate(15deg)',
+          },
         },
       },
     },
@@ -194,8 +202,12 @@ export const getBalconyStyles = (
         height: '9px',
         direction: 'column',
         position: {
-          openLeft: { top: '-15px', left: '0px', transform: 'rotate(-15deg)' },
-          openRight: { top: '-15px', right: '0px', transform: 'rotate(15deg)' },
+          openRight: { top: '-15px', left: '0px', transform: 'rotate(-15deg)' },
+          openLeft: {
+            top: '-15px',
+            right: '0px',
+            transform: 'rotate(15deg)',
+          },
         },
       },
     },
@@ -204,12 +216,17 @@ export const getBalconyStyles = (
 
 export const getElementContainerStyles = (
   wallThickness: number,
-  wall: TWalls,
+  wall: WALLS_NAMES_TYPE,
   size: number,
   verticalWall: number,
   horizontalWall: number,
 ): TElementContainerStyles => {
-  const arrowSize = getElementSize(wall, size, verticalWall, horizontalWall);
+  let arrowSize;
+  if (size >= 200) {
+    arrowSize = getElementSize(wall, size, verticalWall, horizontalWall);
+  } else if (size > 0) {
+    arrowSize = 5;
+  }
 
   return {
     [WALLS.first]: {
@@ -218,12 +235,12 @@ export const getElementContainerStyles = (
         height: '100%',
         alignItems: 'flex-start',
         position: {
-          distFromLeft: {
+          distFromRight: {
             left: `-${wallThickness}px`,
             top: '0px',
             flexDirection: 'column',
           },
-          distFromRight: {
+          distFromLeft: {
             left: `-${wallThickness}px`,
             bottom: '0px',
             flexDirection: 'column-reverse',
@@ -246,12 +263,12 @@ export const getElementContainerStyles = (
         height: 'auto',
         alignItems: 'flex-start',
         position: {
-          distFromLeft: {
+          distFromRight: {
             top: `-${wallThickness}px`,
             right: '0px',
             flexDirection: 'row-reverse',
           },
-          distFromRight: {
+          distFromLeft: {
             top: `-${wallThickness}px`,
             left: '0px',
             flexDirection: 'row',
@@ -274,12 +291,12 @@ export const getElementContainerStyles = (
         height: '100%',
         alignItems: 'flex-end',
         position: {
-          distFromLeft: {
+          distFromRight: {
             right: `-${wallThickness}px`,
             bottom: '0px',
             flexDirection: 'column-reverse',
           },
-          distFromRight: {
+          distFromLeft: {
             right: `-${wallThickness}px`,
             top: '0px',
             flexDirection: 'column',
@@ -302,12 +319,12 @@ export const getElementContainerStyles = (
         height: 'auto',
         alignItems: 'flex-end',
         position: {
-          distFromLeft: {
+          distFromRight: {
             bottom: `-${wallThickness}px`,
             left: '0px',
             flexDirection: 'row',
           },
-          distFromRight: {
+          distFromLeft: {
             bottom: `-${wallThickness}px`,
             right: '0px',
             flexDirection: 'row-reverse',
