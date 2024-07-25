@@ -29,7 +29,7 @@ export const RegistrationForm = () => {
     defaultValues: {
       [REGISTRATION_FORM_NAMES.email]: '',
       [REGISTRATION_FORM_NAMES.password]: '',
-      [REGISTRATION_FORM_NAMES.confirmPassword]: '',
+      [REGISTRATION_FORM_NAMES.re_password]: '',
     },
     resolver: zodResolver(RegistrationFormValidation),
   });
@@ -64,12 +64,12 @@ export const RegistrationForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
             <InputPasswordWrapper
-              name={REGISTRATION_FORM_NAMES.confirmPassword}
+              name={REGISTRATION_FORM_NAMES.re_password}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={REGISTRATION_FORM_LABELS.confirmPassword}
+              label={REGISTRATION_FORM_LABELS.re_password}
               errorMessage={
-                errors.confirmPassword ? errors.confirmPassword?.message : ' '
+                errors.re_password ? errors.re_password?.message : ' '
               }
             />
           </Stack>
