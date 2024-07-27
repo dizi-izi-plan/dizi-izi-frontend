@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';

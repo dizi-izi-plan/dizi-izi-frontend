@@ -16,7 +16,6 @@ const fieldOnFocusSlice = createSlice({
       state.data = null;
     },
   },
-  extraReducers: {},
 });
 
 export const { addBedroomFocusedField, deleteBedroomFocusedField } =

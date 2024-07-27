@@ -1,18 +1,17 @@
 'use client';
+import { useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
+import { selectIsAuth } from '@/redux/slices/user-slice';
 
 export const StartButton = () => {
   const router = useRouter();
-  const isLoggedIn = false;
-
-  //TODO заменить isLoggen на данные из редакса
-  // заменить ссылку с /personal-account на /new-project (страница еще не создана)
+  const isAuth = useAppSelector(selectIsAuth);
 
   return (
     <Button
       variant="default"
-      onClick={() => router.push(isLoggedIn ? '/personal-account' : '/login')}
+      onClick={() => router.push(isAuth ? '/personal-account' : '/login')}
     >
       Начать
     </Button>

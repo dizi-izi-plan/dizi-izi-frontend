@@ -1,16 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { fieldOnFocusReducer } from './slices/focusedFields-slice';
+import { userReducer } from './slices/user-slice';
 import current from './slices/current-slice';
-import { apiCities } from './slices/api-slice';
+import { apiCities, apiDiziIzi } from './slices/api-slice';
 
 export const store = configureStore({
   reducer: {
     fieldOnFocus: fieldOnFocusReducer,
+    user: userReducer,
     current,
+    [apiDiziIzi.reducerPath]: apiDiziIzi.reducer,
     [apiCities.reducerPath]: apiCities.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiCities.middleware),
+    getDefaultMiddleware()
+      .concat(apiDiziIzi.middleware)
+      .concat(apiCities.middleware),
   devTools: true,
 });
 

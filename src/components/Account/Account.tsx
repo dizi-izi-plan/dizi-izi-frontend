@@ -1,5 +1,6 @@
 'use client';
-import { useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
@@ -10,8 +11,11 @@ import { AccountMenuItemsType } from './accountTypes';
 import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
+import { useLogoutMutation } from '@/redux/slices/api-slice';
 
 export const Account = () => {
+  const router = useRouter();
+
   const [value, setValue] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -23,7 +27,11 @@ export const Account = () => {
     setValue(2);
   };
 
-  // TODO: to add handleYes (~ dispatch logOut)
+  const [fetchLogout, { isSuccess }] = useLogoutMutation();
+
+  useEffect(() => {
+    if (isSuccess) router.push('/');
+  }, [isSuccess, router]);
 
   return (
     <>
@@ -63,7 +71,7 @@ export const Account = () => {
         text={['Вы уверены, что хотите выйти из профиля?']}
         icon={<ModalIcon width="75" height="126" />}
         handleClose={() => setModalOpen(false)}
-        // handleYes={() => }
+        handleYes={async () => await fetchLogout('').unwrap()}
         handleNo={returnUserToProfile}
         nameButtonYes="Да"
         nameButtonNo="Нет"

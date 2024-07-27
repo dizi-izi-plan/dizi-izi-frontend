@@ -1,11 +1,17 @@
 'use client';
 
+import { useAppSelector } from '@/redux/hooks';
+import { useRouter } from 'next/navigation';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
+import { useGetUserDataQuery } from '@/redux/slices/api-slice';
+import { selectIsAuth, selectUserData } from '@/redux/slices/user-slice';
+import { useSelector } from 'react-redux';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -16,6 +22,11 @@ const headerLinksData = [
 ];
 
 export const Header = () => {
+  const isAuth = useAppSelector(selectIsAuth);
+  const userData = useSelector(selectUserData);
+  const router = useRouter();
+  useGetUserDataQuery('');
+
   return (
     <header>
       <Box
@@ -37,7 +48,7 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Link href="/">
+            <Link href="#" onClick={() => router.push('/')}>
               <AppLogo />
             </Link>
             <Stack
@@ -47,14 +58,31 @@ export const Header = () => {
               spacing={5}
             >
               {headerLinksData.map((linkData) => (
-                <Link href={linkData.href} key={linkData.label} variant="m">
+                <Link
+                  href="#"
+                  onClick={() => router.push(linkData.href)}
+                  key={linkData.label}
+                  variant="m"
+                >
                   {linkData.label}
                 </Link>
               ))}
             </Stack>
-            <Link href="#" sx={{ borderRadius: '50%' }} variant="m">
+            <Link
+              sx={{ borderRadius: '50%', textDecoration: 'none' }}
+              onClick={
+                isAuth ? () => router.push('/personal-account') : undefined
+              }
+              href="#"
+            >
               <Avatar>
-                <UserLogo />
+                {userData.email ? (
+                  <Typography variant="subtitle1">
+                    {userData.email[0].toUpperCase()}
+                  </Typography>
+                ) : (
+                  <UserLogo />
+                )}
               </Avatar>
             </Link>
           </Stack>

@@ -1,7 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/redux/hooks';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
@@ -13,12 +15,18 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import { useLoginMutation } from '@/redux/slices/api-slice';
+import { TLoginError } from '@/types/api-types';
+import { selectIsAuth } from '@/redux/slices/user-slice';
+
+const fieldsArr = [LOGIN_FORM_NAMES.email, LOGIN_FORM_NAMES.password];
 
 export const LoginForm = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setError,
   } = useForm<LoginFormType>({
     defaultValues: {
       [LOGIN_FORM_NAMES.email]: '',
@@ -26,7 +34,33 @@ export const LoginForm = () => {
     },
     resolver: zodResolver(LoginFormValidation),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const router = useRouter();
+  const isAuth = useAppSelector(selectIsAuth);
+
+  const [fetchlogin, { error, isError, isSuccess }] = useLoginMutation();
+
+  const onSubmit = handleSubmit(async (data) => {
+    await fetchlogin(data).unwrap();
+  });
+
+  useEffect(() => {
+    const currentError = error as TLoginError;
+    if (isError && currentError.data.non_field_errors[0]) {
+      fieldsArr.forEach((field) => {
+        const currentError = error as TLoginError;
+        setError(field, {
+          type: 'custom',
+          message: currentError.data.non_field_errors[0],
+        });
+      });
+    } else if (isSuccess) {
+      router.push('/personal-account');
+    }
+  }, [isError, error, setError, isSuccess, router]);
+
+  useEffect(() => {
+    if (isAuth) router.push('/personal-account');
+  }, [isAuth, router]);
 
   return (
     <div>
