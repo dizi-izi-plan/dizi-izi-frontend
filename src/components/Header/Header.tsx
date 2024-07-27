@@ -11,7 +11,6 @@ import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
 import { useGetUserDataQuery } from '@/redux/slices/api-slice';
 import { selectIsAuth, selectUserData } from '@/redux/slices/user-slice';
-import { useSelector } from 'react-redux';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -23,7 +22,7 @@ const headerLinksData = [
 
 export const Header = () => {
   const isAuth = useAppSelector(selectIsAuth);
-  const userData = useSelector(selectUserData);
+  const userData = useAppSelector(selectUserData);
   const router = useRouter();
   useGetUserDataQuery('');
 

@@ -1,6 +1,7 @@
 'use client';
-import { useState, SyntheticEvent, useEffect } from 'react';
+import { useState, SyntheticEvent, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/redux/hooks';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
@@ -12,9 +13,11 @@ import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 import { useLogoutMutation } from '@/redux/slices/api-slice';
+import { selectIsAuth } from '@/redux/slices/user-slice';
 
 export const Account = () => {
   const router = useRouter();
+  const isAuth = useAppSelector(selectIsAuth);
 
   const [value, setValue] = useState<number>(0);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -27,11 +30,11 @@ export const Account = () => {
     setValue(2);
   };
 
-  const [fetchLogout, { isSuccess }] = useLogoutMutation();
+  const [fetchLogout] = useLogoutMutation();
 
-  useEffect(() => {
-    if (isSuccess) router.push('/');
-  }, [isSuccess, router]);
+  useLayoutEffect(() => {
+    if (!isAuth) router.push('/login');
+  }, [isAuth, router]);
 
   return (
     <>
