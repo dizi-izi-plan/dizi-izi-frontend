@@ -3,37 +3,38 @@ import Stack from '@mui/material/Stack';
 import { ArrowBackButton } from '@/components/ArrowBackButton/ArrowBackButton';
 import { LargeBoxButtonLink } from '@/components/LargeBoxButtonLink/LargeBoxButtonLink';
 import { PageContainer } from '@/containers/PageContainer/PageContainer';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 const rooms = [
   {
     title: 'Спальня',
-    href: '/personal-account',
+    href: routes.personalAccount,
     disabled: false,
   },
   {
     title: 'Детская',
-    href: '/personal-account',
+    href: routes.personalAccount,
     disabled: true,
   },
-  { title: 'Кухня', href: '/personal-account', disabled: true },
+  { title: 'Кухня', href: routes.personalAccount, disabled: true },
   {
     title: 'Гостиная',
-    href: '/personal-account',
+    href: routes.personalAccount,
     disabled: true,
   },
   {
     title: 'Санузел',
-    href: '/personal-account',
+    href: routes.personalAccount,
     disabled: true,
   },
   {
     title: 'Кабинет',
-    href: '/personal-account',
+    href: routes.personalAccount,
     disabled: true,
   },
   {
     title: 'Прихожая',
-    href: '/personal-account',
+    href: routes.personalAccount,
     disabled: true,
   },
 ];

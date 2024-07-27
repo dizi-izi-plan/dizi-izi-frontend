@@ -14,6 +14,7 @@ import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 import { useLogoutMutation } from '@/redux/slices/api-slice';
 import { selectIsAuth } from '@/redux/slices/user-slice';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 export const Account = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ export const Account = () => {
   const [fetchLogout] = useLogoutMutation();
 
   useLayoutEffect(() => {
-    if (!isAuth) router.push('/login');
+    if (!isAuth) router.push(routes.authRoutes.login);
   }, [isAuth, router]);
 
   return (

@@ -1,4 +1,5 @@
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 const ConfirmRegistrationMessage = () => {
   const text = [
@@ -8,7 +9,7 @@ const ConfirmRegistrationMessage = () => {
 
   const buttonInfo = {
     name: 'Войти',
-    route: '/login', // добавить нужный роут, по которому будет вход
+    route: routes.authRoutes.login,
   };
 
   return <MessageContainer text={text} button={buttonInfo} />;

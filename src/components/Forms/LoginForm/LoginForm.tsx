@@ -18,6 +18,7 @@ import Box from '@mui/material/Box';
 import { useLoginMutation } from '@/redux/slices/api-slice';
 import { TLoginError } from '@/types/api-types';
 import { selectIsAuth } from '@/redux/slices/user-slice';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 const fieldsArr = [LOGIN_FORM_NAMES.email, LOGIN_FORM_NAMES.password];
 
@@ -54,12 +55,12 @@ export const LoginForm = () => {
         });
       });
     } else if (isSuccess) {
-      router.push('/personal-account');
+      router.push(routes.personalAccount);
     }
   }, [isError, error, setError, isSuccess, router]);
 
   useEffect(() => {
-    if (isAuth) router.push('/personal-account');
+    if (isAuth) router.push(routes.personalAccount);
   }, [isAuth, router]);
 
   return (

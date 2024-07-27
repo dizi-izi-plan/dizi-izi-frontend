@@ -11,6 +11,7 @@ import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
 import { useGetUserDataQuery } from '@/redux/slices/api-slice';
 import { selectIsAuth, selectUserData } from '@/redux/slices/user-slice';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -47,7 +48,7 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Link href="#" onClick={() => router.push('/')}>
+            <Link href="#" onClick={() => router.push(routes.home)}>
               <AppLogo />
             </Link>
             <Stack
@@ -70,7 +71,7 @@ export const Header = () => {
             <Link
               sx={{ borderRadius: '50%', textDecoration: 'none' }}
               onClick={
-                isAuth ? () => router.push('/personal-account') : undefined
+                isAuth ? () => router.push(routes.personalAccount) : undefined
               }
               href="#"
             >

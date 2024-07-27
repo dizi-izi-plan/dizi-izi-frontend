@@ -3,6 +3,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import { selectIsAuth } from '@/redux/slices/user-slice';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 export const StartButton = () => {
   const router = useRouter();
@@ -11,7 +12,9 @@ export const StartButton = () => {
   return (
     <Button
       variant="default"
-      onClick={() => router.push(isAuth ? '/personal-account' : '/login')}
+      onClick={() =>
+        router.push(isAuth ? routes.personalAccount : routes.authRoutes.login)
+      }
     >
       Начать
     </Button>
