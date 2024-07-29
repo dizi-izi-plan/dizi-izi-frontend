@@ -22,3 +22,8 @@ export interface ModalDataProps {
   text: string[];
   handleYes: () => void;
 }
+
+export interface ModalDataProps {
+  text: string[];
+  handleYes: () => void;
+}
