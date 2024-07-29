@@ -14,6 +14,9 @@ import {
   modalConfigs,
 } from './projectNavbar.data';
 import { ProjectNavbarProps } from './ProjectNavbarDataTypes';
+import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
+import ModalIcon from '@public/assets/icons/modal_icon.svg';
+import { modalData } from './projectNavbar.data';
 
 const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
   const dispatch = useAppDispatch();
