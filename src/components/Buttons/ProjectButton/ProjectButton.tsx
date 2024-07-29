@@ -4,25 +4,28 @@ import Image from 'next/image';
 import React from 'react';
 import { ProjectButtonProps } from './ProjectButtonDataTypes';
 
-const ProjectButton: React.FC<ProjectButtonProps> = ({ action, img, alt }) => {
+const ProjectButton: React.FC<ProjectButtonProps> = ({
+  action,
+  img,
+  alt,
+  fn,
+}) => {
   return (
-    <>
-      <Button variant="empty">
-        <PopperMessage tip={action}>
-          <Image
-            src={img}
-            alt={alt}
-            width={24}
-            height={24}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          />
-        </PopperMessage>
-      </Button>
-    </>
+    <Button variant="empty" onClick={fn}>
+      <PopperMessage tip={action}>
+        <Image
+          src={img}
+          alt={alt}
+          width={24}
+          height={24}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      </PopperMessage>
+    </Button>
   );
 };
 
