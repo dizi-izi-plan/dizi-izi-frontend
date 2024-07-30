@@ -107,8 +107,7 @@ export const LayoutsContainer = () => {
     id: 3,
     date: '25.11.2024, 22:21',
   };
-  const hasDraft = draft && Object.keys(draft).length !== 0
-  
+  const hasDraft = draft && Object.keys(draft).length !== 0;
 
   const getModalText = (): string[] => {
     switch (modalState.modalType) {
@@ -175,7 +174,7 @@ export const LayoutsContainer = () => {
         nameButton="Начать"
       />
 
-      <ModalTwoButtons 
+      <ModalTwoButtons
         handleYes={modalActions.handleYes}
         handleNo={modalActions.handleNo}
         text={getModalText()}

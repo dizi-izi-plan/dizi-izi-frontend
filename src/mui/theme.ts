@@ -638,6 +638,7 @@ theme = createTheme(theme, {
     },
     MuiMenuItem: {
       styleOverrides: {
+
         root: {
           '&.MuiButtonBase-root': {
             padding: '0',
@@ -650,6 +651,7 @@ theme = createTheme(theme, {
             },
           },
           '& em': {
+
             color: theme.palette.myGrey.grey500,
             fontStyle: 'normal',
           },
