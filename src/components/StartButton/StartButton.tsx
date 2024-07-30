@@ -1,13 +1,12 @@
 'use client';
-import { useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
-import { selectIsAuth } from '@/redux/slices/user-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
+import { useAuth } from '@/hooks/useAuth';
 
 export const StartButton = () => {
   const router = useRouter();
-  const isAuth = useAppSelector(selectIsAuth);
+  const isAuth = useAuth();
 
   return (
     <Button

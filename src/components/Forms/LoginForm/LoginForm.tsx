@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useAppSelector } from '@/redux/hooks';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
@@ -17,8 +16,8 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import { useLoginMutation } from '@/redux/slices/api-slice';
 import { TLoginError } from '@/types/api-types';
-import { selectIsAuth } from '@/redux/slices/user-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
+import { useAuth } from '@/hooks/useAuth';
 
 const fieldsArr = [LOGIN_FORM_NAMES.email, LOGIN_FORM_NAMES.password];
 
@@ -36,30 +35,28 @@ export const LoginForm = () => {
     resolver: zodResolver(LoginFormValidation),
   });
   const router = useRouter();
-  const isAuth = useAppSelector(selectIsAuth);
+  const isAuth = useAuth();
 
-  const [fetchlogin, { error, isError, isSuccess }] = useLoginMutation();
+  const [fetchlogin] = useLoginMutation();
 
   const onSubmit = handleSubmit(async (data) => {
-    await fetchlogin(data).unwrap();
+    try {
+      await fetchlogin(data).unwrap();
+      router.push(routes.personalAccount);
+    } catch (error) {
+      const currentError = error as TLoginError;
+      if (currentError.data?.non_field_errors[0]) {
+        fieldsArr.forEach((field) => {
+          setError(field, {
+            type: 'custom',
+            message: currentError.data.non_field_errors[0],
+          });
+        });
+      }
+    }
   });
 
-  useEffect(() => {
-    const currentError = error as TLoginError;
-    if (isError && currentError.data.non_field_errors[0]) {
-      fieldsArr.forEach((field) => {
-        const currentError = error as TLoginError;
-        setError(field, {
-          type: 'custom',
-          message: currentError.data.non_field_errors[0],
-        });
-      });
-    } else if (isSuccess) {
-      router.push(routes.personalAccount);
-    }
-  }, [isError, error, setError, isSuccess, router]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isAuth) router.push(routes.personalAccount);
   }, [isAuth, router]);
 

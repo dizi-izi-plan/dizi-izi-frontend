@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import type { AxiosRequestConfig, AxiosError } from 'axios';
+import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import { HHAreaResponse, HHCountryResponse } from '@/types/api-types';
 import { axiosInstance } from '@/helpers/axios/axiosInterceptors';
 import { setCookie, deleteCookie } from '@/helpers/cookie/cookie';
@@ -9,9 +10,9 @@ import { setIsAuth, setUserData } from './user-slice';
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 const axiosBaseQuery =
-  (
-    { baseUrl }: { baseUrl: string } = { baseUrl: '' },
-  ): BaseQueryFn<
+  ({
+    baseUrl = '',
+  }): BaseQueryFn<
     {
       url: string;
       method?: AxiosRequestConfig['method'];
@@ -45,7 +46,7 @@ const axiosBaseQuery =
 
 export const apiCities = createApi({
   reducerPath: 'apiCities',
-  baseQuery: axiosBaseQuery({
+  baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.hh.ru/',
   }),
   endpoints: (build) => ({

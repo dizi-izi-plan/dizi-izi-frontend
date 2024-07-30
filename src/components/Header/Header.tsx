@@ -1,17 +1,18 @@
 'use client';
 
 import { useAppSelector } from '@/redux/hooks';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
+import { Link as MUILink } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
 import { useGetUserDataQuery } from '@/redux/slices/api-slice';
-import { selectIsAuth, selectUserData } from '@/redux/slices/user-slice';
+import { selectUserData } from '@/redux/slices/user-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
+import { useAuth } from '@/hooks/useAuth';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -22,9 +23,8 @@ const headerLinksData = [
 ];
 
 export const Header = () => {
-  const isAuth = useAppSelector(selectIsAuth);
+  const isAuth = useAuth();
   const userData = useAppSelector(selectUserData);
-  const router = useRouter();
   useGetUserDataQuery('');
 
   return (
@@ -48,9 +48,9 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Link href="#" onClick={() => router.push(routes.home)}>
+            <MUILink href={routes.home} component={Link}>
               <AppLogo />
-            </Link>
+            </MUILink>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -58,22 +58,20 @@ export const Header = () => {
               spacing={5}
             >
               {headerLinksData.map((linkData) => (
-                <Link
-                  href="#"
-                  onClick={() => router.push(linkData.href)}
+                <MUILink
+                  href={linkData.href}
+                  component={Link}
                   key={linkData.label}
                   variant="m"
                 >
                   {linkData.label}
-                </Link>
+                </MUILink>
               ))}
             </Stack>
-            <Link
+            <MUILink
               sx={{ borderRadius: '50%', textDecoration: 'none' }}
-              onClick={
-                isAuth ? () => router.push(routes.personalAccount) : undefined
-              }
-              href="#"
+              component={Link}
+              href={isAuth ? routes.personalAccount : '#'}
             >
               <Avatar>
                 {userData.email ? (
@@ -84,7 +82,7 @@ export const Header = () => {
                   <UserLogo />
                 )}
               </Avatar>
-            </Link>
+            </MUILink>
           </Stack>
         </Box>
       </Box>
