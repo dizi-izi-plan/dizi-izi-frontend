@@ -1,9 +1,9 @@
-import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import { Box, SxProps, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { theme } from '@/mui/theme';
 import { MenuOptionsDraft } from '@/components/Menu/MenuOptionsProjects/MenuOptionsDraft';
 import DraftIcon from '../../../public/assets/icons/draftIcon.svg';
@@ -27,6 +27,7 @@ export const DraftContainer: FC<DraftContainerProps> = ({
 }) => {
 
     const router = useRouter();
+
     const [isOpen, setIsOpen] = useState(false);
 
     const handleConfirm = () => {
@@ -34,9 +35,7 @@ export const DraftContainer: FC<DraftContainerProps> = ({
         setIsOpen(false);
     };
 
-    const handleClose = () => {
-        setIsOpen(false);
-    };
+
 
     return (
         <Stack
@@ -44,9 +43,10 @@ export const DraftContainer: FC<DraftContainerProps> = ({
             width='256px'
         >
             <Button
+            
                 variant='box'
                 size="small"
-                onClick={() => { }}
+                onClick={() => handleConfirm()}
                 startIcon={
                     <DraftIcon />
                 }
