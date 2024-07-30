@@ -2,7 +2,7 @@ import { ChangeEvent, FC, KeyboardEvent, useEffect, useRef, useState } from 'rea
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Box, SxProps, Typography } from '@mui/material';
+import { Box,  Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { theme } from '@/mui/theme';
 import { MenuOptionsProjects } from '@/components/Menu/MenuOptionsProjects/MenuOptionsProjects';
@@ -36,7 +36,7 @@ export const ProjectsContainer: FC<ProjectsContainerProps> = ({
 
     const router = useRouter();
 
-    const handleConfirm = () => {
+     const handleConfirm = () => {
         router.push('/room-measurements');
         setIsOpen(false);
     };
