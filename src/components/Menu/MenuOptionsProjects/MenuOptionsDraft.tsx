@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Menu, MenuItem, Typography } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
@@ -63,28 +63,10 @@ export const MenuOptionsDraft: React.FC<MenuOptionsDraftProps> = ({
                 onClose={handleClose}
             >
 
-                <Box
-                    sx={(theme) => ({
-                        // backgroundColor:'red',
-                        // width: '168px',
-                        // display: 'flex',
-                        // flexDirection: 'column',
-                        // gap: '20px',
-                        // border: `1px solid ${theme.palette.primary.main}`,
-                        // padding: '12px'
-                    })}
-                >
+                <Box>
 
                     <MenuItem
-                        sx={(theme) => ({
-                            // fontSize: theme.typography.overline,
-                            // color: theme.palette.primary.contrastText,
-                            // padding: '0',
-
-                            // '&:hover': {
-                            //     backgroundColor: 'transparent'
-                            // }
-                        })}
+                       
                         onClick={() => { onDuplicate(); handleClose(); }}
                     >
                         <Typography
@@ -95,15 +77,6 @@ export const MenuOptionsDraft: React.FC<MenuOptionsDraftProps> = ({
 
                     </MenuItem>
                     <MenuItem
-                        sx={(theme) => ({
-                            // fontSize: theme.typography.overline,
-                            // color: theme.palette.primary.contrastText,
-                            // padding: '0',
-                            // '&:hover': {
-
-                            //     backgroundColor: 'transparent'
-                            // }
-                        })}
                         onClick={() => { onDelete(); handleClose(); }}
                     >
                         <Typography
