@@ -4,6 +4,7 @@ export const CLASS_NAMES_INPUT = {
   dark: 'subvariant-dark',
   light: 'subvariant-light',
   grey: 'subvariant-grey',
+  rename: 'subvariant-rename',
 } as const;
 
 export const CLASS_NAMES_LABEL = {

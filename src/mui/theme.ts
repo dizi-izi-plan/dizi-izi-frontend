@@ -233,9 +233,26 @@ theme = createTheme(theme, {
             '& .MuiOutlinedInput-root': {
               color: theme.palette.black.main,
             },
+          },
+          '&.subvariant-rename': {
+            '& .MuiInputBase-root': {
+              borderColor: 'transparent',
+              'input': {
+                minHeight: 33.39,
+                caretColor: theme.palette.primary.main,
+                fontSize: '20px !important',
+                color: theme.palette.secondary.main,
+                padding: '0',
+              },
+              
+            },
+            '& .MuiOutlinedInput-input': {
+
+
+            },
+            '& .MuiOutlinedInput-root': {
+            },
             '& .MuiOutlinedInput-input::placeholder': {
-              color: theme.palette.myGrey.grey300,
-              opacity: 1,
             },
           },
         },
@@ -523,6 +540,13 @@ theme = createTheme(theme, {
           style: {
             minWidth: '44px',
             minHeight: '44px',
+            '&.MuiButtonBase-root': {
+              borderBottom: 'none',
+              flex: '1 1 auto',
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
+            },
           },
         },
         {
@@ -582,10 +606,41 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+
+        root: {
+          '& .MuiPaper-root': {
+            borderRadius: '0',
+          },
+          '& .MuiList-root': {
+            padding: '0',
+            borderRadius: '0'
+          },
+          '& .MuiBox-root': {
+            width: '168px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            border: `1px solid ${theme.palette.primary.main}`,
+            padding: '12px'
+          },
+        },
+      },
+    },
     MuiMenuItem: {
       styleOverrides: {
+
         root: {
+
+          '&.MuiButtonBase-root': {
+            padding: '0',
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          },
           '& em': {
+
             color: theme.palette.myGrey.grey500,
             fontStyle: 'normal',
           },
