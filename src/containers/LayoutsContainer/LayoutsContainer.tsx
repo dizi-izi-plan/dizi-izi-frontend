@@ -11,7 +11,6 @@ import { ProjectsContainer } from '../ProjectContainer/ProjectContainer';
 import { DraftContainer } from '../DraftContainer/DraftContainer';
 import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
 import { MODAL_YES_NO_QUESTIONS } from '@/components/Modal/modal.data';
-import DraftIcon from '../../../public/assets/icons/draftIcon.svg';
 import Maket from '../../../public/assets/icons/maket.svg'
 
 import { routes } from '@/helpers/common-constants/routes-constants';
