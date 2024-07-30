@@ -223,7 +223,7 @@ export const LayoutsContainer = () => {
         </Button>
         {projects.map((project) => (
           <ProjectsContainer
-            image={<Maket/>}
+            image={<Maket />}
             key={project.id}
             id={project.id}
             name={project.name}
