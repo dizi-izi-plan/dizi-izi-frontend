@@ -150,6 +150,7 @@ export const LayoutsContainer = () => {
         )}
       </Stack>
 
+
       <ModalOneButton
         modalName={modalNames.modalStartNewProject}
         text={MODAL_TEXT}
