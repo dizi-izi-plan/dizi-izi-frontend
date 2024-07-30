@@ -13,6 +13,7 @@ import { useGetUserDataQuery } from '@/redux/slices/api-slice';
 import { selectUserData } from '@/redux/slices/user-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
+import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -86,6 +87,7 @@ export const Header = () => {
           </Stack>
         </Box>
       </Box>
+      <ModalCommonTemplate />
     </header>
   );
 };

@@ -1,11 +1,10 @@
 'use client';
-
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/redux/hooks';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { ModalOneButton } from '@/components/Modal/ModalOneButton';
+import { openCommonModal } from '@/redux/slices/modal-slice';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 
 const MODAL_TEXT = [
@@ -14,17 +13,8 @@ const MODAL_TEXT = [
 ];
 
 export const LayoutsContainer = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const router = useRouter();
-
-  const handleConfirm = () => {
-    router.push('/room-selection');
-    setIsOpen(false);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
 
   return (
     <>
@@ -33,20 +23,20 @@ export const LayoutsContainer = () => {
           variant="box"
           size="large"
           startIcon={<AddBoxOutlinedIcon />}
-          onClick={() => setIsOpen(true)}
+          onClick={() =>
+            dispatch(
+              openCommonModal({
+                text: MODAL_TEXT,
+                icon: <ModalIcon width="75" height="126" />,
+                сonsentText: 'Продолжить',
+                сonsentCallback: router.push('/room-selection'),
+              }),
+            )
+          }
         >
           Создать проект
         </Button>
       </Stack>
-
-      <ModalOneButton
-        text={MODAL_TEXT}
-        isModalOpen={isOpen}
-        handleConfirm={handleConfirm}
-        handleClose={handleClose}
-        icon={<ModalIcon width="75" height="126" />}
-        nameButton={'Начать'}
-      />
     </>
   );
 };
