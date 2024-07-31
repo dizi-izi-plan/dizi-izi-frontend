@@ -1,3 +1,5 @@
+'use client';
+
 import { InfoModal } from '@/components/InfoModal';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
