@@ -61,7 +61,7 @@ export const RegistrationForm = () => {
       await registration(data).unwrap();
 
       router.push('/registration-letter-message');
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
       setOpenSnackbar(true);
     }
