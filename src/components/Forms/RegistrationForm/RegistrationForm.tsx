@@ -42,7 +42,6 @@ export const RegistrationForm = () => {
   const router = useRouter();
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [responseStatus, setResponseStatus] = useState<Number>();
 
   const [registration, { isLoading }] = useRegistrationMutation();
 
@@ -60,14 +59,10 @@ export const RegistrationForm = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await registration(data).unwrap();
-      setResponseStatus(201);
-      setOpenSnackbar(true);
 
       router.push('/registration-letter-message');
     } catch (error: any) {
       console.error(error);
-
-      setResponseStatus(error.status);
       setOpenSnackbar(true);
     }
   });
@@ -135,17 +130,15 @@ export const RegistrationForm = () => {
       <Snackbar
         open={openSnackbar}
         onClose={handleSnackbarClose}
-        autoHideDuration={1500}
+        autoHideDuration={2500}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <Alert
           onClose={handleSnackbarClose}
-          severity={responseStatus === 201 ? 'success' : 'error'}
+          severity="error"
           sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
         >
-          {responseStatus === 201
-            ? 'Вы успешно зарегистрировались'
-            : 'Данный пользователь уже зарегистрирован'}
+          Данный пользователь уже зарегистрирован
         </Alert>
       </Snackbar>
     </div>
