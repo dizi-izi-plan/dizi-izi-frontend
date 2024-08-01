@@ -1,16 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
+import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
 import { InputPasswordWrapper } from '../../Input/InputPassword/InputPasswordWrapper';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
 import {
   REGISTRATION_FORM_LABELS,
   REGISTRATION_FORM_NAMES,
@@ -19,6 +23,7 @@ import {
   RegistrationFormType,
   RegistrationFormValidation,
 } from './validationSchema';
+import { useRegistrationMutation } from '@/api/apiSlice';
 
 export const RegistrationForm = () => {
   const {
@@ -33,7 +38,39 @@ export const RegistrationForm = () => {
     },
     resolver: zodResolver(RegistrationFormValidation),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+
+  const router = useRouter();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [responseStatus, setResponseStatus] = useState<Number>();
+
+  const [registration, { isLoading }] = useRegistrationMutation();
+
+  const handleSnackbarClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await registration(data).unwrap();
+      setResponseStatus(201);
+      setOpenSnackbar(true);
+
+      router.push('/registration-letter-message');
+    } catch (error: any) {
+      console.error(error);
+
+      setResponseStatus(error.status);
+      setOpenSnackbar(true);
+    }
+  });
 
   return (
     <div>
@@ -46,6 +83,7 @@ export const RegistrationForm = () => {
           Зарегистрироваться
         </Typography>
       </Box>
+
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
           <Stack rowGap={4}>
@@ -84,11 +122,32 @@ export const RegistrationForm = () => {
         <Stack spacing={4} alignItems="center" mb={5}>
           <Box>
             <Button variant="default" size="large" type="submit">
-              Создать личный кабинет
+              {isLoading ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                'Создать личный кабинет'
+              )}
             </Button>
           </Box>
         </Stack>
       </form>
+
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleSnackbarClose}
+        autoHideDuration={1500}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={responseStatus === 201 ? 'success' : 'error'}
+          sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
+        >
+          {responseStatus === 201
+            ? 'Вы успешно зарегистрировались'
+            : 'Данный пользователь уже зарегистрирован'}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
