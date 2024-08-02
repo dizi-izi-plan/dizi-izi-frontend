@@ -30,7 +30,7 @@ export const authApi = createApi({
     }),
     activateUser: builder.mutation({
       query: (body) => ({
-        url: 'auth/users/activation',
+        url: 'auth/users/activation/',
         method: 'POST',
         body,
       }),
