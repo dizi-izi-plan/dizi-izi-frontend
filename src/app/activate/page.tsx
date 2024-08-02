@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React from 'react';
+// import { useRouter } from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useActivateUserMutation, useGetUserDataQuery } from '@/api/apiSlice';
 import Button from '@mui/material/Button';
@@ -11,8 +11,8 @@ export default function ActivateUser({
 }: {
   params: { token: string; uid: string };
 }) {
-  const router = useRouter();
-  const [activateUser, { isLoading, data }] = useActivateUserMutation();
+  // const router = useRouter();
+  const [activateUser, { isLoading }] = useActivateUserMutation();
   const userData = useGetUserDataQuery('');
 
   const handleClick = async () => {
