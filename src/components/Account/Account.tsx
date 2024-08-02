@@ -10,9 +10,11 @@ import { TabContentContainer } from '../../containers/TabContentContainer/TabCon
 import { AccountMenuItemsType } from './accountTypes';
 import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
-import { useLogoutMutation } from '@/redux/slices/api-slice';
-import { openCommonModal } from '@/redux/slices/modal-slice';
+import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
+import { useLogoutMutation } from '@/redux/slices/auth-slice';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
 
 export const Account = () => {
   useProtectedRoute();
@@ -52,18 +54,7 @@ export const Account = () => {
           label={<span className="tab__label">Выйти</span>}
           icon={<MenuUnderlineIcon />}
           iconPosition="bottom"
-          onClick={() =>
-            dispatch(
-              openCommonModal({
-                text: ['Вы уверены, что хотите выйти из профиля?'],
-                icon: <ModalIcon width="75" height="126" />,
-                сonsentText: 'Да',
-                сonsentCallback: async () => await fetchLogout('').unwrap(),
-                dissentText: 'Нет',
-                dissentCallback: returnUserToProfile,
-              }),
-            )
-          }
+          onClick={() => dispatch(setCurrentModal(modalNames.modalLogout))}
         />
       </Tabs>
       <Box width="76%">
@@ -73,6 +64,15 @@ export const Account = () => {
           </TabContentContainer>
         ))}
       </Box>
+      <ModalTwoButtons
+        modalName={modalNames.modalLogout}
+        text={['Вы уверены, что хотите выйти из профиля?']}
+        icon={<ModalIcon width="75" height="126" />}
+        handleYes={async () => await fetchLogout('').unwrap()}
+        handleNo={returnUserToProfile}
+        nameButtonYes="Да"
+        nameButtonNo="Нет"
+      />
     </>
   );
 };

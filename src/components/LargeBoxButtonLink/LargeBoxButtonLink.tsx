@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import Button from '@mui/material/Button';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import { CustomLink } from '@/components/Link/CustomLink';
 
 interface LargeBoxButtonLinkProps {
   href: string;
@@ -14,7 +14,10 @@ export const LargeBoxButtonLink = ({
   isDisabled,
 }: LargeBoxButtonLinkProps) => {
   return (
-    <Link href={href} style={{ pointerEvents: isDisabled ? 'none' : 'auto' }}>
+    <CustomLink
+      href={href}
+      style={{ pointerEvents: isDisabled ? 'none' : 'auto' }}
+    >
       <Button
         variant="box"
         size="large"
@@ -23,6 +26,6 @@ export const LargeBoxButtonLink = ({
       >
         {title}
       </Button>
-    </Link>
+    </CustomLink>
   );
 };

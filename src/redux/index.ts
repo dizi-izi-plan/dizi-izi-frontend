@@ -1,23 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { fieldOnFocusReducer } from './slices/focusedFields-slice';
-import { userReducer } from './slices/user-slice';
 import { modalReducer } from './slices/modal-slice';
 import current from './slices/current-slice';
-import { apiCities, apiDiziIzi } from './slices/api-slice';
+import { diziIziSplitApi } from './slices/diziIziSplitApi-slice';
+import { CitiesApi } from './slices/cities-slice';
 
 export const store = configureStore({
   reducer: {
     fieldOnFocus: fieldOnFocusReducer,
-    user: userReducer,
     modal: modalReducer,
     current,
-    [apiDiziIzi.reducerPath]: apiDiziIzi.reducer,
-    [apiCities.reducerPath]: apiCities.reducer,
+    [diziIziSplitApi.reducerPath]: diziIziSplitApi.reducer,
+    [CitiesApi.reducerPath]: CitiesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(apiDiziIzi.middleware)
-      .concat(apiCities.middleware),
+      .concat(diziIziSplitApi.middleware)
+      .concat(CitiesApi.middleware),
   devTools: true,
 });
 

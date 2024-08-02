@@ -4,8 +4,11 @@ import { useAppDispatch } from '@/redux/hooks';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { openCommonModal } from '@/redux/slices/modal-slice';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import { ModalOneButton } from '@/components/Modal/ModalOneButton';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
+import { routes } from '@/helpers/common-constants/routes-constants';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
 
 const MODAL_TEXT = [
   'Генеририуемые планировки носят исключительно рекомендательный характер.',
@@ -24,19 +27,19 @@ export const LayoutsContainer = () => {
           size="large"
           startIcon={<AddBoxOutlinedIcon />}
           onClick={() =>
-            dispatch(
-              openCommonModal({
-                text: MODAL_TEXT,
-                icon: <ModalIcon width="75" height="126" />,
-                сonsentText: 'Продолжить',
-                сonsentCallback: router.push('/room-selection'),
-              }),
-            )
+            dispatch(setCurrentModal(modalNames.modalStartNewProject))
           }
         >
           Создать проект
         </Button>
       </Stack>
+      <ModalOneButton
+        modalName={modalNames.modalStartNewProject}
+        text={MODAL_TEXT}
+        handleConfirm={() => router.push(routes.projectRoutes.roomSelection)}
+        icon={<ModalIcon width="75" height="126" />}
+        nameButton={'Начать'}
+      />
     </>
   );
 };

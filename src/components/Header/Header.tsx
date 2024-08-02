@@ -1,19 +1,15 @@
 'use client';
 
-import { useAppSelector } from '@/redux/hooks';
-import Link from 'next/link';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import { Link as MUILink } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
-import { useGetUserDataQuery } from '@/redux/slices/api-slice';
-import { selectUserData } from '@/redux/slices/user-slice';
+import { useGetUserDataQuery } from '@/redux/slices/user-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
-import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
+import { CustomLink } from '@/components/Link/CustomLink';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -25,8 +21,7 @@ const headerLinksData = [
 
 export const Header = () => {
   const isAuth = useAuth();
-  const userData = useAppSelector(selectUserData);
-  useGetUserDataQuery('');
+  const { data } = useGetUserDataQuery('');
 
   return (
     <header>
@@ -49,9 +44,9 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <MUILink href={routes.home} component={Link}>
+            <CustomLink href={routes.home}>
               <AppLogo />
-            </MUILink>
+            </CustomLink>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -59,35 +54,32 @@ export const Header = () => {
               spacing={5}
             >
               {headerLinksData.map((linkData) => (
-                <MUILink
+                <CustomLink
                   href={linkData.href}
-                  component={Link}
                   key={linkData.label}
                   variant="m"
                 >
                   {linkData.label}
-                </MUILink>
+                </CustomLink>
               ))}
             </Stack>
-            <MUILink
+            <CustomLink
               sx={{ borderRadius: '50%', textDecoration: 'none' }}
-              component={Link}
-              href={isAuth ? routes.personalAccount : '#'}
+              href={isAuth ? routes.personalAccount : routes.authRoutes.login}
             >
               <Avatar>
-                {userData.email ? (
+                {data?.email ? (
                   <Typography variant="subtitle1">
-                    {userData.email[0].toUpperCase()}
+                    {data.email[0].toUpperCase()}
                   </Typography>
                 ) : (
                   <UserLogo />
                 )}
               </Avatar>
-            </MUILink>
+            </CustomLink>
           </Stack>
         </Box>
       </Box>
-      <ModalCommonTemplate />
     </header>
   );
 };

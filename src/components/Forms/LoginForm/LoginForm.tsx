@@ -12,9 +12,9 @@ import { LoginFormType, LoginFormValidation } from './validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import { useLoginMutation } from '@/redux/slices/api-slice';
+import { CustomLink } from '@/components/Link/CustomLink';
+import { useLoginMutation } from '@/redux/slices/auth-slice';
 import { TLoginError } from '@/types/api-types';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
@@ -89,9 +89,9 @@ export const LoginForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
           </Stack>
-          <Link href="enter-email" variant="s">
+          <CustomLink href={routes.authRoutes.enterEmail} variant="s">
             Забыли пароль?
-          </Link>
+          </CustomLink>
         </Stack>
 
         <Stack spacing={4} alignItems="center">
@@ -100,9 +100,9 @@ export const LoginForm = () => {
               Войти в личный кабинет
             </Button>
           </Box>
-          <Link href="register" variant="linkButton">
+          <CustomLink href={routes.authRoutes.register} variant="linkButton">
             Регистрация
-          </Link>
+          </CustomLink>
         </Stack>
       </form>
     </div>

@@ -1,32 +1,33 @@
 'use client';
-
+import { useMemo } from 'react';
 import { InfoModal } from '@/components/InfoModal';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  selectCommonModal,
-  closeCommonModal,
-} from '@/redux/slices/modal-slice';
-
+import { ModalCommonTemplateProps } from './modalTypes';
+import { selectCommonModal, setCurrentModal } from '@/redux/slices/modal-slice';
 const MODAL_MINWIDTH = '275px';
 
-export const ModalCommonTemplate = () => {
+export const ModalCommonTemplate = ({
+  modalName,
+  text,
+  icon,
+  children,
+}: ModalCommonTemplateProps) => {
   const currentModal = useAppSelector(selectCommonModal);
   const dispatch = useAppDispatch();
 
-  const handleClose = () => {
-    dispatch(closeCommonModal());
-  };
+  const isModalOpen = useMemo(() => {
+    return currentModal === modalName;
+  }, [currentModal, modalName]);
 
   return (
-    currentModal.isOpen && (
+    isModalOpen && (
       <InfoModal
         minWidth={MODAL_MINWIDTH}
-        open={currentModal.isOpen}
-        onClose={handleClose}
+        open={isModalOpen}
+        onClose={() => dispatch(setCurrentModal(null))}
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -47,9 +48,9 @@ export const ModalCommonTemplate = () => {
         >
           <Stack rowGap="16px">
             <Stack direction="row" columnGap="21px" alignItems="center">
-              {currentModal.data?.icon}
+              {icon}
               <Stack rowGap="20px">
-                {currentModal.data?.text.map((part, index) => (
+                {text.map((part, index) => (
                   <Typography
                     key={index}
                     variant="body1"
@@ -68,35 +69,7 @@ export const ModalCommonTemplate = () => {
               alignItems="center"
               justifyContent="center"
             >
-              {currentModal.data?.сonsentText && (
-                <Button
-                  variant="default"
-                  sx={{
-                    color: 'black.main',
-                    p: '16px',
-                  }}
-                  size={currentModal.data?.dissentText ? 'small' : 'medium'}
-                  onClick={() => {
-                    currentModal.data?.сonsentCallback?.();
-                    handleClose?.();
-                  }}
-                >
-                  {currentModal.data?.сonsentText}
-                </Button>
-              )}
-              {currentModal.data?.dissentText && (
-                <Button
-                  variant="default"
-                  sx={{ color: 'black.main', p: '16px' }}
-                  size="small"
-                  onClick={() => {
-                    currentModal.data?.dissentCallback?.();
-                    handleClose?.();
-                  }}
-                >
-                  {currentModal.data?.dissentText}
-                </Button>
-              )}
+              {children}
             </Stack>
           </Stack>
         </Box>

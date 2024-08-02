@@ -23,7 +23,9 @@ import {
 import { Button } from '@mui/material';
 import ArrowUp from '../../../../../../public/assets/icons/icon_arrow_up.svg';
 import ModalIcon from '../../../../../../public/assets/icons/modal_icon.svg';
-import { openCommonModal } from '@/redux/slices/modal-slice';
+import { ModalOneButton } from '@/components/Modal/ModalOneButton';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
 
 const MODAL_TEXT = [
   'Размер комнаты не позволяет добавить больше позиций.',
@@ -157,13 +159,7 @@ export const Furniture = () => {
   );
 
   const handleOpenMessage = useCallback(() => {
-    dispatch(
-      openCommonModal({
-        text: MODAL_TEXT,
-        icon: <ModalIcon width="75" height="126" />,
-        сonsentText: 'Продолжить',
-      }),
-    );
+    dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
   }, [dispatch]);
 
   const handleRaioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -465,6 +461,12 @@ export const Furniture = () => {
       >
         <ArrowUp />
       </Button>
+      <ModalOneButton
+        modalName={modalNames.modalTooMuchFurniture}
+        text={MODAL_TEXT}
+        icon={<ModalIcon width="75" height="126" />}
+        nameButton={'Продолжить'}
+      />
     </Stack>
   );
 };

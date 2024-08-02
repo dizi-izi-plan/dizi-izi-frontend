@@ -19,8 +19,11 @@ import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
-import { openCommonModal } from '@/redux/slices/modal-slice';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
+import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
+import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
+import { ModalOneButton } from '@/components/Modal/ModalOneButton';
 import {
   MODAL_YES_NO_QUESTIONS,
   MODAL_CONFIRM_QUESTIONS,
@@ -196,18 +199,7 @@ const DevPage: FC = () => {
           variant="default"
           sx={{ color: 'black.main', p: '16px 54px' }}
           size="medium"
-          onClick={() =>
-            dispatch(
-              openCommonModal({
-                text: MODAL_YES_NO_QUESTIONS[0],
-                icon: <ModalIcon width="75" height="126" />,
-                сonsentText: 'Да',
-                сonsentCallback: () => {},
-                dissentText: 'Нет',
-                dissentCallback: () => {},
-              }),
-            )
-          }
+          onClick={() => dispatch(setCurrentModal('yes/no question'))}
         >
           yes/no question
         </Button>
@@ -215,16 +207,7 @@ const DevPage: FC = () => {
           variant="default"
           sx={{ color: 'black.main', p: '16px 54px' }}
           size="medium"
-          onClick={() =>
-            dispatch(
-              openCommonModal({
-                text: MODAL_CONFIRM_QUESTIONS[0],
-                icon: <ModalIcon width="75" height="126" />,
-                сonsentText: 'Продолжить',
-                сonsentCallback: () => {},
-              }),
-            )
-          }
+          onClick={() => dispatch(setCurrentModal('confirm question'))}
         >
           confirm question
         </Button>
@@ -232,18 +215,30 @@ const DevPage: FC = () => {
           variant="default"
           sx={{ color: 'black.main', p: '16px 54px' }}
           size="medium"
-          onClick={() =>
-            dispatch(
-              openCommonModal({
-                text: MODAL_NOTICE,
-                icon: <ModalIcon width="75" height="126" />,
-              }),
-            )
-          }
+          onClick={() => dispatch(setCurrentModal('без кнопок'))}
         >
           без кнопок
         </Button>
       </Stack>
+      <ModalTwoButtons
+        modalName="yes/no question"
+        text={MODAL_YES_NO_QUESTIONS[0]}
+        icon={<ModalIcon width="75" height="126" />}
+        nameButtonYes={'Да'}
+        nameButtonNo={'Нет'}
+        handleYes={() => {}}
+      />
+      <ModalOneButton
+        modalName="confirm question"
+        text={MODAL_CONFIRM_QUESTIONS[0]}
+        icon={<ModalIcon width="75" height="126" />}
+        nameButton={'Продолжить'}
+      />
+      <ModalCommonTemplate
+        modalName="без кнопок"
+        text={MODAL_NOTICE[0]}
+        icon={<ModalIcon width="75" height="126" />}
+      />
       <MuiButtons />
     </>
   );

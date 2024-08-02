@@ -4,7 +4,7 @@ import React from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { InputVariant } from '@/components/Input/classNameConstants';
-import { useGetCitiesQuery } from '@/redux/slices/api-slice';
+import { useGetCitiesQuery } from '@/redux/slices/cities-slice';
 
 type SelectTextFieldProps = TextFieldProps & {
   className: InputVariant;
