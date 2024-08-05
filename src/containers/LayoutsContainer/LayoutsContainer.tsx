@@ -175,7 +175,7 @@ export const LayoutsContainer = () => {
         nameButton="Начать"
       />
 
-      <ModalTwoButtons
+      <ModalTwoButtons 
         handleYes={modalActions.handleYes}
         handleNo={modalActions.handleNo}
         text={getModalText()}
