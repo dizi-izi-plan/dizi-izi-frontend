@@ -142,7 +142,7 @@ theme = createTheme(theme, {
           },
         },
         inputProps: {
-          style: {
+          sx: {
             boxSizing: 'border-box',
             fontFamily: manrope.style.fontFamily,
             fontSize: 18,
@@ -183,7 +183,6 @@ theme = createTheme(theme, {
             },
             '& .MuiFormLabel-root': {
               color: theme.palette.secondary.contrastText,
-              fontSize: 16,
               fontWeight: 500,
             },
           },
@@ -235,24 +234,28 @@ theme = createTheme(theme, {
             },
           },
           '&.subvariant-rename': {
+            '& .MuiOutlinedInput-input': {},
+            '& .Mui-disabled': {
+              '& .MuiInputBase-input': {
+                WebkitTextFillColor: theme.palette.secondary.main,
+              },
+              '& > fieldset': {
+                pointerEvents: 'inherit',
+                cursor: 'pointer',
+                fontSize: 20,
+                padding: '0px',
+                minHeight: 31,
+              },
+            },
             '& .MuiInputBase-root': {
               borderColor: 'transparent',
-              'input': {
-                minHeight: 33.39,
+              '& .MuiInputBase-input': {
+                fontSize: 20,
+                minHeight: 31,
                 caretColor: theme.palette.primary.main,
-                fontSize: '20px !important',
                 color: theme.palette.secondary.main,
-                padding: '0',
+                padding: '0px',
               },
-              
-            },
-            '& .MuiOutlinedInput-input': {
-
-
-            },
-            '& .MuiOutlinedInput-root': {
-            },
-            '& .MuiOutlinedInput-input::placeholder': {
             },
           },
         },
@@ -614,39 +617,39 @@ theme = createTheme(theme, {
     },
     MuiMenu: {
       styleOverrides: {
-
         root: {
           '& .MuiPaper-root': {
             borderRadius: '0',
           },
           '& .MuiList-root': {
             padding: '0',
-            borderRadius: '0'
+            borderRadius: '0',
           },
           '& .MuiBox-root': {
-            width: '168px',
+            width: '148px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px',
+            gap: '10px',
             border: `1px solid ${theme.palette.primary.main}`,
-            padding: '12px'
+            padding: '12px',
           },
         },
       },
     },
     MuiMenuItem: {
       styleOverrides: {
-
         root: {
-
           '&.MuiButtonBase-root': {
             padding: '0',
+            height: '24px',
+            '& span': {
+              letterSpacing: '0',
+            },
             '&:hover': {
               backgroundColor: 'transparent',
             },
           },
           '& em': {
-
             color: theme.palette.myGrey.grey500,
             fontStyle: 'normal',
           },
