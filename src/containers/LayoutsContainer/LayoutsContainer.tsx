@@ -150,13 +150,12 @@ export const LayoutsContainer = () => {
         )}
       </Stack>
 
-
       <ModalOneButton
         modalName={modalNames.modalStartNewProject}
         text={MODAL_TEXT}
         handleConfirm={() => router.push(routes.projectRoutes.roomSelection)}
         icon={<ModalIcon width="75" height="126" />}
-        nameButton={'Начать'}
+        nameButton="Начать"
       />
 
       <ModalTwoButtons 
