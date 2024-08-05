@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import Button from '@mui/material/Button';
@@ -9,8 +9,7 @@ import { ProjectsContainer } from '../ProjectContainer/ProjectContainer';
 import { DraftContainer } from '../DraftContainer/DraftContainer';
 import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
 import { MODAL_YES_NO_QUESTIONS } from '@/components/Modal/modal.data';
-import Maket from '../../../public/assets/icons/maket.svg'
-
+import Maket from '../../../public/assets/icons/maket.svg';
 
 const MODAL_TEXT = [
   'Генеририуемые планировки носят исключительно рекомендательный характер.',
@@ -30,38 +29,32 @@ export const LayoutsContainer = () => {
     setIsOpen(false);
   };
 
+  const handleDeleteYes = (id: number) => {
+    console.log(`handleDeleteYes for project ${id}`);
+  };
 
-  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
+  const handleDuplicateYes = (id: number) => {
+    console.log(`handleDuplicateYes for project ${id}`);
+  };
 
-  const handleDeleteYes = () => {
-    console.log('handleDeleteYes');
-  }
-
-  const handleDuplicateYes = () => {
-    console.log('handleDuplicateYes');
-
-  }
-
-  const handleСontinueYes = () => {
-    console.log('handleСontinueYes');
-  }
+  const handleСontinueYes = (id: number) => {
+    console.log(`handleContinueYes for project ${id}`);
+  };
 
   const modalActions = {
     handleYes: () => {
-      if (selectedProjectId != null) {
+      if (modalState.projectId !== null) {
         switch (modalState.modalType) {
           case 'isOpenDelete':
-            handleDeleteYes()
-            console.log(`handleDeleteYes for project ${selectedProjectId}`);
+            handleDeleteYes(modalState.projectId);
             break;
           case 'isOpenDuplicate':
-            handleDuplicateYes()
-            console.log(`handleDuplicateYes for project ${selectedProjectId}`);
+            handleDuplicateYes(modalState.projectId);
             break;
           case 'isOpenContinue':
-            handleСontinueYes()
-            console.log(`handleContinueYes for project ${selectedProjectId}`);
+            handleСontinueYes(modalState.projectId);
             break;
+
           default:
             break;
         }
@@ -74,35 +67,39 @@ export const LayoutsContainer = () => {
     },
   };
 
-
   type ModalStateType = 'isOpenDelete' | 'isOpenDuplicate' | 'isOpenContinue';
 
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     modalType: ModalStateType | null;
+    projectId: number | null;
   }>({
     isOpen: false,
     modalType: null,
+    projectId: null,
   });
-  const handleOpenModal = (modalType: ModalStateType, projectId: number) => {
-    setSelectedProjectId(projectId);
-    setModalState({ isOpen: true, modalType });
 
+  const handleOpenModal = (modalType: ModalStateType, projectId: number) => {
+    setModalState({ isOpen: true, modalType, projectId });
   };
 
   const handleCloseModal = () => {
-    setSelectedProjectId(null);
-    setModalState({ isOpen: false, modalType: null });
+    setModalState({ isOpen: false, modalType: null, projectId: null });
   };
 
-  const projects = [
-    { id: 1, name: 'Проект 1', date: '25.11.2024, 22:21' },
-    { id: 2, name: 'Проект 2', date: '12.04.2023, 20:13' },
+  const projects: {
+    id: number;
+    name: string;
+    date: string;
+    image: ReactNode;
+  }[] = [
+    { id: 1, name: 'Проект 1', date: '25.11.2024, 22:21', image: <Maket /> },
+    { id: 2, name: 'Проект 2', date: '12.04.2023, 20:13', image: <Maket /> },
   ];
 
-  const draft = {
+  const draft: { id: number; date: string } = {
     id: 3,
-    date: '25.11.2024, 22:21'
+    date: '25.11.2024, 22:21',
   };
 
   const getModalText = (): string[] => {
@@ -120,12 +117,7 @@ export const LayoutsContainer = () => {
 
   return (
     <>
-      <Stack
-        direction="row"
-        columnGap="32px"
-        rowGap="32px"
-        flexWrap="wrap"
-      >
+      <Stack direction="row" gap="32px" flexWrap="wrap">
         <Button
           variant="box"
           size="large"
@@ -136,26 +128,23 @@ export const LayoutsContainer = () => {
         </Button>
         {projects.map((project) => (
           <ProjectsContainer
-            image={<Maket />}
+            image={project.image}
             key={project.id}
             id={project.id}
             name={project.name}
             date={project.date}
-            handleDuplicate={(id) => handleOpenModal('isOpenDuplicate', id)}
-            handleDelete={(id) => handleOpenModal('isOpenDelete', id)}
+            onOpenModal={handleOpenModal}
           />
         ))}
 
-        {draft && draft.id &&
+        {draft && draft.id && (
           <DraftContainer
             id={draft.id}
             date={draft.date}
-            handleContinue={(id) => handleOpenModal('isOpenContinue', id)}
-            handleDelete={(id) => handleOpenModal('isOpenDelete', id)}
-          />}
-
+            onOpenModal={handleOpenModal}
+          />
+        )}
       </Stack>
-
 
       <ModalOneButton
         text={MODAL_TEXT}
@@ -163,7 +152,7 @@ export const LayoutsContainer = () => {
         handleConfirm={handleConfirm}
         handleClose={handleClose}
         icon={<ModalIcon width="75" height="126" />}
-        nameButton={'Начать'}
+        nameButton="Начать"
       />
 
       <ModalTwoButtons
@@ -173,10 +162,9 @@ export const LayoutsContainer = () => {
         isModalOpen={modalState.isOpen}
         handleClose={handleCloseModal}
         icon={<ModalIcon width="75" height="126" />}
-        nameButtonYes={'Да'}
-        nameButtonNo={'Нет'}
+        nameButtonYes="Да"
+        nameButtonNo="Нет"
       />
-
     </>
   );
 };
