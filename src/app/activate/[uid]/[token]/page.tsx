@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FormsContainer } from '@/containers/FormsContainer/FormsContainer';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
@@ -36,7 +35,6 @@ type activateUserType = {
 };
 
 export default function ActivateUser({ params }: activateUserType) {
-  const router = useRouter();
   const [activateUser, { isLoading, error }] = useActivateUserMutation();
 
   useEffect(() => {
