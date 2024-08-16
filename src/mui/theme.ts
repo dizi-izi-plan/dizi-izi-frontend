@@ -568,6 +568,9 @@ theme = createTheme(theme, {
           height: 54,
           border: `1px solid ${theme.palette.secondary.contrastText}`,
           stroke: theme.palette.secondary.contrastText,
+          '& MuiTypography-root': {
+            color: theme.palette.secondary.contrastText,
+          },
           '&:hover': {
             transition: theme.transitions.create([
               'background-color',
@@ -578,6 +581,9 @@ theme = createTheme(theme, {
             color: theme.palette.black.main,
             stroke: theme.palette.black.main,
             backgroundColor: theme.palette.secondary.contrastText,
+            '& MuiTypography-root': {
+              color: theme.palette.black.main,
+            },
           },
         },
       },

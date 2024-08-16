@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import React from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { InputVariant } from '@/components/Input/classNameConstants';
-import { fetchCities } from '../../redux/slices/cities-slice';
+import { useGetCitiesQuery } from '@/redux/slices/cities-slice';
 
 type SelectTextFieldProps = TextFieldProps & {
   className: InputVariant;
@@ -13,29 +12,21 @@ type SelectTextFieldProps = TextFieldProps & {
 };
 
 export const AutocompleteCities = (props: SelectTextFieldProps) => {
-  const dispatch = useAppDispatch();
-  const apiCities = useAppSelector((state) => state.cities.citiesNames);
+  const { data = [] } = useGetCitiesQuery('');
 
   const filterOptions = createFilterOptions({
     matchFrom: 'start',
     stringify: (option: string) => option,
   });
 
-  const handleOnFocus = useCallback(() => {
-    if (!apiCities.length) {
-      dispatch(fetchCities());
-    }
-  }, [apiCities, dispatch]);
-
   return (
     <Autocomplete
       selectOnFocus
       clearOnBlur
       handleHomeEndKeys
-      onFocus={handleOnFocus}
       disablePortal
-      noOptionsText={apiCities.length ? 'Город не найден' : 'Идет загрузка...'}
-      options={apiCities}
+      noOptionsText={data.length ? 'Город не найден' : 'Идет загрузка...'}
+      options={data}
       filterOptions={filterOptions}
       renderInput={(params) => (
         <TextField

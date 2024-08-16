@@ -1,3 +1,5 @@
+'use client';
+
 import { AccountSectionTemplate } from './AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
 import { AccountMenuItemsType } from '../accountTypes';

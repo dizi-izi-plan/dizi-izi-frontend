@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
@@ -11,14 +12,21 @@ import { LoginFormType, LoginFormValidation } from './validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import { CustomLink } from '@/components/Link/CustomLink';
+import { useLoginMutation } from '@/redux/slices/auth-slice';
+import { TLoginError } from '@/types/api-types';
+import { routes } from '@/helpers/common-constants/routes-constants';
+import { useAuth } from '@/hooks/useAuth';
+
+const fieldsArr = [LOGIN_FORM_NAMES.email, LOGIN_FORM_NAMES.password];
 
 export const LoginForm = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setError,
   } = useForm<LoginFormType>({
     defaultValues: {
       [LOGIN_FORM_NAMES.email]: '',
@@ -26,7 +34,31 @@ export const LoginForm = () => {
     },
     resolver: zodResolver(LoginFormValidation),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const router = useRouter();
+  const isAuth = useAuth();
+
+  const [fetchlogin] = useLoginMutation();
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await fetchlogin(data).unwrap();
+      router.push(routes.personalAccount);
+    } catch (error) {
+      const currentError = error as TLoginError;
+      if (currentError.data?.non_field_errors[0]) {
+        fieldsArr.forEach((field) => {
+          setError(field, {
+            type: 'custom',
+            message: currentError.data.non_field_errors[0],
+          });
+        });
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
+    if (isAuth) router.push(routes.personalAccount);
+  }, [isAuth, router]);
 
   return (
     <div>
@@ -57,9 +89,9 @@ export const LoginForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
           </Stack>
-          <Link href="enter-email" variant="s">
+          <CustomLink href={routes.authRoutes.enterEmail} variant="s">
             Забыли пароль?
-          </Link>
+          </CustomLink>
         </Stack>
 
         <Stack spacing={4} alignItems="center">
@@ -68,9 +100,9 @@ export const LoginForm = () => {
               Войти в личный кабинет
             </Button>
           </Box>
-          <Link href="register" variant="linkButton">
+          <CustomLink href={routes.authRoutes.register} variant="linkButton">
             Регистрация
-          </Link>
+          </CustomLink>
         </Stack>
       </form>
     </div>

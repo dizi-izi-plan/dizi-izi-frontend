@@ -9,7 +9,7 @@ import { InputPasswordWrapper } from '../../Input/InputPassword/InputPasswordWra
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
+import { CustomLink } from '@/components/Link/CustomLink';
 import Box from '@mui/material/Box';
 import {
   REGISTRATION_FORM_LABELS,
@@ -75,9 +75,13 @@ export const RegistrationForm = () => {
           </Stack>
           <Typography variant="caption" color="secondary.contrastText">
             {'Регистрируясь, вы соглашаетесь '}
-            <Link href="#" variant="xs" sx={{ textUnderlineOffset: '4px' }}>
+            <CustomLink
+              href="#"
+              variant="xs"
+              sx={{ textUnderlineOffset: '4px' }}
+            >
               на обработку персональных данных.
-            </Link>
+            </CustomLink>
           </Typography>
         </Stack>
 

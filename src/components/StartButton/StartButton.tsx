@@ -1,18 +1,19 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
+import { routes } from '@/helpers/common-constants/routes-constants';
+import { useAuth } from '@/hooks/useAuth';
 
 export const StartButton = () => {
   const router = useRouter();
-  const isLoggedIn = false;
-
-  //TODO заменить isLoggen на данные из редакса
-  // заменить ссылку с /personal-account на /new-project (страница еще не создана)
+  const isAuth = useAuth();
 
   return (
     <Button
       variant="default"
-      onClick={() => router.push(isLoggedIn ? '/personal-account' : '/login')}
+      onClick={() =>
+        router.push(isAuth ? routes.personalAccount : routes.authRoutes.login)
+      }
     >
       Начать
     </Button>

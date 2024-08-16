@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -18,10 +19,11 @@ import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
 import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
 import { ModalOneButton } from '@/components/Modal/ModalOneButton';
-import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 import {
   MODAL_YES_NO_QUESTIONS,
   MODAL_CONFIRM_QUESTIONS,
@@ -30,9 +32,7 @@ import {
 import { MuiButtons } from '@/mui/MuiButtons';
 
 const DevPage: FC = () => {
-  const [openYesNo, setOpenYesNo] = useState(false);
-  const [openConfirm, setOpenConfirm] = useState(false);
-  const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -199,7 +199,7 @@ const DevPage: FC = () => {
           variant="default"
           sx={{ color: 'black.main', p: '16px 54px' }}
           size="medium"
-          onClick={() => setOpenYesNo(true)}
+          onClick={() => dispatch(setCurrentModal('yes/no question'))}
         >
           yes/no question
         </Button>
@@ -207,7 +207,7 @@ const DevPage: FC = () => {
           variant="default"
           sx={{ color: 'black.main', p: '16px 54px' }}
           size="medium"
-          onClick={() => setOpenConfirm(true)}
+          onClick={() => dispatch(setCurrentModal('confirm question'))}
         >
           confirm question
         </Button>
@@ -215,30 +215,28 @@ const DevPage: FC = () => {
           variant="default"
           sx={{ color: 'black.main', p: '16px 54px' }}
           size="medium"
-          onClick={() => setOpen(true)}
+          onClick={() => dispatch(setCurrentModal('без кнопок'))}
         >
           без кнопок
         </Button>
       </Stack>
       <ModalTwoButtons
+        modalName="yes/no question"
         text={MODAL_YES_NO_QUESTIONS[0]}
-        isModalOpen={openYesNo}
-        handleClose={() => setOpenYesNo(false)}
         icon={<ModalIcon width="75" height="126" />}
         nameButtonYes={'Да'}
         nameButtonNo={'Нет'}
+        handleYes={() => {}}
       />
       <ModalOneButton
+        modalName="confirm question"
         text={MODAL_CONFIRM_QUESTIONS[0]}
-        isModalOpen={openConfirm}
-        handleClose={() => setOpenConfirm(false)}
         icon={<ModalIcon width="75" height="126" />}
         nameButton={'Продолжить'}
       />
       <ModalCommonTemplate
+        modalName="без кнопок"
         text={MODAL_NOTICE[0]}
-        isModalOpen={open}
-        handleClose={() => setOpen(false)}
         icon={<ModalIcon width="75" height="126" />}
       />
       <MuiButtons />

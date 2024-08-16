@@ -1,24 +1,33 @@
+'use client';
+import { useMemo } from 'react';
 import { InfoModal } from '@/components/InfoModal';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { ModalCommonTemplateProps } from './ModalTypes';
-
+import { ModalCommonTemplateProps } from './modalTypes';
+import { selectCommonModal, setCurrentModal } from '@/redux/slices/modal-slice';
 const MODAL_MINWIDTH = '275px';
 
 export const ModalCommonTemplate = ({
-  isModalOpen,
+  modalName,
   text,
-  handleClose,
   icon,
   children,
 }: ModalCommonTemplateProps) => {
+  const currentModal = useAppSelector(selectCommonModal);
+  const dispatch = useAppDispatch();
+
+  const isModalOpen = useMemo(() => {
+    return currentModal === modalName;
+  }, [currentModal, modalName]);
+
   return (
     isModalOpen && (
       <InfoModal
         minWidth={MODAL_MINWIDTH}
         open={isModalOpen}
-        onClose={handleClose}
+        onClose={() => dispatch(setCurrentModal(null))}
         sx={{
           display: 'flex',
           justifyContent: 'center',

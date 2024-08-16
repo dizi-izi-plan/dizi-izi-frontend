@@ -1,5 +1,6 @@
 'use client';
 import { useState, SyntheticEvent } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
@@ -8,12 +9,17 @@ import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
 import { TabContentContainer } from '../../containers/TabContentContainer/TabContentContainer';
 import { AccountMenuItemsType } from './accountTypes';
 import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
-import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
+import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
+import { useLogoutMutation } from '@/redux/slices/auth-slice';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
 
 export const Account = () => {
+  useProtectedRoute();
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState<number>(0);
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -23,7 +29,7 @@ export const Account = () => {
     setValue(2);
   };
 
-  // TODO: to add handleYes (~ dispatch logOut)
+  const [fetchLogout] = useLogoutMutation();
 
   return (
     <>
@@ -48,7 +54,7 @@ export const Account = () => {
           label={<span className="tab__label">Выйти</span>}
           icon={<MenuUnderlineIcon />}
           iconPosition="bottom"
-          onClick={() => setModalOpen(true)}
+          onClick={() => dispatch(setCurrentModal(modalNames.modalLogout))}
         />
       </Tabs>
       <Box width="76%">
@@ -59,11 +65,10 @@ export const Account = () => {
         ))}
       </Box>
       <ModalTwoButtons
-        isModalOpen={isModalOpen}
+        modalName={modalNames.modalLogout}
         text={['Вы уверены, что хотите выйти из профиля?']}
         icon={<ModalIcon width="75" height="126" />}
-        handleClose={() => setModalOpen(false)}
-        // handleYes={() => }
+        handleYes={async () => await fetchLogout('').unwrap()}
         handleNo={returnUserToProfile}
         nameButtonYes="Да"
         nameButtonNo="Нет"

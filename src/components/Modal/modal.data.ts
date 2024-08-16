@@ -1,6 +1,4 @@
-import { textArrType } from './ModalTypes';
-
-export const MODAL_YES_NO_QUESTIONS: textArrType[] = [
+export const MODAL_YES_NO_QUESTIONS: string[][] = [
   [`Дублирование проекта означает создать Новый проект. Создать Новый проект?`],
   [
     `У вас уже есть один черновик проекта. 
@@ -11,7 +9,7 @@ export const MODAL_YES_NO_QUESTIONS: textArrType[] = [
   [`Проект не сохранен. Продолжить?`],
 ];
 
-export const MODAL_CONFIRM_QUESTIONS: textArrType[] = [
+export const MODAL_CONFIRM_QUESTIONS: string[][] = [
   [
     `Размер комнаты не позволяет добавить больше позиций.`,
     `Вы можете поменять размеры и количество на любом из пройденных этапов `,
@@ -19,4 +17,4 @@ export const MODAL_CONFIRM_QUESTIONS: textArrType[] = [
   [`При скачивание проекта, он автоматически сохраняется в Личном кабинете`],
 ];
 
-export const MODAL_NOTICE: textArrType[] = [[`Проект не сохранен`]];
+export const MODAL_NOTICE: string[][] = [[`Проект не сохранен`]];

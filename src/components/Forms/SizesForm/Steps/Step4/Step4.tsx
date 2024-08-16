@@ -6,6 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Image from 'next/image';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useAppDispatch } from '@/redux/hooks';
 import { SubstepContainer } from './SubstepContainer';
 import { UnderlinedButton } from '@/components/Buttons/UnderlinedButton/UnderlinedButton';
 import { PopperMessage } from '@/components/Popper/PopperMessage';
@@ -21,8 +22,10 @@ import {
 } from './autoFurnitureSelection';
 import { Button } from '@mui/material';
 import ArrowUp from '../../../../../../public/assets/icons/icon_arrow_up.svg';
-import { ModalOneButton } from '@/components/Modal/ModalOneButton';
 import ModalIcon from '../../../../../../public/assets/icons/modal_icon.svg';
+import { ModalOneButton } from '@/components/Modal/ModalOneButton';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
 
 const MODAL_TEXT = [
   'Размер комнаты не позволяет добавить больше позиций.',
@@ -30,7 +33,7 @@ const MODAL_TEXT = [
 ];
 
 export const Furniture = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const { control, setValue } = useFormContext<SizesFormType>();
 
   const [scrollTop, setScrollTop] = useState<number | null>(null);
@@ -155,6 +158,10 @@ export const Furniture = () => {
     ],
   );
 
+  const handleOpenMessage = useCallback(() => {
+    dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
+  }, [dispatch]);
+
   const handleRaioGroupChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
 
@@ -177,7 +184,7 @@ export const Furniture = () => {
       setValue(name as FURNITURE_NAMES_TYPE, Number(value));
       if (name === FURNITURE.bed) checkBedNumbers(Number(value));
     } else {
-      setModalOpen(true);
+      handleOpenMessage();
     }
   };
 
@@ -207,7 +214,7 @@ export const Furniture = () => {
             STEP4[FURNITURE.other].name as FURNITURE_NAMES_TYPE,
             newOtherFurniture,
           );
-          setModalOpen(true);
+          handleOpenMessage();
         }
       } else {
         const newOtherFurniture = allForm.furniture.other.filter(
@@ -219,7 +226,12 @@ export const Furniture = () => {
         );
       }
     },
-    [allForm.furniture.other, setValue, checkAllFurnitureArea],
+    [
+      allForm.furniture.other,
+      setValue,
+      checkAllFurnitureArea,
+      handleOpenMessage,
+    ],
   );
 
   const getFurnitureArea = (substep: TSubsteps4, id: number) => {
@@ -450,10 +462,8 @@ export const Furniture = () => {
         <ArrowUp />
       </Button>
       <ModalOneButton
+        modalName={modalNames.modalTooMuchFurniture}
         text={MODAL_TEXT}
-        isModalOpen={isModalOpen}
-        handleConfirm={() => setModalOpen(false)}
-        handleClose={() => setModalOpen(false)}
         icon={<ModalIcon width="75" height="126" />}
         nameButton={'Продолжить'}
       />

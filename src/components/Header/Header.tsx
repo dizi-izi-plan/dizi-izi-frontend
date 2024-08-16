@@ -2,10 +2,14 @@
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
+import { useGetUserDataQuery } from '@/redux/slices/user-slice';
+import { routes } from '@/helpers/common-constants/routes-constants';
+import { useAuth } from '@/hooks/useAuth';
+import { CustomLink } from '@/components/Link/CustomLink';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -16,6 +20,9 @@ const headerLinksData = [
 ];
 
 export const Header = () => {
+  const isAuth = useAuth();
+  const { data } = useGetUserDataQuery('');
+
   return (
     <header>
       <Box
@@ -37,9 +44,9 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Link href="/">
+            <CustomLink href={routes.home}>
               <AppLogo />
-            </Link>
+            </CustomLink>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -47,16 +54,29 @@ export const Header = () => {
               spacing={5}
             >
               {headerLinksData.map((linkData) => (
-                <Link href={linkData.href} key={linkData.label} variant="m">
+                <CustomLink
+                  href={linkData.href}
+                  key={linkData.label}
+                  variant="m"
+                >
                   {linkData.label}
-                </Link>
+                </CustomLink>
               ))}
             </Stack>
-            <Link href="#" sx={{ borderRadius: '50%' }} variant="m">
+            <CustomLink
+              sx={{ borderRadius: '50%', textDecoration: 'none' }}
+              href={isAuth ? routes.personalAccount : routes.authRoutes.login}
+            >
               <Avatar>
-                <UserLogo />
+                {data?.email ? (
+                  <Typography variant="subtitle1">
+                    {data.email[0].toUpperCase()}
+                  </Typography>
+                ) : (
+                  <UserLogo />
+                )}
               </Avatar>
-            </Link>
+            </CustomLink>
           </Stack>
         </Box>
       </Box>

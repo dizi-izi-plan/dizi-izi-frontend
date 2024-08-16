@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 export type textArrType = string[];
 
 export interface ModalCommonTemplateProps {
-  isModalOpen: boolean;
+  modalName: string;
   text: textArrType;
-  handleClose?: () => void;
   icon?: ReactNode;
   children?: ReactNode;
 }
@@ -13,7 +12,7 @@ export interface ModalCommonTemplateProps {
 // но, кроме закрытия при нажатии на каждую из кнопок,
 // у них мб дополнительная логика в зависимости от места модалки
 export interface ModalTwoButtonsProps extends ModalCommonTemplateProps {
-  handleYes?: () => void;
+  handleYes: () => void;
   handleNo?: () => void;
   nameButtonYes: string;
   nameButtonNo: string;

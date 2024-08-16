@@ -1,37 +1,40 @@
 'use client';
 
+import { useAppDispatch } from '@/redux/hooks';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
 import Button from '@mui/material/Button';
 import { ModalCommonTemplate } from './ModalCommonTemplate';
-import { ModalTwoButtonsProps } from './ModalTypes';
+import { ModalTwoButtonsProps } from './modalTypes';
 
 export const ModalTwoButtons = ({
-  handleClose,
   handleYes,
   handleNo,
   nameButtonYes,
   nameButtonNo,
   ...props
 }: ModalTwoButtonsProps) => {
+  const dispatch = useAppDispatch();
+
   return (
-    <ModalCommonTemplate handleClose={handleClose} {...props}>
+    <ModalCommonTemplate {...props}>
       <Button
         variant="default"
-        sx={{ color: 'black.main' }}
+        sx={{ color: 'black.main', p: '16px' }}
         size="small"
         onClick={() => {
           handleYes?.();
-          handleClose?.();
+          dispatch(setCurrentModal(null));
         }}
       >
         {nameButtonYes}
       </Button>
       <Button
         variant="default"
-        sx={{ color: 'black.main' }}
+        sx={{ color: 'black.main', p: '16px' }}
         size="small"
         onClick={() => {
           handleNo?.();
-          handleClose?.();
+          dispatch(setCurrentModal(null));
         }}
       >
         {nameButtonNo}
