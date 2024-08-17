@@ -1,4 +1,5 @@
 'use client';
+import { useAppDispatch } from '@/redux/hooks';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import ModalIcon from '@public/assets/icons/modal_icon.svg';
@@ -7,29 +8,23 @@ import ActionButton from '../ActionButton/ActionButton';
 import ProjectButton from '../Buttons/ProjectButton/ProjectButton';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import { PopperMessage } from '../Popper/PopperMessage';
-import { modalData } from './projectNavbar.data';
+import {
+  actionConfigs,
+  getProjectButtons,
+  modalConfigs,
+} from './projectNavbar.data';
 import { ProjectNavbarProps } from './ProjectNavbarDataTypes';
 
 const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
-  const [modalConfig, setModalConfig] = useState<{ [key: string]: boolean }>({
-    tryAgain: false,
-    newProject: false,
-    deleteProject: false,
-    moreActions: false,
-  });
+  const dispatch = useAppDispatch();
+
   const [actionVisible, setActionVisible] = useState<boolean>(false);
 
-  const openModal = (modalName: string) => {
-    setModalConfig({ ...modalConfig, [modalName]: true });
-  };
-
-  const closeModal = (modalName: string) => {
-    setModalConfig({ ...modalConfig, [modalName]: false });
-  };
-
   const toggleActionBlock = () => {
-    setActionVisible(!actionVisible);
+    setActionVisible((prev) => !prev);
   };
+
+  const projectButtons = getProjectButtons(dispatch, toggleActionBlock);
 
   return (
     <>
@@ -41,7 +36,7 @@ const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
       >
         <Box>
           <PopperMessage tip="Назад">
-            <Button variant="empty">
+            <Button variant="empty" onClick={() => console.log('Назад')}>
               <ArrowBackOutlinedIcon />
             </Button>
           </PopperMessage>
@@ -50,82 +45,46 @@ const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
           <Typography variant="h3">{title}</Typography>
         </Box>
         <Box display="flex" flexDirection="row" gap="10px">
-          <ProjectButton
-            action="Попровать еще"
-            img="assets/icons/refresh.svg"
-            alt="Refresh Icon"
-            fn={() => openModal('tryAgain')}
-          />
-          <ProjectButton
-            action="Новый проект"
-            img="assets/icons/add.svg"
-            alt="New Project Icon"
-            fn={() => openModal('newProject')}
-          />
-          <ProjectButton
-            action="Удалить проект"
-            img="assets/icons/delete.svg"
-            alt="Delete Project Icon"
-            fn={() => openModal('deleteProject')}
-          />
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
+          {projectButtons.map((button) => (
             <ProjectButton
-              action=""
-              img="assets/icons/threeDots.svg"
-              alt="More actions Icon"
-              fn={() => toggleActionBlock()}
+              key={button.action}
+              action={button.action}
+              img={button.img}
+              alt={button.alt}
+              fn={button.fn}
             />
-            {actionVisible && (
-              <Box
-                display="flex"
-                flexDirection="column"
-                position="absolute"
-                top="9.5rem"
-                right="2.5rem"
-                bgcolor="#DEDEDE"
-                padding="5px"
-                gap="10px"
-              >
+          ))}
+          {actionVisible && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              position="absolute"
+              top="9.5rem"
+              right="2.5rem"
+              bgcolor="#DEDEDE"
+              padding="5px"
+              gap="10px"
+            >
+              {actionConfigs.map((config) => (
                 <ActionButton
-                  img={'../../../assets/icons/downloadPdfIcon.svg'}
-                  title={'Скачать в pdf'}
-                  fn={() => {
-                    console.log('Сработало');
-                  }}
+                  key={config.title}
+                  img={config.img}
+                  title={config.title}
+                  fn={config.fn}
                 />
-                <ActionButton
-                  img={'../../../assets/icons/sendMailIcon.svg'}
-                  title={'Отправить на почту'}
-                  fn={() => {
-                    console.log('Сработало');
-                  }}
-                />
-                <ActionButton
-                  img={'../../../assets/icons/saveProjectIcon.svg'}
-                  title={'Сохранить'}
-                  fn={() => {
-                    console.log('Сработало');
-                  }}
-                />
-              </Box>
-            )}
-          </Box>
+              ))}
+            </Box>
+          )}
         </Box>
       </Stack>
-      {Object.keys(modalData).map((key) => (
+      {modalConfigs.map((config) => (
         <ModalTwoButtons
-          key={key}
-          isModalOpen={modalConfig[key]}
-          text={modalData[key].text}
+          key={config.modalName}
+          modalName={config.modalName}
+          text={config.text}
           icon={<ModalIcon width="75" height="126" />}
-          handleClose={() => closeModal(key)}
-          handleYes={modalData[key].handleYes}
-          handleNo={() => console.log(`${key}: No`)}
+          handleYes={config.handleYes}
+          handleNo={config.handleNo}
           nameButtonYes="Да"
           nameButtonNo="Нет"
         />
