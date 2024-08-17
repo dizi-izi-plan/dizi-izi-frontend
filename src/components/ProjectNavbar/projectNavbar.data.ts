@@ -53,7 +53,6 @@ export const actionConfigs: Array<ActionConfigs> = [
 
 export const getProjectButtons = (
   dispatch: Dispatch,
-  toggleActionBlock: () => void,
 ): Array<ProjectButtons> => [
   {
     action: 'Попробовать еще',
@@ -72,11 +71,5 @@ export const getProjectButtons = (
     img: 'assets/icons/delete.svg',
     alt: 'Delete Project Icon',
     fn: () => dispatch(setCurrentModal(modalNames.modalDeleteProject)),
-  },
-  {
-    action: '',
-    img: 'assets/icons/threeDots.svg',
-    alt: 'More actions Icon',
-    fn: () => toggleActionBlock(),
   },
 ];
