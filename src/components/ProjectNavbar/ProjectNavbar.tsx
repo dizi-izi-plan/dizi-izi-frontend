@@ -1,39 +1,18 @@
 'use client';
-import { useAppDispatch } from '@/redux/hooks';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import ModalIcon from '@public/assets/icons/modal_icon.svg';
-import React, { useState } from 'react';
-import ActionButton from '../ActionButton/ActionButton';
-import ProjectButton from '../Buttons/ProjectButton/ProjectButton';
+import React from 'react';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import { PopperMessage } from '../Popper/PopperMessage';
-import {
-  actionConfigs,
-  getProjectButtons,
-  modalConfigs,
-} from './projectNavbar.data';
+import ProjectButtonsList from '../ProjectButtonsList/ProjectButtonsList';
+import { modalConfigs } from './projectNavbar.data';
 import { ProjectNavbarProps } from './ProjectNavbarDataTypes';
 
 const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
-  const dispatch = useAppDispatch();
-
-  const [actionVisible, setActionVisible] = useState<boolean>(false);
-
-  const toggleActionBlock = () => {
-    setActionVisible((prev) => !prev);
-  };
-
-  const projectButtons = getProjectButtons(dispatch, toggleActionBlock);
-
   return (
     <>
-      <Stack
-        flexDirection="row"
-        justifyContent="space-around"
-        margin="4vh"
-        gap="10%"
-      >
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Box>
           <PopperMessage tip="Назад">
             <Button variant="empty" onClick={() => console.log('Назад')}>
@@ -44,39 +23,8 @@ const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
         <Box>
           <Typography variant="h3">{title}</Typography>
         </Box>
-        <Box display="flex" flexDirection="row" gap="10px">
-          {projectButtons.map((button) => (
-            <ProjectButton
-              key={button.action}
-              action={button.action}
-              img={button.img}
-              alt={button.alt}
-              fn={button.fn}
-            />
-          ))}
-          {actionVisible && (
-            <Box
-              display="flex"
-              flexDirection="column"
-              position="absolute"
-              top="9.5rem"
-              right="2.5rem"
-              bgcolor="#DEDEDE"
-              padding="5px"
-              gap="10px"
-            >
-              {actionConfigs.map((config) => (
-                <ActionButton
-                  key={config.title}
-                  img={config.img}
-                  title={config.title}
-                  fn={config.fn}
-                />
-              ))}
-            </Box>
-          )}
-        </Box>
-      </Stack>
+        <ProjectButtonsList />
+      </Box>
       {modalConfigs.map((config) => (
         <ModalTwoButtons
           key={config.modalName}

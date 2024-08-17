@@ -11,7 +11,14 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
   fn,
 }) => {
   return (
-    <Button variant="empty" onClick={fn}>
+    <Button
+      variant="empty"
+      onClick={fn}
+      sx={{
+        minWidth: '24px',
+        padding: '0.2rem',
+      }}
+    >
       <PopperMessage tip={action}>
         <Image
           src={img}
