@@ -1,4 +1,5 @@
 'use client';
+import { useAppDispatch } from '@/redux/hooks';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Box, Button, Typography } from '@mui/material';
 import ModalIcon from '@public/assets/icons/modal_icon.svg';
