@@ -5,7 +5,7 @@ import ModalIcon from '@public/assets/icons/modal_icon.svg';
 import React from 'react';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import { PopperMessage } from '../Popper/PopperMessage';
-import ProjectButtonsList from '../ProjectButtonsList/ProjectButtonsList';
+import ProjectButtonsList from '../Lists/ProjectButtonsList/ProjectButtonsList';
 import { modalConfigs } from './projectNavbar.data';
 import { ProjectNavbarProps } from './ProjectNavbarDataTypes';
 

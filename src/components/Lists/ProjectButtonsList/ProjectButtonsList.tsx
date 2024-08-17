@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import ProjectButton from '../Buttons/ProjectButton/ProjectButton';
-import { getProjectButtons } from '../ProjectNavbar/projectNavbar.data';
+import ProjectButton from '../../Buttons/ProjectButton/ProjectButton';
+import { getProjectButtons } from '../../ProjectNavbar/projectNavbar.data';
 import { useAppDispatch } from '@/redux/hooks';
 import { Box } from '@mui/material';
-import ActionsMenu from '../ActionsMenu/ActionsMenu';
+import ActionsMenu from '../../ActionsMenu/ActionsMenu';
 
 const ProjectButtonsList = () => {
   const dispatch = useAppDispatch();

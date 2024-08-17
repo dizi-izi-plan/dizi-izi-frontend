@@ -2,7 +2,7 @@ import { Box, Button, Popover } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 import { actionConfigs } from '../ProjectNavbar/projectNavbar.data';
-import ActionButton from '../ActionButton/ActionButton';
+import ActionButton from '../Buttons/ActionButton/ActionButton';
 import { ActionsMenuProps } from './ActionsMenuDataTypes';
 
 const ActionsMenu: React.FC<ActionsMenuProps> = ({

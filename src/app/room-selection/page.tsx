@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { ArrowBackButton } from '@/components/ArrowBackButton/ArrowBackButton';
+import { ArrowBackButton } from '@/components/Buttons/ArrowBackButton/ArrowBackButton';
 import { LargeBoxButtonLink } from '@/components/LargeBoxButtonLink/LargeBoxButtonLink';
 import { PageContainer } from '@/containers/PageContainer/PageContainer';
 import { routes } from '@/helpers/common-constants/routes-constants';
