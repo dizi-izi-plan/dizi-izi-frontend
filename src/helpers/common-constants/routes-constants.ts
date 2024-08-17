@@ -14,5 +14,6 @@ export const routes = {
   projectRoutes: {
     roomSelection: '/room-selection',
     roomMeasurements: '/room-measurements',
+    readyProject: '/ready-project',
   },
 } as const;
