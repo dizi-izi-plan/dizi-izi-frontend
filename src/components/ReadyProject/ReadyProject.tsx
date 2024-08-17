@@ -1,9 +1,12 @@
+'use client';
 import { Box } from '@mui/material';
 import React from 'react';
 import ProjectNavbar from '../ProjectNavbar/ProjectNavbar';
 import ProjectPlan from '../ProjectPlan/ProjectPlan';
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 const ReadyProject = () => {
+  useProtectedRoute();
   return (
     <Box
       display="flex"
