@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FormsContainer } from '@/containers/FormsContainer/FormsContainer';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
-import { useActivateUserMutation } from '@/api/apiSlice';
+import { useActivateUserMutation } from '@/redux/slices/auth-slice';
 
 const errorText = {
   400: [`Произошла ошибка, неверный токен для данного пользователя`],

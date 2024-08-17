@@ -14,3 +14,14 @@ export type TLoginError = {
   };
   attr: string;
 };
+
+export type registrationDataType = {
+  email: string;
+  password: string;
+  re_password: string;
+};
+
+export type registrationResponseType = {
+  id: string;
+  email: string;
+};

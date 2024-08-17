@@ -23,7 +23,7 @@ import {
   RegistrationFormType,
   RegistrationFormValidation,
 } from './validationSchema';
-import { useRegistrationMutation } from '@/api/apiSlice';
+import { useRegistrationMutation } from '@/redux/slices/auth-slice';
 
 export const RegistrationForm = () => {
   const {

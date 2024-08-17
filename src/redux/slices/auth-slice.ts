@@ -1,5 +1,9 @@
 import { setCookie, deleteCookie } from '@/helpers/cookie/cookie';
 import { diziIziSplitApi } from '@/redux/slices/diziIziSplitApi-slice';
+import {
+  registrationDataType,
+  registrationResponseType,
+} from '@/types/api-types';
 
 export const AuthApi = diziIziSplitApi.injectEndpoints({
   endpoints: (build) => ({
@@ -22,8 +26,30 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         }
       },
     }),
+    registration: build.mutation<
+      registrationResponseType,
+      registrationDataType
+    >({
+      query: (data) => ({
+        url: 'auth/users/',
+        method: 'POST',
+        data,
+      }),
+    }),
+    activateUser: build.mutation({
+      query: (data) => ({
+        url: 'auth/users/activation/',
+        method: 'POST',
+        data,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useLoginMutation, useLogoutMutation } = AuthApi;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegistrationMutation,
+  useActivateUserMutation,
+} = AuthApi;
