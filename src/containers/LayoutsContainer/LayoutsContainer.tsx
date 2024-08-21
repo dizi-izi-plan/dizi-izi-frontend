@@ -17,14 +17,25 @@ const MODAL_TEXT = [
 ];
 
 export const LayoutsContainer = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
+  type ModalStateType = 'isOpenDelete' | 'isOpenDuplicate' | 'isOpenContinue';
+  type ModalState = {
+    isOpen: boolean;
+    modalType: ModalStateType | null;
+    projectId: number | null;
+  };
 
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [modalState, setModalState] = useState<ModalState>({
+    isOpen: false,
+    modalType: null,
+    projectId: null,
+  });
   const handleConfirm = () => {
     router.push('/room-selection');
     setIsOpen(false);
   };
-
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -66,18 +77,6 @@ export const LayoutsContainer = () => {
       handleCloseModal();
     },
   };
-
-  type ModalStateType = 'isOpenDelete' | 'isOpenDuplicate' | 'isOpenContinue';
-
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    modalType: ModalStateType | null;
-    projectId: number | null;
-  }>({
-    isOpen: false,
-    modalType: null,
-    projectId: null,
-  });
 
   const handleOpenModal = (modalType: ModalStateType, projectId: number) => {
     setModalState({ isOpen: true, modalType, projectId });
