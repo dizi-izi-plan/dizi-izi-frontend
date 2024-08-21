@@ -1,4 +1,4 @@
-import { FC } from 'react';
+'use client';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -6,6 +6,9 @@ import { Typography } from '@mui/material';
 import { theme } from '@/mui/theme';
 import DraftIcon from '../../../public/assets/icons/draftIcon.svg';
 import { MenuOptions } from '@/components/Menu/MenuOptionsProjects/MenuOptions';
+import { useAppDispatch } from '@/redux/hooks';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
 
 type DraftContainerProps = {
   id: number;
@@ -16,12 +19,14 @@ type DraftContainerProps = {
   ) => void;
 };
 
-export const DraftContainer: FC<DraftContainerProps> = ({
+export const DraftContainer = ({
   id,
   date,
   onOpenModal,
-}) => {
+}: DraftContainerProps) => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
+
   const handleConfirm = () => {
     router.push('/room-selection');
   };
@@ -80,12 +85,14 @@ export const DraftContainer: FC<DraftContainerProps> = ({
                 name: 'Продолжить',
                 onClick: () => {
                   handleContinue();
+                  dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
                 },
               },
               {
                 name: 'Удалить',
                 onClick: () => {
                   handleDelete();
+                  dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
                 },
               },
             ]}

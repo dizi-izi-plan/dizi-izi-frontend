@@ -22,73 +22,61 @@ const MODAL_TEXT = [
 ];
 
 export const LayoutsContainer = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   type ModalStateType = 'isOpenDelete' | 'isOpenDuplicate' | 'isOpenContinue';
   type ModalState = {
     isOpen: boolean;
     modalType: ModalStateType | null;
-    projectId: number | null;
   };
-
-  const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
 
   const [modalState, setModalState] = useState<ModalState>({
     isOpen: false,
     modalType: null,
-    projectId: null,
   });
-  const handleConfirm = () => {
-    router.push('/room-selection');
-    setIsOpen(false);
-  };
-  const handleClose = () => {
-    setIsOpen(false);
+
+  const handleDeleteYes = () => {
+    console.log(`handleDeleteYes for project `);
   };
 
-  const handleDeleteYes = (id: number) => {
-    console.log(`handleDeleteYes for project ${id}`);
+  const handleDuplicateYes = () => {
+    console.log(`handleDuplicateYes for project `);
   };
 
-  const handleDuplicateYes = (id: number) => {
-    console.log(`handleDuplicateYes for project ${id}`);
-  };
-
-  const handleСontinueYes = (id: number) => {
-    console.log(`handleContinueYes for project ${id}`);
+  const handleСontinueYes = () => {
+    console.log(`handleContinueYes for project `);
   };
 
   const modalActions = {
     handleYes: () => {
-      if (modalState.projectId !== null) {
-        switch (modalState.modalType) {
-          case 'isOpenDelete':
-            handleDeleteYes(modalState.projectId);
-            break;
-          case 'isOpenDuplicate':
-            handleDuplicateYes(modalState.projectId);
-            break;
-          case 'isOpenContinue':
-            handleСontinueYes(modalState.projectId);
-            break;
+      switch (modalState.modalType) {
+        case 'isOpenDelete':
+          handleDeleteYes();
+          break;
+        case 'isOpenDuplicate':
+          handleDuplicateYes();
+          break;
+        case 'isOpenContinue':
+          handleСontinueYes();
+          break;
 
-          default:
-            break;
-        }
+        default:
+          break;
       }
       handleCloseModal();
     },
     handleNo: () => {
       console.log('handleNo');
-      handleCloseModal();
     },
   };
 
-  const handleOpenModal = (modalType: ModalStateType, projectId: number) => {
-    setModalState({ isOpen: true, modalType, projectId });
+  const handleOpenModal = (modalType: ModalStateType) => {
+    setModalState({ isOpen: true, modalType });
   };
 
   const handleCloseModal = () => {
-    setModalState({ isOpen: false, modalType: null, projectId: null });
+    setModalState({ isOpen: false, modalType: null });
   };
 
   const projects: {
@@ -126,7 +114,9 @@ export const LayoutsContainer = () => {
           variant="box"
           size="large"
           startIcon={<AddBoxOutlinedIcon />}
-          onClick={() => setIsOpen(true)}
+          onClick={() =>
+            dispatch(setCurrentModal(modalNames.modalStartNewProject))
+          }
         >
           Создать проект
         </Button>
@@ -158,13 +148,15 @@ export const LayoutsContainer = () => {
         nameButton="Начать"
       />
 
-      <ModalTwoButtons 
+      <ModalTwoButtons
         handleYes={modalActions.handleYes}
         handleNo={modalActions.handleNo}
         text={getModalText()}
         icon={<ModalIcon width="75" height="126" />}
         nameButtonYes="Да"
-        nameButtonNo="Нет" modalName={''}      />
+        nameButtonNo="Нет"
+        modalName={modalNames.modalTooMuchFurniture}
+      />
     </>
   );
 };
