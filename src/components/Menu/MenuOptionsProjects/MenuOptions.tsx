@@ -1,3 +1,4 @@
+'use client';
 import {
   Box,
   IconButton,
@@ -6,7 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React, { FC, MouseEvent, useRef, useState } from 'react';
+import React, { MouseEvent, useRef, useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { theme } from '@/mui/theme';
 
@@ -14,7 +15,7 @@ interface MenuOptionsProps {
   actions: { name: string; onClick: () => void }[];
 }
 
-export const MenuOptions = ({ actions }:MenuOptionsProps) => {
+export const MenuOptions = ({ actions }: MenuOptionsProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const anchorRef = useRef<HTMLElement | null>(null);
 

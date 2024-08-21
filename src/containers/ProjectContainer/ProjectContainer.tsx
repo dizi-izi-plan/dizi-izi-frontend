@@ -1,6 +1,6 @@
+'use client';
 import {
   ChangeEvent,
-  FC,
   KeyboardEvent,
   ReactNode,
   useEffect,
@@ -15,6 +15,9 @@ import TextField from '@mui/material/TextField';
 import { theme } from '@/mui/theme';
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
 import { MenuOptions } from '@/components/Menu/MenuOptionsProjects/MenuOptions';
+import { modalNames } from '@/helpers/common-constants/modal-constants';
+import { setCurrentModal } from '@/redux/slices/modal-slice';
+import { useAppDispatch } from '@/redux/hooks';
 
 type ProjectsContainerProps = {
   id: number;
@@ -27,19 +30,19 @@ type ProjectsContainerProps = {
   ) => void;
 };
 
-export const ProjectsContainer: FC<ProjectsContainerProps> = ({
+export const ProjectsContainer = ({
   id,
   name,
   date,
   image,
   onOpenModal,
-}) => {
+}: ProjectsContainerProps) => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [projectName, setProjectName] = useState(name);
   const [previousName, setPreviousName] = useState(name);
-
-  const router = useRouter();
 
   const handleConfirm = () => {
     router.push('/room-measurements');
@@ -47,7 +50,6 @@ export const ProjectsContainer: FC<ProjectsContainerProps> = ({
 
   const clickOnRename = () => {
     setIsEditing(true);
-    console.log('Переименовать');
   };
 
   const handleDelete = () => {
@@ -128,12 +130,14 @@ export const ProjectsContainer: FC<ProjectsContainerProps> = ({
                 name: 'Дублировать',
                 onClick: () => {
                   handleDuplicate();
+                  dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
                 },
               },
               {
                 name: 'Удалить',
                 onClick: () => {
                   handleDelete();
+                  dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
                 },
               },
             ]}
