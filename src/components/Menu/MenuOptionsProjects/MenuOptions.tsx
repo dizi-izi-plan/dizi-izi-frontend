@@ -14,7 +14,7 @@ interface MenuOptionsProps {
   actions: { name: string; onClick: () => void }[];
 }
 
-export const MenuOptions: FC<MenuOptionsProps> = ({ actions }) => {
+export const MenuOptions = ({ actions }:MenuOptionsProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const anchorRef = useRef<HTMLElement | null>(null);
 
