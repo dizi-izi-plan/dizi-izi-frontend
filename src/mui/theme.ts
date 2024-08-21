@@ -636,27 +636,6 @@ theme = createTheme(theme, {
         },
       },
     },
-    MuiMenu: {
-      styleOverrides: {
-        root: {
-          '& .MuiPaper-root': {
-            borderRadius: '0',
-          },
-          '& .MuiList-root': {
-            padding: '0',
-            borderRadius: '0',
-          },
-          '& .MuiBox-root': {
-            width: '148px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            border: `1px solid ${theme.palette.primary.main}`,
-            padding: '12px',
-          },
-        },
-      },
-    },
     MuiMenuItem: {
       styleOverrides: {
         root: {
