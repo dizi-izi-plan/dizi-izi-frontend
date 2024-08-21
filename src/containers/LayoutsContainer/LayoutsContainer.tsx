@@ -1,3 +1,4 @@
+
 'use client';
 import { useAppDispatch } from '@/redux/hooks';
 import { setCurrentModal } from '@/redux/slices/modal-slice';
@@ -155,8 +156,10 @@ export const LayoutsContainer = () => {
         text={MODAL_TEXT}
         handleConfirm={() => router.push(routes.projectRoutes.roomSelection)}
         icon={<ModalIcon width="75" height="126" />}
-        nameButton={'Начать'}
+        nameButton="Начать"
       />
+
+      
 
       <ModalTwoButtons 
         handleYes={modalActions.handleYes}
