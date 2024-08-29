@@ -43,6 +43,13 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         data,
       }),
     }),
+    resendActivation: build.mutation({
+      query: (data) => ({
+        url: 'auth/users/resend_activation/',
+        method: 'POST',
+        data,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -52,4 +59,5 @@ export const {
   useLogoutMutation,
   useRegistrationMutation,
   useActivateUserMutation,
+  useResendActivationMutation,
 } = AuthApi;
