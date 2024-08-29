@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { FormsContainer } from '@/containers/FormsContainer/FormsContainer';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 import { useActivateUserMutation } from '@/redux/slices/auth-slice';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 const errorText = {
   400: [`Произошла ошибка, неверный токен для данного пользователя`],
@@ -19,11 +20,11 @@ const text = [
 const buttonInfo = {
   back: {
     name: 'Назад',
-    route: '/registration-letter-message',
+    route: routes.authRoutes.registrationLetterMessage,
   },
   login: {
     name: 'Войти',
-    route: '/login',
+    route: routes.authRoutes.login,
   },
 };
 
