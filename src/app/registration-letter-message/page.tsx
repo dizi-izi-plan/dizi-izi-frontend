@@ -23,7 +23,6 @@ const RegistrationLetterMessage = () => {
       } catch (error) {
         console.error(error);
       }
-    } else {
     }
   };
 
