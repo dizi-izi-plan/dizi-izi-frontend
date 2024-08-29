@@ -60,6 +60,8 @@ export const RegistrationForm = () => {
     try {
       await registration(data).unwrap();
 
+      localStorage.setItem('email', data.email);
+
       router.push('/registration-letter-message');
     } catch (error) {
       console.error(error);
