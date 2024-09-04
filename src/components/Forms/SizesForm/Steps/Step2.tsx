@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useAppDispatch } from '@/redux/hooks';
 import {
@@ -18,28 +18,10 @@ import {
 } from '../validation';
 import { STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
-import {
-  RadioGroupWrapper,
-  RadioType,
-} from '@/components/Input/RadioGroup/RadioGroupWrapper';
+import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
+import { useToWallRadios } from '@/hooks/useToWallRadios';
 import { WALLS_NAMES_TYPE } from '../types';
 import { WALLS } from '../formData';
-
-const TO_WALL_RADIOS_EVEN: RadioType[] = [
-  {
-    label: 'До стены 2',
-    value: WALLS.second,
-  },
-  { label: 'До стены 4', value: WALLS.forth },
-];
-
-const TO_WALL_RADIOS_UNEVEN: RadioType[] = [
-  { label: 'До стены 1', value: WALLS.first },
-  {
-    label: 'До стены 3',
-    value: WALLS.third,
-  },
-];
 
 export const Door = () => {
   const dispatch = useAppDispatch();
@@ -49,14 +31,12 @@ export const Door = () => {
   const { control, formState, watch, setValue } =
     useFormContext<SizesFormType>();
   const { errors } = formState;
-  const selectedWall = watch(STEP2.wallNumber.name as WALLS_NAMES_TYPE);
 
-  const toWallRadios = useMemo((): RadioType[] => {
-    if (selectedWall === WALLS.first || selectedWall === WALLS.third) {
-      return TO_WALL_RADIOS_EVEN;
-    }
-    return TO_WALL_RADIOS_UNEVEN;
-  }, [selectedWall]);
+  const selectedWall = watch(
+    STEP2.wallNumber.name as WALLS_NAMES_TYPE,
+  ) as string;
+
+  const toWallRadios = useToWallRadios(selectedWall);
 
   useEffect(() => {
     if (selectedWall === WALLS.first || selectedWall === WALLS.third)
