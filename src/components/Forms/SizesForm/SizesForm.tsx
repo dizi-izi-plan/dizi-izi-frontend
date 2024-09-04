@@ -14,6 +14,7 @@ import { Door } from './Steps/Step2';
 import { useAppSelector } from '@/redux/hooks';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
 import { SizesFormType } from './validation';
+import { Windows } from './Steps/Step3/Step3';
 
 type SizesFormProps = {
   currentStep: number;
@@ -75,7 +76,7 @@ export const SizesForm = ({
           <Door />
         </TabContentContainer>
         <TabContentContainer index={2} value={currentStep}>
-          Форма для окон
+          <Windows />
         </TabContentContainer>
         <TabContentContainer index={3} value={currentStep}>
           <Furniture />

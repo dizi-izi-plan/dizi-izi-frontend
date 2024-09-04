@@ -17,6 +17,10 @@ export const door = {
   open: OPEN.inside,
 };
 
+const windows = {
+  type: '',
+};
+
 export const furniture = {
   bed: 0,
   bedsNumber: 1,
@@ -27,6 +31,6 @@ export const furniture = {
 export const initialStepsState: SizesFormType = {
   walls,
   door,
-  // windows: {},
+  windows,
   furniture,
 };

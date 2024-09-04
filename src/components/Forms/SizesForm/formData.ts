@@ -135,3 +135,63 @@ export const STEP2 = {
     ],
   },
 };
+
+// WINDOWS
+export const WINDOW_NAMES = {
+  type: 'windows.type',
+  wallNumber: 'wallNumber',
+  size: 'size',
+  distanceToWall: 'distanceToWall',
+  toWall: 'toWall',
+} as const;
+
+export const WINDOW_WITH_BALCONY_NAMES = {
+  ...WINDOW_NAMES,
+  side: 'side',
+} as const;
+
+export const STEP3 = {
+  wallNumber: {
+    name: WINDOW_NAMES.wallNumber,
+    placeholder: 'Окно на стене номер',
+    options: [
+      {
+        value: WALLS.first,
+        text: 1,
+      },
+      {
+        value: WALLS.second,
+        text: 2,
+      },
+      {
+        value: WALLS.third,
+        text: 3,
+      },
+      {
+        value: WALLS.forth,
+        text: 4,
+      },
+    ],
+  },
+  doorSize: {
+    name: WINDOW_NAMES.size,
+    placeholder: 'Длина окна в мм',
+  },
+  fromWindowTo: {
+    name: WINDOW_NAMES.distanceToWall,
+    placeholder: 'Расстояние от окна',
+  },
+  toWall: {
+    name: WINDOW_NAMES.toWall,
+  },
+  openLeftRight: {
+    name: DOOR_NAMES.side,
+    radios: [
+      { value: SIDE.left, label: 'Открывается влево' },
+      {
+        value: SIDE.right,
+        label: 'Открывается вправо',
+      },
+    ],
+  },
+};

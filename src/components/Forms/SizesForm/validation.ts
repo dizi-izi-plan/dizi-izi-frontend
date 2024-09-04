@@ -1,20 +1,26 @@
-import { z, number, string } from 'zod';
+import { z, number, string, array } from 'zod';
 import { WALL_NUM } from './types';
 import { DOOR_NAMES } from './formData';
 
 export const MIN_WALLS_INPUT_LENGTH = 4;
 export const MAX_WALLS_INPUT_LENGTH = 4;
 export const MAX_DOOR_INPUT_LENGTH = 3;
+export const MAX_WINDOW_INPUT_LENGTH = 4;
 
 export const MIN_WALLS_VALUE = 1000;
 export const MIN_DOOR_SIZE = 700;
 export const MAX_DOOR_SIZE = 900;
 export const MIN_DOOR_DISTANCE_TO_WALL = 50;
+export const MIN_WINDOW_SIZE = 400;
+export const MIN_WINDOW_WITH_BALCONY_SIZE = 700;
 
 export const ERROR_MESSAGES = {
   required: 'Обязательное поле',
   minWallsSizes: 'Длина стены не может быть меньше 1000мм',
   doorSizes: 'Размер двери не может быть меньше 700мм и больше 900мм',
+  minWindowSize: 'Размер окна не может быть меньше 400мм',
+  minWindowWithBalconySize: 'Размер окна не может быть меньше 700мм',
+  maxWindowSize: 'Размер окна не может быть больше размера выбранной стены',
   minDistanceToWall: 'Расстояние от двери до стены не может быть меньше 50мм',
   maxDistanceToWall: 'Расстояние от двери до стены слишком большое',
 };
@@ -24,6 +30,13 @@ const wallValidation = z
   .union([number(), string()])
   .refine((value) => `${value}`.length >= MIN_WALLS_INPUT_LENGTH)
   .refine((value) => Number(value) >= MIN_WALLS_VALUE);
+
+export const WallsValidation = z.object({
+  first: wallValidation,
+  second: wallValidation,
+  third: wallValidation,
+  forth: wallValidation,
+});
 
 // DOOR
 const doorSize = z
@@ -35,13 +48,6 @@ const doorSize = z
       message: ERROR_MESSAGES.doorSizes,
     },
   );
-
-export const WallsValidation = z.object({
-  first: wallValidation,
-  second: wallValidation,
-  third: wallValidation,
-  forth: wallValidation,
-});
 
 export const DoorValidation = z.object({
   wallNumber: string().min(1, { message: ERROR_MESSAGES.required }),
@@ -85,6 +91,29 @@ const checkDistanceToWall = (
   }
 };
 
+// WINDOW
+const windowSize = z
+  .string()
+  .min(1, { message: ERROR_MESSAGES.required })
+  .refine(
+    (value) => Number(value) >= MIN_WINDOW_SIZE && Number(value), // ADD CHECK FOR CURRENT WALL SIZE >= MAX_WINDOW_SIZE
+    {
+      message: ERROR_MESSAGES.minWindowSize,
+    },
+  );
+
+export const WindowValidation = z.object({
+  wallNumber: string().min(1, { message: ERROR_MESSAGES.required }),
+  size: windowSize,
+  distanceToWall: string().min(1, { message: ERROR_MESSAGES.required }), // add check for distance
+  toWall: string().min(1, { message: ERROR_MESSAGES.required }),
+});
+
+export const WindowsValidation = z.object({
+  type: string().min(1, { message: ERROR_MESSAGES.required }),
+  windows: array(WindowValidation).optional(),
+});
+
 // FURNITURE
 export const FurnitureValidation = z.object({
   bed: z.number(),
@@ -97,7 +126,7 @@ export const SizesFormValidation = z
   .object({
     walls: WallsValidation,
     door: DoorValidation,
-    // windows: z.object({}),
+    windows: WindowsValidation,
     furniture: FurnitureValidation,
   })
   .superRefine((values, context) => {
