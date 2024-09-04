@@ -46,6 +46,7 @@ export default function ActivateUser({ params }: activateUserType) {
         token: params.token,
       })
         .unwrap()
+        .then(() => localStorage.removeItem('email'))
         .catch((error) => {
           console.error('rejected', error);
         });
