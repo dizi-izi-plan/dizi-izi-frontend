@@ -22,7 +22,7 @@ export interface ProjectButtons {
   action: string;
   img: string;
   alt: string;
-  fn: () => void;
+  callback: () => void;
 }
 
 export interface ModalConfigs {
@@ -35,5 +35,5 @@ export interface ModalConfigs {
 export interface ActionConfigs {
   img: string;
   title: string;
-  fn: () => void;
+  callback: () => void;
 }
