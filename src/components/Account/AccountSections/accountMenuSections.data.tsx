@@ -1,6 +1,6 @@
 'use client';
 
-import { AccountSectionTemplate } from './AccountSectionTemplate';
+import { AccountSectionTemplate } from './account-section-template/AccountSectionTemplate';
 import { MyTariff } from '../../Tariff/MyTariff';
 import { AccountMenuItemsType } from '../accountTypes';
 import { LayoutsContainer } from '@/containers/LayoutsContainer/LayoutsContainer';
@@ -16,6 +16,6 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   },
   {
     name: 'Профиль',
-    component: <AccountSectionTemplate name="Профиль" />, // при верстке нужного компонента - заменить
+    component: <AccountSectionTemplate />, // при верстке нужного компонента - заменить
   },
 ];

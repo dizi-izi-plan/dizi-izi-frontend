@@ -1,5 +1,17 @@
 import { z } from 'zod';
 
+export const UsernameValidation = z.object({
+  username: z
+    .string()
+    .min(2, { message: 'Имя должно содержать не менее 2 символов' })
+    .max(20, { message: 'Имя должно содержать не более 20 символов' })
+    .regex(/^[a-zA-Zа-яА-Я]+$/, {
+      message: 'Имя должно содержать только буквы',
+    }),
+});
+
+export type UsernameFormType = z.infer<typeof UsernameValidation>;
+
 export const LoginValidation = z.object({
   email: z
     .string()
@@ -36,3 +48,13 @@ export const ConfirmPasswordValidation = PasswordValidation.extend({
 });
 
 export type confirmPasswordFormType = z.infer<typeof ConfirmPasswordValidation>;
+
+export const ChangePasswordValidation = PasswordValidation.extend({
+  oldPassword: z.string().min(8, { message: 'Обязательное поле' }),
+  confirmPassword: z.string().nonempty({ message: 'Обязательное поле' }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'Пароль не соответствует введенному ранее',
+  path: ['confirmPassword'],
+});
+
+export type changePasswordFormType = z.infer<typeof ChangePasswordValidation>;
