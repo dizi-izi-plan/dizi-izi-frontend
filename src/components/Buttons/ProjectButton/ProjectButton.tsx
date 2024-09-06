@@ -1,19 +1,25 @@
 import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { Button } from '@mui/material';
 import Image from 'next/image';
-import React from 'react';
-import { ProjectButtonProps } from './ProjectButtonDataTypes';
+import React, { FC } from 'react';
 
-const ProjectButton: React.FC<ProjectButtonProps> = ({
+export interface ProjectButtonProps {
+  action: string;
+  img: string;
+  alt: string;
+  callback?: () => void;
+}
+
+const ProjectButton: FC<ProjectButtonProps> = ({
   action,
   img,
   alt,
-  fn,
+  callback,
 }) => {
   return (
     <Button
       variant="empty"
-      onClick={fn}
+      onClick={callback}
       sx={{
         minWidth: '24px',
         padding: '0.2rem',

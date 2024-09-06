@@ -9,21 +9,23 @@ const ProjectButtonsList = () => {
   const dispatch = useAppDispatch();
 
   const projectButtons = getProjectButtons(dispatch);
-  const [actionVisible, setActionVisible] = useState<null | HTMLElement>(null);
+  const [isActionVisible, setActionVisible] = useState<null | HTMLElement>(
+    null,
+  );
 
   return (
     <Box display="flex" flexDirection="row" gap="10px">
-      {projectButtons.map((button) => (
+      {projectButtons.map(({ action, img, alt, callback }) => (
         <ProjectButton
-          key={button.action}
-          action={button.action}
-          img={button.img}
-          alt={button.alt}
-          fn={button.fn}
+          key={action}
+          action={action}
+          img={img}
+          alt={alt}
+          callback={callback}
         />
       ))}
       <ActionsMenu
-        actionVisible={actionVisible}
+        isActionVisible={isActionVisible}
         setActionVisible={setActionVisible}
       />
     </Box>

@@ -2,14 +2,17 @@
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Box, Button, Typography } from '@mui/material';
 import ModalIcon from '@public/assets/icons/modal_icon.svg';
-import React from 'react';
+import React, { FC } from 'react';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import { PopperMessage } from '../Popper/PopperMessage';
 import ProjectButtonsList from '../Lists/ProjectButtonsList/ProjectButtonsList';
 import { modalConfigs } from './projectNavbar.data';
-import { ProjectNavbarProps } from './ProjectNavbarDataTypes';
 
-const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
+export interface ProjectNavbarProps {
+  title: string;
+}
+
+const ProjectNavbar: FC<ProjectNavbarProps> = ({ title }) => {
   return (
     <>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
@@ -25,14 +28,14 @@ const ProjectNavbar: React.FC<ProjectNavbarProps> = ({ title }) => {
         </Box>
         <ProjectButtonsList />
       </Box>
-      {modalConfigs.map((config) => (
+      {modalConfigs.map(({ modalName, text, handleYes, handleNo }) => (
         <ModalTwoButtons
-          key={config.modalName}
-          modalName={config.modalName}
-          text={config.text}
+          key={modalName}
+          modalName={modalName}
+          text={text}
           icon={<ModalIcon width="75" height="126" />}
-          handleYes={config.handleYes}
-          handleNo={config.handleNo}
+          handleYes={handleYes}
+          handleNo={handleNo}
           nameButtonYes="Да"
           nameButtonNo="Нет"
         />
