@@ -31,21 +31,21 @@ export const actionConfigs: Array<ActionConfigs> = [
   {
     img: '../../../assets/icons/downloadPdfIcon.svg',
     title: 'Скачать в pdf',
-    fn: () => {
+    callback: () => {
       console.log('Сработало');
     },
   },
   {
     img: '../../../assets/icons/sendMailIcon.svg',
     title: 'Отправить на почту',
-    fn: () => {
+    callback: () => {
       console.log('Сработало');
     },
   },
   {
     img: '../../../assets/icons/saveProjectIcon.svg',
     title: 'Сохранить',
-    fn: () => {
+    callback: () => {
       console.log('Сработало');
     },
   },
@@ -58,18 +58,18 @@ export const getProjectButtons = (
     action: 'Попробовать еще',
     img: 'assets/icons/refresh.svg',
     alt: 'Refresh Icon',
-    fn: () => dispatch(setCurrentModal(modalNames.modalTryAgain)),
+    callback: () => dispatch(setCurrentModal(modalNames.modalTryAgain)),
   },
   {
     action: 'Новый проект',
     img: 'assets/icons/add.svg',
     alt: 'New Project Icon',
-    fn: () => dispatch(setCurrentModal(modalNames.modalStartNewProject)),
+    callback: () => dispatch(setCurrentModal(modalNames.modalStartNewProject)),
   },
   {
     action: 'Удалить проект',
     img: 'assets/icons/delete.svg',
     alt: 'Delete Project Icon',
-    fn: () => dispatch(setCurrentModal(modalNames.modalDeleteProject)),
+    callback: () => dispatch(setCurrentModal(modalNames.modalDeleteProject)),
   },
 ];

@@ -1,12 +1,16 @@
 import { Box, Button, Popover } from '@mui/material';
 import Image from 'next/image';
-import React from 'react';
+import React, { FC } from 'react';
 import { actionConfigs } from '../ProjectNavbar/projectNavbar.data';
 import ActionButton from '../Buttons/ActionButton/ActionButton';
-import { ActionsMenuProps } from './ActionsMenuDataTypes';
 
-const ActionsMenu: React.FC<ActionsMenuProps> = ({
-  actionVisible,
+export interface ActionsMenuProps {
+  isActionVisible: null | HTMLElement;
+  setActionVisible: (value: null | HTMLElement) => void;
+}
+
+const ActionsMenu: FC<ActionsMenuProps> = ({
+  isActionVisible,
   setActionVisible,
 }) => {
   const actionClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -15,7 +19,7 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
   const actionClose = () => {
     setActionVisible(null);
   };
-  const openAction = Boolean(actionVisible);
+  const openAction = Boolean(isActionVisible);
 
   return (
     <Box>
@@ -36,7 +40,7 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
       </Button>
       <Popover
         open={openAction}
-        anchorEl={actionVisible}
+        anchorEl={isActionVisible}
         onClose={actionClose}
         anchorOrigin={{
           vertical: 'bottom',
@@ -54,12 +58,12 @@ const ActionsMenu: React.FC<ActionsMenuProps> = ({
           padding="5px"
           gap="10px"
         >
-          {actionConfigs.map((config) => (
+          {actionConfigs.map(({ title, img, callback }) => (
             <ActionButton
-              key={config.title}
-              img={config.img}
-              title={config.title}
-              fn={config.fn}
+              key={title}
+              img={img}
+              title={title}
+              callback={callback}
             />
           ))}
         </Box>

@@ -1,11 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
-import { ActionButtonProps } from './ActionButtonDataTypes';
+import { FC } from 'react';
 
-const ActionButton: React.FC<ActionButtonProps> = ({ title, fn, img }) => {
+export interface ActionButtonProps {
+  img: string;
+  title: string;
+  callback: () => void;
+}
+
+const ActionButton: FC<ActionButtonProps> = ({ title, callback, img }) => {
   return (
     <Box
-      onClick={fn}
+      onClick={callback}
       display="flex"
       alignContent="center"
       gap="10px"
