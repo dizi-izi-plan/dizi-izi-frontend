@@ -29,14 +29,14 @@ const buttonInfo = {
   },
 };
 
-type activateUserType = {
+type ActivateUserType = {
   params: {
     token: string;
     uid: string;
   };
 };
 
-export default function ActivateUser({ params }: activateUserType) {
+export default function ActivateUser({ params }: ActivateUserType) {
   const [activateUser, { isLoading, error }] = useActivateUserMutation();
 
   useEffect(() => {

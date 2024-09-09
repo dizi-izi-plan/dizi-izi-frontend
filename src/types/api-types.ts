@@ -15,13 +15,13 @@ export type TLoginError = {
   attr: string;
 };
 
-export type registrationDataType = {
+export type RegistrationDataType = {
   email: string;
   password: string;
   re_password: string;
 };
 
-export type registrationResponseType = {
+export type RegistrationResponseType = {
   id: string;
   email: string;
 };

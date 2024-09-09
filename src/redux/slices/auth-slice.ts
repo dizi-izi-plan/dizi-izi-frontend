@@ -1,21 +1,22 @@
 import { setCookie, deleteCookie } from '@/helpers/cookie/cookie';
 import { diziIziSplitApi } from '@/redux/slices/diziIziSplitApi-slice';
 import {
-  registrationDataType,
-  registrationResponseType,
+  RegistrationDataType,
+  RegistrationResponseType,
 } from '@/types/api-types';
+import { urls } from '@/helpers/common-constants/urls-constants';
 
 export const AuthApi = diziIziSplitApi.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation({
-      query: (data) => ({ url: 'auth/token/login/', method: 'post', data }),
+      query: (data) => ({ url: urls.authUrls.loginUrl, method: 'post', data }),
       invalidatesTags: (result) => {
         setCookie('token', result.auth_token, 3);
         return ['User'];
       },
     }),
     logout: build.mutation({
-      query: () => ({ url: 'auth/token/logout/', method: 'post' }),
+      query: () => ({ url: urls.authUrls.logoutUrl, method: 'post' }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -27,25 +28,25 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
       },
     }),
     registration: build.mutation<
-      registrationResponseType,
-      registrationDataType
+      RegistrationResponseType,
+      RegistrationDataType
     >({
       query: (data) => ({
-        url: 'auth/users/',
+        url: urls.authUrls.registrationUrl,
         method: 'POST',
         data,
       }),
     }),
     activateUser: build.mutation({
       query: (data) => ({
-        url: 'auth/users/activation/',
+        url: urls.authUrls.activateUserUrl,
         method: 'POST',
         data,
       }),
     }),
     resendActivation: build.mutation({
       query: (data) => ({
-        url: 'auth/users/resend_activation/',
+        url: urls.authUrls.resendActivationUrl,
         method: 'POST',
         data,
       }),
