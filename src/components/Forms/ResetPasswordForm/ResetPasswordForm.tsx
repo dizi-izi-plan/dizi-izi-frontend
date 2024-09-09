@@ -16,12 +16,12 @@ import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPass
 
 const RESET_PASSWORD_FORM_NAMES = {
   password: 'password',
-  confirmPassword: 'confirmPassword',
+  re_password: 're_password',
 } as const;
 
 const RESET_PASSWORD_FORM_LABELS = {
   password: 'Пароль',
-  confirmPassword: 'Повторите пароль',
+  re_password: 'Повторите пароль',
 } as const;
 
 export const ResetPasswordForm = () => {
@@ -61,12 +61,12 @@ export const ResetPasswordForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
             <InputPasswordWrapper
-              name={RESET_PASSWORD_FORM_NAMES.confirmPassword}
+              name={RESET_PASSWORD_FORM_NAMES.re_password}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={RESET_PASSWORD_FORM_LABELS.confirmPassword}
+              label={RESET_PASSWORD_FORM_LABELS.re_password}
               errorMessage={
-                errors.confirmPassword ? errors.confirmPassword?.message : ' '
+                errors.re_password ? errors.re_password?.message : ' '
               }
             />
           </Stack>

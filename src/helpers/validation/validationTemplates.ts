@@ -29,10 +29,10 @@ export const PasswordValidation = z.object({
 export type passwordFormType = z.infer<typeof PasswordValidation>;
 
 export const ConfirmPasswordValidation = PasswordValidation.extend({
-  confirmPassword: z.string().nonempty({ message: 'Обязательное поле' }),
-}).refine((data) => data.password === data.confirmPassword, {
+  re_password: z.string().nonempty({ message: 'Обязательное поле' }),
+}).refine((data) => data.password === data.re_password, {
   message: 'Пароль не соответствует введенному ранее',
-  path: ['confirmPassword'],
+  path: ['re_password'],
 });
 
 export type confirmPasswordFormType = z.infer<typeof ConfirmPasswordValidation>;

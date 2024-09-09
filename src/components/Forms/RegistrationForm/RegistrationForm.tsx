@@ -1,16 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
+import { useRouter } from 'next/navigation';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CustomLink } from '@/components/Link/CustomLink';
+import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import { TextFieldWrapper } from '../../Input/TextFieldWrapper';
 import { InputPasswordWrapper } from '../../Input/InputPassword/InputPasswordWrapper';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import { CustomLink } from '@/components/Link/CustomLink';
-import Box from '@mui/material/Box';
 import {
   REGISTRATION_FORM_LABELS,
   REGISTRATION_FORM_NAMES,
@@ -19,6 +23,7 @@ import {
   RegistrationFormType,
   RegistrationFormValidation,
 } from './validationSchema';
+import { useRegistrationMutation } from '@/redux/slices/auth-slice';
 
 export const RegistrationForm = () => {
   const {
@@ -29,11 +34,40 @@ export const RegistrationForm = () => {
     defaultValues: {
       [REGISTRATION_FORM_NAMES.email]: '',
       [REGISTRATION_FORM_NAMES.password]: '',
-      [REGISTRATION_FORM_NAMES.confirmPassword]: '',
+      [REGISTRATION_FORM_NAMES.re_password]: '',
     },
     resolver: zodResolver(RegistrationFormValidation),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+
+  const router = useRouter();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const [registration, { isLoading }] = useRegistrationMutation();
+
+  const handleSnackbarClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await registration(data).unwrap();
+
+      localStorage.setItem('email', data.email);
+
+      router.push('/registration-letter-message');
+    } catch (error) {
+      console.error(error);
+      setOpenSnackbar(true);
+    }
+  });
 
   return (
     <div>
@@ -46,6 +80,7 @@ export const RegistrationForm = () => {
           Зарегистрироваться
         </Typography>
       </Box>
+
       <form onSubmit={onSubmit}>
         <Stack spacing={3} mb={4}>
           <Stack rowGap={4}>
@@ -64,12 +99,12 @@ export const RegistrationForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
             <InputPasswordWrapper
-              name={REGISTRATION_FORM_NAMES.confirmPassword}
+              name={REGISTRATION_FORM_NAMES.re_password}
               control={control}
               className={CLASS_NAMES_INPUT.dark}
-              label={REGISTRATION_FORM_LABELS.confirmPassword}
+              label={REGISTRATION_FORM_LABELS.re_password}
               errorMessage={
-                errors.confirmPassword ? errors.confirmPassword?.message : ' '
+                errors.re_password ? errors.re_password?.message : ' '
               }
             />
           </Stack>
@@ -88,11 +123,30 @@ export const RegistrationForm = () => {
         <Stack spacing={4} alignItems="center" mb={5}>
           <Box>
             <Button variant="default" size="large" type="submit">
-              Создать личный кабинет
+              {isLoading ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                'Создать личный кабинет'
+              )}
             </Button>
           </Box>
         </Stack>
       </form>
+
+      <Snackbar
+        open={openSnackbar}
+        onClose={handleSnackbarClose}
+        autoHideDuration={2500}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="error"
+          sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
+        >
+          Данный пользователь уже зарегистрирован
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

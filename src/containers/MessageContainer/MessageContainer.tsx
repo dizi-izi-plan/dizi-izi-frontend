@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+
+import { ReactElement } from 'react';
 import { useRouter } from 'next/navigation';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -13,9 +14,14 @@ interface ButtonInfo {
 interface MessagePageProps {
   text: string[];
   button?: ButtonInfo;
+  children?: ReactElement;
 }
 
-export const MessageContainer = ({ text, button }: MessagePageProps) => {
+export const MessageContainer = ({
+  text,
+  button,
+  children,
+}: MessagePageProps) => {
   const router = useRouter();
 
   return (
@@ -49,6 +55,8 @@ export const MessageContainer = ({ text, button }: MessagePageProps) => {
           {button.name}
         </Button>
       )}
+
+      {children}
     </Stack>
   );
 };
