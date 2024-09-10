@@ -17,8 +17,25 @@ export const door = {
   open: OPEN.inside,
 };
 
+export const window = {
+  wallNumber: 'walls.first',
+  size: '',
+  distanceToWall: '',
+  toWall: '2',
+};
+
+export const windowWithBalcony = {
+  wallNumber: 'walls.first',
+  size: '',
+  doorSize: '',
+  distanceToWall: '',
+  toWall: '2',
+  side: SIDE.left,
+};
+
 const windows = {
   type: '',
+  windows: [],
 };
 
 export const furniture = {

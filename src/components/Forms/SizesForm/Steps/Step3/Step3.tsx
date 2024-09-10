@@ -1,13 +1,15 @@
-import { useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import {
   RadioGroupWrapper,
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { Button, Stack, Typography } from '@mui/material';
-import { SizesFormType } from '../../validation';
 import { CLASS_NAMES_LABEL } from '@/components/Input/classNameConstants';
 import { Window } from './Window';
+import { SizesFormType } from '../../validation';
 import { WINDOW_NAMES } from '../../formData';
+import { WindowWithBalcony } from './WindowWithBalcony';
+import { window as win, windowWithBalcony } from '../../defaultValues';
 
 const WINDOW_TYPE_RADIOS: RadioType[] = [
   {
@@ -18,7 +20,20 @@ const WINDOW_TYPE_RADIOS: RadioType[] = [
 ];
 
 export const Windows = () => {
-  const { control, watch } = useFormContext<SizesFormType>();
+  const { control, watch, getValues } = useFormContext<SizesFormType>();
+
+  const { fields, append } = useFieldArray({
+    control,
+    name: 'windows.windows',
+  });
+
+  const handleAddWindow = () => {
+    append(win);
+  };
+
+  const handleAddWindowWithBalcony = () => {
+    append(windowWithBalcony);
+  };
 
   return (
     <Stack gap={3}>
@@ -42,11 +57,17 @@ export const Windows = () => {
       />
       {watch(WINDOW_NAMES.type) === 'window' && (
         <>
-          <Window />
+          {fields.map((field, index) => {
+            if ('doorSize' in field) {
+              return <WindowWithBalcony key={field.id} index={index} />;
+            }
+            return <Window key={field.id} index={index} />;
+          })}
           <Button
             variant="default"
             size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
+            onClick={handleAddWindow}
           >
             Добавить окно
           </Button>
@@ -54,6 +75,7 @@ export const Windows = () => {
             variant="default"
             size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
+            onClick={handleAddWindowWithBalcony}
           >
             Добавить окно с балконом
           </Button>
