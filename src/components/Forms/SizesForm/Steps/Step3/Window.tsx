@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
@@ -6,14 +8,13 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { FormHelperText, Stack, Typography } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { useToWallRadios } from '@/hooks/useToWallRadios';
 import {
   MAX_WALLS_INPUT_LENGTH,
   MAX_WINDOW_INPUT_LENGTH,
   SizesFormType,
 } from '../../validation';
 import { STEP3 } from '../../formData';
-import { useToWallRadios } from '@/hooks/useToWallRadios';
 
 export const Window = ({ index }: { index: number }) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
@@ -25,6 +26,13 @@ export const Window = ({ index }: { index: number }) => {
 
   const toWallRadios = useToWallRadios(selectedWall);
 
+  const options = useMemo(() => {
+    const doorWallNumber = watch('door.wallNumber');
+    return STEP3.wallNumber.options.filter(
+      (option) => option.value !== doorWallNumber,
+    );
+  }, [watch('door.wallNumber')]);
+
   return (
     <>
       <Typography variant="body1" color="second.main">
@@ -35,7 +43,7 @@ export const Window = ({ index }: { index: number }) => {
           name={`windows.windows.${index}.${STEP3.wallNumber.name}`}
           control={control}
           labelText={STEP3.wallNumber.placeholder}
-          options={STEP3.wallNumber.options}
+          options={options}
           className={CLASS_NAMES_INPUT.grey}
         />
         <TextFieldWrapper
