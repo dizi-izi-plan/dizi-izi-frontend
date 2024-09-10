@@ -147,6 +147,7 @@ export const WINDOW_NAMES = {
 
 export const WINDOW_WITH_BALCONY_NAMES = {
   ...WINDOW_NAMES,
+  doorSize: 'doorSize',
   side: 'side',
 } as const;
 
@@ -173,9 +174,13 @@ export const STEP3 = {
       },
     ],
   },
-  doorSize: {
+  windowSize: {
     name: WINDOW_NAMES.size,
     placeholder: 'Длина окна в мм',
+  },
+  doorSize: {
+    name: WINDOW_WITH_BALCONY_NAMES.doorSize,
+    placeholder: 'Длина двери в мм',
   },
   fromWindowTo: {
     name: WINDOW_NAMES.distanceToWall,
@@ -185,7 +190,7 @@ export const STEP3 = {
     name: WINDOW_NAMES.toWall,
   },
   openLeftRight: {
-    name: DOOR_NAMES.side,
+    name: WINDOW_WITH_BALCONY_NAMES.side,
     radios: [
       { value: SIDE.left, label: 'Открывается влево' },
       {
