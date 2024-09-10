@@ -80,28 +80,26 @@ export const WindowWithBalcony = ({ index }: { index: number }) => {
               }}
             />
           </Stack>
-          <RadioGroupWrapper
-            name={`windows.windows.${index}.${STEP3.openLeftRight.name}`}
-            control={control}
-            className={CLASS_NAMES_LABEL.end}
-            radios={STEP3.openLeftRight.radios}
-            row={true}
-            groupSx={{
-              flexWrap: 'nowrap',
-              gap: 2,
-              marginLeft: '10px',
-            }}
-            labelSx={{
-              flex: 1,
-              marginRight: 0,
-            }}
-          />
-          {errors.door?.distanceToWall && (
-            <FormHelperText>
-              {errors.door.distanceToWall.message}
-            </FormHelperText>
-          )}
         </Stack>
+        <RadioGroupWrapper
+          name={`windows.windows.${index}.${STEP3.openLeftRight.name}`}
+          control={control}
+          className={CLASS_NAMES_LABEL.end}
+          radios={STEP3.openLeftRight.radios}
+          row={true}
+          groupSx={{
+            flexWrap: 'nowrap',
+            gap: 2,
+            marginLeft: '10px',
+          }}
+          labelSx={{
+            flex: 1,
+            marginRight: 0,
+          }}
+        />
+        {errors.door?.distanceToWall && (
+          <FormHelperText>{errors.door.distanceToWall.message}</FormHelperText>
+        )}
       </Stack>
     </>
   );
