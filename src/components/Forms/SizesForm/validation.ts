@@ -107,6 +107,8 @@ export const WindowValidation = z.object({
   size: windowSize,
   distanceToWall: string().min(1, { message: ERROR_MESSAGES.required }), // add check for distance
   toWall: string().min(1, { message: ERROR_MESSAGES.required }),
+  doorSize: doorSize.optional(),
+  side: string().optional(),
 });
 
 export const WindowsValidation = z.object({

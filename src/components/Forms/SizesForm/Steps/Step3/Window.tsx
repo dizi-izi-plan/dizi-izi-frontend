@@ -14,15 +14,14 @@ import {
 } from '../../validation';
 import { STEP3 } from '../../formData';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
-import { WALLS_NAMES_TYPE } from '../../types';
 
-export const Window = () => {
+export const Window = ({ index }: { index: number }) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors } = formState;
 
   const selectedWall = watch(
-    STEP3.wallNumber.name as WALLS_NAMES_TYPE,
-  ) as string;
+    `windows.windows.${index}.${STEP3.wallNumber.name}`,
+  );
 
   const toWallRadios = useToWallRadios(selectedWall);
 
@@ -33,17 +32,17 @@ export const Window = () => {
       </Typography>
       <Stack gap={3}>
         <SelectWrapper
-          name={STEP3.wallNumber.name as keyof SizesFormType}
+          name={`windows.windows.${index}.${STEP3.wallNumber.name}`}
           control={control}
           labelText={STEP3.wallNumber.placeholder}
           options={STEP3.wallNumber.options}
           className={CLASS_NAMES_INPUT.grey}
         />
         <TextFieldWrapper
-          name={`${STEP3.doorSize.name}` as keyof SizesFormType}
+          name={`windows.windows.${index}.${STEP3.windowSize.name}`}
           control={control}
           className={CLASS_NAMES_INPUT.grey}
-          placeholder={STEP3.doorSize.placeholder}
+          placeholder={STEP3.windowSize.placeholder}
           type="number"
           step={1}
           max={MAX_WINDOW_INPUT_LENGTH}
@@ -52,7 +51,7 @@ export const Window = () => {
         <Stack>
           <Stack direction="row" gap={3}>
             <TextFieldWrapper
-              name={`${STEP3.fromWindowTo.name}` as keyof SizesFormType}
+              name={`windows.windows.${index}.${STEP3.fromWindowTo.name}`}
               control={control}
               className={CLASS_NAMES_INPUT.grey}
               placeholder={STEP3.fromWindowTo.placeholder}
@@ -61,7 +60,7 @@ export const Window = () => {
               max={MAX_WALLS_INPUT_LENGTH}
             />
             <RadioGroupWrapper
-              name={`${STEP3.toWall.name}` as keyof SizesFormType}
+              name={`windows.windows.${index}.${STEP3.toWall.name}`}
               control={control}
               className={CLASS_NAMES_LABEL.end}
               radios={toWallRadios}
