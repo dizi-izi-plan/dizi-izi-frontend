@@ -3,10 +3,13 @@ import {
   RadioGroupWrapper,
   RadioType,
 } from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { Button, Stack, Typography } from '@mui/material';
-import { CLASS_NAMES_LABEL } from '@/components/Input/classNameConstants';
+import { Button, FormHelperText, Stack, Typography } from '@mui/material';
+import {
+  CLASS_NAMES_HELPER,
+  CLASS_NAMES_LABEL,
+} from '@/components/Input/classNameConstants';
 import { Window } from './Window';
-import { SizesFormType } from '../../validation';
+import { ERROR_MESSAGES, SizesFormType } from '../../validation';
 import { WINDOW_NAMES } from '../../formData';
 import { WindowWithBalcony } from './WindowWithBalcony';
 import { window as win, windowWithBalcony } from '../../defaultValues';
@@ -28,11 +31,15 @@ export const Windows = () => {
   });
 
   const handleAddWindow = () => {
-    append(win);
+    if (fields.length < 2) {
+      append(win);
+    }
   };
 
   const handleAddWindowWithBalcony = () => {
-    append(windowWithBalcony);
+    if (fields.length < 2) {
+      append(windowWithBalcony);
+    }
   };
 
   return (
@@ -63,6 +70,11 @@ export const Windows = () => {
             }
             return <Window key={field.id} index={index} />;
           })}
+          {fields.length === 2 && (
+            <FormHelperText className={CLASS_NAMES_HELPER.centered}>
+              {ERROR_MESSAGES.maxWindowAmount}
+            </FormHelperText>
+          )}
           <Button
             variant="default"
             size="large"
