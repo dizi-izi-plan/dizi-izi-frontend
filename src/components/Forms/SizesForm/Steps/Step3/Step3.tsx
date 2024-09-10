@@ -23,7 +23,7 @@ const WINDOW_TYPE_RADIOS: RadioType[] = [
 ];
 
 export const Windows = () => {
-  const { control, watch, getValues } = useFormContext<SizesFormType>();
+  const { control, watch } = useFormContext<SizesFormType>();
 
   const { fields, append } = useFieldArray({
     control,

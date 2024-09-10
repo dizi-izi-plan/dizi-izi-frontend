@@ -18,18 +18,18 @@ export const door = {
 };
 
 export const window = {
-  wallNumber: 'walls.first',
+  wallNumber: '',
   size: '',
   distanceToWall: '',
-  toWall: '2',
+  toWall: '',
 };
 
 export const windowWithBalcony = {
-  wallNumber: 'walls.first',
+  wallNumber: '',
   size: '',
   doorSize: '',
   distanceToWall: '',
-  toWall: '2',
+  toWall: '',
   side: SIDE.left,
 };
 

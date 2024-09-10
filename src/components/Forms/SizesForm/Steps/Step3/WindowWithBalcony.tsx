@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
@@ -26,6 +27,13 @@ export const WindowWithBalcony = ({ index }: { index: number }) => {
 
   const toWallRadios = useToWallRadios(selectedWall);
 
+  const options = useMemo(() => {
+    const doorWallNumber = watch('door.wallNumber');
+    return STEP3.wallNumber.options.filter(
+      (option) => option.value !== doorWallNumber,
+    );
+  }, [watch('door.wallNumber')]);
+
   return (
     <>
       <Typography variant="body1" color="second.main">
@@ -36,7 +44,7 @@ export const WindowWithBalcony = ({ index }: { index: number }) => {
           name={`windows.windows.${index}.${STEP3.wallNumber.name}`}
           control={control}
           labelText={STEP3.wallNumber.placeholder}
-          options={STEP3.wallNumber.options}
+          options={options}
           className={CLASS_NAMES_INPUT.grey}
         />
         <TextFieldWrapper
