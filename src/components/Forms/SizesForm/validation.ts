@@ -23,6 +23,7 @@ export const ERROR_MESSAGES = {
   maxWindowSize: 'Размер окна не может быть больше размера выбранной стены',
   minDistanceToWall: 'Расстояние от двери до стены не может быть меньше 50мм',
   maxDistanceToWall: 'Расстояние от двери до стены слишком большое',
+  maxWindowAmount: 'Количество окон не может превышать 2шт.',
 };
 
 // WALLS
