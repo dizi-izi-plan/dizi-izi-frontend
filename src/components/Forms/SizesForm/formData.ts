@@ -62,6 +62,29 @@ export const STEP1 = [
   },
 ];
 
+export const WALLNUMBER_OPTIONS = [
+  {
+    key: 1,
+    value: WALLS.first,
+    text: 1,
+  },
+  {
+    key: 2,
+    value: WALLS.second,
+    text: 2,
+  },
+  {
+    key: 3,
+    value: WALLS.third,
+    text: 3,
+  },
+  {
+    key: 4,
+    value: WALLS.forth,
+    text: 4,
+  },
+];
+
 // DOOR
 export const OPEN = {
   inside: 'inside',
@@ -81,24 +104,7 @@ export const STEP2 = {
   wallNumber: {
     name: DOOR_NAMES.wallNumber,
     placeholder: 'Дверь на стене номер',
-    options: [
-      {
-        value: WALLS.first,
-        text: 1,
-      },
-      {
-        value: WALLS.second,
-        text: 2,
-      },
-      {
-        value: WALLS.third,
-        text: 3,
-      },
-      {
-        value: WALLS.forth,
-        text: 4,
-      },
-    ],
+    options: [...WALLNUMBER_OPTIONS],
   },
   doorSize: {
     name: DOOR_NAMES.size,
@@ -155,24 +161,7 @@ export const STEP3 = {
   wallNumber: {
     name: WINDOW_NAMES.wallNumber,
     placeholder: 'Окно на стене номер',
-    options: [
-      {
-        value: WALLS.first,
-        text: 1,
-      },
-      {
-        value: WALLS.second,
-        text: 2,
-      },
-      {
-        value: WALLS.third,
-        text: 3,
-      },
-      {
-        value: WALLS.forth,
-        text: 4,
-      },
-    ],
+    options: [...WALLNUMBER_OPTIONS],
   },
   windowSize: {
     name: WINDOW_NAMES.size,
