@@ -25,7 +25,11 @@ export const LayoutsContainer = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  type ModalStateType = 'isOpenDelete' | 'isOpenDuplicate' | 'isOpenContinue';
+  type ModalStateType =
+    | 'isOpenDelete'
+    | 'isOpenDuplicate'
+    | 'isOpenContinue'
+    | 'isOpenDraftDelete';
   type ModalState = {
     isOpen: boolean;
     modalType: ModalStateType | null;
@@ -47,6 +51,13 @@ export const LayoutsContainer = () => {
   const handleСontinueYes = () => {
     console.log(`handleContinueYes for project `);
   };
+  const handleDraftDeleteYes = () => {
+    //логика удаления черновика старого
+    console.log(`handleDraftDeleteYes for draft `);
+    router.push(routes.projectRoutes.roomSelection);
+    //добавить уведомление какое
+    alert('Нужно ли увед Черновик удален');
+  };
 
   const modalActions = {
     handleYes: () => {
@@ -59,6 +70,9 @@ export const LayoutsContainer = () => {
           break;
         case 'isOpenContinue':
           handleСontinueYes();
+          break;
+        case 'isOpenDraftDelete':
+          handleDraftDeleteYes();
           break;
 
         default:
@@ -89,10 +103,12 @@ export const LayoutsContainer = () => {
     { id: 2, name: 'Проект 2', date: '12.04.2023, 20:13', image: <Maket /> },
   ];
 
-  const draft: { id: number; date: string } = {
+  const draft: { id: number; date: string } | null = {
     id: 3,
     date: '25.11.2024, 22:21',
   };
+  const hasDraft = draft && Object.keys(draft).length !== 0
+  
 
   const getModalText = (): string[] => {
     switch (modalState.modalType) {
@@ -102,8 +118,18 @@ export const LayoutsContainer = () => {
         return MODAL_YES_NO_QUESTIONS[0];
       case 'isOpenContinue':
         return MODAL_YES_NO_QUESTIONS[1];
+      case 'isOpenDraftDelete':
+        return [MODAL_YES_NO_QUESTIONS[1][0], MODAL_YES_NO_QUESTIONS[5][0]];
       default:
         return [''];
+    }
+  };
+  const clickOneModal = () => {
+    if (hasDraft) {
+      handleOpenModal('isOpenDraftDelete');
+      dispatch(setCurrentModal(modalNames.modalTooMuchFurniture));
+    } else {
+      dispatch(setCurrentModal(modalNames.modalStartNewProject));
     }
   };
 
@@ -114,8 +140,9 @@ export const LayoutsContainer = () => {
           variant="box"
           size="large"
           startIcon={<AddBoxOutlinedIcon />}
-          onClick={() =>
-            dispatch(setCurrentModal(modalNames.modalStartNewProject))
+          onClick={
+            () => clickOneModal()
+            // dispatch(setCurrentModal(modalNames.modalStartNewProject))
           }
         >
           Создать проект

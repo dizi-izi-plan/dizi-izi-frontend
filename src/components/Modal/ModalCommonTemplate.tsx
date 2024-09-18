@@ -54,9 +54,11 @@ export const ModalCommonTemplate = ({
                   <Typography
                     key={index}
                     variant="body1"
-                    color="black.main"
+                    color={index === 1 ? "rgba(0, 0, 0, 0.6)" : "black.main"} 
                     maxWidth="425px"
                     whiteSpace="pre-line"
+                    fontSize={index === 1 ? "14px" : "20px"} 
+                    lineHeight={index === 1 ? "19.12px" : "33.4px"} 
                   >
                     {part}
                   </Typography>
