@@ -35,7 +35,7 @@ export interface ModalConfigs {
 export interface ActionConfigs {
   img: string;
   title: string;
-  callback: () => void;
+  handleActionClick: () => void;
 }
 
 export interface ProjectButtons {
