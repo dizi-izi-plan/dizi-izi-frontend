@@ -52,11 +52,9 @@ export const LayoutsContainer = () => {
     console.log(`handleContinueYes for project `);
   };
   const handleDraftDeleteYes = () => {
-    //логика удаления черновика старого
-    console.log(`handleDraftDeleteYes for draft `);
+    console.log(`логика удаления черновика старого `);
     router.push(routes.projectRoutes.roomSelection);
-    //добавить уведомление какое
-    alert('Нужно ли увед Черновик удален');
+    alert('Нужно ли уведомление:  Черновик удален');
   };
 
   const modalActions = {
@@ -107,8 +105,7 @@ export const LayoutsContainer = () => {
     id: 3,
     date: '25.11.2024, 22:21',
   };
-  const hasDraft = draft && Object.keys(draft).length !== 0
-  
+  const hasDraft = draft && Object.keys(draft).length !== 0;
 
   const getModalText = (): string[] => {
     switch (modalState.modalType) {
@@ -140,20 +137,17 @@ export const LayoutsContainer = () => {
           variant="box"
           size="large"
           startIcon={<AddBoxOutlinedIcon />}
-          onClick={
-            () => clickOneModal()
-            // dispatch(setCurrentModal(modalNames.modalStartNewProject))
-          }
+          onClick={() => clickOneModal()}
         >
           Создать проект
         </Button>
-        {projects.map((project) => (
+        {projects.map(({ id, name, date, image }) => (
           <ProjectsContainer
-            image={project.image}
-            key={project.id}
-            id={project.id}
-            name={project.name}
-            date={project.date}
+            image={image}
+            key={id}
+            id={id}
+            name={name}
+            date={date}
             onOpenModal={handleOpenModal}
           />
         ))}
