@@ -1,19 +1,19 @@
 import { Box, Button, Popover } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react';
-import { actionConfigs } from '../ProjectNavbar/projectNavbar.data';
+import { MouseEvent } from 'react';
 import ActionButton from '../Buttons/ActionButton/ActionButton';
+import { actionConfigs } from '../ProjectNavbar/projectNavbar.data';
 
 export interface ActionsMenuProps {
   isActionVisible: null | HTMLElement;
   setActionVisible: (value: null | HTMLElement) => void;
 }
 
-const ActionsMenu: FC<ActionsMenuProps> = ({
+const ActionsMenu = ({
   isActionVisible,
   setActionVisible,
-}) => {
-  const actionClick = (event: React.MouseEvent<HTMLElement>) => {
+}: ActionsMenuProps) => {
+  const actionClick = (event: MouseEvent<HTMLElement>) => {
     setActionVisible(event.currentTarget);
   };
   const actionClose = () => {
@@ -58,12 +58,12 @@ const ActionsMenu: FC<ActionsMenuProps> = ({
           padding="5px"
           gap="10px"
         >
-          {actionConfigs.map(({ title, img, callback }) => (
+          {actionConfigs.map(({ title, img, handleActionClick }) => (
             <ActionButton
               key={title}
               img={img}
               title={title}
-              callback={callback}
+              callback={handleActionClick}
             />
           ))}
         </Box>

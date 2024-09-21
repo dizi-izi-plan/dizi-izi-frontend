@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react';
 
 export interface ProjectPlanProps {
   title: string;
@@ -8,7 +7,7 @@ export interface ProjectPlanProps {
   alt: string;
 }
 
-const ProjectPlan: FC<ProjectPlanProps> = ({ title, img, alt }) => {
+const ProjectPlan = ({ title, img, alt }: ProjectPlanProps) => {
   return (
     <Box display="flex" flexDirection="column" gap="2rem" marginTop="2.5rem">
       <Box>

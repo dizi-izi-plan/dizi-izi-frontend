@@ -31,21 +31,21 @@ export const actionConfigs: Array<ActionConfigs> = [
   {
     img: '../../../assets/icons/downloadPdfIcon.svg',
     title: 'Скачать в pdf',
-    callback: () => {
+    handleActionClick: () => {
       console.log('Сработало');
     },
   },
   {
     img: '../../../assets/icons/sendMailIcon.svg',
     title: 'Отправить на почту',
-    callback: () => {
+    handleActionClick: () => {
       console.log('Сработало');
     },
   },
   {
     img: '../../../assets/icons/saveProjectIcon.svg',
     title: 'Сохранить',
-    callback: () => {
+    handleActionClick: () => {
       console.log('Сработало');
     },
   },
@@ -58,18 +58,21 @@ export const getProjectButtons = (
     action: 'Попробовать еще',
     img: 'assets/icons/refresh.svg',
     alt: 'Refresh Icon',
-    callback: () => dispatch(setCurrentModal(modalNames.modalTryAgain)),
+    handleProjectAction: () =>
+      dispatch(setCurrentModal(modalNames.modalTryAgain)),
   },
   {
     action: 'Новый проект',
     img: 'assets/icons/add.svg',
     alt: 'New Project Icon',
-    callback: () => dispatch(setCurrentModal(modalNames.modalStartNewProject)),
+    handleProjectAction: () =>
+      dispatch(setCurrentModal(modalNames.modalStartNewProject)),
   },
   {
     action: 'Удалить проект',
     img: 'assets/icons/delete.svg',
     alt: 'Delete Project Icon',
-    callback: () => dispatch(setCurrentModal(modalNames.modalDeleteProject)),
+    handleProjectAction: () =>
+      dispatch(setCurrentModal(modalNames.modalDeleteProject)),
   },
 ];

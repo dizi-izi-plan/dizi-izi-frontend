@@ -1,7 +1,6 @@
 import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { Button } from '@mui/material';
 import Image from 'next/image';
-import React, { FC } from 'react';
 
 export interface ProjectButtonProps {
   action: string;
@@ -10,12 +9,7 @@ export interface ProjectButtonProps {
   callback?: () => void;
 }
 
-const ProjectButton: FC<ProjectButtonProps> = ({
-  action,
-  img,
-  alt,
-  callback,
-}) => {
+const ProjectButton = ({ action, img, alt, callback }: ProjectButtonProps) => {
   return (
     <Button
       variant="empty"

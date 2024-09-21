@@ -2,17 +2,16 @@
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Box, Button, Typography } from '@mui/material';
 import ModalIcon from '@public/assets/icons/modal_icon.svg';
-import React, { FC } from 'react';
+import ProjectButtonsList from '../Lists/ProjectButtonsList/ProjectButtonsList';
 import { ModalTwoButtons } from '../Modal/ModalTwoButtons';
 import { PopperMessage } from '../Popper/PopperMessage';
-import ProjectButtonsList from '../Lists/ProjectButtonsList/ProjectButtonsList';
 import { modalConfigs } from './projectNavbar.data';
 
 export interface ProjectNavbarProps {
   title: string;
 }
 
-const ProjectNavbar: FC<ProjectNavbarProps> = ({ title }) => {
+const ProjectNavbar = ({ title }: ProjectNavbarProps) => {
   return (
     <>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
