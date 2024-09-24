@@ -6,20 +6,16 @@ import {
 } from '@/components/Input/classNameConstants';
 import { FormHelperText, Stack } from '@mui/material';
 import { CORRESPONDING_WALLS, STEP1 } from '../formData';
-import {
-  ERROR_MESSAGES,
-  MAX_WALLS_INPUT_LENGTH,
-  MIN_WALLS_INPUT_LENGTH,
-  SizesFormType,
-} from '../validation';
+import { MAX_WALLS_INPUT_LENGTH, MIN_WALLS_INPUT_LENGTH } from '../validation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
-import { WALLS_NAMES_TYPE } from '../types';
+import { SizesFormType, WALLS_NAMES_TYPE } from '../types';
 import { useFormContext } from 'react-hook-form';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
+import { ERROR_MESSAGES } from './utils/consts';
 
 const allowedKeys = new Set([
   'Tab',

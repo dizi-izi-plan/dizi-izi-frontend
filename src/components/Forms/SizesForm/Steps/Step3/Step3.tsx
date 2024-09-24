@@ -9,10 +9,11 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { Window } from './Window';
-import { ERROR_MESSAGES, SizesFormType } from '../../validation';
 import { WINDOW_NAMES } from '../../formData';
 import { WindowWithBalcony } from './WindowWithBalcony';
 import { window as win, windowWithBalcony } from '../../defaultValues';
+import { SizesFormType } from '../../types';
+import { ERROR_MESSAGES } from '../utils/consts';
 
 const WINDOW_TYPE_RADIOS: RadioType[] = [
   {

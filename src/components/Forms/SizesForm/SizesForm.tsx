@@ -13,7 +13,7 @@ import { useFormContext } from 'react-hook-form';
 import { Door } from './Steps/Step2';
 import { useAppSelector } from '@/redux/hooks';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
-import { SizesFormType } from './validation';
+import { SizesFormType } from './types';
 import { Windows } from './Steps/Step3/Step3';
 
 type SizesFormProps = {

@@ -11,16 +11,12 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { FormHelperText, Stack } from '@mui/material';
-import {
-  MAX_DOOR_INPUT_LENGTH,
-  MAX_WALLS_INPUT_LENGTH,
-  SizesFormType,
-} from '../validation';
+import { MAX_DOOR_INPUT_LENGTH, MAX_WALLS_INPUT_LENGTH } from '../validation';
 import { STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
-import { WALLS_NAMES_TYPE } from '../types';
+import { SizesFormType, WALLS_NAMES_TYPE } from '../types';
 import { WALLS } from '../formData';
 
 export const Door = () => {

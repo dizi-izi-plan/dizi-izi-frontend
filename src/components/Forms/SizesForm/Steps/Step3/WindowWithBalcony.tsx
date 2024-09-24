@@ -13,8 +13,8 @@ import {
   MAX_DOOR_INPUT_LENGTH,
   MAX_WALLS_INPUT_LENGTH,
   MAX_WINDOW_INPUT_LENGTH,
-  SizesFormType,
 } from '../../validation';
+import { SizesFormType } from '../../types';
 import { STEP3 } from '../../formData';
 
 export const WindowWithBalcony = ({ index }: { index: number }) => {
