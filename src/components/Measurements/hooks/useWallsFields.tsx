@@ -3,7 +3,7 @@ import { Control, useWatch, useFormState } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
 import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { SizesFormType } from '@/components/Forms/SizesForm/validation';
+import { SizesFormType } from '@/components/Forms/SizesForm/types';
 
 type TWalls = {
   verticalWall: number;

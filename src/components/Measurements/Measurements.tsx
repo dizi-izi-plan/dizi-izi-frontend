@@ -13,11 +13,9 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
-import {
-  SizesFormType,
-  SizesFormValidation,
-} from '@/components/Forms/SizesForm/validation';
+import { SizesFormValidation } from '@/components/Forms/SizesForm/validation';
 
+import { SizesFormType } from '../Forms/SizesForm/types';
 import { MeasurementsImage } from './MeasurementsImage';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {

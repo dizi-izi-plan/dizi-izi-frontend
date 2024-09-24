@@ -12,13 +12,16 @@ import { useToWallRadios } from '@/hooks/useToWallRadios';
 import {
   MAX_WALLS_INPUT_LENGTH,
   MAX_WINDOW_INPUT_LENGTH,
-  SizesFormType,
 } from '../../validation';
 import { STEP3 } from '../../formData';
+import { useWindowsArrayErrors } from './hooks/useWindowsArrayErrors';
+import { SizesFormType } from '../../types';
 
 export const Window = ({ index }: { index: number }) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors } = formState;
+
+  useWindowsArrayErrors();
 
   const selectedWall = watch(
     `windows.windows.${index}.${STEP3.wallNumber.name}`,
@@ -36,7 +39,7 @@ export const Window = ({ index }: { index: number }) => {
   return (
     <>
       <Typography variant="body1" color="second.main">
-        Окно
+        Окно {index + 1}
       </Typography>
       <Stack gap={3}>
         <SelectWrapper
@@ -54,7 +57,7 @@ export const Window = ({ index }: { index: number }) => {
           type="number"
           step={1}
           max={MAX_WINDOW_INPUT_LENGTH}
-          errorMessage={errors?.door?.size?.message || ''}
+          errorMessage={errors?.windows?.windows?.[index]?.size?.message || ''}
         />
         <Stack>
           <Stack direction="row" gap={3}>
@@ -77,9 +80,9 @@ export const Window = ({ index }: { index: number }) => {
               }}
             />
           </Stack>
-          {errors.door?.distanceToWall && (
+          {errors?.windows?.windows?.[index]?.distanceToWall && (
             <FormHelperText>
-              {errors.door.distanceToWall.message}
+              {errors?.windows?.windows?.[index]?.distanceToWall.message}
             </FormHelperText>
           )}
         </Stack>

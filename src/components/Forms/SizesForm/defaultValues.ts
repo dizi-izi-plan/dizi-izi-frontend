@@ -1,5 +1,5 @@
 import { OPEN, SIDE, WALLS } from './formData';
-import { SizesFormType } from './validation';
+import { SizesFormType } from './types';
 
 export const walls = {
   first: '',
