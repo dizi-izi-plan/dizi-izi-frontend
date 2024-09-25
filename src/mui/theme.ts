@@ -142,7 +142,7 @@ theme = createTheme(theme, {
           },
         },
         inputProps: {
-          style: {
+          sx: {
             boxSizing: 'border-box',
             fontFamily: manrope.style.fontFamily,
             fontSize: 18,
@@ -183,7 +183,6 @@ theme = createTheme(theme, {
             },
             '& .MuiFormLabel-root': {
               color: theme.palette.secondary.contrastText,
-              fontSize: 16,
               fontWeight: 500,
             },
           },
@@ -233,9 +232,30 @@ theme = createTheme(theme, {
             '& .MuiOutlinedInput-root': {
               color: theme.palette.black.main,
             },
-            '& .MuiOutlinedInput-input::placeholder': {
-              color: theme.palette.myGrey.grey300,
-              opacity: 1,
+          },
+          '&.subvariant-rename': {
+            '& .MuiOutlinedInput-input': {},
+            '& .Mui-disabled': {
+              '& .MuiInputBase-input': {
+                WebkitTextFillColor: theme.palette.secondary.main,
+              },
+              '& > fieldset': {
+                pointerEvents: 'inherit',
+                cursor: 'pointer',
+                fontSize: 20,
+                padding: '0px',
+                minHeight: 31,
+              },
+            },
+            '& .MuiInputBase-root': {
+              borderColor: 'transparent',
+              '& .MuiInputBase-input': {
+                fontSize: 20,
+                minHeight: 31,
+                caretColor: theme.palette.primary.main,
+                color: theme.palette.secondary.main,
+                padding: '0px',
+              },
             },
           },
         },
@@ -523,6 +543,13 @@ theme = createTheme(theme, {
           style: {
             minWidth: '44px',
             minHeight: '44px',
+            '&.MuiButtonBase-root': {
+              borderBottom: 'none',
+              flex: '1 1 auto',
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
+            },
           },
         },
         {
@@ -588,9 +615,40 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        root: {
+          '& .MuiPaper-root': {
+            borderRadius: '0',
+          },
+          '& .MuiList-root': {
+            padding: '0',
+            borderRadius: '0',
+          },
+          '& .MuiBox-root': {
+            width: '148px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            border: `1px solid ${theme.palette.primary.main}`,
+            padding: '12px',
+          },
+        },
+      },
+    },
     MuiMenuItem: {
       styleOverrides: {
         root: {
+          '&.MuiButtonBase-root': {
+            padding: '0',
+            height: '24px',
+            '& span': {
+              letterSpacing: '0',
+            },
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          },
           '& em': {
             color: theme.palette.myGrey.grey500,
             fontStyle: 'normal',
