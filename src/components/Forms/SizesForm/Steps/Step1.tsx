@@ -21,6 +21,17 @@ import { WALLS_NAMES_TYPE } from '../types';
 import { useFormContext } from 'react-hook-form';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
 
+const allowedKeys = new Set([
+  'Tab',
+  'Enter',
+  'Backspace',
+  'Delete',
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowUp',
+  'ArrowDown',
+]);
+
 export const Walls = () => {
   const dispatch = useAppDispatch();
   const { setValue, control } = useFormContext<SizesFormType>();
@@ -61,6 +72,15 @@ export const Walls = () => {
           max={MAX_WALLS_INPUT_LENGTH}
           onFocus={() => dispatch(addBedroomFocusedField(field.number))}
           onBlur={() => dispatch(deleteBedroomFocusedField())}
+          onKeyDown={(e) => {
+            if (
+              !'0123456789'.includes(e.key) &&
+              !allowedKeys.has(e.key) &&
+              !((e.ctrlKey || e.altKey) && e.key !== 'v')
+            ) {
+              e.preventDefault();
+            }
+          }}
         />
       ))}
       {!isStepValid && (
