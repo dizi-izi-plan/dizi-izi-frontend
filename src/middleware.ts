@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { routes } from '@/helpers/common-constants/routes-constants';
 
-const protectedRoutes: string[] = [routes.personalAccount];
+const protectedRoutes: string[] = [
+  routes.personalAccount,
+  routes.projectRoutes.readyProject,
+];
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get('token')?.value;
