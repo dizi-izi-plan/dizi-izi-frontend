@@ -25,7 +25,7 @@ export const WallNumbers = ({
       <Stack
         position="absolute"
         top={horizontalWall > 0 ? '-20px' : '0px'}
-        left={!verticalFocus ? '-90px' : '-45px'}
+        left={!verticalFocus ? '-85px' : '-45px'}
         direction="row"
         alignItems="center"
         display={verticalWall > 0 ? undefined : 'none'}
