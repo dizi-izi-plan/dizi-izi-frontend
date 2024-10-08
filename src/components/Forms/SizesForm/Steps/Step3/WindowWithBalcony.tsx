@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
+import ClearIcon from '@mui/icons-material/Clear';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
@@ -7,7 +8,7 @@ import {
   CLASS_NAMES_INPUT,
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
-import { FormHelperText, Stack, Typography } from '@mui/material';
+import { Button, FormHelperText, Stack, Typography } from '@mui/material';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
 import {
   MAX_DOOR_INPUT_LENGTH,
@@ -17,7 +18,13 @@ import {
 import { SizesFormType } from '../../types';
 import { STEP3 } from '../../formData';
 
-export const WindowWithBalcony = ({ index }: { index: number }) => {
+export const WindowWithBalcony = ({
+  index,
+  handleRemove,
+}: {
+  index: number;
+  handleRemove: (index: number) => void;
+}) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors } = formState;
 
@@ -36,9 +43,14 @@ export const WindowWithBalcony = ({ index }: { index: number }) => {
 
   return (
     <>
-      <Typography variant="body1" color="second.main">
-        Окно с балконом
-      </Typography>
+      <Stack direction="row" justifyContent="space-between">
+        <Typography variant="body1" color="second.main">
+          Окно с балконом
+        </Typography>
+        <Button variant="empty" onClick={() => handleRemove(index)}>
+          <ClearIcon />
+        </Button>
+      </Stack>
       <Stack gap={3}>
         <SelectWrapper
           name={`windows.windows.${index}.${STEP3.wallNumber.name}`}
