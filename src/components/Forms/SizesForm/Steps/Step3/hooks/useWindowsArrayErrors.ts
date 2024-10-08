@@ -6,7 +6,7 @@ import {
 } from '../../../validation';
 import { SizesFormType, WALLS_NAMES_TYPE } from '../../../types';
 import { ERROR_MESSAGES } from '../../utils/consts';
-import { checkDistanceToWall } from '../../utils/helpers';
+import { checkDistanceToWall, getSizes } from '../../utils/helpers';
 
 type ElementType = {
   distanceToWall?: string;
