@@ -26,7 +26,7 @@ const WINDOW_TYPE_RADIOS: RadioType[] = [
 export const Windows = () => {
   const { control, watch } = useFormContext<SizesFormType>();
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'windows.windows',
   });
@@ -41,6 +41,10 @@ export const Windows = () => {
     if (fields.length < 2) {
       append(windowWithBalcony);
     }
+  };
+
+  const removeElement = (index: number) => {
+    remove(index);
   };
 
   return (
@@ -67,9 +71,21 @@ export const Windows = () => {
         <>
           {fields.map((field, index) => {
             if ('doorSize' in field) {
-              return <WindowWithBalcony key={field.id} index={index} />;
+              return (
+                <WindowWithBalcony
+                  key={field.id}
+                  index={index}
+                  handleRemove={removeElement}
+                />
+              );
             }
-            return <Window key={field.id} index={index} />;
+            return (
+              <Window
+                key={field.id}
+                index={index}
+                handleRemove={removeElement}
+              />
+            );
           })}
           {fields.length === 2 && (
             <FormHelperText className={CLASS_NAMES_HELPER.centered}>
@@ -81,6 +97,7 @@ export const Windows = () => {
             size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
             onClick={handleAddWindow}
+            disabled={fields.length === 2}
           >
             Добавить окно
           </Button>
@@ -89,6 +106,7 @@ export const Windows = () => {
             size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
             onClick={handleAddWindowWithBalcony}
+            disabled={fields.length === 2}
           >
             Добавить окно с балконом
           </Button>
