@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import {
   RadioGroupWrapper,
@@ -25,6 +26,8 @@ const WINDOW_TYPE_RADIOS: RadioType[] = [
 
 export const Windows = () => {
   const { control, watch } = useFormContext<SizesFormType>();
+  const [isWindowWithBalconyAdded, setIsWindowWithBalconyAdded] =
+    useState(false);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -41,10 +44,16 @@ export const Windows = () => {
     if (fields.length < 2) {
       append(windowWithBalcony);
     }
+    setIsWindowWithBalconyAdded(true);
   };
 
   const removeElement = (index: number) => {
     remove(index);
+  };
+
+  const removeWindowWithBalcony = (index: number) => {
+    removeElement(index);
+    setIsWindowWithBalconyAdded(false);
   };
 
   return (
@@ -75,7 +84,7 @@ export const Windows = () => {
                 <WindowWithBalcony
                   key={field.id}
                   index={index}
-                  handleRemove={removeElement}
+                  handleRemove={removeWindowWithBalcony}
                 />
               );
             }
@@ -106,7 +115,7 @@ export const Windows = () => {
             size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
             onClick={handleAddWindowWithBalcony}
-            disabled={fields.length === 2}
+            disabled={fields.length === 2 || isWindowWithBalconyAdded}
           >
             Добавить окно с балконом
           </Button>
