@@ -15,6 +15,7 @@ import { WindowWithBalcony } from './WindowWithBalcony';
 import { window as win, windowWithBalcony } from '../../defaultValues';
 import { SizesFormType } from '../../types';
 import { ERROR_MESSAGES } from '../utils/consts';
+import { useWindowsArrayErrors } from './hooks/useWindowsArrayErrors';
 
 const WINDOW_TYPE_RADIOS: RadioType[] = [
   {
@@ -33,6 +34,8 @@ export const Windows = () => {
     control,
     name: 'windows.windows',
   });
+
+  useWindowsArrayErrors();
 
   const handleAddWindow = () => {
     if (fields.length < 2) {
