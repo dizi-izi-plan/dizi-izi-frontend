@@ -15,7 +15,6 @@ import {
   MAX_WINDOW_INPUT_LENGTH,
 } from '../../validation';
 import { STEP3 } from '../../formData';
-import { useWindowsArrayErrors } from './hooks/useWindowsArrayErrors';
 import { SizesFormType } from '../../types';
 
 export const Window = ({
@@ -27,8 +26,6 @@ export const Window = ({
 }) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors } = formState;
-
-  useWindowsArrayErrors();
 
   const selectedWall = watch(
     `windows.windows.${index}.${STEP3.wallNumber.name}`,

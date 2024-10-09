@@ -67,7 +67,7 @@ export const WindowWithBalcony = ({
           type="number"
           step={1}
           max={MAX_WINDOW_INPUT_LENGTH}
-          errorMessage={errors?.door?.size?.message || ''}
+          errorMessage={errors?.windows?.windows?.[index]?.size?.message || ''}
         />
         <TextFieldWrapper
           name={`windows.windows.${index}.${STEP3.doorSize.name}`}
@@ -77,7 +77,9 @@ export const WindowWithBalcony = ({
           type="number"
           step={1}
           max={MAX_DOOR_INPUT_LENGTH}
-          errorMessage={errors?.door?.size?.message || ''}
+          errorMessage={
+            errors?.windows?.windows?.[index]?.doorSize?.message || ''
+          }
         />
         <Stack>
           <Stack direction="row" gap={3}>
@@ -117,8 +119,10 @@ export const WindowWithBalcony = ({
             marginRight: 0,
           }}
         />
-        {errors.door?.distanceToWall && (
-          <FormHelperText>{errors.door.distanceToWall.message}</FormHelperText>
+        {errors?.windows?.windows?.[index]?.distanceToWall && (
+          <FormHelperText>
+            {errors?.windows?.windows?.[index]?.distanceToWall.message}
+          </FormHelperText>
         )}
       </Stack>
     </>

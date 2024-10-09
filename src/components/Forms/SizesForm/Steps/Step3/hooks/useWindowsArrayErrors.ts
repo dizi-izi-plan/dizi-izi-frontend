@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import {
+  MAX_DOOR_SIZE,
+  MIN_DOOR_SIZE,
   MIN_WINDOW_SIZE,
   MIN_WINDOW_WITH_BALCONY_SIZE,
 } from '../../../validation';
@@ -56,6 +58,29 @@ export const useWindowsArrayErrors = () => {
     [fields],
   );
 
+  const checkDoorSize = useCallback(
+    (element: ElementType, index: number): ErrorType | undefined => {
+      let message = '';
+
+      if ('doorSize' in element) {
+        const doorSize = element.doorSize;
+        const isDoorInValid =
+          !doorSize ||
+          (Number(doorSize) >= MIN_DOOR_SIZE &&
+            Number(doorSize) <= MAX_DOOR_SIZE);
+
+        if (isDoorInValid) message = ERROR_MESSAGES.doorSizes;
+      }
+
+      return {
+        message,
+        code: 'custom',
+        path: ['windows', 'windows', `${index}`, 'doorSize'],
+      };
+    },
+    [],
+  );
+
   useEffect(() => {
     if (fields?.windows?.windows && fields.windows.windows?.length > 0) {
       const newErrors: ErrorType[] = [];
@@ -68,7 +93,9 @@ export const useWindowsArrayErrors = () => {
           win,
           `windows.windows.${index}`,
         );
+        const doorSizeError = checkDoorSize(win, index);
 
+        if (doorSizeError) newErrors.push(doorSizeError);
         if (sizeError) newErrors.push(sizeError);
         if (distanceToWallError) newErrors.push(distanceToWallError);
 
