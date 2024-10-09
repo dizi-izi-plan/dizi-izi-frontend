@@ -103,6 +103,16 @@ export const WindowWithBalcony = ({
             />
           </Stack>
         </Stack>
+        {errors?.windows?.windows?.[index]?.distanceToWall && (
+          <FormHelperText>
+            {errors?.windows?.windows?.[index]?.distanceToWall.message}
+          </FormHelperText>
+        )}
+        {errors?.windows?.windows?.[index]?.toWall && (
+          <FormHelperText>
+            {errors?.windows?.windows?.[index]?.toWall.message}
+          </FormHelperText>
+        )}
         <RadioGroupWrapper
           name={`windows.windows.${index}.${STEP3.openLeftRight.name}`}
           control={control}
@@ -119,11 +129,6 @@ export const WindowWithBalcony = ({
             marginRight: 0,
           }}
         />
-        {errors?.windows?.windows?.[index]?.distanceToWall && (
-          <FormHelperText>
-            {errors?.windows?.windows?.[index]?.distanceToWall.message}
-          </FormHelperText>
-        )}
       </Stack>
     </>
   );

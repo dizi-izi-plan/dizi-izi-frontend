@@ -94,6 +94,11 @@ export const Window = ({
               {errors?.windows?.windows?.[index]?.distanceToWall.message}
             </FormHelperText>
           )}
+          {errors?.windows?.windows?.[index]?.toWall && (
+            <FormHelperText>
+              {errors?.windows?.windows?.[index]?.toWall.message}
+            </FormHelperText>
+          )}
         </Stack>
       </Stack>
     </>

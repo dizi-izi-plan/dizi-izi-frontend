@@ -15,6 +15,7 @@ type ElementType = {
   wallNumber?: string;
   size?: string;
   doorSize?: string;
+  toWall?: string;
 };
 
 type ErrorType = {
@@ -81,6 +82,21 @@ export const useWindowsArrayErrors = () => {
     [],
   );
 
+  const checkToWall = useCallback(
+    (element: ElementType, index: number): ErrorType | undefined => {
+      let message = '';
+
+      if (!element.toWall) message = ERROR_MESSAGES.toWallRequired;
+
+      return {
+        message,
+        code: 'custom',
+        path: ['windows', 'windows', `${index}`, 'toWall'],
+      };
+    },
+    [],
+  );
+
   useEffect(() => {
     if (fields?.windows?.windows && fields.windows.windows?.length > 0) {
       const newErrors: ErrorType[] = [];
@@ -94,10 +110,12 @@ export const useWindowsArrayErrors = () => {
           `windows.windows.${index}`,
         );
         const doorSizeError = checkDoorSize(win, index);
+        const toWallError = checkToWall(win, index);
 
         if (doorSizeError) newErrors.push(doorSizeError);
         if (sizeError) newErrors.push(sizeError);
         if (distanceToWallError) newErrors.push(distanceToWallError);
+        if (toWallError) newErrors.push(toWallError);
 
         setErrors(newErrors);
       });

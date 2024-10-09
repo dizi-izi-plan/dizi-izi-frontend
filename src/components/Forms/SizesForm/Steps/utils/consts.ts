@@ -2,6 +2,7 @@ export const MIN_DISTANCE_TO_WALL = 50;
 
 export const ERROR_MESSAGES = {
   required: 'Обязательное поле',
+  toWallRequired: 'Поле "До стены" обязательное',
   minWallsSizes: 'Длина стены не может быть меньше 1000мм',
   doorSizes: 'Размер двери не может быть меньше 700мм и больше 900мм',
   minWindowSize: 'Размер окна не может быть меньше 400мм',
