@@ -25,8 +25,9 @@ type ErrorType = {
 };
 
 export const useWindowsArrayErrors = () => {
-  const { setError, clearErrors } = useFormContext<SizesFormType>();
+  const { setError, clearErrors, formState } = useFormContext<SizesFormType>();
   const fields = useWatch<SizesFormType>();
+  const { touchedFields } = formState;
   const [errors, setErrors] = useState<ErrorType[]>([]);
 
   const checkWindowSize = useCallback(
@@ -101,16 +102,35 @@ export const useWindowsArrayErrors = () => {
     if (fields?.windows?.windows && fields.windows.windows?.length > 0) {
       const newErrors: ErrorType[] = [];
 
+      console.log('touchedFields', touchedFields);
+
       fields.windows.windows.map((win, index) => {
-        const sizeError = checkWindowSize(win, index);
-        const distanceToWallError = checkDistanceToWall(
-          // @ts-expect-error
-          fields,
-          win,
-          `windows.windows.${index}`,
-        );
-        const doorSizeError = checkDoorSize(win, index);
-        const toWallError = checkToWall(win, index);
+        if (
+          !touchedFields.windows?.windows ||
+          !touchedFields.windows?.windows[index] ||
+          touchedFields.windows.windows.every((item) => item === undefined)
+        ) {
+          return;
+        }
+
+        const sizeError = touchedFields.windows?.windows[index].size
+          ? checkWindowSize(win, index)
+          : undefined;
+        const distanceToWallError = touchedFields.windows?.windows[index]
+          .distanceToWall
+          ? checkDistanceToWall(
+              // @ts-expect-error
+              fields,
+              win,
+              `windows.windows.${index}`,
+            )
+          : undefined;
+        const doorSizeError = touchedFields.windows?.windows[index].doorSize
+          ? checkDoorSize(win, index)
+          : undefined;
+        const toWallError = touchedFields.windows?.windows[index].distanceToWall
+          ? checkToWall(win, index)
+          : undefined;
 
         if (doorSizeError) newErrors.push(doorSizeError);
         if (sizeError) newErrors.push(sizeError);
@@ -120,7 +140,7 @@ export const useWindowsArrayErrors = () => {
         setErrors(newErrors);
       });
     }
-  }, [fields]);
+  }, [fields, touchedFields]);
 
   useEffect(() => {
     if (errors.length === 0) {
