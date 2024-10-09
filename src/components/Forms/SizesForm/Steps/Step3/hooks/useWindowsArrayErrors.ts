@@ -29,6 +29,7 @@ export const useWindowsArrayErrors = () => {
   const fields = useWatch<SizesFormType>();
   const { touchedFields } = formState;
   const [errors, setErrors] = useState<ErrorType[]>([]);
+  const [isStepValid, setIsStepValid] = useState(false);
 
   const checkWindowSize = useCallback(
     (element: ElementType, index: number): ErrorType | undefined => {
@@ -68,8 +69,8 @@ export const useWindowsArrayErrors = () => {
         const doorSize = element.doorSize;
         const isDoorInValid =
           !doorSize ||
-          (Number(doorSize) >= MIN_DOOR_SIZE &&
-            Number(doorSize) <= MAX_DOOR_SIZE);
+          Number(doorSize) < MIN_DOOR_SIZE ||
+          Number(doorSize) > MAX_DOOR_SIZE;
 
         if (isDoorInValid) message = ERROR_MESSAGES.doorSizes;
       }
@@ -99,12 +100,27 @@ export const useWindowsArrayErrors = () => {
   );
 
   useEffect(() => {
+    if (fields.windows?.type === 'noWindow') {
+      setIsStepValid(true);
+      return;
+    }
+
+    if (
+      fields.windows?.type === 'window' &&
+      fields?.windows?.windows?.length === 0
+    ) {
+      setIsStepValid(false);
+      return;
+    }
+
     if (fields?.windows?.windows && fields.windows.windows?.length > 0) {
       const newErrors: ErrorType[] = [];
 
-      console.log('touchedFields', touchedFields);
-
       fields.windows.windows.map((win, index) => {
+        if (Object.values(win).every((item) => !item)) {
+          setIsStepValid(false);
+        }
+
         if (
           !touchedFields.windows?.windows ||
           !touchedFields.windows?.windows[index] ||
@@ -116,21 +132,17 @@ export const useWindowsArrayErrors = () => {
         const sizeError = touchedFields.windows?.windows[index].size
           ? checkWindowSize(win, index)
           : undefined;
-        const distanceToWallError = touchedFields.windows?.windows[index]
-          .distanceToWall
-          ? checkDistanceToWall(
-              // @ts-expect-error
-              fields,
-              win,
-              `windows.windows.${index}`,
-            )
-          : undefined;
+        const distanceToWallError = checkDistanceToWall(
+          // @ts-expect-error
+          fields,
+          win,
+          `windows.windows.${index}`,
+        );
+
         const doorSizeError = touchedFields.windows?.windows[index].doorSize
           ? checkDoorSize(win, index)
           : undefined;
-        const toWallError = touchedFields.windows?.windows[index].distanceToWall
-          ? checkToWall(win, index)
-          : undefined;
+        const toWallError = checkToWall(win, index);
 
         if (doorSizeError) newErrors.push(doorSizeError);
         if (sizeError) newErrors.push(sizeError);
@@ -148,6 +160,8 @@ export const useWindowsArrayErrors = () => {
       return;
     }
 
+    let isAllFieldsValid: boolean[] = [];
+
     errors.map((err) => {
       if (!err) return;
 
@@ -155,11 +169,22 @@ export const useWindowsArrayErrors = () => {
       const errorPath = path.join('.') as WALLS_NAMES_TYPE;
 
       if (!message) {
+        isAllFieldsValid.push(true);
         clearErrors(errorPath);
         return;
       }
 
+      isAllFieldsValid.push(false);
       setError(errorPath, { message, type: code });
     });
-  }, [errors, setError, clearErrors]);
+
+    if (isAllFieldsValid.every((el) => el)) {
+      setIsStepValid(true);
+      setErrors([]);
+    } else {
+      setIsStepValid(false);
+    }
+  }, [errors, setError, clearErrors, setErrors]);
+
+  return { isStepValid };
 };
