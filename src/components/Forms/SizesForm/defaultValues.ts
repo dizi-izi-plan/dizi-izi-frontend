@@ -12,7 +12,7 @@ export const door = {
   wallNumber: 'walls.first',
   size: '',
   distanceToWall: '',
-  toWall: WALLS.second,
+  toWall: '',
   side: SIDE.left,
   open: OPEN.inside,
 };
@@ -34,7 +34,7 @@ export const windowWithBalcony = {
 };
 
 const windows = {
-  type: '',
+  type: 'noWindow',
   windows: [],
 };
 
