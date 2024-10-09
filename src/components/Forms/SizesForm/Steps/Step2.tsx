@@ -36,11 +36,11 @@ export const Door = () => {
 
   useEffect(() => {
     if (selectedWall === WALLS.first || selectedWall === WALLS.third)
-      setValue(STEP2.toWall.name, WALLS.second, {
+      setValue(STEP2.toWall.name, '2', {
         shouldValidate: true,
       });
     if (selectedWall === WALLS.second || selectedWall === WALLS.forth)
-      setValue(STEP2.toWall.name, WALLS.first, {
+      setValue(STEP2.toWall.name, '1', {
         shouldValidate: true,
       });
   }, [selectedWall, setValue]);
