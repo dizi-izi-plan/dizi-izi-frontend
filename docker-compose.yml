@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   front-dev:
     container_name: dizi-izi-frontend
