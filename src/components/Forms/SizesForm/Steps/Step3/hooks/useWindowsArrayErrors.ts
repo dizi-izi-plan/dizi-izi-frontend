@@ -159,6 +159,22 @@ export const useWindowsArrayErrors = () => {
     }
   }, [fields, touchedFields, checkWindowTypeData]);
 
+  const checkFieldForError = useCallback(
+    (err: ErrorType) => {
+      const { code, message, path } = err;
+      const errorPath = path.join('.') as WALLS_NAMES_TYPE;
+
+      if (!message) {
+        clearErrors(errorPath);
+        return true;
+      }
+
+      setError(errorPath, { message, type: code });
+      return false;
+    },
+    [clearErrors, setError],
+  );
+
   useEffect(() => {
     if (errors.length === 0) {
       clearErrors('windows.windows');
@@ -170,17 +186,8 @@ export const useWindowsArrayErrors = () => {
     errors.map((err) => {
       if (!err) return;
 
-      const { code, message, path } = err;
-      const errorPath = path.join('.') as WALLS_NAMES_TYPE;
-
-      if (!message) {
-        isAllFieldsValid.push(true);
-        clearErrors(errorPath);
-        return;
-      }
-
-      isAllFieldsValid.push(false);
-      setError(errorPath, { message, type: code });
+      const res = checkFieldForError(err);
+      isAllFieldsValid.push(res);
     });
 
     if (isAllFieldsValid.every((el) => el)) {
@@ -189,7 +196,7 @@ export const useWindowsArrayErrors = () => {
     } else {
       setIsStepValid(false);
     }
-  }, [errors, setError, clearErrors, setErrors]);
+  }, [errors, checkFieldForError, setErrors]);
 
   return { isStepValid };
 };
