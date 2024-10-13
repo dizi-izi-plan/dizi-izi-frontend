@@ -28,6 +28,7 @@ export const useWindowsArrayErrors = () => {
   const { setError, clearErrors, formState } = useFormContext<SizesFormType>();
   const fields = useWatch<SizesFormType>();
   const { touchedFields } = formState;
+  const touchedWindows = touchedFields.windows?.windows;
   const [errors, setErrors] = useState<ErrorType[]>([]);
   const [isStepValid, setIsStepValid] = useState(false);
 
@@ -99,37 +100,24 @@ export const useWindowsArrayErrors = () => {
     [],
   );
 
-  useEffect(() => {
-    if (fields.windows?.type === 'noWindow') {
-      setIsStepValid(true);
-      return;
-    }
-
-    if (
-      fields.windows?.type === 'window' &&
-      fields?.windows?.windows?.length === 0
-    ) {
-      setIsStepValid(false);
-      return;
-    }
-
-    if (fields?.windows?.windows && fields.windows.windows?.length > 0) {
+  const checkWindowTypeData = useCallback(
+    (windows: ElementType[]) => {
       const newErrors: ErrorType[] = [];
 
-      fields.windows.windows.map((win, index) => {
+      windows.map((win, index) => {
         if (Object.values(win).every((item) => !item)) {
           setIsStepValid(false);
         }
 
         if (
-          !touchedFields.windows?.windows ||
-          !touchedFields.windows?.windows[index] ||
-          touchedFields.windows.windows.every((item) => item === undefined)
+          !touchedWindows ||
+          !touchedWindows[index] ||
+          touchedWindows.every((item) => item === undefined)
         ) {
           return;
         }
 
-        const sizeError = touchedFields.windows?.windows[index].size
+        const sizeError = touchedWindows[index].size
           ? checkWindowSize(win, index)
           : undefined;
         const distanceToWallError = checkDistanceToWall(
@@ -139,7 +127,7 @@ export const useWindowsArrayErrors = () => {
           `windows.windows.${index}`,
         );
 
-        const doorSizeError = touchedFields.windows?.windows[index].doorSize
+        const doorSizeError = touchedWindows[index].doorSize
           ? checkDoorSize(win, index)
           : undefined;
         const toWallError = checkToWall(win, index);
@@ -151,8 +139,25 @@ export const useWindowsArrayErrors = () => {
 
         setErrors(newErrors);
       });
+    },
+    [touchedWindows],
+  );
+
+  useEffect(() => {
+    if (fields.windows?.type === 'noWindow') {
+      setIsStepValid(true);
+      return;
     }
-  }, [fields, touchedFields]);
+
+    if (fields.windows?.type === 'window' && fields?.windows?.windows) {
+      if (fields?.windows?.windows?.length === 0) {
+        setIsStepValid(false);
+        return;
+      } else {
+        checkWindowTypeData(fields.windows.windows);
+      }
+    }
+  }, [fields, touchedFields, checkWindowTypeData]);
 
   useEffect(() => {
     if (errors.length === 0) {
