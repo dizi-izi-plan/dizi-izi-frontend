@@ -21,6 +21,7 @@ type SizesFormProps = {
   setCurrentStep: Dispatch<SetStateAction<number>>;
   handleForward: () => void;
   handleBack: () => void;
+  handleWindowsValidation: (isValid: boolean) => void;
 };
 
 export const SizesForm = ({
@@ -28,6 +29,7 @@ export const SizesForm = ({
   setCurrentStep,
   handleBack,
   handleForward,
+  handleWindowsValidation,
 }: SizesFormProps) => {
   const { handleSubmit } = useFormContext<SizesFormType>();
   const isStepValid = useAppSelector(selectIsStepValid);
@@ -76,7 +78,7 @@ export const SizesForm = ({
           <Door />
         </TabContentContainer>
         <TabContentContainer index={2} value={currentStep}>
-          <Windows />
+          <Windows handleStepValidation={handleWindowsValidation} />
         </TabContentContainer>
         <TabContentContainer index={3} value={currentStep}>
           <Furniture />
