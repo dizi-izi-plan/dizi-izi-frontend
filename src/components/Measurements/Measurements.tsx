@@ -25,6 +25,7 @@ import {
 
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [isWindowsValid, setIsWindowsValid] = useState<boolean>();
   const dispatch = useAppDispatch();
   const isStepValid = useAppSelector(selectIsStepValid);
 
@@ -43,7 +44,12 @@ export const Measurements = () => {
   useEffect(() => {
     const validateStep = async () => {
       const fields = MEASUREMENTS_STEPS[currentStep].fields;
-      const output = await trigger(fields as FieldNames, { shouldFocus: true });
+      let output = await trigger(fields as FieldNames, { shouldFocus: true });
+
+      if (currentStep === 2 && isWindowsValid !== undefined) {
+        output = isWindowsValid;
+      }
+
       dispatch(setIsStepValid(output));
     };
 
@@ -54,7 +60,7 @@ export const Measurements = () => {
     validateStep();
 
     return () => subscription.unsubscribe();
-  }, [watch, currentStep, dispatch, trigger]);
+  }, [watch, currentStep, dispatch, trigger, isWindowsValid]);
 
   const handleBack = async () => {
     if (currentStep > 0) {
@@ -126,6 +132,7 @@ export const Measurements = () => {
               handleForward={handleForward}
               handleBack={handleBack}
               setCurrentStep={setCurrentStep}
+              handleWindowsValidation={setIsWindowsValid}
             />
           </FormProvider>
         </Stack>

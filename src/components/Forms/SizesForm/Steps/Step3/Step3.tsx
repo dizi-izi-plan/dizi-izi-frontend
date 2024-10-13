@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import {
   RadioGroupWrapper,
@@ -25,7 +25,11 @@ const WINDOW_TYPE_RADIOS: RadioType[] = [
   { label: 'Без окна', value: 'noWindow' },
 ];
 
-export const Windows = () => {
+export const Windows = ({
+  handleStepValidation,
+}: {
+  handleStepValidation: (isValid: boolean) => void;
+}) => {
   const { control, watch } = useFormContext<SizesFormType>();
   const [isWindowWithBalconyAdded, setIsWindowWithBalconyAdded] =
     useState(false);
@@ -35,7 +39,11 @@ export const Windows = () => {
     name: 'windows.windows',
   });
 
-  useWindowsArrayErrors();
+  const { isStepValid } = useWindowsArrayErrors();
+
+  useEffect(() => {
+    handleStepValidation(isStepValid);
+  }, [isStepValid]);
 
   const handleAddWindow = () => {
     if (fields.length < 2) {
