@@ -25,7 +25,7 @@ import {
 
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [isWindowsValid, setIsWindowsValid] = useState<boolean>();
+  const [isWindowsValid, setIsWindowsValid] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const isStepValid = useAppSelector(selectIsStepValid);
 
@@ -46,7 +46,7 @@ export const Measurements = () => {
       const fields = MEASUREMENTS_STEPS[currentStep].fields;
       let output = await trigger(fields as FieldNames, { shouldFocus: true });
 
-      if (currentStep === 2 && isWindowsValid !== undefined) {
+      if (currentStep === 2) {
         output = isWindowsValid;
       }
 
