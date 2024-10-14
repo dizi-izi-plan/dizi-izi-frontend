@@ -615,40 +615,40 @@ theme = createTheme(theme, {
         },
       },
     },
-    MuiMenu: {
-      styleOverrides: {
-        root: {
-          '& .MuiPaper-root': {
-            borderRadius: '0',
-          },
-          '& .MuiList-root': {
-            padding: '0',
-            borderRadius: '0',
-          },
-          '& .MuiBox-root': {
-            width: '148px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            border: `1px solid ${theme.palette.primary.main}`,
-            padding: '12px',
-          },
-        },
-      },
-    },
+    // MuiMenu: {
+    //   styleOverrides: {
+    //     root: {
+    //       '& .MuiPaper-root': {
+    //         borderRadius: '0',
+    //       },
+    //       '& .MuiList-root': {
+    //         padding: '0',
+    //         borderRadius: '0',
+    //       },
+    //       '& .MuiBox-root': {
+    //         width: '168px',
+    //         display: 'flex',
+    //         flexDirection: 'column',
+    //         gap: '20px',
+    //         border: `1px solid ${theme.palette.primary.main}`,
+    //         padding: '12px',
+    //       },
+    //     },
+    //   },
+    // },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          '&.MuiButtonBase-root': {
-            padding: '0',
-            height: '24px',
-            '& span': {
-              letterSpacing: '0',
-            },
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
-          },
+          // '&.MuiButtonBase-root': {
+          //   padding: '0',
+          //   height: '24px',
+          //   '& span': {
+          //     letterSpacing: '0',
+          //   },
+          //   '&:hover': {
+          //     backgroundColor: 'transparent',
+          //   },
+          // },
           '& em': {
             color: theme.palette.myGrey.grey500,
             fontStyle: 'normal',
