@@ -6,7 +6,7 @@ import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { RadioNumber } from './RadioNumber';
 import { FURNITURE } from './step4FormData';
-import { SizesFormType } from '../../validation';
+import { SizesFormType } from '../../types';
 import { Control } from 'react-hook-form';
 
 type SubstepContainerProps = StackProps & {

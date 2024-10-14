@@ -38,9 +38,13 @@ export const TextFieldWrapper = <T extends FieldValues>({
     if (onChangeHandler) onChangeHandler(e);
   };
 
+  const onBlur = () => {
+    field.onBlur();
+  };
+
   return (
     <Box width="100%">
-      <TextField {...field} {...props} onChange={onChange} />
+      <TextField {...field} {...props} onChange={onChange} onBlur={onBlur} />
       <FormHelperText>{errorMessage}</FormHelperText>
     </Box>
   );
