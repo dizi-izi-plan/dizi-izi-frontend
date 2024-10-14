@@ -43,7 +43,7 @@ export const Windows = ({
 
   useEffect(() => {
     handleStepValidation(isStepValid);
-  }, [isStepValid]);
+  }, [isStepValid, handleStepValidation]);
 
   const handleAddWindow = () => {
     if (fields.length < 2) {

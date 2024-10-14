@@ -12,7 +12,7 @@ export const useWindowsArrayErrors = () => {
   const checkWindowTypeData = useCallback(() => {
     fields?.windows?.windows?.forEach((win, index) => {
       checkWindow(
-        // @ts-expect-error
+        // @ts-expect-error fields with undefined values are covered in useEffect
         fields,
         win,
         `windows.windows.${index}`,
@@ -20,7 +20,7 @@ export const useWindowsArrayErrors = () => {
         clearErrors,
       );
     });
-  }, [fields, checkWindow]);
+  }, [fields, clearErrors, setError]);
 
   useEffect(() => {
     if (!fields.windows) {
@@ -39,7 +39,7 @@ export const useWindowsArrayErrors = () => {
         checkWindowTypeData();
       }
     }
-  }, [setIsStepValid, checkWindowTypeData]);
+  }, [setIsStepValid, checkWindowTypeData, fields.windows]);
 
   useEffect(() => {
     if (!formState.errors.windows) {
