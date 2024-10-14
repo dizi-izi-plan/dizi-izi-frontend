@@ -1,15 +1,12 @@
 name: Docker build & push
 on:
   workflow_call:
-    inputs:
-      NEXT_PUBLIC_API_URL:
-        description: 'API URL for frontend application'
-        required: true
-        type: string
     secrets:
       DOCKERHUB_USERNAME:
         required: true
       DOCKERHUB_TOKEN:
+        required: true
+      NEXT_PUBLIC_API_URL:
         required: true
 
 jobs:
@@ -39,7 +36,7 @@ jobs:
         with:
           push: true
           build-args: |
-            NEXT_PUBLIC_API_URL=${{ inputs.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
           tags: |
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ env.COMMIT_SHA }}

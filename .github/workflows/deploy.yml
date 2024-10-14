@@ -15,11 +15,10 @@ jobs:
     name: Docker
     needs: lint
     uses: dizi-izi-plan/dizi-izi-frontend/.github/workflows/docker.yml@main
-    with:
-      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
 
   server:
     name: Server
