@@ -1,4 +1,4 @@
-import { OPEN, SIDE, WALLS } from './formData';
+import { OPEN, SIDE } from './formData';
 import { SizesFormType } from './types';
 
 export const walls = {

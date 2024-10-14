@@ -39,7 +39,7 @@ export const WindowWithBalcony = ({
     return STEP3.wallNumber.options.filter(
       (option) => option.value !== doorWallNumber,
     );
-  }, [watch('door.wallNumber')]);
+  }, [watch]);
 
   return (
     <>
