@@ -25,7 +25,7 @@ export const Window = ({
   handleRemove: (index: number) => void;
 }) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
-  const { errors } = formState;
+  const { errors, touchedFields } = formState;
 
   const selectedWall = watch(
     `windows.windows.${index}.${STEP3.wallNumber.name}`,
@@ -66,7 +66,11 @@ export const Window = ({
           type="number"
           step={1}
           max={MAX_WINDOW_INPUT_LENGTH}
-          errorMessage={errors?.windows?.windows?.[index]?.size?.message || ''}
+          errorMessage={
+            (touchedFields.windows?.windows?.[index].size &&
+              errors?.windows?.windows?.[index]?.size?.message) ||
+            ''
+          }
         />
         <Stack>
           <Stack direction="row" gap={3}>
@@ -89,16 +93,18 @@ export const Window = ({
               }}
             />
           </Stack>
-          {errors?.windows?.windows?.[index]?.distanceToWall && (
-            <FormHelperText>
-              {errors?.windows?.windows?.[index]?.distanceToWall.message}
-            </FormHelperText>
-          )}
-          {errors?.windows?.windows?.[index]?.toWall && (
-            <FormHelperText>
-              {errors?.windows?.windows?.[index]?.toWall.message}
-            </FormHelperText>
-          )}
+          {touchedFields.windows?.windows?.[index].distanceToWall &&
+            errors?.windows?.windows?.[index]?.distanceToWall && (
+              <FormHelperText>
+                {errors?.windows?.windows?.[index]?.distanceToWall.message}
+              </FormHelperText>
+            )}
+          {touchedFields.windows?.windows?.[index].distanceToWall &&
+            errors?.windows?.windows?.[index]?.toWall && (
+              <FormHelperText>
+                {errors?.windows?.windows?.[index]?.toWall.message}
+              </FormHelperText>
+            )}
         </Stack>
       </Stack>
     </>
