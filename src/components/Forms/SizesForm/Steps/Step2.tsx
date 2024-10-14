@@ -26,7 +26,7 @@ export const Door = () => {
 
   const { control, formState, watch, setValue } =
     useFormContext<SizesFormType>();
-  const { errors } = formState;
+  const { errors, touchedFields } = formState;
 
   const selectedWall = watch(
     STEP2.wallNumber.name as WALLS_NAMES_TYPE,
@@ -74,7 +74,9 @@ export const Door = () => {
           type="number"
           step={1}
           max={MAX_DOOR_INPUT_LENGTH}
-          errorMessage={errors?.door?.size?.message || ''}
+          errorMessage={
+            (touchedFields.door?.size && errors?.door?.size?.message) || ''
+          }
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
@@ -100,7 +102,7 @@ export const Door = () => {
             }}
           />
         </Stack>
-        {errors.door?.distanceToWall && (
+        {touchedFields.door?.distanceToWall && errors.door?.distanceToWall && (
           <FormHelperText>{errors.door.distanceToWall.message}</FormHelperText>
         )}
       </Stack>
