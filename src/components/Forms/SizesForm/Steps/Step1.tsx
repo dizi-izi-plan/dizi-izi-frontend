@@ -30,7 +30,8 @@ const allowedKeys = new Set([
 
 export const Walls = () => {
   const dispatch = useAppDispatch();
-  const { setValue, control } = useFormContext<SizesFormType>();
+  const { setValue, control, formState } = useFormContext<SizesFormType>();
+  const { touchedFields } = formState;
   const isStepValid = useAppSelector(selectIsStepValid);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
@@ -79,7 +80,7 @@ export const Walls = () => {
           }}
         />
       ))}
-      {!isStepValid && (
+      {touchedFields.walls && !isStepValid && (
         <FormHelperText className={CLASS_NAMES_HELPER.centered}>
           {ERROR_MESSAGES.minWallsSizes}
         </FormHelperText>

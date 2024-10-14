@@ -68,7 +68,7 @@ export const WindowWithBalcony = ({
           step={1}
           max={MAX_WINDOW_INPUT_LENGTH}
           errorMessage={
-            (touchedFields.windows?.windows?.[index].size &&
+            (touchedFields.windows?.windows?.[index]?.size &&
               errors?.windows?.windows?.[index]?.size?.message) ||
             ''
           }
@@ -82,7 +82,7 @@ export const WindowWithBalcony = ({
           step={1}
           max={MAX_DOOR_INPUT_LENGTH}
           errorMessage={
-            (touchedFields.windows?.windows?.[index].doorSize &&
+            (touchedFields.windows?.windows?.[index]?.doorSize &&
               errors?.windows?.windows?.[index]?.doorSize?.message) ||
             ''
           }
@@ -109,13 +109,13 @@ export const WindowWithBalcony = ({
             />
           </Stack>
         </Stack>
-        {touchedFields.windows?.windows?.[index].distanceToWall &&
+        {touchedFields.windows?.windows?.[index]?.distanceToWall &&
           errors?.windows?.windows?.[index]?.distanceToWall && (
             <FormHelperText>
               {errors?.windows?.windows?.[index]?.distanceToWall.message}
             </FormHelperText>
           )}
-        {touchedFields.windows?.windows?.[index].distanceToWall &&
+        {touchedFields.windows?.windows?.[index]?.distanceToWall &&
           errors?.windows?.windows?.[index]?.toWall && (
             <FormHelperText>
               {errors?.windows?.windows?.[index]?.toWall.message}
