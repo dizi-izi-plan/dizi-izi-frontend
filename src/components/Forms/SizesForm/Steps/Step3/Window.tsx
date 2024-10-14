@@ -93,18 +93,18 @@ export const Window = ({
               }}
             />
           </Stack>
-          {touchedFields.windows?.windows?.[index]?.distanceToWall &&
-            errors?.windows?.windows?.[index]?.distanceToWall && (
-              <FormHelperText>
-                {errors?.windows?.windows?.[index]?.distanceToWall.message}
-              </FormHelperText>
-            )}
-          {touchedFields.windows?.windows?.[index]?.distanceToWall &&
-            errors?.windows?.windows?.[index]?.toWall && (
-              <FormHelperText>
-                {errors?.windows?.windows?.[index]?.toWall.message}
-              </FormHelperText>
-            )}
+          {touchedFields.windows?.windows?.[index]?.distanceToWall && (
+            <FormHelperText>
+              {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+              {errors?.windows?.windows?.[index]?.distanceToWall?.message ?? ''}
+            </FormHelperText>
+          )}
+          {touchedFields.windows?.windows?.[index]?.distanceToWall && (
+            <FormHelperText>
+              {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+              {errors?.windows?.windows?.[index]?.toWall?.message ?? ''}
+            </FormHelperText>
+          )}
         </Stack>
       </Stack>
     </>
