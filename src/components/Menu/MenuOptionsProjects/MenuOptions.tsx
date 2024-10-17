@@ -10,6 +10,7 @@ import {
 import React, { MouseEvent, useRef, useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { theme } from '@/mui/theme';
+import { CLASS_NAMES_MENU } from '../classNameConstantsMenu';
 
 interface MenuOptionsProps {
   actions: { name: string; onClick: () => void }[];
@@ -47,6 +48,7 @@ export const MenuOptions = ({ actions }: MenuOptionsProps) => {
         </IconButton>
       </Stack>
       <Menu
+        className={`${CLASS_NAMES_MENU.layoutMenu}`}
         elevation={0}
         anchorOrigin={{
           vertical: 'top',
@@ -64,6 +66,7 @@ export const MenuOptions = ({ actions }: MenuOptionsProps) => {
           {actions.map((el) => (
             <MenuItem
               key={el.name}
+              className={`${CLASS_NAMES_MENU.layoutMenuItem}`}
               onClick={() => {
                 el.onClick();
                 handleClose();
