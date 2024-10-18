@@ -10,7 +10,6 @@ import { PROFILE_FORM_DATA } from './ProfileDataFormConstants';
 import { IProfileFormInput } from './profileDataFormDataTypes';
 import { getProfileConfig } from './profileFormData.data';
 import { AccountFormValidation } from './validationSchema';
-import React from 'react';
 
 export const ProfileDataForm = () => {
   const dispatch = useAppDispatch();
@@ -20,9 +19,12 @@ export const ProfileDataForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IProfileFormInput>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       [PROFILE_FORM_DATA.username]: 'Елена',
+      [PROFILE_FORM_DATA.status]: true,
+      [PROFILE_FORM_DATA.birthday]: '2010-10-10',
+      [PROFILE_FORM_DATA.city]: 'Москва',
     },
     resolver: zodResolver(AccountFormValidation),
   });
