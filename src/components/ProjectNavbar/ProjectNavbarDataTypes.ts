@@ -17,8 +17,3 @@ export interface ActionConfigs {
   title: string;
   handleActionClick: () => void;
 }
-
-export interface ModalDataProps {
-  text: string[];
-  handleYes: () => void;
-}
