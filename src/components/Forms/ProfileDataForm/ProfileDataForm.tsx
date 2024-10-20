@@ -42,33 +42,27 @@ export const ProfileDataForm = () => {
         </Box>
         <Box width="25rem">
           <form onSubmit={onSubmit}>
-            <Stack spacing={4}>
-              <Stack spacing={2}>
-                <Stack spacing={5}>
-                  {profileConfig.map((config) => config)}
-                </Stack>
-                <Box>
-                  <Button
-                    color="secondary"
-                    onClick={() =>
-                      dispatch(setCurrentModal(modalNames.modalChangePassword))
-                    }
-                  >
-                    Изменить пароль
-                  </Button>
-                </Box>
-              </Stack>
-              <Box>
-                <Button
-                  type="submit"
-                  variant="default"
-                  size="medium"
-                  color="secondary"
-                >
-                  Сохранить
-                </Button>
-              </Box>
-            </Stack>
+            <Stack spacing={4}>{profileConfig.map((config) => config)}</Stack>
+            <Box marginTop="1rem">
+              <Button
+                color="secondary"
+                onClick={() =>
+                  dispatch(setCurrentModal(modalNames.modalChangePassword))
+                }
+              >
+                Изменить пароль
+              </Button>
+            </Box>
+            <Box marginTop="3.75rem">
+              <Button
+                type="submit"
+                variant="default"
+                size="medium"
+                color="secondary"
+              >
+                Сохранить
+              </Button>
+            </Box>
           </form>
         </Box>
       </Stack>

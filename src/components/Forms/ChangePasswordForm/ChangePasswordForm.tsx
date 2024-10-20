@@ -13,7 +13,7 @@ export const ChangePasswordForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IPasswordFormInput>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       [CHANGE_PASSWORD_FORM_DATA.oldPassword]: '',
       [CHANGE_PASSWORD_FORM_DATA.password]: '',

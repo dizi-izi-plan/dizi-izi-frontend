@@ -217,7 +217,8 @@ theme = createTheme(theme, {
             },
             '& .MuiAutocomplete-input': {
               position: 'relative',
-              top: '-25px',
+              // не работает с ним нормально Autocomplete, тк на -25 пикселя от родителя поднимается вверх(как я понял)
+              // top: '-25px',
               left: '-9px',
             },
           },
