@@ -16,6 +16,6 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   },
   {
     name: 'Профиль',
-    component: <AccountSectionTemplate name="Профиль" />, // при верстке нужного компонента - заменить
+    component: <AccountSectionTemplate />, // при верстке нужного компонента - заменить
   },
 ];
