@@ -20,7 +20,7 @@ export const CheckboxWrapper = <T extends FieldValues>(
 
   return (
     <Box>
-      <Checkbox {...field} {...props} />
+      <Checkbox {...field} checked={field.value} {...props} />
       <FormHelperText>{props.errorMessage}</FormHelperText>
     </Box>
   );
