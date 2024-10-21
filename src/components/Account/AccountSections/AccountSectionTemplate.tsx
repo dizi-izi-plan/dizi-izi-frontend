@@ -1,9 +1,15 @@
-import Typography from '@mui/material/Typography';
+import { ProfileDataForm } from '@/components/Forms/ProfileDataForm/ProfileDataForm';
+import { Box, Button, Stack } from '@mui/material';
 
-interface AccountSectionProps {
-  name: string;
-}
-
-export const AccountSectionTemplate = ({ name }: AccountSectionProps) => {
-  return <Typography>{name}</Typography>;
+export const AccountSectionTemplate = () => {
+  return (
+    <Stack>
+      <ProfileDataForm />
+      <Box paddingTop={18}>
+        <Button color="secondary" onClick={() => console.log('Delete user')}>
+          Удалить профиль
+        </Button>
+      </Box>
+    </Stack>
+  );
 };
