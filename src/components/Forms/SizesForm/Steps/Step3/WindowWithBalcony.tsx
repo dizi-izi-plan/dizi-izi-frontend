@@ -18,13 +18,15 @@ import {
 import { SizesFormType } from '../../types';
 import { STEP3 } from '../../formData';
 
+type WindowWithBalconyProps = {
+  index: number;
+  handleRemove: (index: number) => void;
+};
+
 export const WindowWithBalcony = ({
   index,
   handleRemove,
-}: {
-  index: number;
-  handleRemove: (index: number) => void;
-}) => {
+}: WindowWithBalconyProps) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors, touchedFields } = formState;
 

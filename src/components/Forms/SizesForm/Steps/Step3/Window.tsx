@@ -17,13 +17,12 @@ import {
 import { STEP3 } from '../../formData';
 import { SizesFormType } from '../../types';
 
-export const Window = ({
-  index,
-  handleRemove,
-}: {
+type WindowProps = {
   index: number;
   handleRemove: (index: number) => void;
-}) => {
+};
+
+export const Window = ({ index, handleRemove }: WindowProps) => {
   const { control, formState, watch } = useFormContext<SizesFormType>();
   const { errors, touchedFields } = formState;
 

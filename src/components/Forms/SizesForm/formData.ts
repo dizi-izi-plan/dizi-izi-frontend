@@ -21,25 +21,25 @@ export const CORRESPONDING_WALLS = {
 } as const;
 
 export const NEIGHBOR_WALLS: {
-  [K in WALLS_NAMES_TYPE]: { [key: number]: string };
+  [K in WALLS_NAMES_TYPE]: { [key: string]: string };
 } = {
   'walls.first': {
-    2: SIDE.left,
-    4: SIDE.right,
+    [WALLS.second]: SIDE.left,
+    [WALLS.forth]: SIDE.right,
   },
   'walls.second': {
-    1: SIDE.right,
-    3: SIDE.left,
+    [WALLS.first]: SIDE.right,
+    [WALLS.third]: SIDE.left,
   },
 
   'walls.third': {
-    2: SIDE.right,
-    4: SIDE.left,
+    [WALLS.second]: SIDE.right,
+    [WALLS.forth]: SIDE.left,
   },
 
   'walls.forth': {
-    1: SIDE.left,
-    3: SIDE.right,
+    [WALLS.first]: SIDE.left,
+    [WALLS.third]: SIDE.right,
   },
 };
 

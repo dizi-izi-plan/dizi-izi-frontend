@@ -17,6 +17,8 @@ import { SizesFormType } from '../../types';
 import { ERROR_MESSAGES } from '../utils/consts';
 import { useWindowsArrayErrors } from './hooks/useWindowsArrayErrors';
 
+const MAX_WINDOWS_QUANTITY = 2;
+
 const WINDOW_TYPE_RADIOS: RadioType[] = [
   {
     label: 'Окно',
@@ -25,11 +27,11 @@ const WINDOW_TYPE_RADIOS: RadioType[] = [
   { label: 'Без окна', value: 'noWindow' },
 ];
 
-export const Windows = ({
-  handleStepValidation,
-}: {
+type WindowsProps = {
   handleStepValidation: (isValid: boolean) => void;
-}) => {
+};
+
+export const Windows = ({ handleStepValidation }: WindowsProps) => {
   const { control, watch } = useFormContext<SizesFormType>();
   const [isWindowWithBalconyAdded, setIsWindowWithBalconyAdded] =
     useState(false);
@@ -46,24 +48,20 @@ export const Windows = ({
   }, [isStepValid, handleStepValidation]);
 
   const handleAddWindow = () => {
-    if (fields.length < 2) {
+    if (fields.length < MAX_WINDOWS_QUANTITY) {
       append(win);
     }
   };
 
   const handleAddWindowWithBalcony = () => {
-    if (fields.length < 2) {
+    if (fields.length < MAX_WINDOWS_QUANTITY) {
       append(windowWithBalcony);
     }
     setIsWindowWithBalconyAdded(true);
   };
 
-  const removeElement = (index: number) => {
-    remove(index);
-  };
-
   const removeWindowWithBalcony = (index: number) => {
-    removeElement(index);
+    remove(index);
     setIsWindowWithBalconyAdded(false);
   };
 
@@ -103,7 +101,7 @@ export const Windows = ({
               <Window
                 key={field.id}
                 index={index}
-                handleRemove={removeElement}
+                handleRemove={() => remove(index)}
               />
             );
           })}

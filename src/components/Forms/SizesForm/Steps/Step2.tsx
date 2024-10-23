@@ -16,7 +16,7 @@ import { STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
-import { SizesFormType, WALLS_NAMES_TYPE } from '../types';
+import { SizesFormType } from '../types';
 import { WALLS } from '../formData';
 
 export const Door = () => {
@@ -28,19 +28,17 @@ export const Door = () => {
     useFormContext<SizesFormType>();
   const { errors, touchedFields } = formState;
 
-  const selectedWall = watch(
-    STEP2.wallNumber.name as WALLS_NAMES_TYPE,
-  ) as string;
+  const selectedWall = watch(STEP2.wallNumber.name);
 
   const toWallRadios = useToWallRadios(selectedWall);
 
   useEffect(() => {
     if (selectedWall === WALLS.first || selectedWall === WALLS.third)
-      setValue(STEP2.toWall.name, '2', {
+      setValue(STEP2.toWall.name, WALLS.second, {
         shouldValidate: true,
       });
     if (selectedWall === WALLS.second || selectedWall === WALLS.forth)
-      setValue(STEP2.toWall.name, '1', {
+      setValue(STEP2.toWall.name, WALLS.first, {
         shouldValidate: true,
       });
   }, [selectedWall, setValue]);

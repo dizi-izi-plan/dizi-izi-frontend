@@ -30,8 +30,11 @@ const allowedKeys = new Set([
 
 export const Walls = () => {
   const dispatch = useAppDispatch();
-  const { setValue, control, formState } = useFormContext<SizesFormType>();
-  const { touchedFields } = formState;
+  const {
+    setValue,
+    control,
+    formState: { touchedFields },
+  } = useFormContext<SizesFormType>();
   const isStepValid = useAppSelector(selectIsStepValid);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
