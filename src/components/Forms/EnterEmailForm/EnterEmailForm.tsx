@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
@@ -10,9 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-import Snackbar from '@mui/material/Snackbar';
 import {
   LoginValidation,
   LoginFormType,
@@ -39,20 +37,8 @@ export const EnterEmailForm = () => {
     resolver: zodResolver(LoginValidation),
   });
   const router = useRouter();
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  const [resetPassword, { isLoading, error }] = useResetPasswordMutation();
-
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenSnackbar(false);
-  };
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -63,11 +49,9 @@ export const EnterEmailForm = () => {
       router.push('/reset-password-message');
     } catch (error) {
       console.error(error);
-      setOpenSnackbar(true);
     }
   });
 
-  console.log(error);
   return (
     <div>
       <Box mb="80px">
@@ -104,21 +88,6 @@ export const EnterEmailForm = () => {
           </Box>
         </Stack>
       </form>
-
-      <Snackbar
-        open={openSnackbar}
-        onClose={handleSnackbarClose}
-        autoHideDuration={2500}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="error"
-          sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
-        >
-          {error as string} {/* TODO: проверить ошибку и ее data */}
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
