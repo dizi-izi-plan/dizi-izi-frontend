@@ -8,8 +8,12 @@ export const UserApi = diziIziSplitApi.injectEndpoints({
       providesTags: ['User'],
       keepUnusedDataFor: 360 * 4,
     }),
+    deleteUser: build.mutation({
+      query: () => ({ url: urls.authUrls.deleteUserUrl, method: 'DELETE' }),
+      invalidatesTags: ['User'],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetUserDataQuery } = UserApi;
+export const { useGetUserDataQuery, useDeleteUserMutation } = UserApi;
