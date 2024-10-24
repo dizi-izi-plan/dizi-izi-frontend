@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useLayoutEffect, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 
 const ResetPasswordMessage = () => {
@@ -16,12 +16,6 @@ const ResetPasswordMessage = () => {
   useLayoutEffect(() => {
     const prevEmail = localStorage.getItem('email');
     if (prevEmail) setEmail(prevEmail);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      localStorage.removeItem('email');
-    };
   }, []);
 
   return <MessageContainer text={text} />;
