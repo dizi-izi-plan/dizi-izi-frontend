@@ -7,6 +7,6 @@ export const urls = {
     resendActivationUrl: 'auth/users/resend_activation/',
     getUserDataUrl: 'auth/users/me/',
     resetPasswordUrl: 'auth/users/reset_password/',
-    resetPasswordConfirmUrl: 'auth/users/reset_password_comfirm/',
+    resetPasswordConfirmUrl: 'auth/users/reset_password_confirm/',
   },
 };
