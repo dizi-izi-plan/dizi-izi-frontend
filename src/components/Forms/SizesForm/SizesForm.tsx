@@ -44,6 +44,7 @@ export const SizesForm = ({
     setCurrentStep(step);
   };
 
+  // TODO: add a check: if windows.type === 'noWindow' => remove windows.windows data
   const onSubmit = handleSubmit((data) => {
     console.log('sizes', data);
   });

@@ -1,6 +1,10 @@
 import { z } from 'zod';
 import { SizesFormType, WALL_NUM, WALLS_NAMES_TYPE } from '../../types';
-import { ERROR_MESSAGES, MIN_DISTANCE_TO_WALL } from './consts';
+import {
+  ERROR_MESSAGES,
+  MIN_DISTANCE_BETWEEN_WINDOWS,
+  MIN_DISTANCE_TO_WALL,
+} from './consts';
 import {
   MAX_DOOR_SIZE,
   MIN_DOOR_SIZE,
@@ -93,7 +97,7 @@ const checkWindowSize = <T extends ElementType>(
     message: '',
   };
 
-  const { wallLength, elementSize } = getSizes(values, element);
+  const { wallLength, elementSize, distanceToWall } = getSizes(values, element);
 
   if (
     'doorSize' in element &&
@@ -110,7 +114,7 @@ const checkWindowSize = <T extends ElementType>(
     return issue;
   }
 
-  if (Number(elementSize) > Number(wallLength)) {
+  if (Number(elementSize) + Number(distanceToWall) > Number(wallLength)) {
     issue.message = ERROR_MESSAGES.maxWindowSize;
     setFieldError(issue, setError);
     return issue;
@@ -174,6 +178,60 @@ const checkError = (
   if (!error.message) {
     clearErrors(error.path.join() as WALLS_NAMES_TYPE);
   }
+};
+
+export const checkWindowsOfSameWall = (
+  values: SizesFormType,
+  setError: UseFormSetError<SizesFormType>,
+  clearErrors: UseFormClearErrors<SizesFormType>,
+) => {
+  if (!values.windows || !values.windows.windows) {
+    return;
+  }
+
+  const {
+    wallNumber: firstWallNumber,
+    size: firstSize,
+    doorSize: firstDoorSize = 0,
+    distanceToWall: firstDistanceToWall,
+  } = values.windows.windows[0];
+
+  const {
+    wallNumber: secondWallNumber,
+    size: secondSize,
+    doorSize: secondDoorSize = 0,
+    distanceToWall: secondDistanceToWall,
+  } = values.windows.windows[1];
+
+  if (firstWallNumber !== secondWallNumber) {
+    return;
+  }
+
+  const issue = {
+    code: z.ZodIssueCode.custom,
+    path: [`windows.windows`],
+    message: '',
+  };
+
+  const wallNum = firstWallNumber.split('.')[1] as WALL_NUM;
+  const wallSize = values.walls[wallNum as WALL_NUM];
+
+  const sum =
+    Number(firstSize) +
+    Number(firstDoorSize) +
+    Number(secondSize) +
+    Number(secondDoorSize) +
+    MIN_DISTANCE_BETWEEN_WINDOWS +
+    Number(firstDistanceToWall) +
+    Number(secondDistanceToWall);
+
+  if (sum > Number(wallSize)) {
+    issue.message = ERROR_MESSAGES.windowsSameWallSize;
+    setFieldError(issue, setError);
+  }
+
+  checkError(issue, clearErrors);
+  return issue;
 };
 
 export const checkWindow = <T extends ElementType>(

@@ -32,7 +32,11 @@ type WindowsProps = {
 };
 
 export const Windows = ({ handleStepValidation }: WindowsProps) => {
-  const { control, watch } = useFormContext<SizesFormType>();
+  const {
+    control,
+    watch,
+    formState: { errors },
+  } = useFormContext<SizesFormType>();
   const [isWindowWithBalconyAdded, setIsWindowWithBalconyAdded] =
     useState(false);
 
@@ -108,6 +112,11 @@ export const Windows = ({ handleStepValidation }: WindowsProps) => {
           {fields.length === 2 && (
             <FormHelperText className={CLASS_NAMES_HELPER.centered}>
               {ERROR_MESSAGES.maxWindowAmount}
+            </FormHelperText>
+          )}
+          {errors?.windows?.windows?.message && (
+            <FormHelperText className={CLASS_NAMES_HELPER.centered}>
+              {errors?.windows?.windows?.message}
             </FormHelperText>
           )}
           <Button
