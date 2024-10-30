@@ -121,7 +121,6 @@ export const Windows = ({ handleStepValidation }: WindowsProps) => {
           )}
           <Button
             variant="default"
-            size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
             onClick={handleAddWindow}
             disabled={fields.length === 2}
@@ -130,7 +129,6 @@ export const Windows = ({ handleStepValidation }: WindowsProps) => {
           </Button>
           <Button
             variant="default"
-            size="large"
             sx={{ color: 'black.main', fontSize: '14px' }}
             onClick={handleAddWindowWithBalcony}
             disabled={fields.length === 2 || isWindowWithBalconyAdded}
