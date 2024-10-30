@@ -51,6 +51,20 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         data,
       }),
     }),
+    resetPassword: build.mutation({
+      query: (data) => ({
+        url: urls.authUrls.resetPasswordUrl,
+        method: 'post',
+        data,
+      }),
+    }),
+    resetPasswordConfirm: build.mutation({
+      query: (data) => ({
+        url: urls.authUrls.resetPasswordConfirmUrl,
+        method: 'post',
+        data,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -61,4 +75,6 @@ export const {
   useRegistrationMutation,
   useActivateUserMutation,
   useResendActivationMutation,
+  useResetPasswordMutation,
+  useResetPasswordConfirmMutation,
 } = AuthApi;

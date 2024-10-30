@@ -2,17 +2,20 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter, useParams } from 'next/navigation';
 import { CLASS_NAMES_INPUT } from '../../Input/classNameConstants';
 import Button from '@mui/material/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
   ConfirmPasswordValidation,
   confirmPasswordFormType,
 } from '@/helpers/validation/validationTemplates';
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
+import { useResetPasswordConfirmMutation } from '@/redux/slices/auth-slice';
 
 const RESET_PASSWORD_FORM_NAMES = {
   password: 'password',
@@ -35,9 +38,25 @@ export const ResetPasswordForm = () => {
     },
     resolver: zodResolver(ConfirmPasswordValidation),
   });
+  const router = useRouter();
+  const [confirmResetPassword, { isLoading }] =
+    useResetPasswordConfirmMutation();
+  const params = useParams<{ uid: string; token: string }>();
 
-  //TODO: add onSubmit listener
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await confirmResetPassword({
+        uid: params?.uid,
+        token: params?.token,
+        new_password: data.password,
+      })
+        .unwrap()
+        .then(() => localStorage.removeItem('email'));
+      router.push('/login');
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   return (
     <div>
@@ -75,7 +94,7 @@ export const ResetPasswordForm = () => {
         <Stack spacing={4} alignItems="center">
           <Box>
             <Button variant="default" size="large" type="submit">
-              Подтвердить
+              {isLoading ? <CircularProgress color="inherit" /> : 'Подтвердить'}
             </Button>
           </Box>
         </Stack>

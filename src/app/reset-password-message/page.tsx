@@ -1,7 +1,10 @@
+'use client';
+
+import { useState, useLayoutEffect } from 'react';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 
 const ResetPasswordMessage = () => {
-  const email = 'P!111111@gmail.com'; // перекинуть сюда email с прошлой сраницы, куда пользоваетль ввел почту
+  const [email, setEmail] = useState<string>('');
 
   const text = [
     `Мы отправили сообщение о восстановлении пароля
@@ -9,6 +12,11 @@ const ResetPasswordMessage = () => {
     Проверьте, пожалуйста, папку «Входящие»
     или папку «Спам».`,
   ];
+
+  useLayoutEffect(() => {
+    const prevEmail = localStorage.getItem('email');
+    if (prevEmail) setEmail(prevEmail);
+  }, []);
 
   return <MessageContainer text={text} />;
 };
