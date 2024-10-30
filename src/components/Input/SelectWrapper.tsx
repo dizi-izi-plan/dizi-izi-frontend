@@ -12,6 +12,7 @@ import {
 type Option = {
   value: string | number;
   text: string | number;
+  key: string | number;
 };
 
 type Options = Option[];

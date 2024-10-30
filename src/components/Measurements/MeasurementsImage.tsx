@@ -11,7 +11,7 @@ import { Window } from './MeasurementsImageElements/Window';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
 import { TWindow, TBalcony } from './MeasurementsTypes';
-import { SizesFormType } from '@/components/Forms/SizesForm/validation';
+import { SizesFormType } from '../Forms/SizesForm/types';
 import { Control } from 'react-hook-form';
 import { WALLS } from '@/components/Forms/SizesForm/formData';
 import { useDoorFields } from './hooks/useDoorFields';

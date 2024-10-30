@@ -8,9 +8,11 @@ import {
   OPEN,
   STEP2,
 } from '@/components/Forms/SizesForm/formData';
-import { SizesFormType } from '@/components/Forms/SizesForm/validation';
 import { TDoor } from '../MeasurementsTypes';
-import { WALLS_NAMES_TYPE } from '@/components/Forms/SizesForm/types';
+import {
+  SizesFormType,
+  WALLS_NAMES_TYPE,
+} from '@/components/Forms/SizesForm/types';
 
 export const useDoorFields = (
   control: Control<SizesFormType>,

@@ -6,20 +6,16 @@ import {
 } from '@/components/Input/classNameConstants';
 import { FormHelperText, Stack } from '@mui/material';
 import { CORRESPONDING_WALLS, STEP1 } from '../formData';
-import {
-  ERROR_MESSAGES,
-  MAX_WALLS_INPUT_LENGTH,
-  MIN_WALLS_INPUT_LENGTH,
-  SizesFormType,
-} from '../validation';
+import { MAX_WALLS_INPUT_LENGTH, MIN_WALLS_INPUT_LENGTH } from '../validation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   addBedroomFocusedField,
   deleteBedroomFocusedField,
 } from '@/redux/slices/focusedFields-slice';
-import { WALLS_NAMES_TYPE } from '../types';
+import { SizesFormType, WALLS_NAMES_TYPE } from '../types';
 import { useFormContext } from 'react-hook-form';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
+import { ERROR_MESSAGES } from './utils/consts';
 
 const allowedKeys = new Set([
   'Tab',
@@ -34,7 +30,11 @@ const allowedKeys = new Set([
 
 export const Walls = () => {
   const dispatch = useAppDispatch();
-  const { setValue, control } = useFormContext<SizesFormType>();
+  const {
+    setValue,
+    control,
+    formState: { touchedFields },
+  } = useFormContext<SizesFormType>();
   const isStepValid = useAppSelector(selectIsStepValid);
 
   const getCorrespondingWall = (name: string): WALLS_NAMES_TYPE => {
@@ -83,7 +83,7 @@ export const Walls = () => {
           }}
         />
       ))}
-      {!isStepValid && (
+      {touchedFields.walls && !isStepValid && (
         <FormHelperText className={CLASS_NAMES_HELPER.centered}>
           {ERROR_MESSAGES.minWallsSizes}
         </FormHelperText>

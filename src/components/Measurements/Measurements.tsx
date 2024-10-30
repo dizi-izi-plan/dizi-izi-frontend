@@ -13,11 +13,9 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
-import {
-  SizesFormType,
-  SizesFormValidation,
-} from '@/components/Forms/SizesForm/validation';
+import { SizesFormValidation } from '@/components/Forms/SizesForm/validation';
 
+import { SizesFormType } from '../Forms/SizesForm/types';
 import { MeasurementsImage } from './MeasurementsImage';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
@@ -27,6 +25,7 @@ import {
 
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [isWindowsValid, setIsWindowsValid] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const isStepValid = useAppSelector(selectIsStepValid);
 
@@ -45,7 +44,12 @@ export const Measurements = () => {
   useEffect(() => {
     const validateStep = async () => {
       const fields = MEASUREMENTS_STEPS[currentStep].fields;
-      const output = await trigger(fields as FieldNames, { shouldFocus: true });
+      let output = await trigger(fields as FieldNames, { shouldFocus: true });
+
+      if (currentStep === 2) {
+        output = isWindowsValid;
+      }
+
       dispatch(setIsStepValid(output));
     };
 
@@ -56,7 +60,7 @@ export const Measurements = () => {
     validateStep();
 
     return () => subscription.unsubscribe();
-  }, [watch, currentStep, dispatch, trigger]);
+  }, [watch, currentStep, dispatch, trigger, isWindowsValid]);
 
   const handleBack = async () => {
     if (currentStep > 0) {
@@ -128,6 +132,7 @@ export const Measurements = () => {
               handleForward={handleForward}
               handleBack={handleBack}
               setCurrentStep={setCurrentStep}
+              handleWindowsValidation={setIsWindowsValid}
             />
           </FormProvider>
         </Stack>

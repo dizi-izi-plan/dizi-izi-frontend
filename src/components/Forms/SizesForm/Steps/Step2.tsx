@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useAppDispatch } from '@/redux/hooks';
 import {
@@ -11,35 +11,13 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { FormHelperText, Stack } from '@mui/material';
-import {
-  MAX_DOOR_INPUT_LENGTH,
-  MAX_WALLS_INPUT_LENGTH,
-  SizesFormType,
-} from '../validation';
+import { MAX_DOOR_INPUT_LENGTH, MAX_WALLS_INPUT_LENGTH } from '../validation';
 import { STEP2 } from '../formData';
 import { SelectWrapper } from '@/components/Input/SelectWrapper';
-import {
-  RadioGroupWrapper,
-  RadioType,
-} from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { WALLS_NAMES_TYPE } from '../types';
+import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
+import { useToWallRadios } from '@/hooks/useToWallRadios';
+import { SizesFormType } from '../types';
 import { WALLS } from '../formData';
-
-const TO_WALL_RADIOS_EVEN: RadioType[] = [
-  {
-    label: 'До стены 2',
-    value: WALLS.second,
-  },
-  { label: 'До стены 4', value: WALLS.forth },
-];
-
-const TO_WALL_RADIOS_UNEVEN: RadioType[] = [
-  { label: 'До стены 1', value: WALLS.first },
-  {
-    label: 'До стены 3',
-    value: WALLS.third,
-  },
-];
 
 export const Door = () => {
   const dispatch = useAppDispatch();
@@ -48,15 +26,11 @@ export const Door = () => {
 
   const { control, formState, watch, setValue } =
     useFormContext<SizesFormType>();
-  const { errors } = formState;
-  const selectedWall = watch(STEP2.wallNumber.name as WALLS_NAMES_TYPE);
+  const { errors, touchedFields } = formState;
 
-  const toWallRadios = useMemo((): RadioType[] => {
-    if (selectedWall === WALLS.first || selectedWall === WALLS.third) {
-      return TO_WALL_RADIOS_EVEN;
-    }
-    return TO_WALL_RADIOS_UNEVEN;
-  }, [selectedWall]);
+  const selectedWall = watch(STEP2.wallNumber.name);
+
+  const toWallRadios = useToWallRadios(selectedWall);
 
   useEffect(() => {
     if (selectedWall === WALLS.first || selectedWall === WALLS.third)
@@ -98,7 +72,9 @@ export const Door = () => {
           type="number"
           step={1}
           max={MAX_DOOR_INPUT_LENGTH}
-          errorMessage={errors?.door?.size?.message || ''}
+          errorMessage={
+            (touchedFields.door?.size && errors?.door?.size?.message) || ''
+          }
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
@@ -124,7 +100,7 @@ export const Door = () => {
             }}
           />
         </Stack>
-        {errors.door?.distanceToWall && (
+        {touchedFields.door?.distanceToWall && errors.door?.distanceToWall && (
           <FormHelperText>{errors.door.distanceToWall.message}</FormHelperText>
         )}
       </Stack>

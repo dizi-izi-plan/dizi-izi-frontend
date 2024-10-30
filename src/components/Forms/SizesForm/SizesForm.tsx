@@ -13,13 +13,15 @@ import { useFormContext } from 'react-hook-form';
 import { Door } from './Steps/Step2';
 import { useAppSelector } from '@/redux/hooks';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
-import { SizesFormType } from './validation';
+import { SizesFormType } from './types';
+import { Windows } from './Steps/Step3/Step3';
 
 type SizesFormProps = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<number>>;
   handleForward: () => void;
   handleBack: () => void;
+  handleWindowsValidation: (isValid: boolean) => void;
 };
 
 export const SizesForm = ({
@@ -27,6 +29,7 @@ export const SizesForm = ({
   setCurrentStep,
   handleBack,
   handleForward,
+  handleWindowsValidation,
 }: SizesFormProps) => {
   const { handleSubmit } = useFormContext<SizesFormType>();
   const isStepValid = useAppSelector(selectIsStepValid);
@@ -41,6 +44,7 @@ export const SizesForm = ({
     setCurrentStep(step);
   };
 
+  // TODO: add a check: if windows.type === 'noWindow' => remove windows.windows data
   const onSubmit = handleSubmit((data) => {
     console.log('sizes', data);
   });
@@ -75,7 +79,7 @@ export const SizesForm = ({
           <Door />
         </TabContentContainer>
         <TabContentContainer index={2} value={currentStep}>
-          Форма для окон
+          <Windows handleStepValidation={handleWindowsValidation} />
         </TabContentContainer>
         <TabContentContainer index={3} value={currentStep}>
           <Furniture />

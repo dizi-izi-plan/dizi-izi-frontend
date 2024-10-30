@@ -1,5 +1,5 @@
-import { OPEN, SIDE, WALLS } from './formData';
-import { SizesFormType } from './validation';
+import { OPEN, SIDE } from './formData';
+import { SizesFormType } from './types';
 
 export const walls = {
   first: '',
@@ -12,9 +12,30 @@ export const door = {
   wallNumber: 'walls.first',
   size: '',
   distanceToWall: '',
-  toWall: WALLS.second,
+  toWall: '',
   side: SIDE.left,
   open: OPEN.inside,
+};
+
+export const window = {
+  wallNumber: '',
+  size: '',
+  distanceToWall: '',
+  toWall: '',
+};
+
+export const windowWithBalcony = {
+  wallNumber: '',
+  size: '',
+  doorSize: '',
+  distanceToWall: '',
+  toWall: '',
+  side: SIDE.left,
+};
+
+const windows = {
+  type: 'noWindow',
+  windows: [],
 };
 
 export const furniture = {
@@ -27,6 +48,6 @@ export const furniture = {
 export const initialStepsState: SizesFormType = {
   walls,
   door,
-  // windows: {},
+  windows,
   furniture,
 };

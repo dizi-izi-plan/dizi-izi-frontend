@@ -11,7 +11,7 @@ import { SubstepContainer } from './SubstepContainer';
 import { UnderlinedButton } from '@/components/Buttons/UnderlinedButton/UnderlinedButton';
 import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
-import { SizesFormType } from '../../validation';
+import { SizesFormType } from '../../types';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { STEP4, FURNITURE, TSubsteps4, TRadioItem } from './step4FormData';
 import { FURNITURE_NAMES_TYPE } from './step4FormData';
