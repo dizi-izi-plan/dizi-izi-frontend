@@ -17,9 +17,7 @@ type SelectTextFieldProps = TextFieldProps & {
 };
 
 export type SelectInputProps<T extends FieldValues> = SelectTextFieldProps &
-  UseControllerProps<T> & {
-    errorMessage?: string;
-  };
+  UseControllerProps<T>;
 
 export const AutocompleteCitiesWrapper = <T extends FieldValues>(
   props: SelectInputProps<T>,

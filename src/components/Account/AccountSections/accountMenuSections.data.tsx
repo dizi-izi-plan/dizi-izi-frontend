@@ -1,9 +1,9 @@
 'use client';
 
-import { AccountSectionTemplate } from './AccountSectionTemplate';
+import { LayoutsContainer } from '@/containers/LayoutsContainer/LayoutsContainer';
 import { MyTariff } from '../../Tariff/MyTariff';
 import { AccountMenuItemsType } from '../accountTypes';
-import { LayoutsContainer } from '@/containers/LayoutsContainer/LayoutsContainer';
+import { MyProfile } from './MyProfile';
 
 export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   {
@@ -12,10 +12,10 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItemsType[] = [
   },
   {
     name: 'Мой тариф',
-    component: <MyTariff />, // при верстке нужного компонента - заменить
+    component: <MyTariff />,
   },
   {
     name: 'Профиль',
-    component: <AccountSectionTemplate />, // при верстке нужного компонента - заменить
+    component: <MyProfile />,
   },
 ];

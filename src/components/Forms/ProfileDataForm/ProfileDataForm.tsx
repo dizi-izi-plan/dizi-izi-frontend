@@ -5,11 +5,11 @@ import { setCurrentModal } from '@/redux/slices/modal-slice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { ChangePasswordForm } from '../ChangePasswordForm/ChangePasswordForm';
 import { PROFILE_FORM_DATA } from './ProfileDataFormConstats';
+import { IProfileFormInput } from './profileDataFormDataTypes';
 import { getProfileConfig } from './profileFormData.data';
 import { AccountFormValidation } from './validationSchema';
-import { IProfileFormInput } from './profileDataFormDataTypes';
-import { ChangePasswordForm } from '../ChangePasswordForm/ChangePasswordForm';
 
 export const ProfileDataForm = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ export const ProfileDataForm = () => {
 
   return (
     <>
-      <Stack spacing={8}>
+      <Stack spacing={6}>
         <Box>
           <Typography fontSize={32} fontWeight={500}>
             Основные данные
@@ -55,7 +55,7 @@ export const ProfileDataForm = () => {
                 Изменить пароль
               </Button>
             </Box>
-            <Box marginTop="3.75rem">
+            <Box marginTop="2.5rem">
               <Button
                 type="submit"
                 variant="default"
@@ -71,6 +71,7 @@ export const ProfileDataForm = () => {
       <ModalCommonTemplate
         modalName={modalNames.modalChangePassword}
         text={['']}
+        style={{ width: '28rem' }}
       >
         <ChangePasswordForm />
       </ModalCommonTemplate>

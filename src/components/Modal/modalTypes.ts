@@ -6,6 +6,7 @@ export interface ModalCommonTemplateProps {
   text: textArrType;
   icon?: ReactNode;
   children?: ReactNode;
+  style?: object;
 }
 
 // пока не обязательные пропсы, чтобы не было ошибки,
