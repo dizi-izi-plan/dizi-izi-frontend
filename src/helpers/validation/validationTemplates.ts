@@ -106,13 +106,3 @@ export const ConfirmPasswordValidation = PasswordValidation.extend({
 });
 
 export type confirmPasswordFormType = z.infer<typeof ConfirmPasswordValidation>;
-
-export const ChangePasswordValidation = PasswordValidation.extend({
-  oldPassword: z.string().min(8, { message: 'Обязательное поле' }),
-  confirmPassword: z.string().nonempty({ message: 'Обязательное поле' }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Пароль не соответствует введенному ранее',
-  path: ['confirmPassword'],
-});
-
-export type changePasswordFormType = z.infer<typeof ChangePasswordValidation>;

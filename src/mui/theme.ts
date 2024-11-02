@@ -217,8 +217,7 @@ theme = createTheme(theme, {
             },
             '& .MuiAutocomplete-input': {
               position: 'relative',
-              // из-за этого св-ва съезжает город в AutocompleteCities
-              // top: '-25px',
+              top: '-25px',
               left: '-9px',
             },
           },
