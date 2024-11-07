@@ -9,7 +9,8 @@ export const LoginValidation = z.object({
     .refine(
       (s) => !(s.includes('-@') || s[0] === '-'),
       'Некорректный email адрес',
-    ),
+    )
+    .transform((email) => email.toLowerCase()),
 });
 
 export type LoginFormType = z.infer<typeof LoginValidation>;
@@ -22,11 +23,14 @@ export const PasswordValidation = z.object({
     .regex(/(?=.*[0-9])/, {
       message: 'Пароль должен содержать хотя бы 1 цифру',
     })
-    .regex(/(?=.*[!@#$%^&*()"№;:?_.,])/, {
+    .regex(/(?=.*[!#$%z&‘*+—/=?^_`{|}~,.;:])/, {
       message: 'Пароль должен содержать хотя бы 1 спецсимвол',
     })
     .regex(/(?=.*[A-Z])/, {
       message: 'Пароль должен содержать хотя бы 1 заглавную букву',
+    })
+    .regex(/(?=.*[a-z])/, {
+      message: 'Пароль должен содержать хотя бы 1 cтрочную букву',
     })
     .regex(/^(?!.*[^\P{Alphabetic}a-zA-Z])/u, {
       message:
