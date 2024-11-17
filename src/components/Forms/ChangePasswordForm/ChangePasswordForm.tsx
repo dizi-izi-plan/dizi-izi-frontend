@@ -1,11 +1,13 @@
+'use client';
+
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { ChangePasswordFormValidation } from './validationSchema';
-import { IPasswordFormInput } from './changePasswordFormDataTypes';
-import { CHANGE_PASSWORD_FORM_DATA } from './changePasswordFormConstants';
 import { getPasswordConfig } from './changePassword.data';
+import { CHANGE_PASSWORD_FORM_DATA } from './changePasswordFormConstants';
+import { IPasswordFormInput } from './changePasswordFormDataTypes';
+import { ChangePasswordFormValidation } from './validationSchema';
 
 export const ChangePasswordForm = () => {
   const {

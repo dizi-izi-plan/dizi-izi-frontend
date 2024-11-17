@@ -4,20 +4,19 @@ import {
   CLASS_NAMES_LABEL,
 } from '@/components/Input/classNameConstants';
 import { TextFieldWrapper } from '@/components/Input/TextFieldWrapper';
+import { LocalDatePickerWrapper } from '@/components/LocalDatePicker/LocalDatePickerWrapper';
 import { FormControlLabel } from '@mui/material';
 import { Control, FieldErrors } from 'react-hook-form';
-import { IProfileFormInput } from './profileDataFormDataTypes';
 import {
   PROFILE_FORM_DATA,
   PROFILE_FORM_LABELS,
   PROFILE_FORM_PLACEHOLDER,
 } from './ProfileDataFormConstats';
-import { LocalDatePickerWrapper } from '@/components/LocalDatePicker/LocalDatePickerWrapper';
-import { AutocompleteCitiesWrapper } from '@/components/SelectTextField/AutocompleteCitiesWrapper';
+import { AccountFormType } from './validationSchema';
 
 export const getProfileConfig = (
-  control: Control<IProfileFormInput>,
-  errors: FieldErrors<IProfileFormInput>,
+  control: Control<AccountFormType>,
+  errors: FieldErrors<AccountFormType>,
 ) => [
   <TextFieldWrapper
     name={PROFILE_FORM_DATA.username}
@@ -43,12 +42,13 @@ export const getProfileConfig = (
     className={CLASS_NAMES_INPUT.light}
     errorMessage={errors.birthday ? errors.birthday?.message : ''}
   />,
-  <AutocompleteCitiesWrapper
+  <TextFieldWrapper
     name={PROFILE_FORM_DATA.city}
     key={PROFILE_FORM_DATA.city}
     control={control}
+    className={CLASS_NAMES_INPUT.light}
     label={PROFILE_FORM_LABELS.city}
     placeholder={PROFILE_FORM_PLACEHOLDER.choseCity}
-    className={CLASS_NAMES_INPUT.light}
+    errorMessage={errors.city ? errors.city?.message : ''}
   />,
 ];

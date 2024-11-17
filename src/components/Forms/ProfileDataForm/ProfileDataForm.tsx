@@ -1,15 +1,14 @@
-import { ModalCommonTemplate } from '@/components/Modal/ModalCommonTemplate';
+'use client';
+
 import { modalNames } from '@/helpers/common-constants/modal-constants';
 import { useAppDispatch } from '@/redux/hooks';
 import { setCurrentModal } from '@/redux/slices/modal-slice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { ChangePasswordForm } from '../ChangePasswordForm/ChangePasswordForm';
 import { PROFILE_FORM_DATA } from './ProfileDataFormConstats';
-import { IProfileFormInput } from './profileDataFormDataTypes';
 import { getProfileConfig } from './profileFormData.data';
-import { AccountFormValidation } from './validationSchema';
+import { AccountFormType, AccountFormValidation } from './validationSchema';
 
 export const ProfileDataForm = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +17,7 @@ export const ProfileDataForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IProfileFormInput>({
+  } = useForm<AccountFormType>({
     mode: 'onSubmit',
     defaultValues: {
       [PROFILE_FORM_DATA.username]: 'Елена',
@@ -33,48 +32,35 @@ export const ProfileDataForm = () => {
   const profileConfig = getProfileConfig(control, errors);
 
   return (
-    <>
-      <Stack spacing={6}>
-        <Box>
-          <Typography fontSize={32} fontWeight={500}>
-            Основные данные
-          </Typography>
-        </Box>
-        <Box width="25rem">
-          <form onSubmit={onSubmit}>
-            <Stack spacing={4}>
-              {profileConfig.map((formField) => formField)}
-            </Stack>
-            <Box marginTop="1rem">
-              <Button
-                color="secondary"
-                onClick={() =>
-                  dispatch(setCurrentModal(modalNames.modalChangePassword))
-                }
-              >
-                Изменить пароль
-              </Button>
-            </Box>
-            <Box marginTop="2.5rem">
-              <Button
-                type="submit"
-                variant="default"
-                size="medium"
-                color="secondary"
-              >
-                Сохранить
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Stack>
-      <ModalCommonTemplate
-        modalName={modalNames.modalChangePassword}
-        text={['']}
-        style={{ width: '28rem' }}
-      >
-        <ChangePasswordForm />
-      </ModalCommonTemplate>
-    </>
+    <Stack spacing={6}>
+      <Typography fontSize={32} fontWeight={500}>
+        Основные данные
+      </Typography>
+      <Box width="25rem">
+        <form onSubmit={onSubmit}>
+          <Stack spacing={4}>
+            {profileConfig.map((formField) => formField)}
+          </Stack>
+          <Button
+            color="secondary"
+            onClick={() =>
+              dispatch(setCurrentModal(modalNames.modalChangePassword))
+            }
+            sx={{ marginTop: '1rem' }}
+          >
+            Изменить пароль
+          </Button>
+          <Button
+            type="submit"
+            variant="default"
+            size="medium"
+            color="secondary"
+            sx={{ marginTop: '2.5rem' }}
+          >
+            Сохранить
+          </Button>
+        </form>
+      </Box>
+    </Stack>
   );
 };

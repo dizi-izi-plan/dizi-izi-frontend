@@ -2,7 +2,12 @@ import { z } from 'zod';
 import dayjs from 'dayjs';
 
 export const CityValidation = z.object({
-  city: z.nullable(z.string()),
+  city: z
+    .string()
+    .min(2, { message: 'Название города должно содержать не менее 2 символов' })
+    .max(20, {
+      message: 'Название города должно содержать не более 20 символов',
+    }),
 });
 
 export type CityFormType = z.infer<typeof CityValidation>;
