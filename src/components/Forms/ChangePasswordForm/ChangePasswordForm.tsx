@@ -6,15 +6,17 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { getPasswordConfig } from './changePassword.data';
 import { CHANGE_PASSWORD_FORM_DATA } from './changePasswordFormConstants';
-import { IPasswordFormInput } from './changePasswordFormDataTypes';
-import { ChangePasswordFormValidation } from './validationSchema';
+import {
+  ChangePasswordFormType,
+  ChangePasswordFormValidation,
+} from './validationSchema';
 
 export const ChangePasswordForm = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IPasswordFormInput>({
+  } = useForm<ChangePasswordFormType>({
     mode: 'onChange',
     defaultValues: {
       [CHANGE_PASSWORD_FORM_DATA.oldPassword]: '',

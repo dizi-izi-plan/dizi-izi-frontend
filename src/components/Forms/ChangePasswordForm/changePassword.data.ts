@@ -1,16 +1,16 @@
 import { CLASS_NAMES_INPUT } from '@/components/Input/classNameConstants';
 
 import { Control, FieldErrors } from 'react-hook-form';
-import { IPasswordFormInput } from './changePasswordFormDataTypes';
 import {
   CHANGE_PASSWORD_FORM_DATA,
   CHANGE_PASSWORD_FORM_LABELS,
   CHANGE_PASSWORD_FORM_PLACEHOLDER,
 } from './changePasswordFormConstants';
+import { ChangePasswordFormType } from './validationSchema';
 
 export const getPasswordConfig = (
-  control: Control<IPasswordFormInput>,
-  errors: FieldErrors<IPasswordFormInput>,
+  control: Control<ChangePasswordFormType>,
+  errors: FieldErrors<ChangePasswordFormType>,
 ) => [
   {
     name: CHANGE_PASSWORD_FORM_DATA.oldPassword,
