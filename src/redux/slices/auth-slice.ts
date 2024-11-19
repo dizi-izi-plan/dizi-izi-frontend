@@ -98,6 +98,5 @@ export const {
   useResendActivationMutation,
   useResetPasswordMutation,
   useResetPasswordConfirmMutation,
-  // useFetchYandexTokenMutation,
   useConvertTokenMutation,
 } = AuthApi;
