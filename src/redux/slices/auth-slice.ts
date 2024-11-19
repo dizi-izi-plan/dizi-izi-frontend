@@ -15,6 +15,27 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         return ['User'];
       },
     }),
+    convertToken: build.mutation({
+      query: ({ clientId, clientSecret, token }) => ({
+        url: urls.authUrls.yandexLoginUrl,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify({
+          client_id: clientId,
+          grant_type: 'convert_token',
+          client_secret: clientSecret,
+          backend: 'yandex-oauth2',
+          token: token,
+        }),
+      }),
+      invalidatesTags: (result) => {
+        setCookie('token', `Bearer ${result.access_token}`, 3);
+        return ['User'];
+      },
+    }),
+   
     logout: build.mutation({
       query: () => ({ url: urls.authUrls.logoutUrl, method: 'post' }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
@@ -77,4 +98,6 @@ export const {
   useResendActivationMutation,
   useResetPasswordMutation,
   useResetPasswordConfirmMutation,
+  // useFetchYandexTokenMutation,
+  useConvertTokenMutation,
 } = AuthApi;

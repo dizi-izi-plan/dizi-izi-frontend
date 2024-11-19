@@ -19,7 +19,10 @@ export const ServicesLinks = () => {
             height={44}
           />
         </Link>
-        <Link href="https://yandex.ru/" target="_blank">
+        <Link
+          href="https://oauth.yandex.ru/authorize?response_type=code&client_id=1906945ec70c4d00ab922601f73d7516&"
+          target="_blank"
+        >
           <Image
             src="/assets/icons/yandexIcon.svg"
             alt="Yandex icon link"
