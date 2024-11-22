@@ -76,7 +76,7 @@ export const Door = () => {
             (touchedFields.door?.size && errors?.door?.size?.message) || ''
           }
           onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onBlurHandler={() => setFocused(false)}
         />
         <Stack direction="row" gap={3} mt={3}>
           <TextFieldWrapper
@@ -88,7 +88,7 @@ export const Door = () => {
             step={1}
             max={MAX_WALLS_INPUT_LENGTH}
             onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onBlurHandler={() => setFocused(false)}
           />
           <RadioGroupWrapper
             name={`${STEP2.toWall.name}` as keyof SizesFormType}

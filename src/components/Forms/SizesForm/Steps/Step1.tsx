@@ -71,7 +71,7 @@ export const Walls = () => {
           min={MIN_WALLS_INPUT_LENGTH}
           max={MAX_WALLS_INPUT_LENGTH}
           onFocus={() => dispatch(addBedroomFocusedField(field.number))}
-          onBlur={() => dispatch(deleteBedroomFocusedField())}
+          onBlurHandler={() => dispatch(deleteBedroomFocusedField())}
           onKeyDown={(e) => {
             if (
               !'0123456789'.includes(e.key) &&
