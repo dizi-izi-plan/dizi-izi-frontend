@@ -3,28 +3,28 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import Stack, { StackProps } from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-
 import { WallNumbers } from './MeasurementsImageElements/WallNumbers';
 import { Door } from './MeasurementsImageElements/Door';
 import { Window } from './MeasurementsImageElements/Window';
 import { Balcony } from './MeasurementsImageElements/Balcony';
 import DoorTransparentIcon from '../../../public/assets/icons/measurements/icon_door-transparent.svg';
-import { TWindow, TBalcony } from './MeasurementsTypes';
+import { TWindow } from './MeasurementsTypes';
 import { SizesFormType } from '../Forms/SizesForm/types';
 import { Control } from 'react-hook-form';
-import { WALLS } from '@/components/Forms/SizesForm/formData';
 import { useDoorFields } from './hooks/useDoorFields';
 import { useWallsFields } from './hooks/useWallsFields';
+import { useWindowFields } from './hooks/useWindowFields';
 
 type MeasurementsImageProps = StackProps & {
   stepOne: boolean;
+  stepTwo: boolean;
   stepThree: boolean;
   control: Control<SizesFormType>;
 };
 
 export const MeasurementsImage = ({
   stepOne,
+  stepTwo,
   stepThree,
   control,
   ...props
@@ -37,28 +37,7 @@ export const MeasurementsImage = ({
 
   const door = useDoorFields(control, stepOne);
 
-  const [windows, setWindows] = useState<TWindow[]>([
-    {
-      wall: WALLS.second,
-      size: 1200,
-      distance: 500,
-      distanceFromLeft: false,
-      distanceFromRight: true,
-      isFocused: false,
-    },
-  ]);
-
-  const [balconies, setBalconies] = useState<TBalcony[]>([
-    {
-      wall: WALLS.first,
-      size: 1500,
-      distance: 500,
-      distanceFromLeft: true,
-      distanceFromRight: false,
-      openLeft: false,
-      isFocused: false,
-    },
-  ]);
+  const { windows, balconies } = useWindowFields(control, stepOne || stepTwo);
 
   const [currentSizes, setCurrentSizes] = useState({
     width: 640,
@@ -211,7 +190,7 @@ export const MeasurementsImage = ({
           wallThickness={wallThickness}
         />
         {stepThree &&
-          windows.map((window, index) => (
+          windows.map((window: TWindow, index: number) => (
             <Window
               key={index}
               window={window}
@@ -221,7 +200,7 @@ export const MeasurementsImage = ({
             />
           ))}
         {stepThree &&
-          balconies.map((balcony, index) => (
+          balconies.map((balcony: TWindow, index: number) => (
             <Balcony
               key={index}
               balcony={balcony}
@@ -230,105 +209,6 @@ export const MeasurementsImage = ({
               wallThickness={wallThickness}
             />
           ))}
-      </Stack>
-      {/*Раздел с кнопками для изменения параметров - ПРИМЕР для Кати и дизайнеров, пока нет формы. Удалить после*/}
-      <Stack position="absolute" bottom="-150px" left="0px" rowGap="20px">
-        <Stack
-          direction="row"
-          columnGap="20px"
-          display={stepThree ? undefined : 'none'}
-        >
-          <Typography>ОКНО</Typography>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setWindows((prev) => {
-                const newWindow = prev[0];
-                if (newWindow.distanceFromLeft) {
-                  newWindow.distanceFromLeft = false;
-                  newWindow.distanceFromRight = true;
-                } else {
-                  newWindow.distanceFromLeft = true;
-                  newWindow.distanceFromRight = false;
-                }
-                return [newWindow];
-              });
-            }}
-          >
-            Поменять стену, от которой идет расчет
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setWindows((prev) => {
-                const newWindow = prev[0];
-                newWindow.isFocused = !newWindow.isFocused;
-                return [newWindow];
-              });
-            }}
-          >
-            {windows[0].isFocused ? 'Убрать фокус' : 'Окно в фокусе'}
-          </Button>
-        </Stack>
-        <Stack
-          direction="row"
-          columnGap="20px"
-          display={stepThree ? undefined : 'none'}
-        >
-          <Typography>БАЛКОН</Typography>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setBalconies((prev) => {
-                const newBalcony = prev[0];
-                if (newBalcony.distanceFromLeft) {
-                  newBalcony.distanceFromLeft = false;
-                  newBalcony.distanceFromRight = true;
-                } else {
-                  newBalcony.distanceFromLeft = true;
-                  newBalcony.distanceFromRight = false;
-                }
-                return [newBalcony];
-              });
-            }}
-          >
-            Поменять стену, от которой идет расчет
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setBalconies((prev) => {
-                const newBalcony = prev[0];
-                newBalcony.openLeft = !newBalcony.openLeft;
-                return [newBalcony];
-              });
-            }}
-          >
-            Открыть {balconies[0].openLeft ? 'вправо' : 'влево'}
-          </Button>
-          <Button
-            variant="default"
-            sx={{ color: 'black.main', p: '10px 10px' }}
-            size="medium"
-            onClick={() => {
-              setBalconies((prev) => {
-                const newBalcony = prev[0];
-                newBalcony.isFocused = !newBalcony.isFocused;
-                return [newBalcony];
-              });
-            }}
-          >
-            {balconies[0].isFocused ? 'Убрать фокус' : 'Балкон в фокусе'}
-          </Button>
-        </Stack>
       </Stack>
     </Stack>
   );

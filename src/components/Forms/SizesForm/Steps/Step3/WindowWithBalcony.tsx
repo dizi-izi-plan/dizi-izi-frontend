@@ -1,4 +1,6 @@
-import { useEffect, useMemo } from 'react';
+'use client';
+import { useEffect, useMemo, useState } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
 import { useFormContext } from 'react-hook-form';
 import ClearIcon from '@mui/icons-material/Clear';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
@@ -10,6 +12,10 @@ import {
 } from '@/components/Input/classNameConstants';
 import { Button, FormHelperText, Stack, Typography } from '@mui/material';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
+import {
+  addBedroomFocusedField,
+  deleteBedroomFocusedField,
+} from '@/redux/slices/focusedFields-slice';
 import {
   MAX_DOOR_INPUT_LENGTH,
   MAX_WALLS_INPUT_LENGTH,
@@ -33,6 +39,9 @@ export const WindowWithBalcony = ({
     watch,
     setValue,
   } = useFormContext<SizesFormType>();
+  const dispatch = useAppDispatch();
+  const [isHovered, setHovered] = useState<boolean>(false);
+  const [isFocused, setFocused] = useState<boolean>(false);
 
   const selectedWall = watch(
     `windows.windows.${index}.${STEP3.wallNumber.name}`,
@@ -50,6 +59,18 @@ export const WindowWithBalcony = ({
         shouldValidate: true,
       });
   }, [selectedWall, setValue, index]);
+
+  useEffect(() => {
+    if (isHovered || isFocused) {
+      dispatch(
+        addBedroomFocusedField(
+          `windows.windows.${index}.${STEP3.windowSize.name}`,
+        ),
+      );
+    } else {
+      dispatch(deleteBedroomFocusedField());
+    }
+  }, [dispatch, isHovered, isFocused, index]);
 
   const options = useMemo(() => {
     const doorWallNumber = watch('door.wallNumber');
@@ -76,54 +97,68 @@ export const WindowWithBalcony = ({
           options={options}
           className={CLASS_NAMES_INPUT.grey}
         />
-        <TextFieldWrapper
-          name={`windows.windows.${index}.${STEP3.windowSize.name}`}
-          control={control}
-          className={CLASS_NAMES_INPUT.grey}
-          placeholder={STEP3.windowSize.placeholder}
-          type="number"
-          step={1}
-          max={MAX_WINDOW_INPUT_LENGTH}
-          errorMessage={
-            (touchedFields.windows?.windows?.[index]?.size &&
-              errors?.windows?.windows?.[index]?.size?.message) ||
-            ''
-          }
-        />
-        <TextFieldWrapper
-          name={`windows.windows.${index}.${STEP3.doorSize.name}`}
-          control={control}
-          className={CLASS_NAMES_INPUT.grey}
-          placeholder={STEP3.doorSize.placeholder}
-          type="number"
-          step={1}
-          max={MAX_DOOR_INPUT_LENGTH}
-          errorMessage={
-            (touchedFields.windows?.windows?.[index]?.doorSize &&
-              errors?.windows?.windows?.[index]?.doorSize?.message) ||
-            ''
-          }
-        />
-        <Stack>
-          <Stack direction="row" gap={3}>
-            <TextFieldWrapper
-              name={`windows.windows.${index}.${STEP3.fromWindowTo.name}`}
-              control={control}
-              className={CLASS_NAMES_INPUT.grey}
-              placeholder={STEP3.fromWindowTo.placeholder}
-              type="number"
-              step={1}
-              max={MAX_WALLS_INPUT_LENGTH}
-            />
-            <RadioGroupWrapper
-              name={`windows.windows.${index}.${STEP3.toWall.name}`}
-              control={control}
-              className={CLASS_NAMES_LABEL.end}
-              radios={toWallRadios}
-              labelSx={{
-                marginRight: 0,
-              }}
-            />
+        <Stack
+          gap={3}
+          width="100%"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          <TextFieldWrapper
+            name={`windows.windows.${index}.${STEP3.windowSize.name}`}
+            control={control}
+            className={CLASS_NAMES_INPUT.grey}
+            placeholder={STEP3.windowSize.placeholder}
+            type="number"
+            step={1}
+            max={MAX_WINDOW_INPUT_LENGTH}
+            errorMessage={
+              (touchedFields.windows?.windows?.[index]?.size &&
+                errors?.windows?.windows?.[index]?.size?.message) ||
+              ''
+            }
+            onFocus={() => setFocused(true)}
+            onBlurHandler={() => setFocused(false)}
+          />
+          <TextFieldWrapper
+            name={`windows.windows.${index}.${STEP3.doorSize.name}`}
+            control={control}
+            className={CLASS_NAMES_INPUT.grey}
+            placeholder={STEP3.doorSize.placeholder}
+            type="number"
+            step={1}
+            max={MAX_DOOR_INPUT_LENGTH}
+            errorMessage={
+              (touchedFields.windows?.windows?.[index]?.doorSize &&
+                errors?.windows?.windows?.[index]?.doorSize?.message) ||
+              ''
+            }
+            onFocus={() => setFocused(true)}
+            onBlurHandler={() => setFocused(false)}
+          />
+
+          <Stack>
+            <Stack direction="row" gap={3}>
+              <TextFieldWrapper
+                name={`windows.windows.${index}.${STEP3.fromWindowTo.name}`}
+                control={control}
+                className={CLASS_NAMES_INPUT.grey}
+                placeholder={STEP3.fromWindowTo.placeholder}
+                type="number"
+                step={1}
+                max={MAX_WALLS_INPUT_LENGTH}
+                onFocus={() => setFocused(true)}
+                onBlurHandler={() => setFocused(false)}
+              />
+              <RadioGroupWrapper
+                name={`windows.windows.${index}.${STEP3.toWall.name}`}
+                control={control}
+                className={CLASS_NAMES_LABEL.end}
+                radios={toWallRadios}
+                labelSx={{
+                  marginRight: 0,
+                }}
+              />
+            </Stack>
           </Stack>
         </Stack>
         {touchedFields.windows?.windows?.[index]?.distanceToWall &&

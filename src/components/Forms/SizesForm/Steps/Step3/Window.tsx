@@ -1,4 +1,6 @@
-import { useEffect, useMemo } from 'react';
+'use client';
+import { useEffect, useMemo, useState } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
 import { useFormContext } from 'react-hook-form';
 import ClearIcon from '@mui/icons-material/Clear';
 import { RadioGroupWrapper } from '@/components/Input/RadioGroup/RadioGroupWrapper';
@@ -10,6 +12,10 @@ import {
 } from '@/components/Input/classNameConstants';
 import { Button, FormHelperText, Stack, Typography } from '@mui/material';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
+import {
+  addBedroomFocusedField,
+  deleteBedroomFocusedField,
+} from '@/redux/slices/focusedFields-slice';
 import {
   MAX_WALLS_INPUT_LENGTH,
   MAX_WINDOW_INPUT_LENGTH,
@@ -29,6 +35,9 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
     watch,
     setValue,
   } = useFormContext<SizesFormType>();
+  const dispatch = useAppDispatch();
+  const [isHovered, setHovered] = useState<boolean>(false);
+  const [isFocused, setFocused] = useState<boolean>(false);
 
   const selectedWall = watch(
     `windows.windows.${index}.${STEP3.wallNumber.name}`,
@@ -47,6 +56,18 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
       });
   }, [selectedWall, setValue, index]);
 
+  useEffect(() => {
+    if (isHovered || isFocused) {
+      dispatch(
+        addBedroomFocusedField(
+          `windows.windows.${index}.${STEP3.windowSize.name}`,
+        ),
+      );
+    } else {
+      dispatch(deleteBedroomFocusedField());
+    }
+  }, [dispatch, isHovered, isFocused, index]);
+
   const options = useMemo(() => {
     const doorWallNumber = watch('door.wallNumber');
     return STEP3.wallNumber.options.filter(
@@ -64,7 +85,11 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
           <ClearIcon />
         </Button>
       </Stack>
-      <Stack gap={3}>
+      <Stack
+        gap={3}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
         <SelectWrapper
           name={`windows.windows.${index}.${STEP3.wallNumber.name}`}
           control={control}
@@ -85,6 +110,8 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
               errors?.windows?.windows?.[index]?.size?.message) ||
             ''
           }
+          onFocus={() => setFocused(true)}
+          onBlurHandler={() => setFocused(false)}
         />
         <Stack>
           <Stack direction="row" gap={3}>
@@ -96,6 +123,8 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
               type="number"
               step={1}
               max={MAX_WALLS_INPUT_LENGTH}
+              onFocus={() => setFocused(true)}
+              onBlurHandler={() => setFocused(false)}
             />
             <RadioGroupWrapper
               name={`windows.windows.${index}.${STEP3.toWall.name}`}
