@@ -1,4 +1,4 @@
-'use client';
+// 'use client'; - на будущее, необходимо проверить перед использованием, как работает
 
 import React from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';

@@ -12,7 +12,7 @@ export const MyProfile = () => {
         <Button
           color="secondary"
           onClick={() => console.log('Delete user')}
-          sx={{ justifyContent: 'start' }}
+          sx={{ justifyContent: 'start', width: '12rem' }}
         >
           Удалить профиль
         </Button>
