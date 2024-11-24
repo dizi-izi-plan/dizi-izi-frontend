@@ -3,13 +3,13 @@ import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
-import { TBalcony } from '../MeasurementsTypes';
+import { TWindow } from '../MeasurementsTypes';
 import { Line } from './Line';
 import { ElementContainer } from './ElementContainer';
 import { getBalconyStyles } from './getElementsStyles';
 
 type BalconyProps = {
-  balcony: TBalcony;
+  balcony: TWindow;
   horizontalWall: number;
   verticalWall: number;
   wallThickness: number;
