@@ -194,6 +194,7 @@ export const checkWindowsOfSameWall = (
     size: firstSize,
     doorSize: firstDoorSize = 0,
     distanceToWall: firstDistanceToWall,
+    toWall: firstToWall,
   } = values.windows.windows[0];
 
   const {
@@ -201,6 +202,7 @@ export const checkWindowsOfSameWall = (
     size: secondSize,
     doorSize: secondDoorSize = 0,
     distanceToWall: secondDistanceToWall,
+    toWall: secondToWall,
   } = values.windows.windows[1];
 
   if (firstWallNumber !== secondWallNumber) {
@@ -217,13 +219,34 @@ export const checkWindowsOfSameWall = (
   const wallSize = values.walls[wallNum as WALL_NUM];
 
   const sum =
-    Number(firstSize) +
-    Number(firstDoorSize) +
-    Number(secondSize) +
-    Number(secondDoorSize) +
-    MIN_DISTANCE_BETWEEN_WINDOWS +
-    Number(firstDistanceToWall) +
-    Number(secondDistanceToWall);
+    firstToWall === secondToWall
+      ? Number(secondDistanceToWall) +
+        Number(secondSize) +
+        Number(secondDoorSize) +
+        MIN_DISTANCE_TO_WALL
+      : Number(firstSize) +
+        Number(firstDoorSize) +
+        Number(secondSize) +
+        Number(secondDoorSize) +
+        MIN_DISTANCE_BETWEEN_WINDOWS +
+        Number(firstDistanceToWall) +
+        Number(secondDistanceToWall);
+
+  const firstEnd =
+    Number(firstDistanceToWall) + Number(firstSize) + Number(firstDoorSize);
+
+  const secondStart =
+    firstToWall === secondToWall
+      ? Number(secondDistanceToWall)
+      : Number(wallSize) -
+        (Number(secondDistanceToWall) +
+          Number(secondSize) +
+          Number(secondDoorSize));
+
+  if (secondStart - firstEnd < MIN_DISTANCE_BETWEEN_WINDOWS) {
+    issue.message = ERROR_MESSAGES.windowsSameWallWindowDistance;
+    setFieldError(issue, setError);
+  }
 
   if (sum > Number(wallSize)) {
     issue.message = ERROR_MESSAGES.windowsSameWallSize;

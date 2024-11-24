@@ -15,4 +15,5 @@ export const ERROR_MESSAGES = {
   maxWindowAmount: 'Количество окон не может превышать 2шт',
   windowsSameWallSize:
     'Размеры окон не могут быть больше размера выбранной стены. Минимальное расстояние между окнами - 40мм',
+  windowsSameWallWindowDistance: 'Минимальное расстояние между окнами - 40мм',
 };
