@@ -58,54 +58,55 @@ export const useWindowFields = (
 
   const allWindow = useMemo(() => {
     if (windowForm && windowForm.windows) {
-      return windowForm.windows
-        .filter((el) => el.wallNumber)
-        .map((window, index) => {
-          if (window.doorSize) {
-            return {
-              wall: window.wallNumber as WALLS_NAMES_TYPE,
-              size:
-                errors.windows?.windows?.[index]?.size?.message ||
-                errors.windows?.windows?.[index]?.doorSize?.message ||
-                invisible
-                  ? 0
-                  : Number(window.size) + Number(window.doorSize),
-              distance: errors.windows?.windows?.[index]?.distanceToWall
+      return windowForm.windows.map((window, index) => {
+        if (window.doorSize) {
+          return {
+            wall: window.wallNumber as WALLS_NAMES_TYPE,
+            size:
+              errors?.windows?.windows?.message ||
+              errors.windows?.windows?.[index]?.size?.message ||
+              errors.windows?.windows?.[index]?.doorSize?.message ||
+              invisible
                 ? 0
-                : Number(window.distanceToWall),
-              distanceFromLeft: distanceFromLeft(
-                window.wallNumber as WALLS_NAMES_TYPE,
-                window.toWall as WALLS_NAMES_TYPE,
-              ),
-              distanceFromRight: distanceFromRight(
-                window.wallNumber as WALLS_NAMES_TYPE,
-                window.toWall as WALLS_NAMES_TYPE,
-              ),
-              openLeft: window.side === SIDE.left,
-              isFocused: isFocused(index),
-            };
-          } else {
-            return {
-              wall: window.wallNumber as WALLS_NAMES_TYPE,
-              size:
-                errors.windows?.windows?.[index]?.size?.message || invisible
-                  ? 0
-                  : Number(window.size),
-              distance: errors.windows?.windows?.[index]?.distanceToWall
+                : Number(window.size) + Number(window.doorSize),
+            distance: errors.windows?.windows?.[index]?.distanceToWall
+              ? 0
+              : Number(window.distanceToWall),
+            distanceFromLeft: distanceFromLeft(
+              window.wallNumber as WALLS_NAMES_TYPE,
+              window.toWall as WALLS_NAMES_TYPE,
+            ),
+            distanceFromRight: distanceFromRight(
+              window.wallNumber as WALLS_NAMES_TYPE,
+              window.toWall as WALLS_NAMES_TYPE,
+            ),
+            openLeft: window.side === SIDE.left,
+            isFocused: isFocused(index),
+          };
+        } else {
+          return {
+            wall: window.wallNumber as WALLS_NAMES_TYPE,
+            size:
+              errors?.windows?.windows?.message ||
+              errors.windows?.windows?.[index]?.size?.message ||
+              invisible
                 ? 0
-                : Number(window.distanceToWall),
-              distanceFromLeft: distanceFromLeft(
-                window.wallNumber as WALLS_NAMES_TYPE,
-                window.toWall as WALLS_NAMES_TYPE,
-              ),
-              distanceFromRight: distanceFromRight(
-                window.wallNumber as WALLS_NAMES_TYPE,
-                window.toWall as WALLS_NAMES_TYPE,
-              ),
-              isFocused: isFocused(index),
-            };
-          }
-        });
+                : Number(window.size),
+            distance: errors.windows?.windows?.[index]?.distanceToWall
+              ? 0
+              : Number(window.distanceToWall),
+            distanceFromLeft: distanceFromLeft(
+              window.wallNumber as WALLS_NAMES_TYPE,
+              window.toWall as WALLS_NAMES_TYPE,
+            ),
+            distanceFromRight: distanceFromRight(
+              window.wallNumber as WALLS_NAMES_TYPE,
+              window.toWall as WALLS_NAMES_TYPE,
+            ),
+            isFocused: isFocused(index),
+          };
+        }
+      });
     } else {
       return [];
     }
@@ -118,11 +119,12 @@ export const useWindowFields = (
     windowForm,
   ]);
 
-  if (windowForm && windowForm.windows) {
-    console.log(allWindow);
-    return {
-      balconies: allWindow.filter((balcony) => 'openLeft' in balcony),
-      windows: allWindow.filter((window) => !('openLeft' in window)),
-    };
-  } else return { windows: [], balconies: [] };
+  return {
+    balconies: allWindow.filter(
+      (balcony) => balcony.wall && 'openLeft' in balcony,
+    ),
+    windows: allWindow.filter(
+      (window) => window.wall && !('openLeft' in window),
+    ),
+  };
 };
