@@ -6,9 +6,7 @@ import { setCurrentModal } from '@/redux/slices/modal-slice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { ChangePasswordForm } from '../ChangePasswordForm/ChangePasswordForm';
 import { PROFILE_FORM_DATA } from './ProfileDataFormConstats';
-import { IProfileFormInput } from './profileDataFormDataTypes';
 import { getProfileConfig } from './profileFormData.data';
 import { AccountFormType, AccountFormValidation } from './validationSchema';
 

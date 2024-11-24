@@ -56,7 +56,7 @@ export const ChangePasswordForm = () => {
               />
             ),
           )}
-          <Box display={'flex'} justifyContent={'center'}>
+          <Box display="flex" justifyContent="center">
             <Button
               variant="default"
               size="medium"
