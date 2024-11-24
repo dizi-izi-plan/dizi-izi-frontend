@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "prepare": "husky ./.husky"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -19,29 +20,49 @@
     "@mui/material": "^5.14.6",
     "@mui/x-date-pickers": "^6.11.2",
     "@reduxjs/toolkit": "^1.9.5",
-    "@types/node": "20.4.8",
-    "@types/react": "18.2.19",
-    "@types/react-dom": "18.2.7",
     "axios": "^1.7.2",
     "dayjs": "^1.11.9",
-    "next": "^13.5.6",
+    "husky": "^9.1.7",
+    "next": "^15.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.46.1",
     "react-redux": "^8.1.2",
-    "typescript": "5.1.6",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.13",
     "@svgr/webpack": "^8.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
-    "eslint": "^8.46.0",
+    "@types/node": "^22.9.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "13.4.13",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^5.0.0-canary-7118f5dd7-20230705",
-    "prettier": "^3.0.1"
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --staged --with-hook-staged"
+    }
+  },
+  "lint-staged": {
+    "!**/.husky/pre-commit": "prettier --write",
+    "*.{ts,tsx}": "eslint",
+    "*.{scss,css}": "stylelint"
   }
 }
