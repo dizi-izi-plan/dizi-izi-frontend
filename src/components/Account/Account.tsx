@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 import MenuUnderlineIcon from '../../../public/assets/icons/account-menu-line.svg';
-import { ACCOUNT_MENU_ITEMS } from './AccountSections/accountMenuSections.data';
+import { ACCOUNT_MENU_ITEMS } from './accountMenuSections.data';
 import { TabContentContainer } from '../../containers/TabContentContainer/TabContentContainer';
 import { AccountMenuItemsType } from './accountTypes';
 import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
