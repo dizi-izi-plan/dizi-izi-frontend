@@ -49,7 +49,7 @@ export default function Home() {
 
               <StartButton />
             </Stack>
-              <ArrowUpButton />
+              <ArrowUpButton color='secondary.contrastText' backgroundColor='primary.contrastText' />
 
             <Stack
               id="about"
