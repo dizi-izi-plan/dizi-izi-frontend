@@ -21,11 +21,11 @@ import {
   ROOM_SIZES,
 } from './autoFurnitureSelection';
 import { Button } from '@mui/material';
-import ArrowUp from '../../../../../../public/assets/icons/icon_arrow_up.svg';
 import ModalIcon from '../../../../../../public/assets/icons/modal_icon.svg';
 import { ModalOneButton } from '@/components/Modal/ModalOneButton';
 import { setCurrentModal } from '@/redux/slices/modal-slice';
 import { modalNames } from '@/helpers/common-constants/modal-constants';
+import { ArrowUpButton } from '@/components/Buttons/ArrowUpButton/ArrowUpButton';
 
 const MODAL_TEXT = [
   'Размер комнаты не позволяет добавить больше позиций.',
@@ -36,14 +36,9 @@ export const Furniture = () => {
   const dispatch = useAppDispatch();
   const { control, setValue } = useFormContext<SizesFormType>();
 
-  const [scrollTop, setScrollTop] = useState<number | null>(null);
   const [isWardrobeSkipped, setWardrobeSkipped] = useState<boolean>(false);
   const [isOtherFurnitureSkipped, setOtherFurnitureSkipped] =
     useState<boolean>(false);
-
-  const handleScroll = () => {
-    setScrollTop(window.scrollY);
-  };
 
   const allForm = useWatch({
     control,
@@ -242,14 +237,6 @@ export const Furniture = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
     setValue(FURNITURE.bed as FURNITURE_NAMES_TYPE, 0);
     setValue(FURNITURE.bedsNumber as FURNITURE_NAMES_TYPE, 1);
     setValue(FURNITURE.wardrobe as FURNITURE_NAMES_TYPE, 0);
@@ -443,24 +430,10 @@ export const Furniture = () => {
             Показать планировку
           </Button>
         )}
-      <Button
-        variant="default"
-        color="primary"
-        sx={{
-          position: 'fixed',
-          bottom: '100px',
-          right: '100px',
-          minHeight: '62px',
-          minWidth: '62px',
-          borderRadius: '50%',
-          border: (theme) => `1px solid ${theme.palette.black.main}`,
-          opacity: scrollTop && scrollTop > window.innerHeight ? 1 : 0,
-        }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        disableRipple
-      >
-        <ArrowUp />
-      </Button>
+      <ArrowUpButton
+        border="primary.contrastText"
+        backgroundColor="secondary.contrastText"
+      />
       <ModalOneButton
         modalName={modalNames.modalTooMuchFurniture}
         text={MODAL_TEXT}
