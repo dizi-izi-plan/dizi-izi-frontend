@@ -1,13 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -41,20 +38,7 @@ export const RegistrationForm = () => {
 
   const router = useRouter();
 
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
   const [registration, { isLoading }] = useRegistrationMutation();
-
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenSnackbar(false);
-  };
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -65,7 +49,6 @@ export const RegistrationForm = () => {
       router.push('/registration-letter-message');
     } catch (error) {
       console.error(error);
-      setOpenSnackbar(true);
     }
   });
 
@@ -132,21 +115,6 @@ export const RegistrationForm = () => {
           </Box>
         </Stack>
       </form>
-
-      <Snackbar
-        open={openSnackbar}
-        onClose={handleSnackbarClose}
-        autoHideDuration={2500}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="error"
-          sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
-        >
-          Данный пользователь уже зарегистрирован
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
