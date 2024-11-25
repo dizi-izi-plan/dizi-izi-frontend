@@ -2,6 +2,7 @@
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
 import { useConvertTokenMutation } from '@/redux/slices/auth-slice';
+import { useGetYandexTokenMutation } from '@/redux/slices/yandexAuthApi';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -11,6 +12,7 @@ const AuthYandex = () => {
   const router = useRouter();
   const [convertToken] = useConvertTokenMutation();
   const isAuth = useAuth();
+  const [getYandexToken] = useGetYandexTokenMutation();
 
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
   const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET;
@@ -26,27 +28,16 @@ const AuthYandex = () => {
 
     const fetchToken = async () => {
       try {
-        const encodedCredentials = btoa(`${clientId}:${clientSecret}`);
-        const parametr = new URLSearchParams({
-          grant_type: 'authorization_code',
+        const response = await getYandexToken({
+          clientId,
+          clientSecret,
           code,
-        });
+        }).unwrap();
 
-        const response = await fetch('https://oauth.yandex.ru/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${encodedCredentials}`,
-          },
-          body: parametr.toString(),
-        });
-
-        const data = await response.json();
-        
         const convertResponse = await convertToken({
           clientId: clientIdDizi,
           clientSecret: clientSecretDizi,
-          token: data.access_token,
+          token: response.access_token,
         }).unwrap();
 
         if (convertResponse.access_token) {
@@ -60,7 +51,7 @@ const AuthYandex = () => {
     };
 
     fetchToken();
-  }, [code, ]);
+  }, [code]);
 
   return null;
 };
