@@ -31,6 +31,7 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         }),
       }),
       invalidatesTags: (result) => {
+        if (!result) return ['User'];
         setCookie('token', `Bearer ${result.access_token}`, 3);
         return ['User'];
       },
