@@ -1,9 +1,9 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
 
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import NorthIcon from '@mui/icons-material/North';
 
 export interface ArrowUpButtonProps {
   color?: string;
@@ -61,7 +61,7 @@ export const ArrowUpButton: FC<ArrowUpButtonProps> = ({
             '&:hover': { color: color },
           }}
         >
-          <ArrowUpwardIcon fontSize="large" />
+          <NorthIcon fontSize="large" />
         </Button>
       </Box>
     )
