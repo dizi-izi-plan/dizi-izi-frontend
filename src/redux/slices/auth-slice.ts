@@ -11,8 +11,12 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
     login: build.mutation({
       query: (data) => ({ url: urls.authUrls.loginUrl, method: 'post', data }),
       invalidatesTags: (result) => {
-        setCookie('token', result.auth_token, 3);
-        return ['User'];
+        if (result && result.auth_token) {
+          setCookie('token', result.auth_token, 3);
+          return ['User'];
+        }
+
+        return [];
       },
     }),
     logout: build.mutation({
