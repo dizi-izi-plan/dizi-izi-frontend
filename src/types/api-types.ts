@@ -25,3 +25,10 @@ export type RegistrationResponseType = {
   id: string;
   email: string;
 };
+
+export type RegistrationError = {
+  status: number;
+  data: {
+    email: string[];
+  };
+};

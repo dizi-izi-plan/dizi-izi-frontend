@@ -21,11 +21,13 @@ import {
   RegistrationFormValidation,
 } from './validationSchema';
 import { useRegistrationMutation } from '@/redux/slices/auth-slice';
+import { RegistrationError } from '@/types/api-types';
 
 export const RegistrationForm = () => {
   const {
     handleSubmit,
     control,
+    setError,
     formState: { errors },
   } = useForm<RegistrationFormType>({
     defaultValues: {
@@ -48,7 +50,16 @@ export const RegistrationForm = () => {
 
       router.push('/registration-letter-message');
     } catch (error) {
-      console.error(error);
+      const serverError = error as RegistrationError;
+
+      if (serverError.status === 400 && serverError.data) {
+        setError(REGISTRATION_FORM_NAMES.email, {
+          type: 'server',
+          message: serverError.data.email[0],
+        });
+
+        console.error(error);
+      }
     }
   });
 
