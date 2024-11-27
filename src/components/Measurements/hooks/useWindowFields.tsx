@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Control, useWatch, useFormState } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
@@ -12,7 +12,7 @@ import {
 export const useWindowFields = (
   control: Control<SizesFormType>,
   invisible: boolean,
-): { windows: TWindow[]; balconies: TWindow[] } => {
+): TWindow[] => {
   const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
   const { errors } = useFormState({
@@ -56,9 +56,9 @@ export const useWindowFields = (
     [fieldOnFocus],
   );
 
-  const allWindow = useMemo(() => {
-    if (windowForm && windowForm.windows) {
-      return windowForm.windows.map((window, index) => {
+  if (windowForm?.type === 'window' && windowForm?.windows) {
+    return windowForm.windows
+      .map((window, index) => {
         if (window.doorSize) {
           return {
             wall: window.wallNumber as WALLS_NAMES_TYPE,
@@ -106,25 +106,10 @@ export const useWindowFields = (
             isFocused: isFocused(index),
           };
         }
-      });
-    } else {
-      return [];
-    }
-  }, [
-    distanceFromLeft,
-    distanceFromRight,
-    errors.windows?.windows,
-    invisible,
-    isFocused,
-    windowForm,
-  ]);
-
-  return {
-    balconies: allWindow.filter(
-      (balcony) => balcony.wall && 'openLeft' in balcony,
-    ),
-    windows: allWindow.filter(
-      (window) => window.wall && !('openLeft' in window),
-    ),
-  };
+      })
+      .filter((window) => window.wall)
+      .sort((a, b) => a.distance - b.distance);
+  } else {
+    return [];
+  }
 };

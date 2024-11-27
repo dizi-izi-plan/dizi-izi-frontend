@@ -189,21 +189,24 @@ export const checkWindowsOfSameWall = (
     return;
   }
 
-  const {
-    wallNumber: firstWallNumber,
-    size: firstSize,
-    doorSize: firstDoorSize = 0,
-    distanceToWall: firstDistanceToWall,
-    toWall: firstToWall,
-  } = values.windows.windows[0];
-
-  const {
-    wallNumber: secondWallNumber,
-    size: secondSize,
-    doorSize: secondDoorSize = 0,
-    distanceToWall: secondDistanceToWall,
-    toWall: secondToWall,
-  } = values.windows.windows[1];
+  const [
+    {
+      wallNumber: firstWallNumber,
+      size: firstSize,
+      doorSize: firstDoorSize = 0,
+      distanceToWall: firstDistanceToWall,
+      toWall: firstToWall,
+    },
+    {
+      wallNumber: secondWallNumber,
+      size: secondSize,
+      doorSize: secondDoorSize = 0,
+      distanceToWall: secondDistanceToWall,
+      toWall: secondToWall,
+    },
+  ] = [...values.windows.windows].sort(
+    (a, b) => Number(a.distanceToWall) - Number(b.distanceToWall),
+  );
 
   if (firstWallNumber !== secondWallNumber) {
     return;

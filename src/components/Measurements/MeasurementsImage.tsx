@@ -37,7 +37,7 @@ export const MeasurementsImage = ({
 
   const door = useDoorFields(control, stepOne);
 
-  const { windows, balconies } = useWindowFields(control, stepOne || stepTwo);
+  const windows = useWindowFields(control, stepOne || stepTwo);
 
   const [currentSizes, setCurrentSizes] = useState({
     width: 640,
@@ -190,25 +190,29 @@ export const MeasurementsImage = ({
           wallThickness={wallThickness}
         />
         {stepThree &&
-          windows.map((window: TWindow, index: number) => (
-            <Window
-              key={index}
-              window={window}
-              horizontalWall={horizontalWall}
-              verticalWall={verticalWall}
-              wallThickness={wallThickness}
-            />
-          ))}
-        {stepThree &&
-          balconies.map((balcony: TWindow, index: number) => (
-            <Balcony
-              key={index}
-              balcony={balcony}
-              horizontalWall={horizontalWall}
-              verticalWall={verticalWall}
-              wallThickness={wallThickness}
-            />
-          ))}
+          windows.map((window: TWindow, index: number) => {
+            if ('openLeft' in window) {
+              return (
+                <Balcony
+                  key={index}
+                  balcony={window}
+                  horizontalWall={horizontalWall}
+                  verticalWall={verticalWall}
+                  wallThickness={wallThickness}
+                />
+              );
+            } else {
+              return (
+                <Window
+                  key={index}
+                  window={window}
+                  horizontalWall={horizontalWall}
+                  verticalWall={verticalWall}
+                  wallThickness={wallThickness}
+                />
+              );
+            }
+          })}
       </Stack>
     </Stack>
   );
