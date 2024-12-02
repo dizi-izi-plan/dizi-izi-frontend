@@ -22,6 +22,7 @@ const headerLinksData = [
 export const Header = () => {
   const isAuth = useAuth();
   const { data } = useGetUserDataQuery('');
+  console.log(data);
 
   return (
     <header>
