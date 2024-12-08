@@ -18,7 +18,7 @@ interface MessagePageProps {
 }
 
 export const MessageContainer = ({
-  text,
+  text: textArr,
   button,
   children,
 }: MessagePageProps) => {
@@ -34,7 +34,7 @@ export const MessageContainer = ({
       p="72px 0"
       sx={{ backgroundColor: 'primary.contrastText' }}
     >
-      {text.map((text, index) => (
+      {textArr.map((text, index) => (
         <Typography
           key={index}
           variant="body2"

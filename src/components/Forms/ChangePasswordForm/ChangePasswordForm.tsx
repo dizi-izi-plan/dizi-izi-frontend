@@ -39,6 +39,7 @@ export const ChangePasswordForm = () => {
           {passwordConfig.map(
             ({
               name,
+              // eslint-disable-next-line @typescript-eslint/no-shadow
               control,
               label,
               placeholder,

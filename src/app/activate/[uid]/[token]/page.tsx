@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FormsContainer } from '@/containers/FormsContainer/FormsContainer';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
@@ -30,30 +31,29 @@ const buttonInfo = {
 };
 
 type ActivateUserType = {
-  params: {
-    token: string;
-    uid: string;
-  };
+  token: string;
+  uid: string;
 };
 
-export default function ActivateUser({ params }: ActivateUserType) {
+export default function ActivateUser() {
+  const { uid, token } = useParams<ActivateUserType>() || {};
   const [activateUser, { isLoading, error }] = useActivateUserMutation();
 
   useEffect(() => {
     try {
       activateUser({
-        uid: params.uid,
-        token: params.token,
+        uid,
+        token,
       })
         .unwrap()
         .then(() => localStorage.removeItem('email'))
-        .catch((error) => {
-          console.error('rejected', error);
+        .catch((err) => {
+          console.error('rejected', err);
         });
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.error(e);
     }
-  }, []);
+  }, [activateUser, uid, token]);
 
   if (isLoading)
     return (
