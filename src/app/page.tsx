@@ -10,6 +10,7 @@ import { FAQ } from '@/components/FAQ/FAQ';
 import { TariffSection } from '@/components/TariffSection/TariffSection';
 import { EmailCopyLink } from '@/components/EmailCopyLink/EmailCopyLink';
 import { StartButton } from '../components/StartButton/StartButton';
+import { ArrowUpButton } from '@/components/Buttons/ArrowUpButton/ArrowUpButton';
 
 export default function Home() {
   return (
@@ -48,6 +49,7 @@ export default function Home() {
 
               <StartButton />
             </Stack>
+              <ArrowUpButton color='secondary.contrastText' backgroundColor='primary.contrastText' />
 
             <Stack
               id="about"

@@ -8,5 +8,6 @@ export const urls = {
     getUserDataUrl: 'auth/users/me/',
     resetPasswordUrl: 'auth/users/reset_password/',
     resetPasswordConfirmUrl: 'auth/users/reset_password_confirm/',
+    yandexLoginUrl: 'social_auth/convert-token/'
   },
 };
