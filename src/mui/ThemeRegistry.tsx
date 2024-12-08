@@ -20,7 +20,7 @@ export const ThemeRegistry = ({ options, children }: ThemeRegistryProps) => {
   const [{ cache, flush }] = useState(() => {
     const cacheDefault = createCache(options);
     cacheDefault.compat = true;
-    const prevInsert = cache.insert;
+    const prevInsert = cacheDefault.insert;
     let inserted: string[] = [];
     cacheDefault.insert = (...args) => {
       const serialized = args[1];
