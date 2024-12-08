@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useConvertTokenMutation } from '@/redux/slices/auth-slice';
 import { useGetYandexTokenMutation } from '@/redux/slices/yandexAuthApi';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 const AuthYandex = () => {
   const param = useSearchParams();
@@ -65,4 +65,13 @@ const AuthYandex = () => {
 
   return null;
 };
-export default AuthYandex;
+
+const YandexOAuth2 = () => {
+  return (
+    <Suspense fallback={''}>
+      <AuthYandex />
+    </Suspense>
+  );
+};
+
+export default YandexOAuth2;
