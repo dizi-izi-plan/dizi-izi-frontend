@@ -51,7 +51,17 @@ const AuthYandex = () => {
     };
 
     fetchToken();
-  }, [code]);
+  }, [
+    code,
+    router,
+    isAuth,
+    clientId,
+    clientIdDizi,
+    clientSecret,
+    clientSecretDizi,
+    convertToken,
+    getYandexToken,
+  ]);
 
   return null;
 };

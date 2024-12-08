@@ -3,7 +3,7 @@ import { routes } from '@/helpers/common-constants/routes-constants';
 import { deleteCookie, setCookie } from '@/helpers/cookie/cookie';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 type ActivateUserType = {
   params: {
     token: string;
@@ -17,10 +17,10 @@ const AuthYandex = ({ params }: ActivateUserType) => {
   useEffect(() => {
     if (isAuth) {
       router.push(routes.personalAccount);
-    }else{
+    } else {
       router.push(routes.authRoutes.login);
     }
-  }, [isAuth, params.token]);
+  }, [isAuth, params.token, router]);
 
   return;
 };
