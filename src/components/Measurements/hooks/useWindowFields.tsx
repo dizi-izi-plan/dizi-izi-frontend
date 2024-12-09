@@ -11,7 +11,7 @@ import {
 
 export const useWindowFields = (
   control: Control<SizesFormType>,
-  invisible: boolean,
+  isInvisible: boolean,
 ): TWindow[] => {
   const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
@@ -66,7 +66,7 @@ export const useWindowFields = (
               errors?.windows?.windows?.message ||
               errors.windows?.windows?.[index]?.size?.message ||
               errors.windows?.windows?.[index]?.doorSize?.message ||
-              invisible
+              isInvisible
                 ? 0
                 : Number(window.size) + Number(window.doorSize),
             distance: errors.windows?.windows?.[index]?.distanceToWall
@@ -89,7 +89,7 @@ export const useWindowFields = (
             size:
               errors?.windows?.windows?.message ||
               errors.windows?.windows?.[index]?.size?.message ||
-              invisible
+              isInvisible
                 ? 0
                 : Number(window.size),
             distance: errors.windows?.windows?.[index]?.distanceToWall

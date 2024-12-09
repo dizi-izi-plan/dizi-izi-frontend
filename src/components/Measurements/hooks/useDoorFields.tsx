@@ -16,7 +16,7 @@ import {
 
 export const useDoorFields = (
   control: Control<SizesFormType>,
-  invisible: boolean,
+  isInvisible: boolean,
 ): TDoor => {
   const fieldOnFocus = useAppSelector(selectFieldOnFocus);
 
@@ -53,7 +53,7 @@ export const useDoorFields = (
 
   return {
     wall: doorForm?.wallNumber as WALLS_NAMES_TYPE,
-    size: errors.door?.size || invisible ? 0 : Number(doorForm?.size),
+    size: errors.door?.size || isInvisible ? 0 : Number(doorForm?.size),
     distance: errors.door?.distanceToWall
       ? 0
       : Number(doorForm?.distanceToWall),
