@@ -63,7 +63,7 @@ export const useWindowFields = (
           return {
             wall: window.wallNumber as WALLS_NAMES_TYPE,
             size:
-              errors?.windows?.windows?.message ||
+              (errors?.windows?.windows?.message && index) ||
               errors.windows?.windows?.[index]?.size?.message ||
               errors.windows?.windows?.[index]?.doorSize?.message ||
               isInvisible
@@ -87,7 +87,7 @@ export const useWindowFields = (
           return {
             wall: window.wallNumber as WALLS_NAMES_TYPE,
             size:
-              errors?.windows?.windows?.message ||
+              (errors?.windows?.windows?.message && index) ||
               errors.windows?.windows?.[index]?.size?.message ||
               isInvisible
                 ? 0
