@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -10,6 +11,7 @@ import {
 } from '@/components/Input/classNameConstants';
 import { Button, FormHelperText, Stack, Typography } from '@mui/material';
 import { useToWallRadios } from '@/hooks/useToWallRadios';
+import { useFocusedObject } from '@/hooks/useFocusedObject';
 import {
   MAX_WALLS_INPUT_LENGTH,
   MAX_WINDOW_INPUT_LENGTH,
@@ -29,7 +31,9 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
     watch,
     setValue,
   } = useFormContext<SizesFormType>();
-
+  const { handleSetFocused, handleSetHovered } = useFocusedObject(
+    `windows.windows.${index}.${STEP3.windowSize.name}`,
+  );
   const selectedWall = watch(
     `windows.windows.${index}.${STEP3.wallNumber.name}`,
   );
@@ -64,7 +68,11 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
           <ClearIcon />
         </Button>
       </Stack>
-      <Stack gap={3}>
+      <Stack
+        gap={3}
+        onMouseEnter={() => handleSetHovered(true)}
+        onMouseLeave={() => handleSetHovered(false)}
+      >
         <SelectWrapper
           name={`windows.windows.${index}.${STEP3.wallNumber.name}`}
           control={control}
@@ -85,6 +93,8 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
               errors?.windows?.windows?.[index]?.size?.message) ||
             ''
           }
+          onFocus={() => handleSetFocused(true)}
+          onBlurHandler={() => handleSetFocused(false)}
         />
         <Stack>
           <Stack direction="row" gap={3}>
@@ -96,6 +106,8 @@ export const Window = ({ index, handleRemove }: WindowProps) => {
               type="number"
               step={1}
               max={MAX_WALLS_INPUT_LENGTH}
+              onFocus={() => handleSetFocused(true)}
+              onBlurHandler={() => handleSetFocused(false)}
             />
             <RadioGroupWrapper
               name={`windows.windows.${index}.${STEP3.toWall.name}`}

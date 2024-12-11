@@ -292,7 +292,7 @@ theme = createTheme(theme, {
             fontFamily: manrope.style.fontFamily,
             color: theme.palette.myGrey.grey300,
             opacity: 1,
-            fontSize: 18,
+            fontSize: 14,
             left: '50%',
             transform: 'translate(-50%, 16px) scale(1)',
           },
@@ -300,7 +300,7 @@ theme = createTheme(theme, {
         shrink: {
           '&.subvariant-grey': {
             left: '0',
-            transform: 'translate(0%, -20px) scale(0.75)',
+            transform: 'translate(0%, -20px) scale(0.96)',
           },
         },
       },

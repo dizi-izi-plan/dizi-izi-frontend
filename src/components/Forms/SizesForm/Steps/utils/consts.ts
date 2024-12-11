@@ -1,5 +1,5 @@
 export const MIN_DISTANCE_TO_WALL = 50;
-export const MIN_DISTANCE_BETWEEN_WINDOWS = 40;
+export const MIN_DISTANCE_BETWEEN_WINDOWS = 400;
 
 export const ERROR_MESSAGES = {
   required: 'Обязательное поле',
@@ -14,5 +14,6 @@ export const ERROR_MESSAGES = {
   maxDistanceToWall: 'Расстояние до стены слишком большое',
   maxWindowAmount: 'Количество окон не может превышать 2шт',
   windowsSameWallSize:
-    'Размеры окон не могут быть больше размера выбранной стены. Минимальное расстояние между окнами - 40мм',
+    'Размеры окон не могут быть больше размера выбранной стены. Минимальное расстояние между окнами - 400мм',
+  windowsSameWallWindowDistance: 'Минимальное расстояние между окнами - 400мм',
 };
