@@ -18,25 +18,25 @@ type ThemeRegistryProps = {
 
 export const ThemeRegistry = ({ options, children }: ThemeRegistryProps) => {
   const [{ cache, flush }] = useState(() => {
-    const cache = createCache(options);
-    cache.compat = true;
-    const prevInsert = cache.insert;
+    const cacheDefault = createCache(options);
+    cacheDefault.compat = true;
+    const prevInsert = cacheDefault.insert;
     let inserted: string[] = [];
-    cache.insert = (...args) => {
+    cacheDefault.insert = (...args) => {
       const serialized = args[1];
-      if (cache.inserted[serialized.name] === undefined) {
+      if (cacheDefault.inserted[serialized.name] === undefined) {
         inserted.push(serialized.name);
       }
 
       return prevInsert(...args);
     };
-    const flush = () => {
+    const flushDefault = () => {
       const prevInserted = inserted;
       inserted = [];
       return prevInserted;
     };
 
-    return { cache, flush };
+    return { cache: cacheDefault, flush: flushDefault };
   });
 
   useServerInsertedHTML(() => {
