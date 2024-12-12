@@ -7,13 +7,11 @@ export type TWindow = {
   distanceFromLeft: boolean;
   distanceFromRight: boolean;
   isFocused: boolean;
+  openLeft?: boolean;
 };
 
-export type TBalcony = TWindow & {
+export type TDoor = TWindow & {
   openLeft: boolean;
-};
-
-export type TDoor = TBalcony & {
   openInside: boolean;
 };
 

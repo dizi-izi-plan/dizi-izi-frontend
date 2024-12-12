@@ -68,9 +68,7 @@ export const ElementContainer = ({
           height={elementStyles[element.wall].line.height}
           width={elementStyles[element.wall].line.width}
           sx={{
-            backgroundColor: element.isFocused
-              ? 'primary.main'
-              : 'myGrey.grey700',
+            backgroundColor: element.isFocused ? 'primary.main' : 'transparent',
           }}
         ></Box>
         {element.distance > 0 ? (
@@ -81,7 +79,7 @@ export const ElementContainer = ({
                 sx={{
                   position: 'absolute',
                   left: '-10px',
-                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                  color: element.isFocused ? 'primary.main' : 'transparent',
                 }}
               />
               <ArrowRightIcon
@@ -89,7 +87,7 @@ export const ElementContainer = ({
                 sx={{
                   position: 'absolute',
                   right: '-10px',
-                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                  color: element.isFocused ? 'primary.main' : 'transparent',
                 }}
               />
             </>
@@ -100,7 +98,7 @@ export const ElementContainer = ({
                 sx={{
                   position: 'absolute',
                   top: '-10px',
-                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                  color: element.isFocused ? 'primary.main' : 'transparent',
                 }}
               />
               <ArrowDropDownIcon
@@ -108,7 +106,7 @@ export const ElementContainer = ({
                 sx={{
                   position: 'absolute',
                   bottom: '-10px',
-                  color: element.isFocused ? 'primary.main' : 'myGrey.grey700',
+                  color: element.isFocused ? 'primary.main' : 'transparent',
                 }}
               />
             </>

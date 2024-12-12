@@ -15,12 +15,14 @@ export type ControlledInputProps<T extends FieldValues> = TextFieldProps &
     max?: number;
     step?: number;
     onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onBlurHandler?: () => void;
   };
 
 export const TextFieldWrapper = <T extends FieldValues>({
   name,
   control,
   errorMessage,
+  onBlurHandler,
   onChangeHandler,
   ...props
 }: ControlledInputProps<T>) => {
@@ -39,6 +41,7 @@ export const TextFieldWrapper = <T extends FieldValues>({
   };
 
   const onBlur = () => {
+    onBlurHandler?.();
     field.onBlur();
   };
 

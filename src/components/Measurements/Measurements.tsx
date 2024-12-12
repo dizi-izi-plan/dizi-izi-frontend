@@ -34,12 +34,7 @@ export const Measurements = () => {
     resolver: zodResolver(SizesFormValidation),
   });
 
-  const { control, trigger, watch, formState } = methods;
-  const { errors } = formState;
-
-  if (Object.values(errors).length > 0) {
-    console.log('errors', errors);
-  }
+  const { control, trigger, watch } = methods;
 
   useEffect(() => {
     const validateStep = async () => {
@@ -121,6 +116,7 @@ export const Measurements = () => {
       <Stack direction="row" width="100%" justifyContent="space-between">
         <MeasurementsImage
           stepOne={currentStep === 0}
+          stepTwo={currentStep === 1}
           stepThree={currentStep === 2}
           control={control}
           display={currentStep === 3 ? 'none' : undefined}
