@@ -22,6 +22,7 @@ import {
 } from './validationSchema';
 import { useRegistrationMutation } from '@/redux/slices/auth-slice';
 import { RegistrationError } from '@/types/api-types';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 export const RegistrationForm = () => {
   const {
@@ -48,14 +49,14 @@ export const RegistrationForm = () => {
 
       localStorage.setItem('email', data.email);
 
-      router.push('/registration-letter-message');
+      router.push(routes.authRoutes.registrationLetterMessage);
     } catch (error) {
-      const serverError = error as RegistrationError;
+      const { status, data } = error as RegistrationError;
 
-      if (serverError.status === 400 && serverError.data) {
+      if (status === 400 && data) {
         setError(REGISTRATION_FORM_NAMES.email, {
           type: 'server',
-          message: serverError.data.email[0],
+          message: data.email[0],
         });
 
         console.error(error);
