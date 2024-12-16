@@ -4,20 +4,16 @@ WORKDIR /app
 LABEL author='Dizi-izi-Team'
 LABEL maintainer='<https://github.com/dizi-izi-plan>'
 
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ARG API_URL
 
 COPY package*.json ./
 RUN npm ci
 
 COPY ./ ./
-RUN npm run build
+RUN NEXT_PUBLIC_API_URL=$API_URL npm run build
 
 FROM node:slim AS run
 WORKDIR /app
-
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
