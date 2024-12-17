@@ -40,7 +40,6 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         return ['User'];
       },
     }),
-   
     logout: build.mutation({
       query: () => ({ url: urls.authUrls.logoutUrl, method: 'post' }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
