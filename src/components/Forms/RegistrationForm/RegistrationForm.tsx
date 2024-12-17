@@ -1,13 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,11 +21,14 @@ import {
   RegistrationFormValidation,
 } from './validationSchema';
 import { useRegistrationMutation } from '@/redux/slices/auth-slice';
+import { RegistrationError } from '@/types/api-types';
+import { routes } from '@/helpers/common-constants/routes-constants';
 
 export const RegistrationForm = () => {
   const {
     handleSubmit,
     control,
+    setError,
     formState: { errors },
   } = useForm<RegistrationFormType>({
     defaultValues: {
@@ -41,31 +41,26 @@ export const RegistrationForm = () => {
 
   const router = useRouter();
 
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
   const [registration, { isLoading }] = useRegistrationMutation();
 
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenSnackbar(false);
-  };
-
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (registrationData) => {
     try {
-      await registration(data).unwrap();
+      await registration(registrationData).unwrap();
 
-      localStorage.setItem('email', data.email);
+      localStorage.setItem('email', registrationData.email);
 
-      router.push('/registration-letter-message');
+      router.push(routes.authRoutes.registrationLetterMessage);
     } catch (error) {
-      console.error(error);
-      setOpenSnackbar(true);
+      const { status, data } = error as RegistrationError;
+
+      if (status === 400 && data) {
+        setError(REGISTRATION_FORM_NAMES.email, {
+          type: 'server',
+          message: data.email[0],
+        });
+
+        console.error(error);
+      }
     }
   });
 
@@ -132,21 +127,6 @@ export const RegistrationForm = () => {
           </Box>
         </Stack>
       </form>
-
-      <Snackbar
-        open={openSnackbar}
-        onClose={handleSnackbarClose}
-        autoHideDuration={2500}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="error"
-          sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
-        >
-          Данный пользователь уже зарегистрирован
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
