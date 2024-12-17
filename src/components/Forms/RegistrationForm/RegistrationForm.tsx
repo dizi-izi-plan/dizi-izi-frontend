@@ -43,11 +43,11 @@ export const RegistrationForm = () => {
 
   const [registration, { isLoading }] = useRegistrationMutation();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (registrationData) => {
     try {
-      await registration(data).unwrap();
+      await registration(registrationData).unwrap();
 
-      localStorage.setItem('email', data.email);
+      localStorage.setItem('email', registrationData.email);
 
       router.push(routes.authRoutes.registrationLetterMessage);
     } catch (error) {
