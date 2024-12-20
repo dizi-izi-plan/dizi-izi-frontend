@@ -11,7 +11,11 @@ export const ServicesLinks = () => {
         Войти с помощью сервиса
       </Typography>
       <Box display="flex" justifyContent="center" gap={8}>
-        <Link href="https://vk.com/" target="_blank">
+        <Link
+          href="https://oauth.vk.com/authorize?client_id=52833862&redirect_uri=https://diziizi.ru/vk-oauth2/&scope=email&response_type=code&v=5.131"
+          // href="https://id.vk.com/authorize?response_type=code&client_id=52833862"
+          target="_blank"
+        >
           <Image
             src="/assets/icons/vkIcon.svg"
             alt="VK icon link"
