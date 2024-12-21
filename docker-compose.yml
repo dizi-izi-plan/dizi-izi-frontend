@@ -1,10 +1,11 @@
-version: '3.9'
-
 services:
   front-dev:
     container_name: dizi-izi-frontend
     image: diziizi/dizi-izi-frontend:latest
-    build: .
+    build:
+      context: .
+      args:
+        API_URL: ${API_URL}
     ports:
       - "3000:3000"
     # uncomment for develop mode
