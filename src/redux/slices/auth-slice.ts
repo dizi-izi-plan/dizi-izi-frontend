@@ -9,7 +9,11 @@ import { urls } from '@/helpers/common-constants/urls-constants';
 export const AuthApi = diziIziSplitApi.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation({
-      query: (data) => ({ url: urls.authUrls.loginUrl, method: 'post', data }),
+      query: (data) => ({
+        url: urls.authUrls.loginUrl,
+        method: 'post',
+        body: data,
+      }),
       invalidatesTags: (result) => {
         if (result && result.auth_token) {
           setCookie('token', result.auth_token, 3);
@@ -26,7 +30,7 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         headers: {
           'Content-Type': 'application/json',
         },
-        data: JSON.stringify({
+        body: JSON.stringify({
           client_id: clientId,
           grant_type: 'convert_token',
           client_secret: clientSecret,
@@ -37,6 +41,7 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
       invalidatesTags: (result) => {
         if (!result) return ['User'];
         setCookie('token', `Bearer ${result.access_token}`, 3);
+
         return ['User'];
       },
     }),
@@ -59,35 +64,35 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
       query: (data) => ({
         url: urls.authUrls.registrationUrl,
         method: 'POST',
-        data,
+        body: data,
       }),
     }),
     activateUser: build.mutation({
       query: (data) => ({
         url: urls.authUrls.activateUserUrl,
         method: 'POST',
-        data,
+        body: data,
       }),
     }),
     resendActivation: build.mutation({
       query: (data) => ({
         url: urls.authUrls.resendActivationUrl,
         method: 'POST',
-        data,
+        body: data,
       }),
     }),
     resetPassword: build.mutation({
       query: (data) => ({
         url: urls.authUrls.resetPasswordUrl,
         method: 'post',
-        data,
+        body: data,
       }),
     }),
     resetPasswordConfirm: build.mutation({
       query: (data) => ({
         url: urls.authUrls.resetPasswordConfirmUrl,
         method: 'post',
-        data,
+        body: data,
       }),
     }),
   }),
