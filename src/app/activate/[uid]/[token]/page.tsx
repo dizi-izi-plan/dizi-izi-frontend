@@ -7,7 +7,6 @@ import { FormsContainer } from '@/containers/FormsContainer/FormsContainer';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 import { useActivateUserMutation } from '@/redux/slices/auth-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
-import { isFetchBaseQueryError } from '@/helpers/axios/inlineErrorHandling';
 
 const errorText = {
   400: [`Произошла ошибка, неверный токен для данного пользователя`],
@@ -62,7 +61,7 @@ export default function ActivateUser() {
       </FormsContainer>
     );
 
-  if (isFetchBaseQueryError(error)) {
+  if (error && 'status' in error) {
     let messageText: string[];
 
     switch (error.status) {
