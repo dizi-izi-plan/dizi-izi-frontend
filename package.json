@@ -20,7 +20,6 @@
     "@mui/material": "^5.14.6",
     "@mui/x-date-pickers": "^6.11.2",
     "@reduxjs/toolkit": "^1.9.5",
-    "axios": "^1.7.2",
     "dayjs": "^1.11.9",
     "husky": "^9.1.7",
     "next": "^15.0.3",
