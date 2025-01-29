@@ -2,17 +2,15 @@ import { useMemo } from 'react';
 import { Control, useWatch, useFormState } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
+
+import { TDoor } from '../ui';
 import {
   WALLS,
-  SIDE,
-  OPEN,
-  STEP2,
-} from '@/components/Forms/SizesForm/formData';
-import { TDoor } from '../MeasurementsTypes';
-import {
-  SizesFormType,
   WALLS_NAMES_TYPE,
-} from '@/components/Forms/SizesForm/types';
+} from '@/components/Forms/SizesForm/Steps/Step1/utils/consts/consts';
+import { STEP2 } from '@/components/Forms/SizesForm/Steps/Step2';
+import { OPEN, SIDE } from '@/components/Forms/SizesForm/utils/consts/consts';
+import { SizesFormType } from '@/components/Forms/SizesForm';
 
 export const useDoorFields = (
   control: Control<SizesFormType>,

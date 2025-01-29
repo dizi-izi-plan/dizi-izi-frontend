@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { Control, useWatch, useFormState } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
-import { WALLS } from '@/components/Forms/SizesForm/formData';
-import { SizesFormType } from '@/components/Forms/SizesForm/types';
+import { WALLS } from '@/components/Forms/SizesForm/Steps/Step1/utils/consts/consts';
+import { SizesFormType } from '@/components/Forms/SizesForm';
 
 type TWalls = {
   verticalWall: number;

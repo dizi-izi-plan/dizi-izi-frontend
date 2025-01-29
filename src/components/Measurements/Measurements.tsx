@@ -1,4 +1,6 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -7,21 +9,22 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { PopperMessage } from '@/components/Popper/PopperMessage';
-import { FieldNames, MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
-import { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
-import { SizesFormValidation } from '@/components/Forms/SizesForm/validation';
-
-import { SizesFormType } from '../Forms/SizesForm/types';
-import { MeasurementsImage } from './MeasurementsImage';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectIsStepValid,
   setIsStepValid,
 } from '@/redux/slices/current-slice';
+
+import { FieldNames } from './utils/types/types';
+import { MeasurementsImage } from './ui/Image/Image';
+import { MEASUREMENTS_STEPS } from './utils/consts/consts';
+import {
+  initialStepsState,
+  SizesFormType,
+  SizesFormValidation,
+} from '../Forms/SizesForm';
 
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -97,8 +100,8 @@ export const Measurements = () => {
             currentStep === 3
               ? ''
               : isStepValid
-              ? 'Вперед'
-              : 'Закончите текущий шаг'
+                ? 'Вперед'
+                : 'Закончите текущий шаг'
           }
         >
           <Button

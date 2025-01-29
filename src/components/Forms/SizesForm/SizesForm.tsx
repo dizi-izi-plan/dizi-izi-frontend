@@ -1,20 +1,21 @@
-import {
-  MEASUREMENTS_STEPS,
-  MeasurementsDataType,
-} from '@/components/Measurements/data';
+import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import { TabContentContainer } from '@/containers/TabContentContainer/TabContentContainer';
 import { a11yProps } from '@/containers/TabContentContainer/tabConstants';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { Furniture } from './Steps/Step4/Step4';
-import { Walls } from './Steps/Step1';
-import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { Door } from './Steps/Step2';
 import { useAppSelector } from '@/redux/hooks';
 import { selectIsStepValid } from '@/redux/slices/current-slice';
-import { SizesFormType } from './types';
-import { Windows } from './Steps/Step3/Step3';
+import {
+  MEASUREMENTS_STEPS,
+  MeasurementsDataType,
+} from '@/components/Measurements';
+import { SizesFormType } from './utils/types/types';
+import { Walls } from './Steps/Step1/ui/Step1';
+import { Door } from './Steps/Step2/ui/Step2';
+import { Windows } from './Steps/Step3/ui/Step3';
+import { Furniture } from './Steps/Step4/ui/Step4';
 
 type SizesFormProps = {
   currentStep: number;
