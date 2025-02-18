@@ -8,8 +8,15 @@ export const UserApi = diziIziSplitApi.injectEndpoints({
       providesTags: ['User'],
       keepUnusedDataFor: 360 * 4,
     }),
+    setNewPassword: build.mutation({
+      query: (data) => ({
+        url: urls.authUrls.newPasswordUrl,
+        method: 'post',
+        body: data,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetUserDataQuery } = UserApi;
+export const { useGetUserDataQuery, useSetNewPasswordMutation } = UserApi;
