@@ -10,6 +10,7 @@ import { useGetUserDataQuery } from '@/redux/slices/user-slice';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
 import { CustomLink } from '@/components/Link/CustomLink';
+import { ReusableSnackbar } from '@/components/Snackbar/ReusableSnackbar';
 
 const headerLinksData = [
   { label: 'о нас', href: '/#about' },
@@ -79,6 +80,7 @@ export const Header = () => {
             </CustomLink>
           </Stack>
         </Box>
+        <ReusableSnackbar />
       </Box>
     </header>
   );
