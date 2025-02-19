@@ -17,7 +17,7 @@ export const UserApi = diziIziSplitApi.injectEndpoints({
     }),
     deleteUser: build.mutation({
       query: (data) => ({
-        url: urls.authUrls.newPasswordUrl,
+        url: urls.authUrls.getUserDataUrl,
         method: 'delete',
         body: data,
       }),
