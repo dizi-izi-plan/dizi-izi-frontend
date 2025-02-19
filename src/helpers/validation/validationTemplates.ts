@@ -60,8 +60,8 @@ export type UsernameFormType = z.infer<typeof UsernameValidation>;
 export const LoginValidation = z.object({
   email: z
     .string()
-    .min(8, { message: 'Email должен содержать не менее 8 символов' })
-    .max(40, { message: 'Email должен содержать не более 40 символов' })
+    .min(6, { message: 'Email должен содержать не менее 6 символов' })
+    .max(256, { message: 'Email должен содержать не более 256 символов' })
     .email({ message: 'Некорректный email адрес' })
     .refine(
       (s) => !(s.includes('-@') || s[0] === '-'),
