@@ -9,6 +9,7 @@ export const routes = {
     enterEmail: '/enter-email',
     resetPasswordMessage: '/reset-password-message',
     resetPassword: '/reset-password',
+    deletedUser: '/deleted-user',
   },
   personalAccount: '/personal-account',
   projectRoutes: {

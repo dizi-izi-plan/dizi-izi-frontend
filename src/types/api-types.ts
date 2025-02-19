@@ -40,3 +40,10 @@ export type TNewPasswordError = {
     new_password: string[];
   };
 };
+
+export type TDeleteUserError = {
+  status: number;
+  data: {
+    current_password: string[];
+  };
+};
