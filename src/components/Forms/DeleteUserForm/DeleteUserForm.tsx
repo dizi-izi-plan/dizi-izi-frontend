@@ -12,7 +12,6 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDeleteUserMutation } from '@/redux/slices/user-slice';
 import { deleteCookie } from '@/helpers/cookie/cookie';
-import { AuthApi } from '@/redux/slices/auth-slice';
 import { TDeleteUserError } from '@/types/api-types';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
@@ -48,10 +47,9 @@ export const DeleteUserForm = () => {
   const onSubmit = handleSubmit(async (deleteUserData) => {
     try {
       await deleteUser({ current_password: deleteUserData.password }).unwrap();
-      dispatch(setCurrentModal(null));
       router.push(routes.authRoutes.deletedUser);
+      dispatch(setCurrentModal(null));
       deleteCookie('token');
-      dispatch(AuthApi.util.resetApiState());
     } catch (error) {
       const { data, status } = error as TDeleteUserError;
       setModalStep(1);
@@ -75,7 +73,7 @@ export const DeleteUserForm = () => {
   useEffect(() => {
     if (isSubmitted && isValid === false && modalStep === 2) setModalStep(1);
   }, [isValid, modalStep, isSubmitted]);
-
+  console.log(errors);
   return (
     <Box mt="40px">
       <form onSubmit={onSubmit}>

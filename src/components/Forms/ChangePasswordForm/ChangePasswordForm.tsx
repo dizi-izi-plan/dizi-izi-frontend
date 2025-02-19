@@ -23,7 +23,6 @@ export const ChangePasswordForm = () => {
     setError,
     formState: { errors },
   } = useForm<ChangePasswordFormType>({
-    mode: 'onChange',
     defaultValues: {
       [CHANGE_PASSWORD_FORM_DATA.oldPassword]: '',
       [CHANGE_PASSWORD_FORM_DATA.password]: '',
