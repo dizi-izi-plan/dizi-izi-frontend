@@ -111,10 +111,15 @@ export const RegisterValidation = LoginValidation.extend({
   password: PasswordValidation.shape.password,
   re_password: z.string().min(1, { message: 'Обязательное поле' }),
 })
-  .refine((data) => !data.password.toLowerCase().includes(data.email), {
-    message: 'Введенный пароль слишком похож на Email',
-    path: ['password'],
-  })
+  .refine(
+    (data) =>
+      data.email.trim() === '' ||
+      !data.password.toLowerCase().includes(data.email),
+    {
+      message: 'Введенный пароль слишком похож на Email',
+      path: ['password'],
+    },
+  )
   .refine((data) => data.password === data.re_password, {
     message: 'Пароль не соответствует введенному ранее',
     path: ['re_password'],
