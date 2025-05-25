@@ -9,13 +9,16 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { PopperMessage } from '@/components/Popper/PopperMessage';
 import { FieldNames, MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
+import {
+  initialStepsState,
+  stepKeys,
+} from '@/components/Forms/SizesForm/defaultValues';
 import { SizesFormValidation } from '@/components/Forms/SizesForm/validation';
 
-import { SizesFormType } from '../Forms/SizesForm/types';
+import { SizesFormType, StepKey } from '../Forms/SizesForm/types';
 import { MeasurementsImage } from './MeasurementsImage';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
@@ -34,7 +37,20 @@ export const Measurements = () => {
     resolver: zodResolver(SizesFormValidation),
   });
 
-  const { control, trigger, watch } = methods;
+  const { control, trigger, watch, reset } = methods;
+
+  useEffect(() => {
+    reset((formState) => {
+      const resetState: SizesFormType = { ...formState };
+
+      for (let i = currentStep + 1; i < stepKeys.length; i++) {
+        const key = stepKeys[i] as StepKey;
+        // @ts-expect-error reset state of cloned formState by key
+        resetState[key] = initialStepsState[key];
+      }
+      return resetState;
+    });
+  }, [currentStep, reset]);
 
   useEffect(() => {
     const validateStep = async () => {
@@ -57,11 +73,11 @@ export const Measurements = () => {
     return () => subscription.unsubscribe();
   }, [watch, currentStep, dispatch, trigger, isWindowsValid]);
 
-  const handleBack = async () => {
+  const handleBack = useCallback(async () => {
     if (currentStep > 0) {
       setCurrentStep((step) => step - 1);
     }
-  };
+  }, [currentStep]);
 
   const handleForward = async () => {
     if (!isStepValid) return;
@@ -97,8 +113,8 @@ export const Measurements = () => {
             currentStep === 3
               ? ''
               : isStepValid
-              ? 'Вперед'
-              : 'Закончите текущий шаг'
+                ? 'Вперед'
+                : 'Закончите текущий шаг'
           }
         >
           <Button

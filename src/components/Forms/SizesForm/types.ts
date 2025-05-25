@@ -8,3 +8,4 @@ export type WALLS_NAMES_TYPE = ObjectValues<typeof CORRESPONDING_WALLS>;
 export type DOOR_NAMES_TYPE = ObjectValues<typeof DOOR_NAMES>;
 
 export type SizesFormType = z.infer<typeof SizesFormValidation>;
+export type StepKey = keyof SizesFormType;

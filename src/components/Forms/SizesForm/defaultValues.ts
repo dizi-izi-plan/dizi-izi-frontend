@@ -51,3 +51,5 @@ export const initialStepsState: SizesFormType = {
   windows,
   furniture,
 };
+
+export const stepKeys = Object.keys(initialStepsState);
