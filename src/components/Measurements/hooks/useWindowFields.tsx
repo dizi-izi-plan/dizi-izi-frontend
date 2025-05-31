@@ -2,12 +2,14 @@ import { useCallback } from 'react';
 import { Control, useWatch, useFormState } from 'react-hook-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectFieldOnFocus } from '@/redux/slices/focusedFields-slice';
-import { WALLS, SIDE, STEP3 } from '@/components/Forms/SizesForm/formData';
-import { TWindow } from '../MeasurementsTypes';
 import {
+  SIDE,
   SizesFormType,
+  STEP3,
+  WALLS,
   WALLS_NAMES_TYPE,
-} from '@/components/Forms/SizesForm/types';
+} from '@/components/Forms/SizesForm';
+import { TWindow } from '../ui';
 
 export const useWindowFields = (
   control: Control<SizesFormType>,

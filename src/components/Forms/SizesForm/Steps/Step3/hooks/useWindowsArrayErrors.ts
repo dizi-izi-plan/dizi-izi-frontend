@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import { SizesFormType } from '../../../types';
-import { checkWindow, checkWindowsOfSameWall } from '../../utils/helpers';
+import { checkWindow, checkWindowsOfSameWall } from '../utils/helpers/helpers';
+import { SizesFormType } from '../../..';
 
 export const useWindowsArrayErrors = () => {
   const { setError, clearErrors, formState } = useFormContext<SizesFormType>();
