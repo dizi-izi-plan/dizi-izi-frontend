@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Typography from '@mui/material/Typography';
@@ -22,8 +22,10 @@ import { MeasurementsImage } from './ui/Image/Image';
 import { MEASUREMENTS_STEPS } from './utils/consts/consts';
 import {
   initialStepsState,
-  SizesFormType,
+  type SizesFormType,
   SizesFormValidation,
+  type StepKey,
+  stepKeys,
 } from '../Forms/SizesForm';
 
 export const Measurements = () => {
@@ -37,7 +39,7 @@ export const Measurements = () => {
     resolver: zodResolver(SizesFormValidation),
   });
 
-  const { control, trigger, watch } = methods;
+  const { control, trigger, watch, reset } = methods;
 
   useEffect(() => {
     const validateStep = async () => {
@@ -60,16 +62,29 @@ export const Measurements = () => {
     return () => subscription.unsubscribe();
   }, [watch, currentStep, dispatch, trigger, isWindowsValid]);
 
-  const handleBack = async () => {
+  useEffect(() => {
+    reset((formState) => {
+      const resetState: SizesFormType = { ...formState };
+
+      for (let i = currentStep + 1; i < stepKeys.length; i++) {
+        const key = stepKeys[i] as StepKey;
+        // @ts-expect-error reset state of cloned formState by key
+        resetState[key] = initialStepsState[key];
+      }
+      return resetState;
+    });
+  }, [currentStep, reset]);
+
+  const handleBack = useCallback(async () => {
     if (currentStep > 0) {
       setCurrentStep((step) => step - 1);
     }
-  };
+  }, [currentStep]);
 
-  const handleForward = async () => {
+  const handleForward = useCallback(async () => {
     if (!isStepValid) return;
     setCurrentStep((step) => step + 1);
-  };
+  }, [isStepValid]);
 
   return (
     <Stack width="100%" spacing="51px">

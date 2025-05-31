@@ -7,7 +7,7 @@ export {
   MIN_DISTANCE_TO_WALL,
   MIN_DISTANCE_BETWEEN_WINDOWS,
 } from './utils/consts/consts';
-export { initialStepsState } from './utils/defaults/defaults';
+export { initialStepsState, stepKeys } from './utils/defaults/defaults';
 export {
   setFieldError,
   getSizes,
@@ -18,6 +18,7 @@ export type {
   SizesFormType,
   ElementType,
   ErrorType,
+  StepKey,
 } from './utils/types/types';
 
 export { SizesFormValidation } from './utils/validation/validation';
