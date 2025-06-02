@@ -89,7 +89,11 @@ export const LoginForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
           </Stack>
-          <CustomLink href={routes.authRoutes.enterEmail} variant="s">
+          <CustomLink
+            href={routes.authRoutes.enterEmail}
+            variant="s"
+            sx={{ width: 'fit-content' }}
+          >
             Забыли пароль?
           </CustomLink>
         </Stack>

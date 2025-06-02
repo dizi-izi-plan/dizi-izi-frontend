@@ -60,8 +60,8 @@ export type UsernameFormType = z.infer<typeof UsernameValidation>;
 export const LoginValidation = z.object({
   email: z
     .string()
-    .min(8, { message: 'Email должен содержать не менее 8 символов' })
-    .max(40, { message: 'Email должен содержать не более 40 символов' })
+    .min(6, { message: 'Email должен содержать не менее 6 символов' })
+    .max(256, { message: 'Email должен содержать не более 256 символов' })
     .email({ message: 'Некорректный email адрес' })
     .refine(
       (s) => !(s.includes('-@') || s[0] === '-'),
@@ -77,21 +77,21 @@ export const PasswordValidation = z.object({
     .string()
     .min(8, { message: 'Пароль должен содержать не менее 8 символов' })
     .max(40, { message: 'Пароль должен содержать не более 40 символов' })
+    .regex(/^(?!.*[^\P{Alphabetic}a-zA-Z])/u, {
+      message:
+        'Пароль может содержать только латинские буквы, цифры, спецсимволы',
+    })
     .regex(/(?=.*[0-9])/, {
       message: 'Пароль должен содержать хотя бы 1 цифру',
     })
-    .regex(/(?=.*[!#$%z&‘*+—/=?^_`{|}~,.;:])/, {
+    .regex(/(?=.*[!#$%&*+/=?^_{|}~,.;:-])/, {
       message: 'Пароль должен содержать хотя бы 1 спецсимвол',
     })
     .regex(/(?=.*[A-Z])/, {
       message: 'Пароль должен содержать хотя бы 1 заглавную букву',
     })
     .regex(/(?=.*[a-z])/, {
-      message: 'Пароль должен содержать хотя бы 1 cтрочную букву',
-    })
-    .regex(/^(?!.*[^\P{Alphabetic}a-zA-Z])/u, {
-      message:
-        'Пароль может содержать только латинские буквы, цифры, спецсимволы',
+      message: 'Пароль должен содержать хотя бы 1 строчную букву',
     })
     .refine((s) => !s.includes(' '), 'Пароль не может содержать пробелы'),
 });
@@ -106,3 +106,23 @@ export const ConfirmPasswordValidation = PasswordValidation.extend({
 });
 
 export type confirmPasswordFormType = z.infer<typeof ConfirmPasswordValidation>;
+
+export const RegisterValidation = LoginValidation.extend({
+  password: PasswordValidation.shape.password,
+  re_password: z.string().min(1, { message: 'Обязательное поле' }),
+})
+  .refine(
+    (data) =>
+      data.email.trim() === '' ||
+      !data.password.toLowerCase().includes(data.email),
+    {
+      message: 'Введенный пароль слишком похож на Email',
+      path: ['password'],
+    },
+  )
+  .refine((data) => data.password === data.re_password, {
+    message: 'Пароль не соответствует введенному ранее',
+    path: ['re_password'],
+  });
+
+export type RegisterFormType = z.infer<typeof RegisterValidation>;
