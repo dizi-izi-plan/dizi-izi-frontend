@@ -96,7 +96,7 @@ export const PasswordValidation = z.object({
     .refine((s) => !s.includes(' '), 'Пароль не может содержать пробелы'),
 });
 
-export type passwordFormType = z.infer<typeof PasswordValidation>;
+export type PasswordFormType = z.infer<typeof PasswordValidation>;
 
 export const ConfirmPasswordValidation = PasswordValidation.extend({
   re_password: z.string().nonempty({ message: 'Обязательное поле' }),
@@ -105,7 +105,7 @@ export const ConfirmPasswordValidation = PasswordValidation.extend({
   path: ['re_password'],
 });
 
-export type confirmPasswordFormType = z.infer<typeof ConfirmPasswordValidation>;
+export type ConfirmPasswordFormType = z.infer<typeof ConfirmPasswordValidation>;
 
 export const RegisterValidation = LoginValidation.extend({
   password: PasswordValidation.shape.password,

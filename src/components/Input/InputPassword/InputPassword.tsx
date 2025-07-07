@@ -17,7 +17,7 @@ export type InputPasswordProps = TextFieldProps & {
 };
 
 export const Password = (
-  { className, ...props }: InputPasswordProps,
+  { className, errorMessage, ...props }: InputPasswordProps,
   ref: Ref<HTMLInputElement | HTMLDivElement>,
 ) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +26,9 @@ export const Password = (
     color:
       className === CLASS_NAMES_INPUT.dark
         ? 'secondary.contrastText'
-        : 'myGrey.grey500',
+        : !(errorMessage && errorMessage?.length > 1)
+          ? 'myGrey.grey500'
+          : 'error.main',
     width: 24,
     height: 24,
   };
@@ -39,6 +41,12 @@ export const Password = (
       placeholder={props.placeholder}
       onChange={props.onChange}
       ref={ref}
+      sx={{
+        '&.subvariant-light .MuiOutlinedInput-input': {
+          color:
+            errorMessage && errorMessage.length > 1 ? 'error.main' : undefined,
+        },
+      }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

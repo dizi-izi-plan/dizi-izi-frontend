@@ -65,15 +65,8 @@ export const ModalCommonTemplate = ({
                     {part}
                   </Typography>
                 ))}
+                {children}
               </Stack>
-            </Stack>
-            <Stack
-              direction="row"
-              columnGap="24px"
-              alignItems="center"
-              justifyContent="center"
-            >
-              {children}
             </Stack>
           </Stack>
         </Box>

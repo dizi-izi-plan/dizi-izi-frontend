@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, SyntheticEvent } from 'react';
+import { useState } from 'react';
+import { useAppDispatch } from '@/redux/hooks';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { setSnackbar } from '@/redux/slices/modal-slice';
 
 const EMAIL = 'dizi.izi.plan@gmail.com';
 
 export const EmailCopyLink = () => {
   const [isIconOpen, setIsIconOpen] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleMouseEnter = () => {
     setIsIconOpen(true);
@@ -23,18 +23,13 @@ export const EmailCopyLink = () => {
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(EMAIL);
-    setOpenSnackbar(true);
-  };
-
-  const handleSnackbarClose = (
-    event: SyntheticEvent | Event,
-    reason?: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenSnackbar(false);
+    dispatch(
+      setSnackbar({
+        isOpen: true,
+        message: 'Ссылка скопированна',
+        severity: 'success',
+      }),
+    );
   };
 
   return (
@@ -68,21 +63,6 @@ export const EmailCopyLink = () => {
           onClick={handleCopyClick}
         />
       )}
-
-      <Snackbar
-        open={openSnackbar}
-        onClose={handleSnackbarClose}
-        autoHideDuration={1500}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="success"
-          sx={{ width: '100%', display: 'flex', alignItems: 'center' }}
-        >
-          Ссылка скопированна
-        </Alert>
-      </Snackbar>
     </Box>
   );
 };
