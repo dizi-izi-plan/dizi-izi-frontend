@@ -15,7 +15,7 @@ import {
   ConfirmPasswordFormType,
 } from '@/helpers/validation/validationTemplates';
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
-import { useResetPasswordConfirmMutation } from '@/redux/slices/auth-slice';
+import { useResetPasswordConfirmMutation } from '@/redux/api/auth-api';
 
 const RESET_PASSWORD_FORM_NAMES = {
   password: 'password',

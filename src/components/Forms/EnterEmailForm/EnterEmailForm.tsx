@@ -15,7 +15,7 @@ import {
   LoginValidation,
   LoginFormType,
 } from '@/helpers/validation/validationTemplates';
-import { useResetPasswordMutation } from '@/redux/slices/auth-slice';
+import { useResetPasswordMutation } from '@/redux/api/auth-api';
 
 const ENTER_EMAIL_FORM_NAMES = {
   email: 'email',

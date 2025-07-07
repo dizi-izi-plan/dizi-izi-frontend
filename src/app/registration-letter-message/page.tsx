@@ -3,7 +3,7 @@
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
-import { useResendActivationMutation } from '@/redux/slices/auth-slice';
+import { useResendActivationMutation } from '@/redux/api/auth-api';
 
 const text = [
   `Поздравляем с регистрацией! Осталось совсем чуть-чуть.`,

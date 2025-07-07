@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { CustomLink } from '@/components/Link/CustomLink';
-import { useLoginMutation } from '@/redux/slices/auth-slice';
+import { useLoginMutation } from '@/redux/api/auth-api';
 import { TLoginError } from '@/types/api-types';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';

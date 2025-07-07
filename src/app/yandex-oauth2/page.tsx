@@ -1,8 +1,8 @@
 'use client';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
-import { useConvertTokenMutation } from '@/redux/slices/auth-slice';
-import { useGetYandexTokenMutation } from '@/redux/slices/yandexAuthApi';
+import { useConvertTokenMutation } from '@/redux/api/auth-api';
+import { useGetYandexTokenMutation } from '@/redux/api/yandexAuth-api';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 

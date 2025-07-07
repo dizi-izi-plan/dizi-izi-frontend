@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '@/redux/hooks';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useSetNewPasswordMutation } from '@/redux/slices/user-slice';
+import { useSetNewPasswordMutation } from '@/redux/api/user-api';
 import CircularProgress from '@mui/material/CircularProgress';
 import { setSnackbar, setCurrentModal } from '@/redux/slices/modal-slice';
 import { TNewPasswordError } from '@/types/api-types';

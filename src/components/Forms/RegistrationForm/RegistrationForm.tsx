@@ -20,7 +20,7 @@ import {
   RegistrationFormType,
   RegistrationFormValidation,
 } from './validationSchema';
-import { useRegistrationMutation } from '@/redux/slices/auth-slice';
+import { useRegistrationMutation } from '@/redux/api/auth-api';
 import { RegistrationError } from '@/types/api-types';
 import { routes } from '@/helpers/common-constants/routes-constants';
 

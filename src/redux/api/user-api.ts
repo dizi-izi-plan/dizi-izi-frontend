@@ -1,4 +1,4 @@
-import { diziIziSplitApi } from '@/redux/slices/diziIziSplitApi-slice';
+import { diziIziSplitApi } from '@/redux/api/diziIzi-splitApi';
 import { urls } from '@/helpers/common-constants/urls-constants';
 
 export const UserApi = diziIziSplitApi.injectEndpoints({

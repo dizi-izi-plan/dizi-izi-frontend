@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useDeleteUserMutation } from '@/redux/slices/user-slice';
+import { useDeleteUserMutation } from '@/redux/api/user-api';
 import { deleteCookie } from '@/helpers/cookie/cookie';
 import { TDeleteUserError } from '@/types/api-types';
 import { routes } from '@/helpers/common-constants/routes-constants';

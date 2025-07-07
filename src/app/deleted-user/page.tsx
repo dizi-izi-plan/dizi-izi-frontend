@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Stack, Button, Typography } from '@mui/material';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useEffect } from 'react';
-import { AuthApi } from '@/redux/slices/auth-slice';
+import { AuthApi } from '@/redux/api/auth-api';
 import { useAppDispatch } from '@/redux/hooks';
 
 const ErrorCommonMessage = () => {
