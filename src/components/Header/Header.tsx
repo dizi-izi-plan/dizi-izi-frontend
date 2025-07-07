@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AppLogo from '../../../public/assets/icons/app_logo.svg';
 import UserLogo from '../../../public/assets/icons/user_logo.svg';
-import { useGetUserDataQuery } from '@/redux/slices/user-slice';
+import { useGetUserDataQuery } from '@/redux/api/user-api';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
 import { CustomLink } from '@/components/Link/CustomLink';

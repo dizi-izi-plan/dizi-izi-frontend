@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FormsContainer } from '@/containers/FormsContainer/FormsContainer';
 import { MessageContainer } from '@/containers/MessageContainer/MessageContainer';
-import { useActivateUserMutation } from '@/redux/slices/auth-slice';
+import { useActivateUserMutation } from '@/redux/api/auth-api';
 import { routes } from '@/helpers/common-constants/routes-constants';
 
 const errorText = {

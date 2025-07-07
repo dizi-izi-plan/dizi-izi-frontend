@@ -1,5 +1,5 @@
 import { setCookie, deleteCookie } from '@/helpers/cookie/cookie';
-import { diziIziSplitApi } from '@/redux/slices/diziIziSplitApi-slice';
+import { diziIziSplitApi } from '@/redux/api/diziIzi-splitApi';
 import {
   RegistrationDataType,
   RegistrationResponseType,

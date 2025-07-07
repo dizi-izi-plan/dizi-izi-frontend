@@ -1,52 +1,292 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dizi-izi Frontend
 
-## Getting Started
+Фронтенд-часть проекта Dizi-izi, разработанная на [Next.js](https://nextjs.org/) с использованием TypeScript.
 
-First, run the development server:
+## Технологический стек
 
+- **Framework**: Next.js 13+ (App Router)
+- **UI библиотека**: Material-UI (MUI)
+- **Управление состоянием**: Redux Toolkit
+- **API интеграция**: RTK Query
+- **Стилизация**: 
+    - Material-UI Theme
+    - Emotion
+    - CSS-in-JS
+- **Формы**: React Hook Form
+- **Валидация**: Zod
+- **Типизация**: TypeScript
+- **Хранение данных**: Cookie Storage
+- **Защита роутов**: Next.js Middleware + Custom Hooks
+- **CI/CD**: Vercel + GitHub
+- **Git хуки**: Husky + lint-staged
+- **Форматирование кода**: 
+    - ESLint
+    - Prettier
+    - EditorConfig
+
+## Структура проекта
+
+```
+src/
+├── app/          # Next.js страницы (App Router)
+│   ├── dev-page/ # Страница с примерами компонентов темы (не для продакшена)
+│   ├── not-found.tsx  # Кастомная 404 страница
+│   └── ...
+├── components/   # React компоненты
+│   ├── Account/  # Компоненты личного кабинета
+│   ├── Forms/    # Формы (регистрация, вход, измерения)
+│   │   └── */    # Каждая форма содержит файл validationSchema.ts с Zod-схемой
+│   ├── Measurements/ # Компоненты для измерений комнаты
+│   └── ...
+├── containers/   # Контейнерные компоненты
+├── helpers/      # Вспомогательные функции и константы
+│   ├── cookie/   # Функции для работы с куками
+│   ├── validation/ # Общие шаблоны валидации с Zod
+│   └── ...      
+├── hooks/        # React хуки
+│   ├── useProtectedRoute.tsx  # Хук для защиты роутов на клиенте
+│   └── ...
+├── middleware.ts # Next.js middleware для защиты роутов на сервере
+├── mui/          # Настройки Material-UI
+│   ├── theme.ts  # Кастомная тема приложения
+│   ├── fonts.ts  # Настройка шрифтов
+│   └── createEmotionCache.tsx # Конфигурация Emotion
+├── pages/        # Специальные страницы Next.js для конфигурации приложения
+│   ├── _app.tsx  # Кастомная обертка приложения
+│   └── _document.tsx # Кастомная стилизация 404 страницы
+├── redux/        # Redux store и слайсы
+│   ├── slices/   # Redux слайсы
+│   └── api/      # RTK Query API эндпоинты
+│       ├── splitApi.ts     # Базовая конфигурация API
+│       ├── auth/           # Эндпоинты авторизации
+│       ├── measurements/   # Эндпоинты измерений
+│       ├── projects/       # Эндпоинты проектов
+│       └── ...
+└── types/        # TypeScript типы
+```
+
+## Основные реализованные функции
+
+- Авторизация и регистрация пользователей, смена забытого пароля
+- Личный кабинет:
+    - удаление профиля, 
+    - смена пароля вунтри личного кабинета
+    - выход из профиля,
+    - переключеине между вкладками личного кабинета,
+    - примеры проекта и черновика на моковых данных,
+- Создание проекта (верстка, враимодействие с формой):
+    - введение параметров комнаты,
+    - выбор и введение параметров дверей, 
+    - выбор и введение параметров окон, балкона,
+    - выбор (автовыбор) мебели,
+    - отображеине всех тих шагов в интеравтивном изображении-схеме,
+- Управление проектами (верстка)
+- Автоматическое кэширование и инвалидация данных (RTK Query)
+- Хранение пользовательских данных в куках:
+    - токен авторизации
+    - информация о согласии с использованием куков
+- Кастомная страница 404 (Not Found):
+    - реализация в `app/not-found.tsx`
+    - стилизация через MUI компоненты
+- Валидация форм с помощью Zod:
+    - валидация регистрации и входа
+    - валидация форм измерений комнаты
+    - валидация форм профиля
+    - переиспользуемые схемы валидации
+- Организация API запросов:
+    - централизованная конфигурация в splitApi.ts
+    - модульное разделение эндпоинтов по категориям
+    - автоматическая генерация хуков для запросов
+    - кэширование и инвалидация по тегам
+- Защита роутов:
+    - серверная защита через Next.js middleware:
+        - проверка авторизации
+        - редирект неавторизованных пользователей
+        - защита API роутов
+    - клиентская защита через хук useProtectedRoute:
+        - проверка прав доступа
+        - обработка состояния загрузки
+        - редирект при отсутствии прав
+- Кастомная тема Material-UI:
+    - единая цветовая палитра
+    - кастомные шрифты
+    - переопределение стилей базовых компонентов
+    - адаптивные брейкпоинты
+    - темная/светлая тема
+    - кастомные компоненты с консистентным стилем
+    - страница с примерами компонентов темы (`app/dev-page/`):
+        - демонстрация всех базовых компонентов
+        - примеры использования темы
+        - только для разработки, не для продакшена
+- Автоматический деплой на Vercel:
+    - интеграция с GitHub репозиторием
+    - автоматический деплой при пуше в ветку `dev`
+    - превью деплой для каждого Pull Request
+    - автоматическая проверка сборки
+    - мгновенный откат при ошибках
+
+## Установка и запуск
+
+1. Установите зависимости:
+```bash
+npm install
+# или
+yarn install
+```
+
+2. Создайте файл `.env.local` и добавьте необходимые переменные окружения (из env.template):
+```env
+NEXT_PUBLIC_API_URL=your_api_url
+```
+
+3. Выполните первичную сборку проекта (обязательно для Next.js):
+```bash
+npm run build
+# или
+yarn build
+```
+
+4. Запустите проект в режиме разработки:
 ```bash
 npm run dev
-# or
+# или
 yarn dev
-# or
-pnpm dev
 ```
 
-Or, run the development server in [Docker](https://www.docker.com/get-started/):
+Приложение будет доступно по адресу [http://localhost:3000](http://localhost:3000)
 
-- Build image (This is a long-term process and can take up to 3 minutes. You need to rebuild only when dependencies or configuration files were changed, in other words, when it's necessary to run the **npm build** command.):
-```bash
-docker-compose build
+## Важно при первом запуске
+
+Next.js требует выполнения сборки проекта перед первым запуском. Это необходимо для:
+- Генерации типов
+- Проверки всех роутов
+- Оптимизации изображений
+- Создания кэша сборки
+
+Если пропустить шаг сборки, вы можете столкнуться с ошибками при запуске в режиме разработки.
+
+## Настройка окружения разработки
+
+### Обязательные расширения VS Code
+- ESLint
+- Prettier
+- EditorConfig for VS Code
+
+### Настройки редактора
+Для корректной работы с проектом необходимо:
+
+1. VS Code:
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
 ```
-- Run the server:
-```bash
-docker-compose up -d
-```
-- Stop the server and delete container:
-```bash
-docker-compose down
-```
 
-Docker might be useful when you don't want to install Node.js and dependencies on your machine. Containers can be deleted easier after work. It's configured in such a way that you can work with public and src folders, and changes will appear on a page (`need to uncomment the "volumes" section in the docker-compose.yml file`).
+2. WebStorm:
+   - Включить "Prettier on Save"
+   - Включить "ESLint on Save"
+   - Использовать конфигурацию из проекта
 
+### Конфигурация линтеров
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+В проекте настроены:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. ESLint:
+   - Базовая конфигурация Next.js
+   - Правила для React и TypeScript
+   - Кастомные правила проекта
+   - Интеграция с Prettier
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Prettier:
+   - Настройки в `.prettierrc`
+   - Игнорируемые файлы в `.prettierignore`
+   - Автоматическое форматирование при коммите
 
-## Learn More
+3. EditorConfig:
+   - Базовые настройки отступов
+   - Окончания строк
+   - Кодировка файлов
 
-To learn more about Next.js, take a look at the following resources:
+### Проверка настроек
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Для проверки корректности настроек редактора:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Создайте тестовый файл с некорректным форматированием
+2. Сохраните файл - должно применится автоформатирование
+3. Проверьте, что ESLint подсвечивает ошибки
+4. При сохранении должны исправляться автоисправляемые ошибки ESLint
 
-## Deploy on Vercel
+## Git хуки
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+В проекте настроены Git хуки с помощью Husky:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Pre-commit хук:
+   - Проверка линтером измененных файлов
+   - Проверка типов TypeScript
+   - Форматирование кода через Prettier
+   - Запуск тестов, затронутых изменениями
+
+2. Настройка lint-staged:
+   - `.ts`, `.tsx` файлы: ESLint + Prettier
+   - `.json`, `.css` файлы: Prettier
+   - Автоматическое исправление мелких ошибок
+
+3. Установка хуков:
+   - Хуки устанавливаются автоматически после `npm install`
+   - Для ручной установки: `npx husky install`
+
+4. Пропуск проверок:
+   - В экстренных случаях: `git commit -m "..." --no-verify`
+   - Не рекомендуется для постоянного использования
+
+## Разработка
+
+- Для добавления новой страницы, создайте директорию в `src/app/`
+- Компоненты размещаются в `src/components/`
+- Для добавления новой функциональности в Redux, создайте новый слайс в `src/redux/slices/`
+- API эндпоинты описываются с помощью RTK Query в директории `src/redux/api/`:
+    - Общая конфигурация в `splitApi.ts`
+    - Новые эндпоинты добавляются в соответствующую категорию
+    - При необходимости создается новая категория
+- Функции для работы с куками находятся в `src/helpers/cookie/`
+- Файлы в `src/pages/` используются только для конфигурации приложения и MUI
+- Страница 404 находится в `src/app/not-found.tsx`
+- Схемы валидации форм создаются с помощью Zod в файлах `validationSchema.ts`
+- Общие шаблоны валидации находятся в `src/helpers/validation/`
+- Защита роутов реализуется на двух уровнях:
+    - Middleware (`middleware.ts`) для серверной защиты
+    - Хук `useProtectedRoute` для клиентской защиты
+- Стилизация компонентов:
+    - Основные стили определены в теме (`mui/theme.ts`)
+    - Использование `sx` prop для точечной стилизации
+    - Emotion для сложных стилей и анимаций
+    - Примеры использования темы доступны на странице `/dev-page`
+
+## Деплой
+
+Проект настроен на автоматический деплой через Vercel:
+
+1. Основной деплой:
+   - Происходит автоматически при пуше в ветку `dev`
+   - Доступен по основному домену проекта
+
+2. Preview деплои:
+   - Создаются автоматически для каждого Pull Request
+   - Доступны по уникальному URL для каждого PR
+   - Позволяют тестировать изменения до слияния с основной веткой
+
+3. Настройка деплоя:
+   - Конфигурация в Vercel Dashboard
+   - Интеграция с GitHub через GitHub App
+   - Автоматическая установка зависимостей и сборка
+   - Настройка переменных окружения в Vercel Dashboard
+
+4. Мониторинг:
+   - Логи сборки и деплоя в Vercel Dashboard
+   - Статус деплоя отображается в GitHub
+   - Автоматические уведомления при ошибках
+
