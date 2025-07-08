@@ -2,8 +2,13 @@
 
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppDispatch } from '@/redux/hooks';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useSetNewPasswordMutation } from '@/redux/api/user-api';
+import CircularProgress from '@mui/material/CircularProgress';
+import { setSnackbar, setCurrentModal } from '@/redux/slices/modal-slice';
+import { TNewPasswordError } from '@/types/api-types';
 import { getPasswordConfig } from './changePassword.data';
 import { CHANGE_PASSWORD_FORM_DATA } from './changePasswordFormConstants';
 import {
@@ -15,9 +20,9 @@ export const ChangePasswordForm = () => {
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ChangePasswordFormType>({
-    mode: 'onChange',
     defaultValues: {
       [CHANGE_PASSWORD_FORM_DATA.oldPassword]: '',
       [CHANGE_PASSWORD_FORM_DATA.password]: '',
@@ -25,8 +30,49 @@ export const ChangePasswordForm = () => {
     },
     resolver: zodResolver(ChangePasswordFormValidation),
   });
+  const [setNewPassword, { isLoading }] = useSetNewPasswordMutation();
+  const dispatch = useAppDispatch();
 
-  const onSubmit = handleSubmit((data) => console.log(data.password));
+  const onSubmit = handleSubmit(async (passwordData) => {
+    try {
+      await setNewPassword({
+        current_password: passwordData.oldPassword,
+        new_password: passwordData.password,
+      }).unwrap();
+      dispatch(
+        setSnackbar({
+          isOpen: true,
+          message: 'Пароль успешно изменен',
+          severity: 'success',
+        }),
+      );
+      dispatch(setCurrentModal(null));
+    } catch (error) {
+      const { data, status } = error as TNewPasswordError;
+      if (status === 400 && data) {
+        if (data.current_password) {
+          setError(CHANGE_PASSWORD_FORM_DATA.oldPassword, {
+            type: 'server',
+            message: data.current_password[0],
+          });
+        }
+        if (data.new_password) {
+          setError(CHANGE_PASSWORD_FORM_DATA.password, {
+            type: 'server',
+            message: data.new_password[0],
+          });
+        }
+      } else {
+        dispatch(
+          setSnackbar({
+            isOpen: true,
+            message: 'Что-то пошло не так, попробуйте еще раз',
+            severity: 'error',
+          }),
+        );
+      }
+    }
+  });
   const passwordConfig = getPasswordConfig(control, errors);
 
   return (
@@ -64,7 +110,7 @@ export const ChangePasswordForm = () => {
               color="secondary"
               type="submit"
             >
-              Сохранить
+              {isLoading ? <CircularProgress color="inherit" /> : 'Сохранить'}
             </Button>
           </Box>
         </Stack>

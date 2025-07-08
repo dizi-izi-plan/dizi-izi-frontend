@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { CustomLink } from '@/components/Link/CustomLink';
-import { useLoginMutation } from '@/redux/slices/auth-slice';
+import { useLoginMutation } from '@/redux/api/auth-api';
 import { TLoginError } from '@/types/api-types';
 import { routes } from '@/helpers/common-constants/routes-constants';
 import { useAuth } from '@/hooks/useAuth';
@@ -89,7 +89,11 @@ export const LoginForm = () => {
               errorMessage={errors.password ? errors.password?.message : ' '}
             />
           </Stack>
-          <CustomLink href={routes.authRoutes.enterEmail} variant="s">
+          <CustomLink
+            href={routes.authRoutes.enterEmail}
+            variant="s"
+            sx={{ width: 'fit-content' }}
+          >
             Забыли пароль?
           </CustomLink>
         </Stack>

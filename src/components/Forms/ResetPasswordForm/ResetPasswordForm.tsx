@@ -12,10 +12,10 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
   ConfirmPasswordValidation,
-  confirmPasswordFormType,
+  ConfirmPasswordFormType,
 } from '@/helpers/validation/validationTemplates';
 import { InputPasswordWrapper } from '@/components/Input/InputPassword/InputPasswordWrapper';
-import { useResetPasswordConfirmMutation } from '@/redux/slices/auth-slice';
+import { useResetPasswordConfirmMutation } from '@/redux/api/auth-api';
 
 const RESET_PASSWORD_FORM_NAMES = {
   password: 'password',
@@ -32,7 +32,7 @@ export const ResetPasswordForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<confirmPasswordFormType>({
+  } = useForm<ConfirmPasswordFormType>({
     defaultValues: {
       password: '',
     },

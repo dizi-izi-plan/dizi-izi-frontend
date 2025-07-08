@@ -5,4 +5,5 @@ export enum modalNames {
   modalTryAgain = 'modalTryAgain',
   modalDeleteProject = 'modalDeleteProject',
   modalChangePassword = 'modalChangePassword',
+  modalDeleteUser = 'modalDeleteUser',
 }

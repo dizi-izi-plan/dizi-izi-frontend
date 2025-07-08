@@ -32,3 +32,18 @@ export type RegistrationError = {
     email: string[];
   };
 };
+
+export type TNewPasswordError = {
+  status: number;
+  data: {
+    current_password: string[];
+    new_password: string[];
+  };
+};
+
+export type TDeleteUserError = {
+  status: number;
+  data: {
+    current_password: string[];
+  };
+};

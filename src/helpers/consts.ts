@@ -1,4 +1,4 @@
-import { WALLS } from '@/components/Forms/SizesForm/formData';
+import { WALLS } from '@/components/Forms/SizesForm/Steps/Step1';
 import { RadioType } from '@/components/Input/RadioGroup/RadioGroupWrapper';
 
 export const TO_WALL_RADIOS_EVEN: RadioType[] = [

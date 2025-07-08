@@ -1,11 +1,6 @@
 import { z } from 'zod';
-import {
-  ConfirmPasswordValidation,
-  LoginValidation,
-} from '../../../helpers/validation/validationTemplates';
+import { RegisterValidation } from '@/helpers/validation/validationTemplates';
 
-export const RegistrationFormValidation = LoginValidation.and(
-  ConfirmPasswordValidation,
-);
+export const RegistrationFormValidation = RegisterValidation;
 
 export type RegistrationFormType = z.infer<typeof RegistrationFormValidation>;

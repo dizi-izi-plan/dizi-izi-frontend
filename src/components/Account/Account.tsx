@@ -11,7 +11,7 @@ import { AccountMenuItemsType } from './accountTypes';
 import { a11yProps } from '../../containers/TabContentContainer/tabConstants';
 import ModalIcon from '../../../public/assets/icons/modal_icon.svg';
 import { ModalTwoButtons } from '@/components/Modal/ModalTwoButtons';
-import { useLogoutMutation } from '@/redux/slices/auth-slice';
+import { useLogoutMutation } from '@/redux/api/auth-api';
 import { setCurrentModal } from '@/redux/slices/modal-slice';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import { modalNames } from '@/helpers/common-constants/modal-constants';

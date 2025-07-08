@@ -1,4 +1,6 @@
 'use client';
+import { useCallback, useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -7,21 +9,24 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { PopperMessage } from '@/components/Popper/PopperMessage';
-import { FieldNames, MEASUREMENTS_STEPS } from './data';
 import { SizesForm } from '@/components/Forms/SizesForm/SizesForm';
-import { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { initialStepsState } from '@/components/Forms/SizesForm/defaultValues';
-import { SizesFormValidation } from '@/components/Forms/SizesForm/validation';
-
-import { SizesFormType } from '../Forms/SizesForm/types';
-import { MeasurementsImage } from './MeasurementsImage';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectIsStepValid,
   setIsStepValid,
 } from '@/redux/slices/current-slice';
+
+import { FieldNames } from './utils/types/types';
+import { MeasurementsImage } from './ui/Image/Image';
+import { MEASUREMENTS_STEPS } from './utils/consts/consts';
+import {
+  initialStepsState,
+  type SizesFormType,
+  SizesFormValidation,
+  type StepKey,
+  stepKeys,
+} from '../Forms/SizesForm';
 
 export const Measurements = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -34,7 +39,7 @@ export const Measurements = () => {
     resolver: zodResolver(SizesFormValidation),
   });
 
-  const { control, trigger, watch } = methods;
+  const { control, trigger, watch, reset } = methods;
 
   useEffect(() => {
     const validateStep = async () => {
@@ -57,16 +62,29 @@ export const Measurements = () => {
     return () => subscription.unsubscribe();
   }, [watch, currentStep, dispatch, trigger, isWindowsValid]);
 
-  const handleBack = async () => {
+  useEffect(() => {
+    reset((formState) => {
+      const resetState: SizesFormType = { ...formState };
+
+      for (let i = currentStep + 1; i < stepKeys.length; i++) {
+        const key = stepKeys[i] as StepKey;
+        // @ts-expect-error reset state of cloned formState by key
+        resetState[key] = initialStepsState[key];
+      }
+      return resetState;
+    });
+  }, [currentStep, reset]);
+
+  const handleBack = useCallback(async () => {
     if (currentStep > 0) {
       setCurrentStep((step) => step - 1);
     }
-  };
+  }, [currentStep]);
 
-  const handleForward = async () => {
+  const handleForward = useCallback(async () => {
     if (!isStepValid) return;
     setCurrentStep((step) => step + 1);
-  };
+  }, [isStepValid]);
 
   return (
     <Stack width="100%" spacing="51px">
@@ -97,8 +115,8 @@ export const Measurements = () => {
             currentStep === 3
               ? ''
               : isStepValid
-              ? 'Вперед'
-              : 'Закончите текущий шаг'
+                ? 'Вперед'
+                : 'Закончите текущий шаг'
           }
         >
           <Button
