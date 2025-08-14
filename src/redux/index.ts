@@ -5,6 +5,7 @@ import current from './slices/current-slice';
 import { diziIziSplitApi } from './api/diziIzi-splitApi';
 import { CitiesApi } from './api/cities-api';
 import { yandexAuthApi } from './api/yandexAuth-api';
+import draftReducer from './slices/draft-slice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     [diziIziSplitApi.reducerPath]: diziIziSplitApi.reducer,
     [CitiesApi.reducerPath]: CitiesApi.reducer,
     [yandexAuthApi.reducerPath]: yandexAuthApi.reducer,
+    draft: draftReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
