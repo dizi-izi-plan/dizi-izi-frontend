@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -22,9 +22,9 @@
     "@reduxjs/toolkit": "^1.9.5",
     "dayjs": "^1.11.9",
     "husky": "^9.1.7",
-    "next": "^16.1.4",
-    "react": "^19.2.3",
-    "react-dom": "18.2.0",
+    "next": "14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-hook-form": "^7.46.1",
     "react-redux": "^8.1.2",
     "zod": "^3.22.2"
@@ -32,9 +32,9 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.13",
     "@svgr/webpack": "^8.1.0",
-    "@types/node": "^22.9.3",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/node": "^25.0.10",
+    "@types/react": "18.3.27",
+    "@types/react-dom": "18.3.7",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "eslint": "^8.57.0",
@@ -51,7 +51,7 @@
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-scss": "^13.1.0",
-    "typescript": "^5.7.2",
+    "typescript": "5.9.3",
     "typescript-eslint": "^8.15.0"
   },
   "husky": {
