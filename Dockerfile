@@ -1,4 +1,4 @@
-FROM node:slim AS build
+FROM node:lts-alpine AS build
 WORKDIR /app
 
 LABEL author='Dizi-izi-Team'
@@ -12,10 +12,10 @@ RUN npm ci
 COPY ./ ./
 RUN NEXT_PUBLIC_API_URL=$API_URL npm run build
 
-FROM node:slim AS run
+FROM node:lts-alpine AS run
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add curl && rm -rf /var/cache/apk/*
 
 COPY package*.json ./
 RUN npm ci --omit=dev

@@ -5,3 +5,12 @@ export const useAuth = () => {
 
   return Boolean(data?.email);
 };
+
+// ЗАГЛУШКА: Возвращаем моковые данные пользователя, пока бэкенд не реализован
+// const data = {
+//   id: 'mock-user-id',
+//   email: 'mock@example.com',
+//   first_name: 'Тестовый',
+//   last_name: 'Пользователь',
+//   // Добавьте другие поля, которые ожидаются на фронтенде
+// };
