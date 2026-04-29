@@ -71,11 +71,19 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         };
       },
     }),
+    // activateUser: build.mutation({
+    //   query: (data) => ({
+    //     url: urls.authUrls.activateUserUrl,
+    //     method: 'POST',
+    //     body: data,
+    //   }),
+    // }),
     activateUser: build.mutation({
-      query: (data) => ({
+      query: (token) => ({
+        // Принимаем только строку токена
         url: urls.authUrls.activateUserUrl,
-        method: 'POST',
-        body: data,
+        method: 'GET',
+        params: { token }, // RTK Query добавит это как `?token=...` в URL
       }),
     }),
     resendActivation: build.mutation({
