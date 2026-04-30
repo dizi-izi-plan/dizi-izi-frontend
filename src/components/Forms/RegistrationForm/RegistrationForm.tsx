@@ -54,9 +54,10 @@ export const RegistrationForm = () => {
       const { status, data } = error as RegistrationError;
 
       if (status === 400 && data) {
+        console.error(error.data.error);
         setError(REGISTRATION_FORM_NAMES.email, {
           type: 'server',
-          message: data.email[0],
+          message: error.data.error,
         });
 
         console.error(error);

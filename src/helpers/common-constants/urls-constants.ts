@@ -1,14 +1,15 @@
 export const urls = {
   authUrls: {
-    loginUrl: 'auth/token/login/',
+    loginUrl: 'v1/auth/login/',
+    registrationUrl: 'v2/auth/register/',
+    resetPasswordUrl: 'v1/auth/password-reset/request',
+    resetPasswordConfirmUrl: 'v1/auth/password-reset/confirm',
+    activateUserUrl: 'v2/auth/verify/',
+    newPasswordUrl: 'v1/auth/password-change/',
+    yandexLoginUrl: 'auth/yandex/login',
+
     logoutUrl: 'auth/token/logout/',
-    registrationUrl: 'auth/users/',
-    activateUserUrl: 'auth/users/activation/',
     resendActivationUrl: 'auth/users/resend_activation/',
     getUserDataUrl: 'auth/users/me/',
-    resetPasswordUrl: 'auth/users/reset_password/',
-    resetPasswordConfirmUrl: 'auth/users/reset_password_confirm/',
-    yandexLoginUrl: 'social_auth/convert-token/',
-    newPasswordUrl: 'auth/users/set_password/',
   },
 };
