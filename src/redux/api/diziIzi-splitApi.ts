@@ -15,10 +15,7 @@ const baseQueryWithToken = fetchBaseQuery({
     const token = getCookie('token');
 
     if (token) {
-      headers.set(
-        'Authorization',
-        token.startsWith('Bearer ') ? token : `Token ${token}`,
-      );
+      headers.set('Authorization', `Bearer ${token}`);
     }
     headers.set('Content-Type', 'application/json');
 

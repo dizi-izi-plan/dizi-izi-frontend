@@ -15,8 +15,8 @@ export const AuthApi = diziIziSplitApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: (result) => {
-        if (result && result.auth_token) {
-          setCookie('token', result.auth_token, 3);
+        if (result && result.access_token) {
+          setCookie('token', result.access_token, 3);
           return ['User'];
         }
 
