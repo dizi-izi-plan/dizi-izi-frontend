@@ -1,7 +1,10 @@
 import { useGetUserDataQuery } from '@/redux/api/user-api';
 
 export const useAuth = () => {
-  const { data = null } = useGetUserDataQuery('');
+  const result = useGetUserDataQuery('');
+  const { data, error, isLoading } = result;
+
+  console.log('useAuth debug:', { data, error, isLoading });
 
   return Boolean(data?.email);
 };

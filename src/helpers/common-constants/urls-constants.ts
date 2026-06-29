@@ -10,6 +10,6 @@ export const urls = {
 
     logoutUrl: 'auth/token/logout/',
     resendActivationUrl: 'auth/users/resend_activation/',
-    getUserDataUrl: 'auth/users/me/',
+    getUserDataUrl: 'v1/auth/users/me',
   },
 };
